@@ -1,0 +1,58 @@
+{
+  "name": "GrowLokal — Daily Social Post Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 8 * * *" }] }
+      },
+      "name": "Daily 8am IST",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.growlokal.com/api/businesses/due-for-post",
+        "options": {}
+      },
+      "name": "Fetch due businesses",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [480, 300],
+      "notes": "TODO: add this endpoint to the API — returns businesses whose schedule is due today."
+    },
+    {
+      "parameters": { "batchSize": 1, "options": {} },
+      "name": "Loop each business",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.growlokal.com/api/businesses/{{$json.id}}/social/schedule",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "channel", "value": "instagram" },
+            { "name": "focus", "value": "={{$json.next_focus}}" }
+          ]
+        }
+      },
+      "name": "Generate + schedule post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [960, 300],
+      "notes": "Calls the API which uses llm.generate({tier:'cheap'}) then Mixpost. Currently a stub — see routes/stubs.ts."
+    }
+  ],
+  "connections": {
+    "Daily 8am IST": { "main": [[{ "node": "Fetch due businesses", "type": "main", "index": 0 }]] },
+    "Fetch due businesses": { "main": [[{ "node": "Loop each business", "type": "main", "index": 0 }]] },
+    "Loop each business": { "main": [[{ "node": "Generate + schedule post", "type": "main", "index": 0 }]] },
+    "Generate + schedule post": { "main": [[{ "node": "Loop each business", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "timezone": "Asia/Kolkata" },
+  "_readme": "Import via n8n > Workflows > Import from File. This is a STARTER — the 'due-for-post' and 'social/schedule' endpoints are stubs today. You can run the whole audit/social logic in the API (as here) OR rebuild it visually in n8n; the API-first approach keeps logic testable."
+}

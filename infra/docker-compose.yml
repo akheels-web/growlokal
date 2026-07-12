@@ -1,0 +1,76 @@
+# Self-hosted stack for the Proxmox Docker host.
+# Start SMALL (postgres, redis, n8n) then add tools as you need them —
+# 16GB RAM won't run everything at once (see Technical-Setup-Guide.md §1).
+#
+# Usage: docker compose up -d postgres redis n8n
+# Secrets come from an .env file in this dir (NOT committed).
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER:-growlokal}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:?set PG_PASSWORD in infra/.env}
+      POSTGRES_DB: ${PG_DB:-growlokal}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"    # expose only on the internal LAN, never via the tunnel
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+
+  # Automation engine — schedules posts, runs the audit-bot flow, campaign sends.
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_HOST: n8n.growlokal.com
+      N8N_PROTOCOL: https
+      WEBHOOK_URL: https://n8n.growlokal.com/
+      GENERIC_TIMEZONE: Asia/Kolkata
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_DATABASE: ${N8N_DB:-n8n}
+      DB_POSTGRESDB_USER: ${PG_USER:-growlokal}
+      DB_POSTGRESDB_PASSWORD: ${PG_PASSWORD}
+      # Put n8n behind Cloudflare Access — do NOT rely on this alone:
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: ${N8N_USER:-admin}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_PASSWORD:?set N8N_PASSWORD}
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on: [postgres]
+
+  # ── Add these as you reach each build stage (commented to save RAM) ──
+
+  # typebot-builder + typebot-viewer: the free audit-bot flow builder
+  #   https://docs.typebot.io/self-hosting/docker-compose
+
+  # chatwoot: WhatsApp shared inbox / chat agent
+  #   https://www.chatwoot.com/docs/self-hosted
+
+  # mixpost: Instagram/Facebook scheduling
+  #   https://docs.mixpost.app/
+
+  # cal: "book a free demo class" booking
+  #   https://github.com/calcom/docker
+
+  # metabase: ROI dashboard
+  #   image: metabase/metabase (point at the growlokal DB, read-only user)
+
+  # listmonk: email campaigns (+ Amazon SES as SMTP)
+  #   https://listmonk.app/docs/installation/
+
+volumes:
+  pg_data:
+  redis_data:
+  n8n_data:
