@@ -1,0 +1,79 @@
+// Meta WhatsApp Cloud API client.
+// Docs: https://developers.facebook.com/docs/whatsapp/cloud-api
+// See ../../../../Technical-Setup-Guide.md §4 for account setup.
+import { request } from 'undici';
+import { config } from '../config.js';
+import { log } from '../logger.js';
+
+const BASE = () =>
+  `https://graph.facebook.com/${config.WHATSAPP_API_VERSION}/${config.WHATSAPP_PHONE_NUMBER_ID}`;
+
+interface SendResult {
+  ok: boolean;
+  messageId?: string;
+  error?: string;
+}
+
+/**
+ * Send a free-form text message. ONLY works inside the 24-hour customer
+ * service window (i.e. within 24h of the user's last inbound message).
+ * Outside the window you MUST use sendTemplate() instead.
+ */
+export async function sendText(to: string, body: string): Promise<SendResult> {
+  return post({
+    messaging_product: 'whatsapp',
+    recipient_type: 'individual',
+    to,
+    type: 'text',
+    text: { preview_url: false, body },
+  });
+}
+
+/**
+ * Send a pre-approved template message (works outside the 24h window).
+ * `components` fills template variables. Marketing templates are billed (~₹1).
+ */
+export async function sendTemplate(
+  to: string,
+  templateName: string,
+  languageCode: string,
+  components: unknown[] = []
+): Promise<SendResult> {
+  return post({
+    messaging_product: 'whatsapp',
+    to,
+    type: 'template',
+    template: {
+      name: templateName,
+      language: { code: languageCode },
+      components,
+    },
+  });
+}
+
+async function post(payload: unknown): Promise<SendResult> {
+  if (!config.WHATSAPP_ACCESS_TOKEN) {
+    log.warn('WHATSAPP_ACCESS_TOKEN not set — logging message instead of sending');
+    log.info({ payload }, 'WA (dry-run)');
+    return { ok: true, messageId: 'dry-run' };
+  }
+  try {
+    const res = await request(`${BASE()}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${config.WHATSAPP_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    const json = (await res.body.json()) as any;
+    if (res.statusCode >= 400) {
+      log.error({ status: res.statusCode, json }, 'WA send failed');
+      return { ok: false, error: json?.error?.message ?? 'unknown' };
+    }
+    return { ok: true, messageId: json?.messages?.[0]?.id };
+  } catch (err) {
+    log.error({ err }, 'WA send exception');
+    return { ok: false, error: String(err) };
+  }
+}

@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Env & secrets — NEVER commit these
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials/
+*-credentials.json
+.cloudflared/
+
+# Build output
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# DB dumps / backups
+*.sql.gz
+backups/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# n8n local data (export workflows explicitly instead)
+.n8n/
