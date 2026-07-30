@@ -7,30 +7,53 @@ import { signToken } from '../auth/jwt.js';
 import { requireAuth } from '../auth/middleware.js';
 import { queryOne } from '../db.js';
 
-const phoneSchema = z.object({ phone: z.string().min(8) });
+const phoneSchema = z.object({
+  phone: z.string().min(10).max(15).regex(/^[0-9+]+$/, 'Invalid phone number format'),
+});
 const verifySchema = z.object({
-  phone: z.string().min(8),
-  code: z.string().length(6),
-  businessName: z.string().optional(), // for first-time signup
+  phone: z.string().min(10).max(15).regex(/^[0-9+]+$/, 'Invalid phone number format'),
+  code: z.string().length(6).regex(/^[0-9]+$/, 'Code must be 6 numeric digits'),
+  businessName: z.string().max(100).optional(),
 });
 
 export function authRoutes(app: FastifyInstance) {
-  // Step 1: request a code
-  app.post('/api/auth/request-otp', async (req, reply) => {
-    const parsed = phoneSchema.safeParse(req.body);
-    if (!parsed.success) return reply.code(400).send({ error: 'bad phone' });
-    await requestOtp(parsed.data.phone);
-    return reply.send({ ok: true });
-  });
+  // Step 1: request a code (STRICT RATE LIMIT: max 5 OTP requests per minute per IP to prevent SMS/OTP flooding)
+  app.post(
+    '/api/auth/request-otp',
+    {
+      config: {
+        rateLimit: {
+          max: 5,
+          timeWindow: '1 minute',
+        },
+      },
+    },
+    async (req, reply) => {
+      const parsed = phoneSchema.safeParse(req.body);
+      if (!parsed.success) return reply.code(400).send({ error: 'Please enter a valid phone number.' });
+      await requestOtp(parsed.data.phone);
+      return reply.send({ ok: true });
+    }
+  );
 
-  // Step 2: verify + issue JWT (creates user/business on first login)
-  app.post('/api/auth/verify-otp', async (req, reply) => {
-    const parsed = verifySchema.safeParse(req.body);
-    if (!parsed.success) return reply.code(400).send({ error: 'bad input' });
-    const { phone, code, businessName } = parsed.data;
+  // Step 2: verify + issue JWT (STRICT RATE LIMIT: max 10 verify attempts per minute to block brute-force guessing)
+  app.post(
+    '/api/auth/verify-otp',
+    {
+      config: {
+        rateLimit: {
+          max: 10,
+          timeWindow: '1 minute',
+        },
+      },
+    },
+    async (req, reply) => {
+      const parsed = verifySchema.safeParse(req.body);
+      if (!parsed.success) return reply.code(400).send({ error: 'Invalid verification input format.' });
+      const { phone, code, businessName } = parsed.data;
 
-    const ok = await verifyOtp(phone, code);
-    if (!ok) return reply.code(401).send({ error: 'invalid or expired code' });
+      const ok = await verifyOtp(phone, code);
+      if (!ok) return reply.code(401).send({ error: 'Invalid or expired 6-digit verification code.' });
 
     // Find or create the user (+ business if new)
     let user = await queryOne<{ id: string; business_id: string | null; role: string }>(

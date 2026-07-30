@@ -1,7 +1,8 @@
-// API entry point. Loads env, wires routes, starts Fastify.
 import 'dotenv/config'; // or run with: node --env-file=.env
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
+import rateLimit from '@fastify/rate-limit';
 import rawBody from 'fastify-raw-body';
 import { config } from './config.js';
 import { log } from './logger.js';
@@ -12,11 +13,31 @@ import { featureRoutes } from './routes/features.js';
 import { billingRoutes } from './routes/billing.js';
 import { pool } from './db.js';
 
-const app = Fastify({ logger: false });
+const app = Fastify({
+  logger: false,
+  bodyLimit: 1048576, // 1MB payload limit to block payload bomb attacks
+});
+
+// Security Header Hardening (XSS, Clickjacking, HSTS, MIME sniffing protection)
+await app.register(helmet, {
+  contentSecurityPolicy: false, // Managed per-frontend or disabled for API JSON
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+});
 
 await app.register(cors, { origin: true });
-// Preserve raw body ONLY where routes opt in (config.rawBody) — needed for
-// Razorpay webhook signature verification.
+
+// Global Rate Limiting: 100 requests per 1-minute window per IP to block DDoS attacks
+await app.register(rateLimit, {
+  max: 100,
+  timeWindow: '1 minute',
+  errorResponseBuilder: () => ({
+    statusCode: 429,
+    error: 'Too Many Requests',
+    message: 'Rate limit exceeded. Please wait a minute before trying again.',
+  }),
+});
+
+// Preserve raw body ONLY where routes opt in (config.rawBody) — needed for Razorpay webhook verification.
 await app.register(rawBody, { global: false, field: 'rawBody', encoding: 'utf8' });
 
 app.get('/health', async () => {
@@ -24,7 +45,7 @@ app.get('/health', async () => {
   return { ok: true, service: 'growlokal-api' };
 });
 
-// Public
+// Public Routes
 auditRoutes(app);
 whatsappRoutes(app);
 authRoutes(app);

@@ -1,0 +1,67 @@
+# ============================================================
+# GrowLokal — .gitignore
+# Rule: Git holds code + templates + docs.
+#        The server holds secrets + data + runtime state.
+# ============================================================
+
+# ---------- Dependencies ----------
+node_modules/
+.pnpm-store/
+
+# ---------- Build artifacts ----------
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# ---------- Package manager extras ----------
+# pnpm-lock.yaml IS committed (workspace lockfile).
+# npm lockfiles generated inside workspace apps are not.
+package-lock.json
+
+# ---------- Environment / Secrets ----------
+.env
+.env.*
+!.env.example
+
+# Certificates & credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*-credentials.json
+service-account*.json
+
+# ---------- Cloudflare ----------
+.cloudflared/
+*.crt
+
+# ---------- Database ----------
+*.sql.gz
+backups/
+
+# ---------- n8n runtime state ----------
+.n8n/
+
+# ---------- IDE / Editor ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- OS files ----------
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------- Miscellaneous ----------
+.vercel/
+.turbo/
+coverage/
+*.local

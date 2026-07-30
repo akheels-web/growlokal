@@ -26,13 +26,26 @@ export interface PlaceSignals {
  * Text-search for a business by name (+ city) and return the top match's
  * signals. Returns null if nothing found or the API key is missing.
  */
+// Fast In-Memory Cache for Google Places queries (12-hour TTL to save API costs & achieve < 5ms response latency)
+const placesCache = new Map<string, { data: PlaceSignals | null; expiresAt: number }>();
+const CACHE_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
+
 export async function lookupBusiness(
   name: string,
   city = 'Hyderabad'
 ): Promise<PlaceSignals | null> {
+  const cacheKey = `${name.trim().toLowerCase()}_${city.trim().toLowerCase()}`;
+  const cached = placesCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    log.info({ cacheKey }, 'Places lookup cache hit — returning cached signals');
+    return cached.data;
+  }
+
   if (!config.GOOGLE_PLACES_API_KEY) {
     log.warn('GOOGLE_PLACES_API_KEY not set — returning mock signals');
-    return mockSignals(name);
+    const mock = mockSignals(name);
+    placesCache.set(cacheKey, { data: mock, expiresAt: Date.now() + CACHE_TTL_MS });
+    return mock;
   }
 
   try {
@@ -68,7 +81,7 @@ export async function lookupBusiness(
     const p = json?.places?.[0];
     if (!p) return null;
 
-    return {
+    const result: PlaceSignals = {
       placeId: p.id,
       name: p.displayName?.text ?? name,
       rating: p.rating,
@@ -81,6 +94,8 @@ export async function lookupBusiness(
       primaryType: p.primaryType,
       addressComplete: Boolean(p.formattedAddress),
     };
+    placesCache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS });
+    return result;
   } catch (err) {
     log.error({ err }, 'Places lookup exception');
     return null;
