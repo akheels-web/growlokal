@@ -519,13 +519,13 @@ export default function Home() {
       <Section id="tools">
         <div className="section-header">
           <p className="section-eyebrow">Interactive Growth Tools</p>
-          <h2 className="section-title">Free Growth Calculators &amp; Benchmarks</h2>
-          <p className="section-subtitle">Use our free self-service calculators to audit your institute and project annual admission revenue.</p>
+          <h2 className="section-title">Free Self-Service Growth Tools</h2>
+          <p className="section-subtitle">Audit your local Google presence and calculate your annual coaching profit growth instantly.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px', maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px', maxWidth: '1020px', margin: '0 auto' }}>
           {/* Card 1: Google Score Tool */}
           <div style={{
-            padding: '32px',
+            padding: '36px 32px',
             background: 'var(--color-bg-primary)',
             border: '1.5px solid var(--color-border)',
             borderRadius: '24px',
@@ -535,38 +535,27 @@ export default function Home() {
             justify: 'space-between'
           }}>
             <div>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>📊</div>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
-                10-Second Scan
+              <div style={{ fontSize: '36px', marginBottom: '12px' }}>📊</div>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                ⚡ Instant Competitor Spy Tool
               </span>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#033540', margin: '10px 0 8px' }}>
-                Competitor Google Score Benchmark
+              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
+                🔥 See Why Competitors Get 3x More Parent Calls
               </h3>
-              <p style={{ color: '#5e7984', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                Compare your coaching center&apos;s Google Maps score vs top local competitors in Ameerpet, Kukatpally, Vizag, or Bengaluru.
+              <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
+                Find out why competing coaching centers in Ameerpet, Kukatpally, Vizag, or Bengaluru rank higher on Google Maps. Get a side-by-side comparative scorecard in 10 seconds.
               </p>
             </div>
             <div>
-              <a href="/tools/google-score-calculator" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 22px',
-                background: '#0E4459',
-                color: '#ffffff',
-                borderRadius: '12px',
-                fontSize: '14px',
-                fontWeight: '700',
-                textDecoration: 'none'
-              }}>
-                Compare Google Score →
+              <a href="/tools/google-score-calculator" className="btn-growth-tool-teal">
+                Spy On Competitor Score ⚡ →
               </a>
             </div>
           </div>
 
           {/* Card 2: Admission ROI Calculator */}
           <div style={{
-            padding: '32px',
+            padding: '36px 32px',
             background: 'var(--color-bg-primary)',
             border: '1.5px solid var(--color-border)',
             borderRadius: '24px',
@@ -576,32 +565,20 @@ export default function Home() {
             justify: 'space-between'
           }}>
             <div>
-              <div style={{ fontSize: '32px', marginBottom: '12px' }}>💰</div>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
-                Revenue Calculator
+              <div style={{ fontSize: '36px', marginBottom: '12px' }}>💰</div>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                📈 Revenue Growth Calculator
               </span>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#033540', margin: '10px 0 8px' }}>
-                Coaching Admission ROI Calculator
+              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
+                🚀 Calculate Your 12-Month Revenue Growth
               </h3>
-              <p style={{ color: '#5e7984', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                Calculate how capturing 3 to 5 extra student admissions per month through GrowLokal AI translates into massive annual profit.
+              <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
+                See how capturing just 3 to 5 additional student admissions per month through GrowLokal AI translates into massive annual profit.
               </p>
             </div>
             <div>
-              <a href="/tools/admission-roi-calculator" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 22px',
-                background: '#70BF63',
-                color: '#033540',
-                borderRadius: '12px',
-                fontSize: '14px',
-                fontWeight: '800',
-                textDecoration: 'none',
-                boxShadow: '0 4px 12px rgba(112, 191, 99, 0.3)'
-              }}>
-                Calculate My ROI →
+              <a href="/tools/admission-roi-calculator" className="btn-growth-tool-green">
+                Calculate My Admission Profit 💰 →
               </a>
             </div>
           </div>
