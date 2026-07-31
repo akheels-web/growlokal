@@ -362,9 +362,9 @@ export default function Home() {
           <div className="nav-links">
             <a href="#how-it-works" className="nav-link">{t.howItWorks}</a>
             <a href="#agents" className="nav-link">{t.agents}</a>
-            <a href="/tools/google-score-calculator" className="nav-link">{t.scoreTool}</a>
-            <a href="/tools/admission-roi-calculator" className="nav-link">{t.roiCalc}</a>
-            <a href="/blog" className="nav-link">{t.blog}</a>
+            <a href="#pricing" className="nav-link">Pricing</a>
+            <a href="/blog" className="nav-link">Blog</a>
+            <a href="#contact" className="nav-link">Contact</a>
             <a href="/login" className="nav-link">{t.signIn}</a>
             <a href="https://wa.me/91XXXXXXXXXX?text=I%20want%20a%20free%20demo" target="_blank" rel="noopener noreferrer" className="btn-nav">
               {t.demoBtn}
@@ -514,6 +514,99 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* ─── FREE GROWTH TOOLS SHOWCASE ─── */}
+      <Section id="tools">
+        <div className="section-header">
+          <p className="section-eyebrow">Interactive Growth Tools</p>
+          <h2 className="section-title">Free Growth Calculators &amp; Benchmarks</h2>
+          <p className="section-subtitle">Use our free self-service calculators to audit your institute and project annual admission revenue.</p>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px', maxWidth: '1000px', margin: '0 auto' }}>
+          {/* Card 1: Google Score Tool */}
+          <div style={{
+            padding: '32px',
+            background: 'var(--color-bg-primary)',
+            border: '1.5px solid var(--color-border)',
+            borderRadius: '24px',
+            boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
+            display: 'flex',
+            flexDirection: 'column',
+            justify: 'space-between'
+          }}>
+            <div>
+              <div style={{ fontSize: '32px', marginBottom: '12px' }}>📊</div>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                10-Second Scan
+              </span>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#033540', margin: '10px 0 8px' }}>
+                Competitor Google Score Benchmark
+              </h3>
+              <p style={{ color: '#5e7984', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Compare your coaching center&apos;s Google Maps score vs top local competitors in Ameerpet, Kukatpally, Vizag, or Bengaluru.
+              </p>
+            </div>
+            <div>
+              <a href="/tools/google-score-calculator" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 22px',
+                background: '#0E4459',
+                color: '#ffffff',
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: '700',
+                textDecoration: 'none'
+              }}>
+                Compare Google Score →
+              </a>
+            </div>
+          </div>
+
+          {/* Card 2: Admission ROI Calculator */}
+          <div style={{
+            padding: '32px',
+            background: 'var(--color-bg-primary)',
+            border: '1.5px solid var(--color-border)',
+            borderRadius: '24px',
+            boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
+            display: 'flex',
+            flexDirection: 'column',
+            justify: 'space-between'
+          }}>
+            <div>
+              <div style={{ fontSize: '32px', marginBottom: '12px' }}>💰</div>
+              <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                Revenue Calculator
+              </span>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#033540', margin: '10px 0 8px' }}>
+                Coaching Admission ROI Calculator
+              </h3>
+              <p style={{ color: '#5e7984', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                Calculate how capturing 3 to 5 extra student admissions per month through GrowLokal AI translates into massive annual profit.
+              </p>
+            </div>
+            <div>
+              <a href="/tools/admission-roi-calculator" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '12px 22px',
+                background: '#70BF63',
+                color: '#033540',
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: '800',
+                textDecoration: 'none',
+                boxShadow: '0 4px 12px rgba(112, 191, 99, 0.3)'
+              }}>
+                Calculate My ROI →
+              </a>
+            </div>
+          </div>
+        </div>
+      </Section>
 
       {/* ─── PAIN POINTS ─── */}
       <Section id="problems" className="section--alt">
@@ -844,6 +937,9 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* ─── CONTACT US SECTION & FORM ─── */}
+      <ContactSection />
+
       {/* ─── FINAL CTA ─── */}
       <Section className="cta-section">
         <h2 className="cta-title">Ready to stop losing admissions?</h2>
@@ -1118,3 +1214,181 @@ const FAQ_DATA = [
   { q: 'Can I cancel anytime?', a: "Absolutely. There are no contracts or lock-in periods. You can cancel your Growth Plan anytime. The free audit is always free, forever." },
   { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for coaching & tuition centers in South India, not a generic tool for all businesses. Our AI speaks Telugu, Tamil, and Kannada natively. And at ₹2,999/month vs their ₹5,000+/month, you save over ₹12,000 per quarter.' },
 ];
+
+function ContactSection() {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!name || !phone) return;
+    setSubmitted(true);
+  }
+
+  return (
+    <Section id="contact" className="section--alt">
+      <div className="section-header">
+        <p className="section-eyebrow">Get in touch</p>
+        <h2 className="section-title">Have Questions? Talk to Our Growth Team</h2>
+        <p className="section-subtitle">Send us a message and our team will call or WhatsApp you within 15 minutes.</p>
+      </div>
+
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1.2fr',
+        gap: '40px',
+        maxWidth: '1060px',
+        margin: '0 auto',
+        background: '#ffffff',
+        border: '1.5px solid var(--color-border)',
+        borderRadius: '24px',
+        padding: '40px',
+        boxShadow: '0 12px 36px rgba(3, 53, 64, 0.06)'
+      }}>
+        {/* Left Col: Contact Info */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div>
+            <span style={{ fontSize: '12px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.1)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
+              📍 South India Headquarters
+            </span>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#033540', margin: '14px 0 16px' }}>
+              GrowLokal Technologies
+            </h3>
+            <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
+              We assist tuition &amp; coaching institutes across Hyderabad, Vijayawada, Vizag, Bengaluru, and Chennai.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '14px', color: '#0E4459' }}>
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <span style={{ fontSize: '20px' }}>💬</span>
+                <div>
+                  <strong>WhatsApp &amp; Phone Support:</strong>
+                  <div style={{ color: '#5e7984' }}>+91 98765 43210 (Mon–Sat 9:00 AM – 7:00 PM)</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <span style={{ fontSize: '20px' }}>✉️</span>
+                <div>
+                  <strong>Email Inquiry:</strong>
+                  <div style={{ color: '#5e7984' }}>support@growlokal.com</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                <span style={{ fontSize: '20px' }}>🏫</span>
+                <div>
+                  <strong>Regional Office:</strong>
+                  <div style={{ color: '#5e7984' }}>Educational Hub, Ameerpet, Hyderabad, Telangana 500016</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: '32px', padding: '16px', background: 'rgba(112, 191, 99, 0.12)', borderRadius: '14px', fontSize: '13px', color: '#047857', fontWeight: '700' }}>
+            ⚡ Fast Response Guaranteed: Most inquiries are answered within 15 minutes during working hours.
+          </div>
+        </div>
+
+        {/* Right Col: Contact Form */}
+        <div>
+          {!submitted ? (
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
+                  Your Full Name *
+                </label>
+                <input
+                  required
+                  placeholder="e.g. Srikanth Rao"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div>
+                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
+                    Phone / WhatsApp Number *
+                  </label>
+                  <input
+                    required
+                    type="tel"
+                    placeholder="e.g. 9876543210"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="e.g. srikanth@academy.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
+                  Your Message or Question
+                </label>
+                <textarea
+                  rows={4}
+                  placeholder="Tell us about your institute, course offerings, or any questions you have..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px', fontFamily: 'inherit' }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '14px 24px',
+                  background: '#0E4459',
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: '800',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 14px rgba(14, 68, 89, 0.25)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                Send Message →
+              </button>
+            </form>
+          ) : (
+            <div style={{
+              padding: '32px',
+              background: 'rgba(112, 191, 99, 0.15)',
+              border: '1.5px solid #70BF63',
+              borderRadius: '16px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '40px', marginBottom: '12px' }}>✅</div>
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#047857', marginBottom: '8px' }}>
+                Message Sent Successfully!
+              </h4>
+              <p style={{ fontSize: '0.95rem', color: '#033540', lineHeight: '1.6' }}>
+                Thank you, <strong>{name}</strong>. Our team has received your inquiry and will reach out to you at <strong>{phone}</strong> shortly.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </Section>
+  );
+}
