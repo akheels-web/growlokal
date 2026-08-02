@@ -19,6 +19,15 @@ importers:
       '@fastify/rate-limit':
         specifier: ^11.2.0
         version: 11.2.0
+      '@types/jsonwebtoken':
+        specifier: ^9.0.6
+        version: 9.0.10
+      '@types/node':
+        specifier: ^20.14.0
+        version: 20.19.43
+      '@types/pg':
+        specifier: ^8.11.6
+        version: 8.20.0
       dotenv:
         specifier: ^16.4.5
         version: 16.6.1
@@ -40,6 +49,9 @@ importers:
       pino-pretty:
         specifier: ^11.2.2
         version: 11.3.0
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.3
       undici:
         specifier: ^6.19.8
         version: 6.27.0
@@ -47,21 +59,9 @@ importers:
         specifier: ^3.23.8
         version: 3.25.76
     devDependencies:
-      '@types/jsonwebtoken':
-        specifier: ^9.0.6
-        version: 9.0.10
-      '@types/node':
-        specifier: ^20.14.0
-        version: 20.19.43
-      '@types/pg':
-        specifier: ^8.11.6
-        version: 8.20.0
       tsx:
         specifier: ^4.16.2
         version: 4.23.0
-      typescript:
-        specifier: ^5.5.4
-        version: 5.9.3
 
   apps/web:
     dependencies:
