@@ -40,6 +40,10 @@ await app.register(rateLimit, {
 // Preserve raw body ONLY where routes opt in (config.rawBody) — needed for Razorpay webhook verification.
 await app.register(rawBody, { global: false, field: 'rawBody', encoding: 'utf8' });
 
+app.get('/', async () => {
+  return { ok: true, name: 'GrowLokal API', version: '0.1.0', health: '/health' };
+});
+
 app.get('/health', async () => {
   await pool.query('SELECT 1');
   return { ok: true, service: 'growlokal-api' };
