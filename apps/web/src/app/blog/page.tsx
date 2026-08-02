@@ -166,7 +166,7 @@ export default function BlogHubPage() {
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              justify: 'space-between',
+              justifyContent: 'space-between',
               boxShadow: '0 4px 16px rgba(3, 53, 64, 0.05)',
               transition: 'all 0.2s ease'
             }}>

@@ -532,7 +532,7 @@ export default function Home() {
             boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
             display: 'flex',
             flexDirection: 'column',
-            justify: 'space-between'
+            justifyContent: 'space-between'
           }}>
             <div>
               <div style={{ fontSize: '36px', marginBottom: '12px' }}>📊</div>
@@ -562,7 +562,7 @@ export default function Home() {
             boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
             display: 'flex',
             flexDirection: 'column',
-            justify: 'space-between'
+            justifyContent: 'space-between'
           }}>
             <div>
               <div style={{ fontSize: '36px', marginBottom: '12px' }}>💰</div>

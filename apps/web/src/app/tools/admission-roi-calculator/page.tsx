@@ -128,7 +128,7 @@ export default function AdmissionRoiCalculatorPage() {
             color: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
-            justify: 'space-between'
+            justifyContent: 'space-between'
           }}>
             <div>
               <div style={{ fontSize: '12px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
