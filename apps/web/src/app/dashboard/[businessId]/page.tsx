@@ -145,7 +145,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
                 ))}
                 {roi.length === 0 && (
                   <tr>
-                    <td style={c} colSpan={4} style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '24px' }}>
+                    <td colSpan={4} style={{ ...c, textAlign: 'center', color: 'var(--color-text-muted)', padding: '24px' }}>
                       No enquiry data recorded yet.
                     </td>
                   </tr>

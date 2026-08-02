@@ -1003,43 +1003,51 @@ export default function Home() {
             {/* Payment Method Official SVG Brand Logos */}
             <div className="footer-payment-logos" aria-label="Accepted Payment Methods">
               {/* GPay */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="Google Pay">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>Google Pay</title>
                 <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
                 <text x="22" y="18" fontSize="10" fontWeight="800" textAnchor="middle" fill="#4285F4" fontFamily="sans-serif">GPay</text>
               </svg>
               {/* PhonePe */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="PhonePe">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>PhonePe</title>
                 <rect width="44" height="28" rx="5" fill="#5f259f"/>
                 <text x="22" y="19" fontSize="13" fontWeight="bold" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">पे</text>
               </svg>
               {/* Paytm */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="Paytm">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>Paytm</title>
                 <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
                 <text x="22" y="18" fontSize="9" fontWeight="900" textAnchor="middle" fill="#002E6E" fontFamily="sans-serif">Pay<tspan fill="#00BAF2">tm</tspan></text>
               </svg>
               {/* BHIM UPI */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="BHIM UPI">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>BHIM UPI</title>
                 <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
                 <text x="22" y="17" fontSize="10" fontWeight="900" textAnchor="middle" fill="#EA580C" fontFamily="sans-serif">UPI</text>
               </svg>
               {/* VISA */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="Visa">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>Visa</title>
                 <rect width="44" height="28" rx="5" fill="#1A1F71"/>
                 <text x="22" y="18" fontSize="11" fontWeight="900" fontStyle="italic" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">VISA</text>
               </svg>
               {/* Mastercard */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="Mastercard">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>Mastercard</title>
                 <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
                 <circle cx="17" cy="14" r="8" fill="#EB001B"/>
                 <circle cx="27" cy="14" r="8" fill="#F79E1B" opacity="0.88"/>
               </svg>
               {/* RuPay */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="RuPay">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>RuPay</title>
                 <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
                 <text x="22" y="17" fontSize="9" fontWeight="900" textAnchor="middle" fill="#0076BF" fontFamily="sans-serif">RuPay</text>
               </svg>
               {/* NetBanking */}
-              <svg className="payment-svg-logo" viewBox="0 0 44 28" title="Net Banking">
+              <svg className="payment-svg-logo" viewBox="0 0 44 28">
+                <title>Net Banking</title>
                 <rect width="44" height="28" rx="5" fill="#0E4459"/>
                 <text x="22" y="17" fontSize="8" fontWeight="800" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">BANK</text>
               </svg>
