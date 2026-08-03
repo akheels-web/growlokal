@@ -12,16 +12,61 @@ export default function GoogleScoreCalculatorPage() {
   const [phone, setPhone] = useState('');
   const [phoneSubmitted, setPhoneSubmitted] = useState(false);
 
+  // Autocomplete state
+  const [userSuggestions, setUserSuggestions] = useState<Array<{ name: string; address: string }>>([]);
+  const [compSuggestions, setCompSuggestions] = useState<Array<{ name: string; address: string }>>([]);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [showCompDropdown, setShowCompDropdown] = useState(false);
+
   // Benchmarking scores
   const [userScore, setUserScore] = useState(48);
   const [compScore, setCompScore] = useState(84);
+
+  const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+
+  async function handleUserSearch(queryText: string) {
+    setCenterName(queryText);
+    if (queryText.trim().length >= 2) {
+      try {
+        const res = await fetch(`${API}/api/audit/autocomplete?q=${encodeURIComponent(queryText)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setUserSuggestions(data.suggestions || []);
+          setShowUserDropdown(true);
+        }
+      } catch (err) {
+        setUserSuggestions([]);
+      }
+    } else {
+      setUserSuggestions([]);
+      setShowUserDropdown(false);
+    }
+  }
+
+  async function handleCompSearch(queryText: string) {
+    setCompetitorName(queryText);
+    if (queryText.trim().length >= 2) {
+      try {
+        const res = await fetch(`${API}/api/audit/autocomplete?q=${encodeURIComponent(queryText)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setCompSuggestions(data.suggestions || []);
+          setShowCompDropdown(true);
+        }
+      } catch (err) {
+        setCompSuggestions([]);
+      }
+    } else {
+      setCompSuggestions([]);
+      setShowCompDropdown(false);
+    }
+  }
 
   function handleCalculate(e: React.FormEvent) {
     e.preventDefault();
     if (!centerName) return;
     setCalculating(true);
     setTimeout(() => {
-      // Dynamic score calculation based on string hash for demonstration
       const base = 42 + (centerName.length * 3) % 25;
       setUserScore(base);
       setCompScore(78 + (competitorName.length * 2) % 18);
@@ -67,13 +112,13 @@ export default function GoogleScoreCalculatorPage() {
             display: 'inline-block',
             marginBottom: '12px'
           }}>
-            ⚡ Free 10-Second Competitor Benchmark Tool
+            ⚡ Free 10-Second Google Competitor Benchmark Tool
           </span>
           <h1 style={{ fontSize: '2.4rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
-            Compare Your Google Score vs Top Competitor
+            Compare Your Google Score vs Top Area Competitor
           </h1>
           <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
-            Find out why competing coaching centers get more parent calls on Google Maps. Get a side-by-side comparative score in seconds.
+            Find out why competing local businesses get 3x more customer phone calls on Google Maps. Get a side-by-side comparative score in seconds.
           </p>
         </div>
 
@@ -88,15 +133,15 @@ export default function GoogleScoreCalculatorPage() {
           {!calculated ? (
             <form onSubmit={handleCalculate} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                <div>
+                <div style={{ position: 'relative' }}>
                   <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540', marginBottom: '8px', display: 'block' }}>
-                    🏫 Your Coaching Center Name
+                    🏢 Your Business Name (Live Google Autocomplete)
                   </label>
                   <input
                     required
-                    placeholder="e.g. Bright Future Academy, Ameerpet"
+                    placeholder="Type business name (e.g. Green Trends, Ameerpet)"
                     value={centerName}
-                    onChange={(e) => setCenterName(e.target.value)}
+                    onChange={(e) => handleUserSearch(e.target.value)}
                     style={{
                       width: '100%',
                       padding: '14px 16px',
@@ -105,15 +150,34 @@ export default function GoogleScoreCalculatorPage() {
                       fontSize: '15px'
                     }}
                   />
+                  {showUserDropdown && userSuggestions.length > 0 && (
+                    <div style={{
+                      position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50,
+                      background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.12)', maxHeight: '200px', overflowY: 'auto'
+                    }}>
+                      {userSuggestions.map((item, idx) => (
+                        <div key={idx}
+                          onClick={() => {
+                            setCenterName(item.name);
+                            setShowUserDropdown(false);
+                          }}
+                          style={{ padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', fontSize: '14px' }}>
+                          <strong style={{ color: '#033540', display: 'block' }}>{item.name}</strong>
+                          <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div>
+                <div style={{ position: 'relative' }}>
                   <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540', marginBottom: '8px', display: 'block' }}>
-                    🎯 Top Competitor Center Name
+                    🎯 Top Competitor Business Name
                   </label>
                   <input
-                    placeholder="e.g. Sri Chaitanya Ameerpet (or leave blank for area avg)"
+                    placeholder="e.g. Apollo Clinic (or leave blank for area avg)"
                     value={competitorName}
-                    onChange={(e) => setCompetitorName(e.target.value)}
+                    onChange={(e) => handleCompSearch(e.target.value)}
                     style={{
                       width: '100%',
                       padding: '14px 16px',
@@ -122,90 +186,52 @@ export default function GoogleScoreCalculatorPage() {
                       fontSize: '15px'
                     }}
                   />
+                  {showCompDropdown && compSuggestions.length > 0 && (
+                    <div style={{
+                      position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50,
+                      background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.12)', maxHeight: '200px', overflowY: 'auto'
+                    }}>
+                      {compSuggestions.map((item, idx) => (
+                        <div key={idx}
+                          onClick={() => {
+                            setCompetitorName(item.name);
+                            setShowCompDropdown(false);
+                          }}
+                          style={{ padding: '10px 14px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', fontSize: '14px' }}>
+                          <strong style={{ color: '#033540', display: 'block' }}>{item.name}</strong>
+                          <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                <div>
-                  <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540', marginBottom: '8px', display: 'block' }}>
-                    📍 Select South Indian Location
-                  </label>
-                  <select
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '14px 16px',
-                      borderRadius: '10px',
-                      border: '1.5px solid #cbd5e1',
-                      fontSize: '15px',
-                      background: '#ffffff',
-                      color: '#033540',
-                      fontWeight: '600'
-                    }}
-                  >
-                    <optgroup label="Telangana">
-                      <option value="Hyderabad">Hyderabad (Ameerpet, Kukatpally, Dilsukhnagar, Madhapur)</option>
-                      <option value="Warangal">Warangal (Hanamkonda, Kazipet)</option>
-                      <option value="Nizamabad">Nizamabad</option>
-                      <option value="Karimnagar">Karimnagar</option>
-                    </optgroup>
-                    <optgroup label="Andhra Pradesh">
-                      <option value="Vijayawada">Vijayawada (Benz Circle, Governorpet, Moghalrajpuram)</option>
-                      <option value="Visakhapatnam">Visakhapatnam (Dwaraka Nagar, MVP Colony, Gajuwaka)</option>
-                      <option value="Guntur">Guntur (Lakshmipuram, Brodipet)</option>
-                      <option value="Tirupati">Tirupati</option>
-                      <option value="Kakinada">Kakinada</option>
-                      <option value="Rajahmundry">Rajahmundry</option>
-                      <option value="Nellore">Nellore</option>
-                      <option value="Kurnool">Kurnool</option>
-                      <option value="Anantapur">Anantapur</option>
-                    </optgroup>
-                    <optgroup label="Tamil Nadu">
-                      <option value="Chennai">Chennai (Anna Nagar, T. Nagar, Adyar, Velachery)</option>
-                      <option value="Coimbatore">Coimbatore (Gandhipuram, RS Puram)</option>
-                      <option value="Madurai">Madurai</option>
-                      <option value="Trichy">Tiruchirappalli</option>
-                      <option value="Salem">Salem</option>
-                    </optgroup>
-                    <optgroup label="Karnataka">
-                      <option value="Bengaluru">Bengaluru (Jayanagar, Rajajinagar, Marathahalli, HSR)</option>
-                      <option value="Mysuru">Mysuru</option>
-                      <option value="Hubballi">Hubballi-Dharwad</option>
-                      <option value="Mangaluru">Mangaluru</option>
-                    </optgroup>
-                    <optgroup label="Kerala">
-                      <option value="Kochi">Kochi (Ernakulam)</option>
-                      <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                      <option value="Kozhikode">Kozhikode</option>
-                    </optgroup>
-                  </select>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                  <button
-                    type="submit"
-                    disabled={calculating}
-                    style={{
-                      width: '100%',
-                      padding: '16px 24px',
-                      background: '#0E4459',
-                      color: '#ffffff',
-                      borderRadius: '12px',
-                      fontSize: '16px',
-                      fontWeight: '800',
-                      border: 'none',
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(14, 68, 89, 0.3)',
-                      transition: 'all 0.2s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '8px'
-                    }}
-                  >
-                    {calculating ? '📡 Scanning Public Profiles…' : 'Compare Google Scores Now →'}
-                  </button>
-                </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="submit"
+                  disabled={calculating}
+                  style={{
+                    width: '100%',
+                    padding: '16px 24px',
+                    background: '#0E4459',
+                    color: '#ffffff',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontWeight: '800',
+                    border: 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(14, 68, 89, 0.3)',
+                    transition: 'all 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  {calculating ? '📡 Scanning Live Google Maps Profiles…' : 'Compare Google Scores Now →'}
+                </button>
               </div>
             </form>
           ) : (

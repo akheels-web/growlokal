@@ -22,6 +22,12 @@ export interface PlaceSignals {
   addressComplete: boolean;
 }
 
+export interface PlaceSuggestion {
+  placeId: string;
+  name: string;
+  address: string;
+}
+
 /**
  * Text-search for a business by name (+ city) and return the top match's
  * signals. Returns null if nothing found or the API key is missing.
@@ -117,4 +123,45 @@ function mockSignals(name: string): PlaceSignals {
     primaryType: 'school',
     addressComplete: true,
   };
+}
+
+export async function autocompletePlaces(queryText: string): Promise<PlaceSuggestion[]> {
+  if (!queryText || queryText.trim().length < 2) return [];
+
+  if (!config.GOOGLE_PLACES_API_KEY) {
+    const q = queryText.trim();
+    return [
+      { placeId: `mock-1`, name: `${q}`, address: `Ameerpet, Hyderabad, Telangana` },
+      { placeId: `mock-2`, name: `${q} Healthcare Clinic`, address: `Kukatpally, Hyderabad, Telangana` },
+      { placeId: `mock-3`, name: `${q} Unisex Salon & Spa`, address: `Jubilee Hills, Hyderabad, Telangana` },
+      { placeId: `mock-4`, name: `${q} Restaurant & Bakery`, address: `Hitech City, Hyderabad, Telangana` },
+    ];
+  }
+
+  try {
+    const res = await request('https://places.googleapis.com/v1/places:searchText', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': config.GOOGLE_PLACES_API_KEY,
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress',
+      },
+      body: JSON.stringify({
+        textQuery: queryText,
+        maxResultCount: 5,
+      }),
+    });
+
+    const json = (await res.body.json()) as any;
+    if (!json?.places) return [];
+
+    return json.places.map((p: any) => ({
+      placeId: p.id ?? '',
+      name: p.displayName?.text ?? '',
+      address: p.formattedAddress ?? '',
+    })).filter((s: PlaceSuggestion) => s.name);
+  } catch (err) {
+    log.error({ err }, 'Google Places Autocomplete failed');
+    return [];
+  }
 }

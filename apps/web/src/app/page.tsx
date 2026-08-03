@@ -284,6 +284,29 @@ export default function Home() {
   const [error, setError] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
+  // Live Autocomplete State
+  const [suggestions, setSuggestions] = useState<Array<{ placeId: string; name: string; address: string }>>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleNameChange = async (val: string) => {
+    setBusinessName(val);
+    if (val.trim().length >= 2) {
+      try {
+        const res = await fetch(`${API}/api/audit/autocomplete?q=${encodeURIComponent(val)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setSuggestions(data.suggestions || []);
+          setShowDropdown(true);
+        }
+      } catch (err) {
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+      setShowDropdown(false);
+    }
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -421,10 +444,29 @@ export default function Home() {
             <h2 className="audit-card-title">{t.auditTitle}</h2>
             <p className="audit-card-subtitle">{t.auditSub}</p>
             <form onSubmit={runAudit} className="audit-form">
-              <div className="input-with-icon">
+              <div className="input-with-icon" style={{ position: 'relative' }}>
                 <span className="input-icon">🏫</span>
                 <input id="audit-business-name" required placeholder={t.namePlaceholder}
-                  value={businessName} onChange={e => setBusinessName(e.target.value)} className="form-input" />
+                  value={businessName} onChange={e => handleNameChange(e.target.value)} className="form-input" />
+                {showDropdown && suggestions.length > 0 && (
+                  <div style={{
+                    position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
+                    background: '#ffffff', border: '1.5px solid #cbd5e1', borderRadius: '12px',
+                    boxShadow: '0 8px 24px rgba(3, 53, 64, 0.15)', maxHeight: '220px', overflowY: 'auto'
+                  }}>
+                    {suggestions.map((item, idx) => (
+                      <div key={idx}
+                        onClick={() => {
+                          setBusinessName(item.name);
+                          setShowDropdown(false);
+                        }}
+                        style={{ padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', fontSize: '14px' }}>
+                        <strong style={{ color: '#033540', display: 'block' }}>{item.name}</strong>
+                        <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="input-with-icon">
                 <span className="input-icon">🏢</span>
@@ -445,12 +487,17 @@ export default function Home() {
                   <option value="services">🚗 Auto Repair &amp; Local Services</option>
                 </select>
               </div>
-              <div className="input-with-icon">
-                <span className="input-icon">💬</span>
-                <input id="audit-phone" required placeholder={t.phonePlaceholder} type="tel"
-                  value={phone} onChange={e => setPhone(e.target.value)} className="form-input" />
+              <div>
+                <div className="input-with-icon">
+                  <span className="input-icon">💬</span>
+                  <input id="audit-phone" required placeholder="🇮🇳 10-digit WhatsApp number (e.g. 9876543210)" type="tel"
+                    value={phone} onChange={e => setPhone(e.target.value)} className="form-input" />
+                </div>
+                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.75)', marginTop: '4px', textAlign: 'left', paddingLeft: '4px' }}>
+                  ℹ️ Enter 10-digit mobile number (country code +91 added automatically)
+                </div>
               </div>
-              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary">
+              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '6px' }}>
                 {loading ? <><span className="spinner" />{t.btnLoading}</> : t.btnAudit}
               </button>
             </form>

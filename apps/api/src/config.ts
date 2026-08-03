@@ -16,10 +16,11 @@ const schema = z.object({
   GOOGLE_PLACES_API_KEY: z.string().default(''),
 
   // LLM
-  LLM_PROVIDER: z.enum(['gemini', 'anthropic', 'ollama']).default('gemini'),
+  LLM_PROVIDER: z.enum(['gemini', 'openrouter', 'anthropic', 'ollama']).default('gemini'),
   LLM_MODEL_CHEAP: z.string().default('gemini-2.0-flash-lite'),
   LLM_MODEL_QUALITY: z.string().default('gemini-2.5-flash'),
   GEMINI_API_KEY: z.string().default(''),
+  OPENROUTER_API_KEY: z.string().default(''),
   ANTHROPIC_API_KEY: z.string().default(''),
   OLLAMA_BASE_URL: z.string().default('http://localhost:11434'),
   OLLAMA_MODEL: z.string().default('qwen2.5:3b'),

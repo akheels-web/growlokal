@@ -44,13 +44,13 @@ export default function AdmissionRoiCalculatorPage() {
             display: 'inline-block',
             marginBottom: '12px'
           }}>
-            💰 Coaching Growth Revenue Calculator
+            💰 Local Business Revenue Growth Calculator
           </span>
           <h1 style={{ fontSize: '2.4rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
             Calculate Your Yearly Revenue Growth
           </h1>
           <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
-            See how capturing just 3 to 5 additional student admissions per month through GrowLokal AI translates into massive annual profit.
+            See how capturing just 5 to 15 additional local customers per month through GrowLokal AI translates into massive annual profit.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default function AdmissionRoiCalculatorPage() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540' }}>
-                  Average Course Fee (per student / year)
+                  Average Customer Service / Order Value (₹)
                 </label>
                 <span style={{ fontSize: '16px', fontWeight: '800', color: '#2E9AA6' }}>
                   ₹{feePerStudent.toLocaleString('en-IN')}
@@ -78,45 +78,45 @@ export default function AdmissionRoiCalculatorPage() {
               </div>
               <input
                 type="range"
-                min="5000"
-                max="150000"
-                step="5000"
+                min="500"
+                max="50000"
+                step="500"
                 value={feePerStudent}
                 onChange={(e) => setFeePerStudent(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#2E9AA6' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
-                <span>₹5,000</span>
-                <span>₹1,50,000</span>
+                <span>₹500</span>
+                <span>₹50,000</span>
               </div>
             </div>
 
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540' }}>
-                  Additional Admissions per Month (via AI Marketing)
+                  Additional New Local Customers per Month
                 </label>
                 <span style={{ fontSize: '16px', fontWeight: '800', color: '#70BF63' }}>
-                  +{extraAdmissions} Students / Mo
+                  +{extraAdmissions} Customers / Mo
                 </span>
               </div>
               <input
                 type="range"
                 min="1"
-                max="15"
+                max="30"
                 step="1"
                 value={extraAdmissions}
                 onChange={(e) => setExtraAdmissions(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#70BF63' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
-                <span>+1 Student</span>
-                <span>+15 Students</span>
+                <span>+1 Customer</span>
+                <span>+30 Customers</span>
               </div>
             </div>
 
             <div style={{ padding: '16px', background: '#F8FAFC', borderRadius: '12px', fontSize: '13px', color: '#475569' }}>
-              💡 <strong>How it works:</strong> GrowLokal AI ranks your Google Business Profile on "coaching near me" searches and answers parent WhatsApp enquiries 24/7.
+              💡 <strong>How it works:</strong> GrowLokal AI ranks your Google Business Profile for "near me" searches and answers customer WhatsApp enquiries 24/7.
             </div>
           </div>
 
@@ -175,7 +175,7 @@ export default function AdmissionRoiCalculatorPage() {
                 Start Free Audit &amp; Claim Growth →
               </Link>
               <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '14px', textAlign: 'center', lineHeight: '1.4' }}>
-                *Note: Estimated figures based on South Indian local education market benchmarks. Actual growth varies by institute reputation &amp; course capacity.
+                *Note: Estimated figures based on South Indian local business benchmarks. Actual growth varies by business category &amp; service capacity.
               </p>
             </div>
           </div>

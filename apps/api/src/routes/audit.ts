@@ -2,6 +2,7 @@
 // "free audit" form, and for n8n to call. The WhatsApp path uses the same service.
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
+import { autocompletePlaces } from '../clients/places.js';
 import { runAudit } from '../features/audit/service.js';
 
 const bodySchema = z.object({
@@ -13,6 +14,16 @@ const bodySchema = z.object({
 });
 
 export function auditRoutes(app: FastifyInstance) {
+  // Live Google Places Autocomplete endpoint
+  app.get('/api/audit/autocomplete', async (req, reply) => {
+    const query = (req.query as any)?.q as string;
+    if (!query || query.trim().length < 2) {
+      return reply.send({ suggestions: [] });
+    }
+    const suggestions = await autocompletePlaces(query);
+    return reply.send({ suggestions });
+  });
+
   // STRICT RATE LIMIT: max 5 audit scans per minute per IP to block scraper bots and automated form spam
   app.post(
     '/api/audit/run',
