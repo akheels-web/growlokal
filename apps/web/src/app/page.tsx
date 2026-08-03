@@ -870,10 +870,10 @@ export default function Home() {
             style={{ transitionDelay: `${BUSINESS_TYPES.length * 60}ms` }}
           >
             <div>
-              <div style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '6px' }}>
+              <div style={{ fontSize: '1.28rem', fontWeight: '800', marginBottom: '6px', fontFamily: 'var(--font-body), sans-serif', letterSpacing: '-0.01em' }}>
                 And many more businesses like yours
               </div>
-              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.94rem', margin: 0, lineHeight: 1.4 }}>
+              <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.96rem', margin: 0, lineHeight: 1.4, fontFamily: 'var(--font-body), sans-serif' }}>
                 Get more leads &amp; customers from Google Maps &amp; WhatsApp on autopilot.
               </p>
             </div>
@@ -885,16 +885,17 @@ export default function Home() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '13px 24px',
+                padding: '12px 24px',
                 background: '#25D366',
                 color: '#ffffff',
-                fontWeight: '800',
+                fontWeight: '700',
                 borderRadius: '50px',
                 textDecoration: 'none',
-                fontSize: '14px',
-                boxShadow: '0 4px 16px rgba(37, 211, 102, 0.4)',
+                fontSize: '14.5px',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
                 whiteSpace: 'nowrap',
-                flexShrink: 0
+                flexShrink: 0,
+                transition: 'transform 0.2s ease'
               }}
             >
               <span>💬 Try on WhatsApp</span>
