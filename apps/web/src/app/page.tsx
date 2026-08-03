@@ -1053,10 +1053,13 @@ export default function Home() {
                 <div className="pricing-divider" />
                 <div className="pricing-price-val">
                   ₹{billingCycle === 'annually' ? '2,399' : '2,999'}{' '}
-                  <span className="pricing-price-period">
-                    {billingCycle === 'annually' ? '/ month (annually)' : '/ month'}
-                  </span>
+                  <span className="pricing-price-period">/ month</span>
                 </div>
+                {billingCycle === 'annually' && (
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#ffd166', marginTop: '-18px', marginBottom: '22px', letterSpacing: '0.02em' }}>
+                    ⚡ Billed annually (₹28,788/yr — Save ₹7,200)
+                  </div>
+                )}
 
                 <ul className="pricing-feature-list">
                   <li className="pricing-feature-item">
