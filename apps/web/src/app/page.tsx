@@ -282,6 +282,7 @@ export default function Home() {
   const [result, setResult] = useState<{ score: number; message: string } | null>(null);
   const [error, setError] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
 
   // Live Autocomplete State & Sample Fallback Database
   const [suggestions, setSuggestions] = useState<Array<{ placeId: string; name: string; address: string }>>([]);
@@ -959,39 +960,148 @@ export default function Home() {
       {/* ─── PRICING ─── */}
       <Section id="pricing" className="section--alt">
         <div className="section-header">
-          <p className="section-eyebrow">{t.pricingEyebrow}</p>
-          <h2 className="section-title">{t.pricingTitle}</h2>
-          <p className="section-subtitle">{t.pricingSubtitle}</p>
-        </div>
-        <div className="pricing-grid">
-          <div className="pricing-card">
-            <div className="pricing-name">Free Audit</div>
-            <div className="pricing-price"><span className="pricing-price-currency">₹</span>0</div>
-            <p className="pricing-desc">See how your business looks on Google — no strings attached.</p>
-            <ul className="pricing-features">
-              <li><span className="pricing-check">✓</span> Google visibility score</li>
-              <li><span className="pricing-check">✓</span> Gap analysis report</li>
-              <li><span className="pricing-check">✓</span> Telugu, Tamil &amp; English</li>
-              <li><span className="pricing-check">✓</span> WhatsApp delivery</li>
-            </ul>
-            <a href="#audit-form" className="btn-pricing btn-pricing--outline">Get free report ↑</a>
+          <p className="section-eyebrow">Transparent Pricing</p>
+          <h2 className="section-title">Transparent pricing plans, find the perfect fit for your needs</h2>
+          <p className="section-subtitle">No hidden fees, no long-term contracts. Upgrade or cancel anytime.</p>
+
+          {/* Monthly / Annually Toggle Bar matching GoSaaS */}
+          <div className="pricing-toggle-bar">
+            <span
+              className={`pricing-toggle-label ${billingCycle === 'monthly' ? 'active' : ''}`}
+              onClick={() => setBillingCycle('monthly')}
+            >
+              Monthly
+            </span>
+            <button
+              className={`pricing-switch-btn ${billingCycle === 'annually' ? 'active' : ''}`}
+              onClick={() => setBillingCycle(prev => prev === 'monthly' ? 'annually' : 'monthly')}
+              aria-label="Toggle Monthly or Annual Billing"
+              type="button"
+            >
+              <div className="pricing-switch-thumb" />
+            </button>
+            <span
+              className={`pricing-toggle-label ${billingCycle === 'annually' ? 'active' : ''}`}
+              onClick={() => setBillingCycle('annually')}
+            >
+              Annually
+            </span>
+            <span className="pricing-save-badge">
+              <span style={{ fontSize: '14px' }}>↵</span> Save 20%
+            </span>
           </div>
-          <div className="pricing-card pricing-card--featured">
-            <span className="pricing-popular">Most Popular</span>
-            <div className="pricing-name">Growth Plan</div>
-            <div className="pricing-price"><span className="pricing-price-currency">₹</span>2,999<span className="pricing-price-period">/month</span></div>
-            <p className="pricing-desc">AI does your marketing — Google, WhatsApp, social — you focus on teaching.</p>
-            <ul className="pricing-features">
-              <li><span className="pricing-check">✓</span> Everything in Free</li>
-              <li><span className="pricing-check">✓</span> AI Google posts (weekly)</li>
-              <li><span className="pricing-check">✓</span> Review reply drafts</li>
-              <li><span className="pricing-check">✓</span> WhatsApp campaigns</li>
-              <li><span className="pricing-check">✓</span> Instagram &amp; Facebook scheduling</li>
-              <li><span className="pricing-check">✓</span> Booking microsite</li>
-              <li><span className="pricing-check">✓</span> ROI dashboard</li>
-            </ul>
-            <a href="/login" className="btn-pricing btn-pricing--filled">Start growing →</a>
-            <div className="pricing-savings">💰 Save ₹12,000+ per quarter vs competitors</div>
+        </div>
+
+        <div className="pricing-gosaas-wrapper">
+          <div className="pricing-gosaas-grid">
+            {/* Card 1: Free Plan */}
+            <div className="pricing-card-free">
+              <div>
+                <div className="pricing-plan-title" style={{ color: '#0F172A' }}>Free</div>
+                <p className="pricing-plan-subtitle" style={{ color: '#64748B' }}>Free for your local business</p>
+                <div className="pricing-divider" />
+                <div className="pricing-price-val" style={{ color: '#0F172A' }}>
+                  ₹0 <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
+                </div>
+
+                <ul className="pricing-feature-list">
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Instant Google Business Profile audit score</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Competitor benchmark scorecard</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Telugu, Tamil, Kannada &amp; English support</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Direct WhatsApp audit report delivery</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>Weekly AI-written Google Business posts</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>24/7 Automated WhatsApp Chatbot responder</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>Instagram &amp; Facebook post scheduler</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>WhatsApp Broadcast Campaign manager</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="#audit-form" className="pricing-btn-free">
+                Choose Plan
+              </a>
+            </div>
+
+            {/* Card 2: Standard Plan (Featured) */}
+            <div className="pricing-card-standard">
+              <div className="pricing-ribbon-badge">Most Popular</div>
+              <div>
+                <div className="pricing-plan-title">Standard</div>
+                <p className="pricing-plan-subtitle" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Most popular deal for growth</p>
+                <div className="pricing-divider" />
+                <div className="pricing-price-val">
+                  ₹{billingCycle === 'annually' ? '2,399' : '2,999'}{' '}
+                  <span className="pricing-price-period">
+                    {billingCycle === 'annually' ? '/ month (annually)' : '/ month'}
+                  </span>
+                </div>
+
+                <ul className="pricing-feature-list">
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Everything included in Free Plan</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Weekly AI Google Business Profile posts</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Auto-drafted review replies (1-click approve)</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>24/7 Automated WhatsApp lead responder</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Instagram &amp; Facebook post scheduler</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Instant customer booking microsite page</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>WhatsApp Broadcast Campaign manager</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Dedicated South Indian support team</span>
+                  </li>
+                </ul>
+              </div>
+              <a
+                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Standard%20Growth%20Plan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pricing-btn-standard"
+              >
+                Choose Plan
+              </a>
+            </div>
           </div>
         </div>
 
