@@ -516,10 +516,23 @@ export default function Home() {
               </div>
 
               <div>
-                <div className="input-with-icon" style={{ display: 'flex', alignItems: 'center' }}>
-                  <span className="input-icon" style={{ fontSize: '13px', fontWeight: 800, color: '#0E4459', paddingRight: '4px' }}>
-                    🇮🇳 +91
-                  </span>
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <div style={{
+                    position: 'absolute',
+                    left: '14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '13.5px',
+                    fontWeight: 700,
+                    color: '#0E4459',
+                    pointerEvents: 'none',
+                    zIndex: 2
+                  }}>
+                    <span>🇮🇳</span>
+                    <span>+91</span>
+                    <span style={{ color: '#cbd5e1', fontWeight: 300, marginLeft: '2px' }}>|</span>
+                  </div>
                   <input
                     id="audit-phone"
                     required
@@ -529,6 +542,10 @@ export default function Home() {
                     value={phone}
                     onChange={e => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
                     className="form-input"
+                    style={{
+                      paddingLeft: '84px',
+                      width: '100%'
+                    }}
                   />
                 </div>
                 <div style={{ fontSize: '11px', color: '#5e7984', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
@@ -646,10 +663,10 @@ export default function Home() {
                 ⚡ Instant Competitor Spy Tool
               </span>
               <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
-                🔥 See Why Competitors Get 3x More Parent Calls
+                🔥 See Why Competitors Get 3x More Customer Calls
               </h3>
               <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
-                Find out why competing coaching centers in Ameerpet, Kukatpally, Vizag, or Bengaluru rank higher on Google Maps. Get a side-by-side comparative scorecard in 10 seconds.
+                Find out why competing local businesses in Ameerpet, Kukatpally, Vizag, or Bengaluru rank higher on Google Maps. Get a side-by-side comparative scorecard in 10 seconds.
               </p>
             </div>
             <div>
