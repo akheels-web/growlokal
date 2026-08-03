@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Terms of Service — GrowLokal',
-  description: 'Terms and conditions governing the use of GrowLokal AI Marketing Platform for Coaching & Tuition Centers.',
+  description: 'Terms and conditions governing the use of GrowLokal AI Marketing Platform for South Indian Local Businesses.',
 };
 
 export default function TermsPage() {
@@ -46,7 +46,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>1. Introduction &amp; Platform Overview</h2>
             <p>
-              Welcome to <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;). GrowLokal provides an autonomous AI-powered local marketing and enquiry generation platform built for clinics, salons, restaurants, retail stores, tuition centers, and local businesses in South India.
+              Welcome to <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;). GrowLokal provides an autonomous AI-powered local marketing and enquiry generation platform built for clinics, salons, restaurants, retail stores, and local businesses in South India.
             </p>
             <p style={{ marginTop: '12px' }}>
               By accessing our website, signing up for an account, using our Google Business Profile audit tool, or subscribing to our Growth Plan, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
@@ -94,7 +94,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>6. Intellectual Property</h2>
             <p>
-              All copyrights, trademarks, software code, AI model prompts, design systems, and brand assets of GrowLokal remain the exclusive property of GrowLokal Technologies. You retain full ownership of your original institute photos, course data, and customer list information.
+              All copyrights, trademarks, software code, AI model prompts, design systems, and brand assets of GrowLokal remain the exclusive property of GrowLokal Technologies. You retain full ownership of your original business photos, product data, and customer list information.
             </p>
           </section>
 

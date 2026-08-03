@@ -3,8 +3,8 @@ import Link from 'next/link';
 const ARTICLES = [
   {
     slug: 'top-7-reasons-coaching-centers-lose-admissions',
-    title: 'Top 7 Reasons Why Coaching Centers in Hyderabad Lose Admissions on Google Maps',
-    excerpt: 'Discover the most common Google Business Profile mistakes that cause parents to pick competing tuition centers in Ameerpet & Kukatpally instead of yours.',
+    title: 'Top 7 Reasons Why Local Businesses in Hyderabad Lose Customer Calls on Google Maps',
+    excerpt: 'Discover the most common Google Business Profile mistakes that cause customers to pick competing clinics, salons, & stores in Ameerpet & Kukatpally instead of yours.',
     category: 'Local SEO Guide',
     readTime: '4 min read',
     date: 'July 30, 2026',
@@ -14,8 +14,8 @@ const ARTICLES = [
   },
   {
     slug: 'how-to-reply-to-negative-google-reviews',
-    title: 'How to Reply to Negative Parent Google Reviews (With Telugu & English Templates)',
-    excerpt: 'Turn negative parent reviews into trust-building opportunities with our proven 3-step response blueprint and native language templates.',
+    title: 'How to Reply to Negative Customer Google Reviews (With Telugu & English Templates)',
+    excerpt: 'Turn negative customer reviews into trust-building opportunities with our proven 3-step response blueprint and native language templates.',
     category: 'Review Management',
     readTime: '5 min read',
     date: 'July 28, 2026',
@@ -25,8 +25,8 @@ const ARTICLES = [
   },
   {
     slug: 'whatsapp-marketing-strategy-for-coaching-centers',
-    title: 'Step-by-Step WhatsApp Marketing Strategy for IIT/NEET Academies in 2026',
-    excerpt: 'How to automate parent enquiry follow-ups, broadcast exam result celebrations, and fill batch slots using WhatsApp Business API.',
+    title: 'Step-by-Step WhatsApp Marketing Strategy for South Indian Local Businesses in 2026',
+    excerpt: 'How to automate customer enquiry follow-ups, broadcast festive offers, and book appointments using WhatsApp Business API.',
     category: 'WhatsApp Automation',
     readTime: '6 min read',
     date: 'July 25, 2026',
@@ -77,10 +77,10 @@ export default function BlogHubPage() {
             📚 Local SEO &amp; Growth Knowledge Hub
           </span>
           <h1 style={{ fontSize: '2.6rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
-            Actionable Playbooks for Institute Directors
+            Actionable Playbooks for Business Owners
           </h1>
           <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
-            Proven strategies on local Google ranking, parent WhatsApp enquiry conversion, and review management built for South Indian academies.
+            Proven strategies on local Google ranking, WhatsApp enquiry conversion, and review management built for South Indian local businesses.
           </p>
         </div>
 

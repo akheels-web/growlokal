@@ -105,7 +105,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
             <input
               value={focus}
               onChange={(e) => setFocus(e.target.value)}
-              placeholder="e.g., Special 20% discount on summer coaching batch starting June 1st"
+              placeholder="e.g., Special 20% discount on new service package starting this week"
               className="form-input"
               style={{ background: 'var(--color-bg-primary)' }}
             />

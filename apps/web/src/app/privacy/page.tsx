@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Privacy Policy — GrowLokal',
-  description: 'How GrowLokal collects, uses, and protects coaching center owner and parent lead data.',
+  description: 'How GrowLokal collects, uses, and protects local business owner and customer lead data.',
 };
 
 export default function PrivacyPage() {

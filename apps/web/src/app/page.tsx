@@ -387,7 +387,7 @@ export default function Home() {
         <div className="nav-content">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <a href="/" className="nav-brand">Grow<span>Lokal</span></a>
-            
+
             {/* PROMINENT 4-LANGUAGE DROPDOWN */}
             <select
               value={lang}
@@ -516,23 +516,10 @@ export default function Home() {
               </div>
 
               <div>
-                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <div style={{
-                    position: 'absolute',
-                    left: '14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    fontSize: '13.5px',
-                    fontWeight: 700,
-                    color: '#0E4459',
-                    pointerEvents: 'none',
-                    zIndex: 2
-                  }}>
-                    <span>🇮🇳</span>
-                    <span>+91</span>
-                    <span style={{ color: '#cbd5e1', fontWeight: 300, marginLeft: '2px' }}>|</span>
-                  </div>
+                <div className="input-with-icon" style={{ display: 'flex', alignItems: 'center' }}>
+                  <span className="input-icon" style={{ fontSize: '13px', fontWeight: 800, color: '#0E4459', paddingRight: '4px' }}>
+                    🇮🇳 +91
+                  </span>
                   <input
                     id="audit-phone"
                     required
@@ -542,10 +529,6 @@ export default function Home() {
                     value={phone}
                     onChange={e => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
                     className="form-input"
-                    style={{
-                      paddingLeft: '84px',
-                      width: '100%'
-                    }}
                   />
                 </div>
                 <div style={{ fontSize: '11px', color: '#5e7984', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
@@ -594,17 +577,17 @@ export default function Home() {
           <div className="stats-header-tag">
             ⚡ Proven ROI Across South India
           </div>
-          
+
           <div className="stats-grid">
             <div className="stat-card">
-              <div className="stat-card-icon">🏫</div>
+              <div className="stat-card-icon">🏬</div>
               <AnimatedNumber target={500} suffix="+" />
-              <span className="stat-label">Coaching Centers Audited</span>
+              <span className="stat-label">Local Businesses Audited</span>
             </div>
             <div className="stat-card">
               <div className="stat-card-icon">📈</div>
               <AnimatedNumber target={3} suffix="x" />
-              <span className="stat-label">More Admission Enquiries</span>
+              <span className="stat-label">More Customer Enquiries</span>
             </div>
             <div className="stat-card">
               <div className="stat-card-icon">⚡</div>
@@ -643,7 +626,7 @@ export default function Home() {
         <div className="section-header">
           <p className="section-eyebrow">Interactive Growth Tools</p>
           <h2 className="section-title">Free Self-Service Growth Tools</h2>
-          <p className="section-subtitle">Audit your local Google presence and calculate your annual coaching profit growth instantly.</p>
+          <p className="section-subtitle">Audit your local Google presence and calculate your annual business profit growth instantly.</p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px', maxWidth: '1020px', margin: '0 auto' }}>
           {/* Card 1: Google Score Tool */}
@@ -676,7 +659,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Card 2: Admission ROI Calculator */}
+          {/* Card 2: Revenue Growth Calculator */}
           <div style={{
             padding: '36px 32px',
             background: 'var(--color-bg-primary)',
@@ -696,12 +679,12 @@ export default function Home() {
                 🚀 Calculate Your 12-Month Revenue Growth
               </h3>
               <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
-                See how capturing just 3 to 5 additional student admissions per month through GrowLokal AI translates into massive annual profit.
+                See how capturing just 5 to 15 additional local customers per month through GrowLokal AI translates into massive annual profit.
               </p>
             </div>
             <div>
               <a href="/tools/admission-roi-calculator" className="btn-growth-tool-green">
-                Calculate My Admission Profit 💰 →
+                Calculate My Business Profit 💰 →
               </a>
             </div>
           </div>
@@ -829,7 +812,7 @@ export default function Home() {
             </div>
             <div className="brain-engine-title">Data Intelligence Engine</div>
             <p className="brain-engine-desc">
-              All AI Agents share central memory, parent history, and local tuition data to convert leads faster.
+              All AI Agents share central memory, customer history, and local business data to convert leads faster.
             </p>
           </div>
         </div>
@@ -864,8 +847,8 @@ export default function Home() {
       <Section id="industries">
         <div className="section-header">
           <p className="section-eyebrow">Built for your niche</p>
-          <h2 className="section-title">Specifically designed for coaching &amp; tuition centers</h2>
-          <p className="section-subtitle">We&apos;re not a generic marketing tool. Every feature is built for education businesses in South India.</p>
+          <h2 className="section-title">Specifically designed for South Indian local businesses</h2>
+          <p className="section-subtitle">We&apos;re not a generic marketing tool. Every feature is built for local clinics, salons, restaurants &amp; stores in South India.</p>
         </div>
         <div ref={industryView.ref} className="industry-grid stagger-children">
           {INDUSTRIES.map((ind, i) => (
@@ -902,7 +885,7 @@ export default function Home() {
           <li>Weekly AI-written Google posts in your language</li>
           <li>Every review replied to professionally</li>
           <li>Instagram &amp; Facebook running on autopilot</li>
-          <li>Parents finding you when they search &ldquo;coaching near me&rdquo;</li>
+          <li>Customers finding you when they search &ldquo;best clinic / salon / store near me&rdquo;</li>
         </ul>
       </Section>
 
@@ -910,14 +893,14 @@ export default function Home() {
       <Section id="guarantee">
         <div className="section-header">
           <p className="section-eyebrow">Our Early Access Guarantee</p>
-          <h2 className="section-title">Built specifically for your coaching center</h2>
-          <p className="section-subtitle">We are committed to delivering real admission growth from day one.</p>
+          <h2 className="section-title">Built specifically for your local business</h2>
+          <p className="section-subtitle">We are committed to delivering real customer sales growth from day one.</p>
         </div>
         <div className="testimonials-grid">
           <div className="testimonial-card">
             <div className="pain-icon">🇮🇳</div>
             <h3 className="pain-title">100% Vernacular Accuracy</h3>
-            <p className="testimonial-text">&ldquo;All AI posts and parent replies are generated natively in Telugu, Tamil, Kannada, and English — tuned specifically for South Indian educational terminology.&rdquo;</p>
+            <p className="testimonial-text">&ldquo;All AI posts and customer replies are generated natively in Telugu, Tamil, Kannada, and English — tuned specifically for South Indian local business terminology.&rdquo;</p>
           </div>
           <div className="testimonial-card">
             <div className="pain-icon">🔒</div>
@@ -943,7 +926,7 @@ export default function Home() {
           <div className="pricing-card">
             <div className="pricing-name">Free Audit</div>
             <div className="pricing-price"><span className="pricing-price-currency">₹</span>0</div>
-            <p className="pricing-desc">See how your center looks on Google — no strings attached.</p>
+            <p className="pricing-desc">See how your business looks on Google — no strings attached.</p>
             <ul className="pricing-features">
               <li><span className="pricing-check">✓</span> Google visibility score</li>
               <li><span className="pricing-check">✓</span> Gap analysis report</li>
@@ -1088,7 +1071,7 @@ export default function Home() {
                 <li className="footer-link-item"><a href="#industries">Salons &amp; Spas</a></li>
                 <li className="footer-link-item"><a href="#industries">Restaurants &amp; Cafes</a></li>
                 <li className="footer-link-item"><a href="#industries">Retail &amp; Boutiques</a></li>
-                <li className="footer-link-item"><a href="#industries">Coaching &amp; Tuitions</a></li>
+                <li className="footer-link-item"><a href="#industries">Local Services &amp; Repairs</a></li>
               </ul>
             </div>
 
@@ -1128,50 +1111,50 @@ export default function Home() {
               {/* GPay */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Google Pay</title>
-                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" />
                 <text x="22" y="18" fontSize="10" fontWeight="800" textAnchor="middle" fill="#4285F4" fontFamily="sans-serif">GPay</text>
               </svg>
               {/* PhonePe */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>PhonePe</title>
-                <rect width="44" height="28" rx="5" fill="#5f259f"/>
+                <rect width="44" height="28" rx="5" fill="#5f259f" />
                 <text x="22" y="19" fontSize="13" fontWeight="bold" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">पे</text>
               </svg>
               {/* Paytm */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Paytm</title>
-                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" />
                 <text x="22" y="18" fontSize="9" fontWeight="900" textAnchor="middle" fill="#002E6E" fontFamily="sans-serif">Pay<tspan fill="#00BAF2">tm</tspan></text>
               </svg>
               {/* BHIM UPI */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>BHIM UPI</title>
-                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" />
                 <text x="22" y="17" fontSize="10" fontWeight="900" textAnchor="middle" fill="#EA580C" fontFamily="sans-serif">UPI</text>
               </svg>
               {/* VISA */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Visa</title>
-                <rect width="44" height="28" rx="5" fill="#1A1F71"/>
+                <rect width="44" height="28" rx="5" fill="#1A1F71" />
                 <text x="22" y="18" fontSize="11" fontWeight="900" fontStyle="italic" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">VISA</text>
               </svg>
               {/* Mastercard */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Mastercard</title>
-                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
-                <circle cx="17" cy="14" r="8" fill="#EB001B"/>
-                <circle cx="27" cy="14" r="8" fill="#F79E1B" opacity="0.88"/>
+                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" />
+                <circle cx="17" cy="14" r="8" fill="#EB001B" />
+                <circle cx="27" cy="14" r="8" fill="#F79E1B" opacity="0.88" />
               </svg>
               {/* RuPay */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>RuPay</title>
-                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1"/>
+                <rect width="44" height="28" rx="5" fill="#ffffff" stroke="#cbd5e1" />
                 <text x="22" y="17" fontSize="9" fontWeight="900" textAnchor="middle" fill="#0076BF" fontFamily="sans-serif">RuPay</text>
               </svg>
               {/* NetBanking */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Net Banking</title>
-                <rect width="44" height="28" rx="5" fill="#0E4459"/>
+                <rect width="44" height="28" rx="5" fill="#0E4459" />
                 <text x="22" y="17" fontSize="8" fontWeight="800" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">BANK</text>
               </svg>
             </div>          </div>
@@ -1194,10 +1177,10 @@ export default function Home() {
 
 function LiveToastFeed() {
   const toasts = [
-    '⚡ Sri Chaitanya Academy, Ameerpet generated +14 WhatsApp leads (2m ago)',
-    '📍 Bright Future, Kukatpally Google Score upgraded 23 → 89 (5m ago)',
-    '🎓 Excel IIT Academy, Dilsukhnagar scheduled 5 IG posts (12m ago)',
-    '🚀 Apex Coaching, Vijayawada booked 8 demo classes today (18m ago)',
+    '⚡ Apollo Dental Clinic, Ameerpet generated +14 WhatsApp inquiries (2m ago)',
+    '📍 Green Trends Salon, Kukatpally Google Score upgraded 23 → 89 (5m ago)',
+    '💇 Almond House Bakery, Himayatnagar scheduled 5 IG posts (12m ago)',
+    '🚀 Gold Gym Fitness, Vijayawada booked 8 appointments today (18m ago)',
   ];
   const [index, setIndex] = useState(0);
 
@@ -1221,13 +1204,13 @@ function LiveToastFeed() {
    ============================================================ */
 const PAIN_POINTS = [
   {
-    icon: '🔍', stat: '60%', title: "Parents can't find you on Google",
-    desc: 'When a parent searches "coaching center near me", your competitors show up — but you don\'t. You\'re invisible where it matters most.',
+    icon: '🔍', stat: '60%', title: "Customers can't find you on Google",
+    desc: 'When a customer searches "best clinic / salon / store near me", your competitors show up — but you don\'t. You\'re invisible where it matters most.',
     solution: 'Google Leads Agent fixes your profile + posts weekly',
   },
   {
     icon: '⭐', stat: '73%', title: 'Your reviews go unanswered',
-    desc: '73% of consumers expect a response to reviews. Every ignored review costs you trust — and admissions.',
+    desc: '73% of consumers expect a response to reviews. Every ignored review costs you trust — and new customer bookings.',
     solution: 'AI drafts warm replies in seconds, you just approve',
   },
   {
@@ -1238,7 +1221,7 @@ const PAIN_POINTS = [
 ];
 
 const STEPS = [
-  { icon: '🏫', title: 'Enter your center name', desc: "Tell us your coaching center's name and area — we do the rest." },
+  { icon: '🏬', title: 'Enter your business name', desc: "Tell us your business's name and area — we do the rest." },
   { icon: '📊', title: 'Get your Google score', desc: 'Our AI scans your Google Business Profile and scores it instantly out of 100.' },
   { icon: '🚀', title: 'Fix gaps with AI', desc: 'Get AI-generated posts, review replies, and campaigns — all automated.' },
 ];
@@ -1257,9 +1240,9 @@ const AGENTS = [
   },
   {
     variant: 'whatsapp', icon: '💬', tag: 'Real-time interaction',
-    title: 'WhatsApp Chat Agent', subtitle: 'Answer parent enquiries 24/7',
+    title: 'WhatsApp Chat Agent', subtitle: 'Answer customer enquiries 24/7',
     features: [
-      { icon: '💬', text: 'Answers fee, timing, and admission questions instantly' },
+      { icon: '💬', text: 'Answers pricing, service, and appointment questions instantly' },
       { icon: '🌐', text: 'Works in Telugu, Tamil, Kannada, and English' },
       { icon: '📥', text: 'Captures lead info automatically' },
       { icon: '📲', text: 'Sends audit reports directly on WhatsApp' },
@@ -1272,17 +1255,17 @@ const AGENTS = [
     features: [
       { icon: '📸', text: 'AI drafts posts for Instagram and Facebook' },
       { icon: '📅', text: 'Schedule a full week of content in minutes' },
-      { icon: '🎓', text: 'Designs course announcements and success stories' },
+      { icon: '🏬', text: 'Designs service announcements and customer success stories' },
       { icon: '⚡', text: 'Maintains a consistent posting schedule' },
-      { icon: '🎯', text: 'Tailored to coaching center audiences' },
+      { icon: '🎯', text: 'Tailored to local business audiences' },
     ],
   },
   {
     variant: 'campaign', icon: '📣', tag: 'Promotional marketing',
     title: 'Campaign Agent', subtitle: 'WhatsApp broadcast campaigns',
     features: [
-      { icon: '📣', text: 'Send admission announcements to parent lists' },
-      { icon: '🎁', text: 'Festival offers, batch openings, results celebrations' },
+      { icon: '📣', text: 'Send festive & offer announcements to customer lists' },
+      { icon: '🎁', text: 'Festival offers, new service launches, reward celebrations' },
       { icon: '💳', text: 'Prepaid credit system — no surprise bills' },
       { icon: '📊', text: 'Delivery tracking and analytics' },
       { icon: '⚡', text: 'Template management for quick sends' },
@@ -1291,38 +1274,38 @@ const AGENTS = [
 ];
 
 const INDUSTRIES = [
-  { icon: '🎓', name: 'Coaching & Tuitions', desc: 'IIT/NEET, School Tuitions, Skill Academies' },
-  { icon: '🏥', name: 'Clinics & Healthcare', desc: 'Dental, Skin & Hair, Diagnostics, Ayush' },
+  { icon: '🏥', name: 'Clinics & Healthcare', desc: 'Dental, Skin & Hair, Diagnostics, Ayush Clinics' },
   { icon: '💇', name: 'Salons & Spas', desc: 'Unisex Salons, Spas, Bridal Makeup Studios' },
   { icon: '🍽️', name: 'Restaurants & Cafes', desc: 'Fine Dining, Bakeries, Cafes, Cloud Kitchens' },
   { icon: '🛍️', name: 'Retail & Boutiques', desc: 'Fashion Boutiques, Jewelry, Electronics, Supermarkets' },
   { icon: '🏋️', name: 'Fitness & Gyms', desc: 'Gyms, Yoga Centers, Martial Arts Academies' },
   { icon: '🏡', name: 'Real Estate & Home', desc: 'Property Agencies, Interior Design Studios' },
   { icon: '🚗', name: 'Local Services', desc: 'Car Wash, Auto Repair, Event Planners' },
+  { icon: '🎓', name: 'Academies & Learning', desc: 'Skill Centers, Language & Training Classes' },
 ];
 
 const TESTIMONIALS = [
   {
-    name: 'Rajesh Kumar', initials: 'RK', image: '/images/owner.png', role: 'Director, Sri Chaitanya Tutorials (Ameerpet)',
-    text: 'We were completely invisible on Google. After GrowLokal, parents started finding us directly. Enquiries jumped 3x in the first month.',
+    name: 'Dr. Rajesh Rao', initials: 'RR', image: '/images/owner.png', role: 'Founder, Apex Dental Care (Ameerpet)',
+    text: 'We were completely invisible on Google. After GrowLokal, customers started finding us directly. Appointments jumped 3x in the first month.',
   },
   {
-    name: 'Priya Sharma', initials: 'PS', image: '/images/priya.png', role: 'Founder, Bright Future Academy (Kukatpally)',
-    text: 'The WhatsApp campaigns are incredible. We sent one admission announcement and got 40+ responses the same day in Telugu!',
+    name: 'Priya Sharma', initials: 'PS', image: '/images/priya.png', role: 'Owner, Glow Unisex Salon (Kukatpally)',
+    text: 'The WhatsApp campaigns are incredible. We sent one festive offer announcement and got 40+ customer bookings the same day in Telugu!',
   },
   {
-    name: 'Mohammed Irfan', initials: 'MI', image: '/images/classroom.png', role: 'Principal, Excel IIT Academy (Dilsukhnagar)',
-    text: "I used to spend hours writing Google posts and replying to reviews. Now AI does it all — I just approve. Saved me 10 hours a week.",
+    name: 'Mohammed Irfan', initials: 'MI', image: '/images/classroom.png', role: 'Director, Urban Spice Cafe (Dilsukhnagar)',
+    text: "I used to spend hours writing Google posts and replying to reviews. Now AI does it all — I just approve on WhatsApp. Saved me 10 hours a week.",
   },
 ];
 
 const FAQ_DATA = [
   { q: 'Is this too technical for me?', a: 'Not at all! If you can use WhatsApp, you can use GrowLokal. Our AI handles all the technical marketing work. You just approve what it creates.' },
-  { q: 'How soon will I see results?', a: 'Most centers see improvements in their Google visibility within 2-3 weeks. The free audit gives you your baseline score immediately, and our AI starts working on improvements from day one.' },
-  { q: 'Does it work in Telugu and Tamil?', a: 'Yes! GrowLokal creates content in Telugu, Tamil, Kannada, and English. Our AI understands the local context and creates authentic vernacular content that resonates with parents in your area.' },
-  { q: "What if I don't have a Google Business Profile?", a: "No problem! We'll help you set one up as part of the onboarding process. It's free on Google — and it's the single most important thing for getting found by parents searching online." },
+  { q: 'How soon will I see results?', a: 'Most local businesses see improvements in their Google visibility within 2-3 weeks. The free audit gives you your baseline score immediately, and our AI starts working on improvements from day one.' },
+  { q: 'Does it work in Telugu and Tamil?', a: 'Yes! GrowLokal creates content in Telugu, Tamil, Kannada, and English. Our AI understands the local context and creates authentic vernacular content that resonates with customers in your area.' },
+  { q: "What if I don't have a Google Business Profile?", a: "No problem! We'll help you set one up as part of the onboarding process. It's free on Google — and it's the single most important thing for getting found by customers searching online." },
   { q: 'Can I cancel anytime?', a: "Absolutely. There are no contracts or lock-in periods. You can cancel your Growth Plan anytime. The free audit is always free, forever." },
-  { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for coaching & tuition centers in South India, not a generic tool for all businesses. Our AI speaks Telugu, Tamil, and Kannada natively. And at ₹2,999/month vs their ₹5,000+/month, you save over ₹12,000 per quarter.' },
+  { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for South Indian local businesses, not a generic tool for all companies. Our AI speaks Telugu, Tamil, and Kannada natively. And at ₹2,999/month vs their ₹5,000+/month, you save over ₹12,000 per quarter.' },
 ];
 
 function ContactSection() {
@@ -1368,7 +1351,7 @@ function ContactSection() {
               GrowLokal Technologies
             </h3>
             <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
-              We assist tuition &amp; coaching institutes across Hyderabad, Vijayawada, Vizag, Bengaluru, and Chennai.
+              We assist local businesses, clinics, salons &amp; stores across Hyderabad, Vijayawada, Vizag, Bengaluru, and Chennai.
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '14px', color: '#0E4459' }}>
@@ -1389,10 +1372,10 @@ function ContactSection() {
               </div>
 
               <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <span style={{ fontSize: '20px' }}>🏫</span>
+                <span style={{ fontSize: '20px' }}>🏬</span>
                 <div>
                   <strong>Regional Office:</strong>
-                  <div style={{ color: '#5e7984' }}>Educational Hub, Ameerpet, Hyderabad, Telangana 500016</div>
+                  <div style={{ color: '#5e7984' }}>Commercial Hub, Ameerpet, Hyderabad, Telangana 500016</div>
                 </div>
               </div>
             </div>
@@ -1440,7 +1423,7 @@ function ContactSection() {
                   </label>
                   <input
                     type="email"
-                    placeholder="e.g. srikanth@academy.com"
+                    placeholder="e.g. srikanth@business.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
@@ -1454,7 +1437,7 @@ function ContactSection() {
                 </label>
                 <textarea
                   rows={4}
-                  placeholder="Tell us about your institute, course offerings, or any questions you have..."
+                  placeholder="Tell us about your business, products, services, or any questions you have..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px', fontFamily: 'inherit' }}

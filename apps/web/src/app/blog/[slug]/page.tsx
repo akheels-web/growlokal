@@ -16,32 +16,32 @@ interface ArticleData {
 
 const ARTICLE_DB: Record<string, ArticleData> = {
   'top-7-reasons-coaching-centers-lose-admissions': {
-    title: 'Top 7 Reasons Why Coaching Centers in Hyderabad Lose Admissions on Google Maps',
+    title: 'Top 7 Reasons Why Local Businesses in Hyderabad Lose Customer Calls on Google Maps',
     category: 'Local SEO Guide',
     readTime: '4 min read',
     date: 'July 30, 2026',
     author: 'Srikanth V.',
-    authorRole: 'Head of Education Growth, GrowLokal',
+    authorRole: 'Head of Local Business Growth, GrowLokal',
     authorAvatar: '/images/owner.png',
     coverImage: '/images/blog_google_maps.png',
     takeaways: [
-      'Over 80% of local parents search for tuition on Google Maps before calling.',
+      'Over 80% of local customers search on Google Maps before visiting or calling.',
       'Unanswered reviews drop your local ranking score by up to 35%.',
-      'Weekly AI Google posts double parent enquiry calls within 30 days.',
+      'Weekly AI Google posts double customer enquiry calls within 30 days.',
     ],
     content: [
-      'In major South Indian educational hubs like Ameerpet, Kukatpally, and Dilsukhnagar, over 80% of parents start their search for Class 10, Intermediate, or NEET tuition centers directly on Google Maps.',
-      '1. Incomplete Google Business Profile: Over 45% of institutes leave operating hours, course photos, or website links empty, causing Google to rank competitors higher.',
-      '2. Zero Weekly Google Posts: Google algorithm prioritizes active profiles that publish weekly course announcements, batch openings, and result celebrations.',
-      '3. Unanswered Parent Reviews: Failing to reply to Google reviews lowers your local map pack ranking score and signals poor parent service.',
-      '4. Missing Local Keywords: Not mentioning specific course terms like "Class 10 CBSE Math Tuition Ameerpet" or "IIT JEE Academy Kukatpally" in your profile description.',
-      '5. Slow Response Times to Parent WhatsApp Enquiries: Parents who do not get a response within 5 minutes move on to competing centers.',
-      '6. Lack of Vernacular Content: Not communicating in native Telugu or Tamil phrasing when targeting local parents who prefer local language updates.',
-      '7. Outdated Result Celebrations: Failing to highlight latest student success stories and batch openings keeps prospective parents hesitant.',
+      'In major South Indian commercial hubs like Ameerpet, Kukatpally, and Dilsukhnagar, over 80% of customers start their search for clinics, salons, cafes, or stores directly on Google Maps.',
+      '1. Incomplete Google Business Profile: Over 45% of local businesses leave operating hours, service photos, or website links empty, causing Google to rank competitors higher.',
+      '2. Zero Weekly Google Posts: Google algorithm prioritizes active profiles that publish weekly service updates, special offers, and new launches.',
+      '3. Unanswered Customer Reviews: Failing to reply to Google reviews lowers your local map pack ranking score and signals poor customer service.',
+      '4. Missing Local Keywords: Not mentioning specific service terms like "Best Dental Clinic Ameerpet" or "Unisex Salon Kukatpally" in your profile description.',
+      '5. Slow Response Times to Customer WhatsApp Enquiries: Customers who do not get a response within 5 minutes move on to competing businesses.',
+      '6. Lack of Vernacular Content: Not communicating in native Telugu or Tamil phrasing when targeting local customers who prefer local language updates.',
+      '7. Outdated Store/Service Photos: Failing to highlight latest work and happy customers keeps prospective buyers hesitant.',
     ],
   },
   'how-to-reply-to-negative-google-reviews': {
-    title: 'How to Reply to Negative Parent Google Reviews (With Telugu & English Templates)',
+    title: 'How to Reply to Negative Customer Google Reviews (With Telugu & English Templates)',
     category: 'Review Management',
     readTime: '5 min read',
     date: 'July 28, 2026',
@@ -50,19 +50,19 @@ const ARTICLE_DB: Record<string, ArticleData> = {
     authorAvatar: '/images/priya.png',
     coverImage: '/images/blog_reviews.png',
     takeaways: [
-      'Replying within 2 hours turns 60% of upset reviewers into satisfied parents.',
+      'Replying within 2 hours turns 60% of upset reviewers into satisfied clients.',
       'Always offer a direct WhatsApp resolution line.',
       'Use professional, empathetic Telugu & English templates.',
     ],
     content: [
-      'A negative review on your Google Business Profile does not have to hurt your admissions. When handled professionally, a fast, empathetic response builds trust with future parents.',
-      'Step 1: Acknowledge the parent feedback immediately without getting defensive.',
-      'Step 2: Take the conversation private by offering a direct WhatsApp call or meeting with the Institute Director.',
-      'Step 3: Show prospective parents that you care deeply about student success and faculty quality.',
+      'A negative review on your Google Business Profile does not have to hurt your business. When handled professionally, a fast, empathetic response builds trust with future customers.',
+      'Step 1: Acknowledge customer feedback immediately without getting defensive.',
+      'Step 2: Take the conversation private by offering a direct WhatsApp call or meeting with the business owner.',
+      'Step 3: Show prospective customers that you care deeply about quality of service.',
     ],
   },
   'whatsapp-marketing-strategy-for-coaching-centers': {
-    title: 'Step-by-Step WhatsApp Marketing Strategy for IIT/NEET Academies in 2026',
+    title: 'Step-by-Step WhatsApp Marketing Strategy for South Indian Local Businesses in 2026',
     category: 'WhatsApp Automation',
     readTime: '6 min read',
     date: 'July 25, 2026',
@@ -72,14 +72,14 @@ const ARTICLE_DB: Record<string, ArticleData> = {
     coverImage: '/images/classroom.png',
     takeaways: [
       'WhatsApp enquiry auto-replies improve lead booking by 3x.',
-      'Broadcast upcoming batch openings directly to parent lists.',
-      'Integrate 1-click UPI fee collection links.',
+      'Broadcast festive offers directly to customer lists.',
+      'Integrate 1-click UPI booking payment links.',
     ],
     content: [
-      'WhatsApp is the #1 communication tool for parents in South India. Learn how to convert prospective parent inquiries into paid admissions using automated WhatsApp flows.',
-      '1. Auto-reply to instant parent inquiries with course details, fee structures, and demo timing.',
-      '2. Send personalized broadcast announcements for upcoming batch openings and scholarship tests.',
-      '3. Use 1-click WhatsApp payment links for easy fee collection.',
+      'WhatsApp is the #1 communication tool for local customers in South India. Learn how to convert prospective inquiries into loyal clients using automated WhatsApp flows.',
+      '1. Auto-reply to instant customer inquiries with price lists, service details, and working hours.',
+      '2. Send personalized broadcast announcements for upcoming festive offers and new service launches.',
+      '3. Use 1-click WhatsApp payment links for easy advance booking collection.',
     ],
   },
 };
@@ -178,10 +178,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               boxShadow: '0 12px 32px rgba(14, 68, 89, 0.15)'
             }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '8px' }}>
-                Fix your coaching center&apos;s Google presence today
+                Fix your business&apos;s Google presence today
               </h3>
               <p style={{ fontSize: '0.98rem', color: 'rgba(255,255,255,0.85)', marginBottom: '24px' }}>
-                Get your free 30-second audit report and automate your Google posts with GrowLokal AI.
+                Get your free 10-second audit report and automate your Google posts with GrowLokal AI.
               </p>
               <Link
                 href="/#audit-form"
@@ -238,7 +238,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 Free Google Score Audit
               </h4>
               <p style={{ fontSize: '0.88rem', color: '#5e7984', marginBottom: '18px' }}>
-                Compare your coaching center vs top area competitors in 10 seconds.
+                Compare your business vs top area competitors in 10 seconds.
               </p>
               <Link
                 href="/tools/google-score-calculator"

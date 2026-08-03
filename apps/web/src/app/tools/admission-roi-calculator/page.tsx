@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function AdmissionRoiCalculatorPage() {
-  const [feePerStudent, setFeePerStudent] = useState(25000);
-  const [extraAdmissions, setExtraAdmissions] = useState(4);
+export default function RevenueRoiCalculatorPage() {
+  const [serviceValue, setServiceValue] = useState(2500);
+  const [extraCustomers, setExtraCustomers] = useState(10);
 
-  const monthlyExtraRevenue = feePerStudent * extraAdmissions;
+  const monthlyExtraRevenue = serviceValue * extraCustomers;
   const yearlyExtraRevenue = monthlyExtraRevenue * 12;
   const growLokalCostYearly = 2999 * 12;
   const netProfitYearly = yearlyExtraRevenue - growLokalCostYearly;
@@ -73,7 +73,7 @@ export default function AdmissionRoiCalculatorPage() {
                   Average Customer Service / Order Value (₹)
                 </label>
                 <span style={{ fontSize: '16px', fontWeight: '800', color: '#2E9AA6' }}>
-                  ₹{feePerStudent.toLocaleString('en-IN')}
+                  ₹{serviceValue.toLocaleString('en-IN')}
                 </span>
               </div>
               <input
@@ -81,8 +81,8 @@ export default function AdmissionRoiCalculatorPage() {
                 min="500"
                 max="50000"
                 step="500"
-                value={feePerStudent}
-                onChange={(e) => setFeePerStudent(Number(e.target.value))}
+                value={serviceValue}
+                onChange={(e) => setServiceValue(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#2E9AA6' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
@@ -97,7 +97,7 @@ export default function AdmissionRoiCalculatorPage() {
                   Additional New Local Customers per Month
                 </label>
                 <span style={{ fontSize: '16px', fontWeight: '800', color: '#70BF63' }}>
-                  +{extraAdmissions} Customers / Mo
+                  +{extraCustomers} Customers / Mo
                 </span>
               </div>
               <input
@@ -105,8 +105,8 @@ export default function AdmissionRoiCalculatorPage() {
                 min="1"
                 max="30"
                 step="1"
-                value={extraAdmissions}
-                onChange={(e) => setExtraAdmissions(Number(e.target.value))}
+                value={extraCustomers}
+                onChange={(e) => setExtraCustomers(Number(e.target.value))}
                 style={{ width: '100%', accentColor: '#70BF63' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
