@@ -1,0 +1,93 @@
+# GrowLokal Production VPS Docker Compose Stack
+# Optimized for 2 vCPU / 8 GB RAM VPS
+# Usage: docker compose -f infra/docker-compose.prod.yml up -d --build
+
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: growlokal_prod_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER:-growlokal}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:?Set PG_PASSWORD in .env}
+      POSTGRES_DB: ${PG_DB:-growlokal}
+    volumes:
+      - pg_prod_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    deploy:
+      resources:
+        limits:
+          memory: 3500M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-growlokal} -d ${PG_DB:-growlokal}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: growlokal_prod_redis
+    restart: always
+    command: redis-server --save 60 1 --loglevel warning --maxmemory 1200mb --maxmemory-policy volatile-lru
+    volumes:
+      - redis_prod_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 1500M
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: growlokal_prod_api
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgres://${PG_USER:-growlokal}:${PG_PASSWORD}@postgres:5432/${PG_DB:-growlokal}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      PUBLIC_API_URL: https://${API_DOMAIN:-api.growlokal.com}
+      GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID}
+      WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN}
+      WHATSAPP_WEBHOOK_VERIFY_TOKEN: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN}
+    ports:
+      - "127.0.0.1:3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 2000M
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: growlokal_prod_caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      API_DOMAIN: ${API_DOMAIN:-api.growlokal.com}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    depends_on:
+      - api
+
+volumes:
+  pg_prod_data:
+  redis_prod_data:
+  caddy_data:
+  caddy_config:

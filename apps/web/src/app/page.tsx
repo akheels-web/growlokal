@@ -277,6 +277,7 @@ export default function Home() {
   const t = I18N[lang];
 
   const [businessName, setBusinessName] = useState('');
+  const [industry, setIndustry] = useState('coaching');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ score: number; message: string } | null>(null);
@@ -306,7 +307,7 @@ export default function Home() {
     try {
       const res = await fetch(`${API}/api/audit/run`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ businessName: cleanName, phone: cleanPhone, city: 'Hyderabad', lang }),
+        body: JSON.stringify({ businessName: cleanName, phone: cleanPhone, city: 'Hyderabad', lang, industry }),
       });
       if (res.status === 429) {
         throw new Error('Too many audit scans. Please wait a minute before trying again.');
@@ -319,7 +320,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [businessName, phone, lang]);
+  }, [businessName, phone, lang, industry]);
 
   const painView = useInView();
   const stepsView = useInView();
@@ -424,6 +425,25 @@ export default function Home() {
                 <span className="input-icon">🏫</span>
                 <input id="audit-business-name" required placeholder={t.namePlaceholder}
                   value={businessName} onChange={e => setBusinessName(e.target.value)} className="form-input" />
+              </div>
+              <div className="input-with-icon">
+                <span className="input-icon">🏢</span>
+                <select
+                  id="audit-industry"
+                  value={industry}
+                  onChange={e => setIndustry(e.target.value)}
+                  className="form-input"
+                  style={{ cursor: 'pointer', appearance: 'auto', background: '#ffffff' }}
+                >
+                  <option value="coaching">🎓 Coaching &amp; Tuition Center</option>
+                  <option value="healthcare">🏥 Clinic, Dental &amp; Healthcare</option>
+                  <option value="beauty">💇 Salon, Spa &amp; Beauty Studio</option>
+                  <option value="restaurant">🍽️ Restaurant, Cafe &amp; Bakery</option>
+                  <option value="retail">🛍️ Retail Store &amp; Fashion Boutique</option>
+                  <option value="fitness">🏋️ Gym, Fitness &amp; Yoga Center</option>
+                  <option value="realestate">🏡 Real Estate &amp; Home Services</option>
+                  <option value="services">🚗 Auto Repair &amp; Local Services</option>
+                </select>
               </div>
               <div className="input-with-icon">
                 <span className="input-icon">💬</span>
@@ -865,10 +885,10 @@ export default function Home() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ padding: '3px 10px', background: 'rgba(112, 191, 99, 0.15)', color: '#047857', borderRadius: '12px', fontSize: '11px', fontWeight: '800' }}>OPTIONAL ADD-ON</span>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#033540', margin: 0 }}>🌐 Custom Institute Website Creation</h4>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#033540', margin: 0 }}>🌐 Custom Local Business Website Creation</h4>
             </div>
             <p style={{ fontSize: '0.9rem', color: '#5e7984', margin: '4px 0 0' }}>
-              Don&apos;t have a dedicated website? We build a fast, mobile-ready 5-page website with course details, faculty profiles &amp; WhatsApp enquiry forms.
+              Don&apos;t have a dedicated website? We build a fast, mobile-ready 5-page website with your services, photos &amp; direct WhatsApp enquiry forms.
             </p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -1168,12 +1188,14 @@ const AGENTS = [
 ];
 
 const INDUSTRIES = [
-  { icon: '🎯', name: 'IIT/NEET Coaching', desc: 'Competitive exam preparation' },
-  { icon: '📚', name: 'Tuition Centers', desc: 'School subject coaching' },
-  { icon: '💻', name: 'Skill Academies', desc: 'Computer, coding, design' },
-  { icon: '🏆', name: 'Competitive Exams', desc: 'UPSC, SSC, Banking' },
-  { icon: '🌍', name: 'Language Schools', desc: 'English, foreign languages' },
-  { icon: '🎵', name: 'Music & Dance', desc: 'Performing arts academies' },
+  { icon: '🎓', name: 'Coaching & Tuitions', desc: 'IIT/NEET, School Tuitions, Skill Academies' },
+  { icon: '🏥', name: 'Clinics & Healthcare', desc: 'Dental, Skin & Hair, Diagnostics, Ayush' },
+  { icon: '💇', name: 'Salons & Spas', desc: 'Unisex Salons, Spas, Bridal Makeup Studios' },
+  { icon: '🍽️', name: 'Restaurants & Cafes', desc: 'Fine Dining, Bakeries, Cafes, Cloud Kitchens' },
+  { icon: '🛍️', name: 'Retail & Boutiques', desc: 'Fashion Boutiques, Jewelry, Electronics, Supermarkets' },
+  { icon: '🏋️', name: 'Fitness & Gyms', desc: 'Gyms, Yoga Centers, Martial Arts Academies' },
+  { icon: '🏡', name: 'Real Estate & Home', desc: 'Property Agencies, Interior Design Studios' },
+  { icon: '🚗', name: 'Local Services', desc: 'Car Wash, Auto Repair, Event Planners' },
 ];
 
 const TESTIMONIALS = [

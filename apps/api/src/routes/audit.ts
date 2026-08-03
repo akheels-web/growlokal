@@ -9,6 +9,7 @@ const bodySchema = z.object({
   businessName: z.string().min(2).max(100),
   city: z.string().max(50).optional(),
   lang: z.enum(['te', 'ta', 'kn', 'ml', 'hi', 'en']).optional(),
+  industry: z.string().max(50).optional(),
 });
 
 export function auditRoutes(app: FastifyInstance) {

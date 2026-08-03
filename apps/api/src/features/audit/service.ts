@@ -15,6 +15,7 @@ export interface AuditRunInput {
   businessName: string;
   city?: string;
   lang?: Lang;
+  industry?: string;
 }
 
 export interface AuditRunOutput {
@@ -26,7 +27,7 @@ export interface AuditRunOutput {
 }
 
 export async function runAudit(input: AuditRunInput): Promise<AuditRunOutput> {
-  const { phone, businessName, city = 'Hyderabad', lang = 'te' } = input;
+  const { phone, businessName, city = 'Hyderabad', lang = 'te', industry = 'coaching' } = input;
 
   // 1. Look up their Google presence
   const signals = await lookupBusiness(businessName, city);
