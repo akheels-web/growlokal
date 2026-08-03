@@ -1880,8 +1880,8 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .biz-showcase-card {
   position: relative;
-  background: #EBF4FA;
-  border: 1px solid #D6E4F0;
+  background: #D8ECF8;
+  border: 1.5px solid #C4E0F2;
   border-radius: 20px;
   padding: 22px 16px 22px 22px;
   display: flex;
@@ -1889,15 +1889,15 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   align-items: center;
   min-height: 136px;
   overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
 }
 
 .biz-showcase-card:hover {
-  transform: translateY(-4px);
-  background: #ffffff;
+  transform: translateY(-5px);
+  background: #D8ECF8;
   border-color: #2E9AA6;
-  box-shadow: 0 14px 36px rgba(46, 154, 166, 0.18);
+  box-shadow: 0 14px 36px rgba(46, 154, 166, 0.22);
 }
 
 .biz-showcase-title {
@@ -1905,17 +1905,17 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   font-weight: 700;
   color: #0F172A;
   line-height: 1.35;
-  width: 58%;
+  width: 54%;
   z-index: 2;
   font-family: var(--font-body), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   letter-spacing: -0.015em;
 }
 
 .biz-showcase-img-wrap {
-  width: 125px;
+  width: 52%;
   height: 100%;
   position: absolute;
-  right: -4px;
+  right: 0;
   top: 0;
   bottom: 0;
   display: flex;
