@@ -81,7 +81,7 @@ export default function RefundPage() {
             <p>To request a refund under our 7-Day Money-Back Guarantee:</p>
             <ol style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li>Send a brief email to <strong>support@growlokal.com</strong> or message us on WhatsApp (+91 98765 43210) within 7 days of payment.</li>
-              <li>Include your registered mobile number and coaching institute name.</li>
+              <li>Include your registered mobile number and business name.</li>
               <li>Once verified, your refund will be initiated immediately.</li>
             </ol>
             <p style={{ marginTop: '12px' }}>

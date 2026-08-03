@@ -8,12 +8,12 @@ export default function WhatsappKitPage() {
 
   const TEMPLATES = [
     {
-      title: 'Group Broadcast Template for Coaching Associations',
-      text: `🏛️ *Coaching Center Digital Audit Checklist (2026)*\n\nIs your institute losing student enquiries on Google Maps? Free 10-second check for center directors:\n\n✅ Check Google Maps Ranking\n✅ Audit Parent Review Replies\n✅ Vernacular WhatsApp Auto-Reply Setup\n\n👉 Get your free report instantly: https://growlokal.com`,
+      title: 'Group Broadcast Template for Local Business Associations',
+      text: `🏢 *Local Business Digital Audit Checklist (2026)*\n\nIs your business losing local customer calls on Google Maps? Free 10-second check for business owners:\n\n✅ Check Google Maps Ranking\n✅ Audit Customer Review Replies\n✅ Vernacular WhatsApp Auto-Reply Setup\n\n👉 Get your free report instantly: https://growlokal.com`,
     },
     {
-      title: 'Peer Recommendation Template for Institute Directors',
-      text: `Sir, I ran a free Google audit for our institute using GrowLokal AI. It checked our Google Business listing score and parent review response rate in 10 seconds. Thought it might be helpful for your academy too: https://growlokal.com`,
+      title: 'Peer Recommendation Template for Business Owners',
+      text: `Sir, I ran a free Google audit for our business using GrowLokal AI. It checked our Google Business listing score and customer review response rate in 10 seconds. Thought it might be helpful for your business too: https://growlokal.com`,
     },
   ];
 
@@ -57,10 +57,10 @@ export default function WhatsappKitPage() {
             💬 WhatsApp Growth Distribution Kit
           </span>
           <h1 style={{ fontSize: '2.3rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
-            WhatsApp Growth &amp; Share Templates for Center Owners
+            WhatsApp Growth &amp; Share Templates for Business Owners
           </h1>
           <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
-            Share these pre-formatted growth checklists and templates with fellow institute directors and coaching WhatsApp groups.
+            Share these pre-formatted growth checklists and templates with fellow business owners and merchant WhatsApp groups.
           </p>
         </div>
 

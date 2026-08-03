@@ -282,13 +282,13 @@ export default function GoogleScoreCalculatorPage() {
                     COMPETITOR BENCHMARK
                   </div>
                   <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#033540', margin: '4px 0 12px' }}>
-                    {competitorName || 'Area Top Coaching Benchmark'}
+                    {competitorName || 'Area Top Business Benchmark'}
                   </div>
                   <div style={{ fontSize: '3rem', fontWeight: '900', color: '#047857', lineHeight: 1 }}>
                     {compScore}<span style={{ fontSize: '1.2rem', color: '#5e7984' }}>/100</span>
                   </div>
                   <p style={{ fontSize: '13px', color: '#047857', marginTop: '12px' }}>
-                    ✅ Active weekly Google posts &amp; high parent review rate
+                    ✅ Active weekly Google posts &amp; high customer review response rate
                   </p>
                 </div>
               </div>

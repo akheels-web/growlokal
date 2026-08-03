@@ -86,7 +86,7 @@ export default function Login() {
           </div>
 
           <h1 className="login-hero-title">
-            Grow your coaching center on Google &amp; WhatsApp
+            Grow your local business on Google &amp; WhatsApp
           </h1>
 
           <p className="login-hero-desc">
@@ -100,7 +100,7 @@ export default function Login() {
             </li>
             <li className="login-feature-item">
               <span className="login-feature-icon">✓</span>
-              <span><strong>WhatsApp Campaigns</strong> — Direct parent outreach in Telugu &amp; English</span>
+              <span><strong>WhatsApp Campaigns</strong> — Direct customer outreach in Telugu &amp; English</span>
             </li>
             <li className="login-feature-item">
               <span className="login-feature-icon">✓</span>
@@ -137,9 +137,9 @@ export default function Login() {
               </div>
 
               <div className="login-input-group">
-                <label className="login-input-label">Coaching Center Name <span style={{ fontWeight: 400, color: '#64748b' }}>(New users only)</span></label>
+                <label className="login-input-label">Business Name <span style={{ fontWeight: 400, color: '#64748b' }}>(New users only)</span></label>
                 <input
-                  placeholder="e.g. Apex IIT Academy"
+                  placeholder="e.g. Green Trends Salon"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
                   className="login-input"

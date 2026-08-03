@@ -54,10 +54,10 @@ export default function PrivacyPage() {
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>2. Information We Collect</h2>
             <p>We collect only the minimum necessary information required to deliver our local AI marketing services:</p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <li><strong>Institute Business Details:</strong> Coaching center name, area, city, course offerings, fee ranges, and operating hours.</li>
+              <li><strong>Business Details:</strong> Business name, area, city, services/products offered, pricing ranges, and operating hours.</li>
               <li><strong>Owner Contact Data:</strong> Registered Indian mobile number verified via OTP authentication, and optional email address.</li>
               <li><strong>Google Profile Permissions:</strong> Account metadata authorized by you via Google OAuth to enable automated GBP posting and review replies.</li>
-              <li><strong>Parent Enquiry Lead Data:</strong> Names, WhatsApp phone numbers, and course enquiry preferences submitted by prospective parents through your audit widgets or WhatsApp chat bot.</li>
+              <li><strong>Customer Enquiry Lead Data:</strong> Names, WhatsApp phone numbers, and service enquiry preferences submitted by prospective customers through your audit widgets or WhatsApp chat bot.</li>
             </ul>
           </section>
 
@@ -66,8 +66,8 @@ export default function PrivacyPage() {
             <p>Information collected is used strictly for the following business purposes:</p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li>Generating instant Google Business Profile audit reports and local SEO scorecards.</li>
-              <li>Crafting vernacular AI content in Telugu, Tamil, Kannada, and English tailored for your center.</li>
-              <li>Routing automated parent WhatsApp enquiry notifications directly to your phone.</li>
+              <li>Crafting vernacular AI content in Telugu, Tamil, Kannada, and English tailored for your business.</li>
+              <li>Routing automated customer WhatsApp enquiry notifications directly to your phone.</li>
               <li>Processing subscription payments and providing billing invoices.</li>
             </ul>
           </section>
@@ -79,8 +79,8 @@ export default function PrivacyPage() {
             </p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Encryption:</strong> All data transmitted between your browser, WhatsApp APIs, and our servers is encrypted using 256-bit SSL/TLS protocols.</li>
-              <li><strong>Strict Isolation:</strong> Your student list and parent lead data are isolated and never shared with other institutes or third-party advertisers.</li>
-              <li><strong>No Data Monetization:</strong> GrowLokal NEVER sells, rents, or monetizes customer phone numbers or parent enquiry data.</li>
+              <li><strong>Strict Isolation:</strong> Your customer list and enquiry lead data are isolated and never shared with other businesses or third-party advertisers.</li>
+              <li><strong>No Data Monetization:</strong> GrowLokal NEVER sells, rents, or monetizes customer phone numbers or business enquiry data.</li>
             </ul>
           </section>
 
@@ -90,16 +90,16 @@ export default function PrivacyPage() {
               GrowLokal integrates with trusted global infrastructure providers:
             </p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <li><strong>Google Maps &amp; GBP APIs:</strong> Used solely to fetch listing scores, publish approved posts, and reply to Google reviews.</li>
-              <li><strong>Meta WhatsApp Business API:</strong> Used to deliver automated chat replies and broadcast campaigns in compliance with Meta privacy terms.</li>
-              <li><strong>PCI-DSS Compliant Payment Gateways:</strong> Payment details are processed directly by certified payment partners. GrowLokal never stores your full card or bank credentials.</li>
+              <li><strong>Google My Business API:</strong> To fetch listing score metrics and publish approved posts.</li>
+              <li><strong>Meta WhatsApp Cloud API:</strong> To send automated audit notifications and opt-in broadcast updates.</li>
+              <li><strong>Razorpay Gateway:</strong> Encrypted payment tokenization for billing processing.</li>
             </ul>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>6. Data Control &amp; Account Deletion Rights</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>6. Data Control &amp; Deletion Rights</h2>
             <p>
-              You maintain full ownership of your data. You may request a export of your parent lead records or request permanent deletion of your account and associated data by emailing <strong>support@growlokal.com</strong>.
+              You maintain full ownership of your data. You may request an export of your customer lead records or request permanent deletion of your account and associated data by emailing <strong>support@growlokal.com</strong>.
             </p>
           </section>
 

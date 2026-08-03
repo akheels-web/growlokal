@@ -986,7 +986,7 @@ export default function Home() {
 
       {/* ─── FINAL CTA ─── */}
       <Section className="cta-section">
-        <h2 className="cta-title">Ready to stop losing admissions?</h2>
+        <h2 className="cta-title">Ready to stop losing local customers?</h2>
         <p className="cta-subtitle">Get your free Google visibility report in 30 seconds. No signup required.</p>
         <div className="cta-buttons">
           <a href="#audit-form" className="btn-primary">Get Free Google Report →</a>
@@ -1002,7 +1002,7 @@ export default function Home() {
             <div className="footer-brand-col">
               <a href="/" className="footer-brand">Grow<span>Lokal</span></a>
               <p className="footer-tagline">
-                The #1 AI Marketing Platform built exclusively for Coaching &amp; Tuition Centers in South India. Grow your admissions on Google, WhatsApp, and social media on autopilot.
+                The #1 AI Marketing Platform built for South Indian Local Businesses. Grow your sales on Google, WhatsApp, and social media on autopilot.
               </p>
               <div className="footer-lang-badges">
                 <span className="footer-lang-badge">🇮🇳 Telugu</span>
@@ -1017,7 +1017,7 @@ export default function Home() {
               <h4 className="footer-col-title">Free Growth Tools</h4>
               <ul className="footer-links-list">
                 <li className="footer-link-item"><a href="/tools/google-score-calculator">Google Score Benchmark</a></li>
-                <li className="footer-link-item"><a href="/tools/admission-roi-calculator">Admission ROI Calculator</a></li>
+                <li className="footer-link-item"><a href="/tools/admission-roi-calculator">Revenue Growth Calculator</a></li>
                 <li className="footer-link-item"><a href="/resources/whatsapp-kit">WhatsApp Growth Kit</a></li>
                 <li className="footer-link-item"><a href="/blog">Local SEO Playbooks</a></li>
                 <li className="footer-link-item"><a href="#audit-form">Free Google Audit</a></li>
@@ -1028,11 +1028,11 @@ export default function Home() {
             <div>
               <h4 className="footer-col-title">Solutions</h4>
               <ul className="footer-links-list">
-                <li className="footer-link-item"><a href="#industries">IIT &amp; NEET Coaching</a></li>
-                <li className="footer-link-item"><a href="#industries">School Tuition Centers</a></li>
-                <li className="footer-link-item"><a href="#industries">Skill &amp; Coding Academies</a></li>
-                <li className="footer-link-item"><a href="#industries">Competitive Exam Centers</a></li>
-                <li className="footer-link-item"><a href="#industries">Language Schools</a></li>
+                <li className="footer-link-item"><a href="#industries">Clinics &amp; Healthcare</a></li>
+                <li className="footer-link-item"><a href="#industries">Salons &amp; Spas</a></li>
+                <li className="footer-link-item"><a href="#industries">Restaurants &amp; Cafes</a></li>
+                <li className="footer-link-item"><a href="#industries">Retail &amp; Boutiques</a></li>
+                <li className="footer-link-item"><a href="#industries">Coaching &amp; Tuitions</a></li>
               </ul>
             </div>
 

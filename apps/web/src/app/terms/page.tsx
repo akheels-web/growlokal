@@ -46,7 +46,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>1. Introduction &amp; Platform Overview</h2>
             <p>
-              Welcome to <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;). GrowLokal provides an autonomous AI-powered local marketing and enquiry generation platform built exclusively for coaching institutes, tuition centers, competitive exam academies, and local education businesses in South India.
+              Welcome to <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;). GrowLokal provides an autonomous AI-powered local marketing and enquiry generation platform built for clinics, salons, restaurants, retail stores, tuition centers, and local businesses in South India.
             </p>
             <p style={{ marginTop: '12px' }}>
               By accessing our website, signing up for an account, using our Google Business Profile audit tool, or subscribing to our Growth Plan, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
@@ -59,16 +59,16 @@ export default function TermsPage() {
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Free Google Business Audit:</strong> Automated scanning and scoring of your Google Maps presence, NAP consistency, and review response rate.</li>
               <li><strong>Google Leads AI Agent:</strong> Automated generation of weekly posts, keywords optimization, and professional review replies.</li>
-              <li><strong>WhatsApp Chat Agent:</strong> 24/7 automated parent enquiry responder operating natively in Telugu, Tamil, Kannada, and English.</li>
+              <li><strong>WhatsApp Chat Agent:</strong> 24/7 automated customer enquiry responder operating natively in Telugu, Tamil, Kannada, and English.</li>
               <li><strong>Social Media Scheduler:</strong> AI-assisted post generation and scheduling for Instagram Business and Facebook Pages.</li>
-              <li><strong>WhatsApp Broadcast Campaigns:</strong> Opt-in promotional campaign broadcasting for batch announcements, festival offers, and exam result celebrations.</li>
+              <li><strong>WhatsApp Broadcast Campaigns:</strong> Opt-in promotional campaign broadcasting for new launches, festival offers, and customer promotions.</li>
             </ul>
           </section>
 
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>3. User Account &amp; Responsibilities</h2>
             <p>
-              To access GrowLokal tools, you must register using a valid Indian mobile number and verify via OTP. You are responsible for maintaining the confidentiality of your account credentials. You agree to provide accurate information regarding your coaching center&apos;s registered business name, location, and contact details.
+              To access GrowLokal tools, you must register using a valid Indian mobile number and verify via OTP. You are responsible for maintaining the confidentiality of your account credentials. You agree to provide accurate information regarding your registered business name, location, and contact details.
             </p>
           </section>
 
@@ -79,8 +79,8 @@ export default function TermsPage() {
             </p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li>Use GrowLokal to broadcast unsolicited commercial messages or spam to contacts who have not opted in or requested information.</li>
-              <li>Publish false, misleading, defamatory, or fraudulent content regarding course admissions, fee structures, or exam guarantees.</li>
-              <li>Upload malicious code, scrape parent data, or reverse engineer any portion of the GrowLokal AI Engine.</li>
+              <li>Publish false, misleading, defamatory, or fraudulent content regarding services, pricing structures, or business offers.</li>
+              <li>Upload malicious code, scrape customer data, or reverse engineer any portion of the GrowLokal AI Engine.</li>
             </ul>
           </section>
 

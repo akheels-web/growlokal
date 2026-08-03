@@ -4,18 +4,17 @@ import './globals.css';
 export const metadata = {
   metadataBase: new URL('https://growlokal.com'),
   title: {
-    default: 'GrowLokal — Autonomous AI Marketing Platform for Coaching & Tuition Centers',
+    default: 'GrowLokal — Autonomous AI Marketing Platform for South Indian Local Businesses',
     template: '%s | GrowLokal Technologies',
   },
   description:
-    'Get a free instant Google Business Profile report for your coaching institute or tuition center. AI-driven local marketing, WhatsApp auto-replies, Google post automation, and broadcast campaigns in Telugu, Tamil, Kannada & English.',
+    'Get a free instant Google Business Profile report for your local clinic, salon, store, restaurant, or business. AI-driven local marketing, WhatsApp auto-replies, Google post automation, and broadcast campaigns in Telugu, Tamil, Kannada & English.',
   keywords: [
-    'coaching center marketing app',
-    'tuition center Google visibility report',
-    'Google Business Profile audit for institutes',
+    'local business marketing app',
+    'Google Business Profile audit for local stores',
     'WhatsApp marketing automation South India',
-    'AI marketing tool for Hyderabad coaching centers',
-    'IIT JEE NEET coaching center growth tool',
+    'AI marketing tool for Hyderabad local businesses',
+    'clinic salon store growth tool',
     'vernacular marketing Telugu Tamil Kannada',
     'GrowLokal Technologies',
   ],
@@ -34,9 +33,9 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: 'GrowLokal — Autonomous AI Marketing for Coaching & Tuition Centers',
+    title: 'GrowLokal — Autonomous AI Marketing for South Indian Local Businesses',
     description:
-      'Is your coaching center invisible on Google? Get a free 30-second audit report and automate your WhatsApp parent enquiries & Google posts in Telugu, Tamil, and English.',
+      'Is your local business invisible on Google? Get a free 30-second audit report and automate your WhatsApp customer enquiries & Google posts in Telugu, Tamil, and English.',
     type: 'website',
     url: 'https://growlokal.com',
     siteName: 'GrowLokal',
@@ -46,14 +45,14 @@ export const metadata = {
         url: 'https://growlokal.com/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'GrowLokal AI Marketing Platform for South Indian Coaching Centers',
+        alt: 'GrowLokal AI Marketing Platform for South Indian Local Businesses',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GrowLokal — AI Marketing for Coaching & Tuition Centers',
-    description: 'Automate Google posts, WhatsApp parent enquiries & campaigns for your coaching center.',
+    title: 'GrowLokal — AI Marketing for South Indian Local Businesses',
+    description: 'Automate Google posts, WhatsApp customer enquiries & campaigns for your business.',
     images: ['https://growlokal.com/og-image.png'],
   },
   alternates: {
@@ -94,7 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           availability: 'https://schema.org/InStock',
         },
         description:
-          'Autonomous AI local marketing software for coaching centers, tuition institutes, and academies in South India.',
+          'Autonomous AI local marketing software for clinics, salons, stores, restaurants, and local businesses in South India.',
       },
     ],
   };
