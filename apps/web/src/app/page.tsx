@@ -843,23 +843,63 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ─── INDUSTRY FOCUS ─── */}
+      {/* ─── BUILT FOR SMALL BUSINESS OWNERS ─── */}
       <Section id="industries">
         <div className="section-header">
-          <p className="section-eyebrow">Built for your niche</p>
-          <h2 className="section-title">Specifically designed for South Indian local businesses</h2>
-          <p className="section-subtitle">We&apos;re not a generic marketing tool. Every feature is built for local clinics, salons, restaurants &amp; stores in South India.</p>
+          <p className="section-eyebrow">Tailored for Every Local Niche</p>
+          <h2 className="section-title">Built for Small Business Owners</h2>
+          <p className="section-subtitle">You focus on your craft and leave the hassle of growth marketing to GrowLokal AI</p>
         </div>
-        <div ref={industryView.ref} className="industry-grid stagger-children">
-          {INDUSTRIES.map((ind, i) => (
-            <div key={ind.name} className={`industry-card fade-up ${industryView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="industry-icon">{ind.icon}</div>
-              <div>
-                <div className="industry-name">{ind.name}</div>
-                <div className="industry-desc">{ind.desc}</div>
+        <div ref={industryView.ref} className="biz-showcase-grid stagger-children">
+          {BUSINESS_TYPES.map((biz, i) => (
+            <div
+              key={biz.name}
+              className={`biz-showcase-card fade-up ${industryView.visible ? 'visible' : ''}`}
+              style={{ transitionDelay: `${i * 60}ms` }}
+            >
+              <div className="biz-showcase-title">{biz.name}</div>
+              <div className="biz-showcase-img-wrap">
+                <img src={biz.image} alt={biz.name} className="biz-showcase-img" />
               </div>
             </div>
           ))}
+
+          {/* Feature CTA Card matching Grexa style */}
+          <div
+            className={`biz-showcase-cta-card fade-up ${industryView.visible ? 'visible' : ''}`}
+            style={{ transitionDelay: `${BUSINESS_TYPES.length * 60}ms` }}
+          >
+            <div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '6px' }}>
+                And many more businesses like yours
+              </div>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.94rem', margin: 0, lineHeight: 1.4 }}>
+                Get more leads &amp; customers from Google Maps &amp; WhatsApp on autopilot.
+              </p>
+            </div>
+            <a
+              href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20know%20more%20about%20GrowLokal"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '13px 24px',
+                background: '#25D366',
+                color: '#ffffff',
+                fontWeight: '800',
+                borderRadius: '50px',
+                textDecoration: 'none',
+                fontSize: '14px',
+                boxShadow: '0 4px 16px rgba(37, 211, 102, 0.4)',
+                whiteSpace: 'nowrap',
+                flexShrink: 0
+              }}
+            >
+              <span>💬 Try on WhatsApp</span>
+            </a>
+          </div>
         </div>
       </Section>
 
@@ -1273,15 +1313,15 @@ const AGENTS = [
   },
 ];
 
-const INDUSTRIES = [
-  { icon: '🏥', name: 'Clinics & Healthcare', desc: 'Dental, Skin & Hair, Diagnostics, Ayush Clinics' },
-  { icon: '💇', name: 'Salons & Spas', desc: 'Unisex Salons, Spas, Bridal Makeup Studios' },
-  { icon: '🍽️', name: 'Restaurants & Cafes', desc: 'Fine Dining, Bakeries, Cafes, Cloud Kitchens' },
-  { icon: '🛍️', name: 'Retail & Boutiques', desc: 'Fashion Boutiques, Jewelry, Electronics, Supermarkets' },
-  { icon: '🏋️', name: 'Fitness & Gyms', desc: 'Gyms, Yoga Centers, Martial Arts Academies' },
-  { icon: '🏡', name: 'Real Estate & Home', desc: 'Property Agencies, Interior Design Studios' },
-  { icon: '🚗', name: 'Local Services', desc: 'Car Wash, Auto Repair, Event Planners' },
-  { icon: '🎓', name: 'Academies & Learning', desc: 'Skill Centers, Language & Training Classes' },
+const BUSINESS_TYPES = [
+  { name: 'Gym & Fitness Centres', image: '/images/biz_gym.png' },
+  { name: 'Doctors & Health Clinics', image: '/images/biz_doctor.png' },
+  { name: 'Bakers & Cake Shops', image: '/images/biz_baker.png' },
+  { name: 'Salon Owners & Spas', image: '/images/biz_salon.png' },
+  { name: 'Restaurants & Cafes', image: '/images/biz_chef.png' },
+  { name: 'Car Garages & Mechanics', image: '/images/biz_mechanic.png' },
+  { name: 'Tours & Travel Agencies', image: '/images/biz_travel.png' },
+  { name: 'Handyman & Repair Services', image: '/images/biz_handyman.png' },
 ];
 
 const TESTIMONIALS = [
