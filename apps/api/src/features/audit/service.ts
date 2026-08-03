@@ -104,7 +104,7 @@ async function upsertLead(
   }
   const row = await queryOne<{ id: string }>(
     `INSERT INTO leads (phone, business_name, vertical, city, place_id, stage, source, audit_score)
-     VALUES ($1, $2, 'coaching', $3, $4, 'new', 'audit_bot', $5)
+     VALUES ($1, $2, 'local_business', $3, $4, 'new', 'audit_bot', $5)
      RETURNING id`,
     [phone, businessName, city, placeId ?? null, score]
   );
@@ -154,7 +154,7 @@ async function notFoundMessage(name: string, lang: Lang): Promise<string> {
     return (
       await generate({
         system: AUDIT_SYSTEM,
-        prompt: `A coaching center called "${name}" could NOT be found on Google Business Profile at all. Write a short WhatsApp message in ${lang === 'te' ? 'Telugu' : 'the local language'} explaining that not being on Google means they are invisible to parents searching for coaching nearby, that this is the single biggest thing losing them admissions, and it can be fixed quickly. End with: reply "DEMO" for a free call. Under 700 chars, 2 emojis max.`,
+        prompt: `A local business called "${name}" could NOT be found on Google Business Profile at all. Write a short WhatsApp message in ${lang === 'te' ? 'Telugu' : 'the local language'} explaining that not being on Google means they are invisible to customers searching nearby, that this is losing them new sales & calls, and it can be fixed quickly. End with: reply "DEMO" for a free call. Under 700 chars, 2 emojis max.`,
         tier: 'quality',
         maxTokens: 400,
       })
@@ -167,7 +167,7 @@ async function notFoundMessage(name: string, lang: Lang): Promise<string> {
 function fallbackMessage(name: string, score: number, lang: Lang): string {
   // Used only if the LLM is unreachable. Kept simple + bilingual-ish.
   if (lang === 'te') {
-    return `నమస్తే! 🙏 ${name} కోసం మీ Google presence score: ${score}/100. కొన్ని ముఖ్యమైన సమస్యలు ఉన్నాయి — వాటిని సరిచేస్తే ఎక్కువ admission enquiries వస్తాయి. ఉచిత సహాయం కోసం "DEMO" అని reply చేయండి.`;
+    return `నమస్తే! 🙏 ${name} కోసం మీ Google presence score: ${score}/100. కొన్ని ముఖ్యమైన సమస్యలు ఉన్నాయి — వాటిని సరిచేస్తే ఎక్కువ మంది కస్టమర్లు మరియు కాల్స్ వస్తాయి. ఉచిత సహాయం కోసం "DEMO" అని reply చేయండి.`;
   }
-  return `Hi! 🙏 Your Google presence score for ${name} is ${score}/100. There are a few important issues costing you admission enquiries — all fixable. Reply "DEMO" for a free call to fix the biggest one.`;
+  return `Hi! 🙏 Your Google presence score for ${name} is ${score}/100. There are a few important issues costing you new customer sales & bookings — all fixable. Reply "DEMO" for a free call to fix the biggest one.`;
 }

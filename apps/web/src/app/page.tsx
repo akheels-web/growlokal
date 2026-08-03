@@ -277,29 +277,58 @@ export default function Home() {
   const t = I18N[lang];
 
   const [businessName, setBusinessName] = useState('');
-  const [industry, setIndustry] = useState('coaching');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ score: number; message: string } | null>(null);
   const [error, setError] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
-  // Live Autocomplete State
+  // Live Autocomplete State & Sample Fallback Database
   const [suggestions, setSuggestions] = useState<Array<{ placeId: string; name: string; address: string }>>([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const SAMPLE_PLACES = [
+    { placeId: 'p1', name: 'Digitalvint', address: 'Banjara Hills, Hyderabad, Telangana' },
+    { placeId: 'p2', name: 'Green Trends Unisex Hair & Beauty Salon', address: 'Ameerpet, Hyderabad, Telangana' },
+    { placeId: 'p3', name: 'Apollo Dental Clinic', address: 'Jubilee Hills, Hyderabad, Telangana' },
+    { placeId: 'p4', name: 'Almond House Sweet Shop & Bakery', address: 'Himayatnagar, Hyderabad, Telangana' },
+    { placeId: 'p5', name: 'Bawarchi Biryani Restaurant', address: 'RTC X Roads, Musheerabad, Hyderabad' },
+    { placeId: 'p6', name: "Dr. Batra's Positive Health Clinic", address: 'Secunderabad, Telangana' },
+    { placeId: 'p7', name: 'Gold Gym Fitness Center', address: 'Madhapur, Hitech City, Hyderabad' },
+    { placeId: 'p8', name: 'Pista House Haleem & Bakery', address: 'Charminar, Old City, Hyderabad' },
+    { placeId: 'p9', name: 'Narayana Dental & Maxillofacial Care', address: 'Kukatpally, Hyderabad, Telangana' },
+    { placeId: 'p10', name: 'Naturals Beauty Salon & Spa', address: 'Anna Nagar, Chennai, Tamil Nadu' },
+    { placeId: 'p11', name: 'Apollo Pharmacy & Diagnostic Center', address: 'Jayanagar, Bengaluru, Karnataka' },
+  ];
+
   const handleNameChange = async (val: string) => {
     setBusinessName(val);
-    if (val.trim().length >= 2) {
+    const queryStr = val.trim().toLowerCase();
+    if (queryStr.length >= 2) {
+      const localMatches = SAMPLE_PLACES.filter(
+        p => p.name.toLowerCase().includes(queryStr) || p.address.toLowerCase().includes(queryStr)
+      );
+
       try {
         const res = await fetch(`${API}/api/audit/autocomplete?q=${encodeURIComponent(val)}`);
         if (res.ok) {
           const data = await res.json();
-          setSuggestions(data.suggestions || []);
+          const apiSuggestions = data.suggestions || [];
+          const combined = [...apiSuggestions];
+          localMatches.forEach(lm => {
+            if (!combined.some(c => c.name.toLowerCase() === lm.name.toLowerCase())) {
+              combined.push(lm);
+            }
+          });
+          setSuggestions(combined.length > 0 ? combined : [{ placeId: 'custom', name: val, address: 'Google Maps Business' }]);
+          setShowDropdown(true);
+        } else {
+          setSuggestions(localMatches.length > 0 ? localMatches : [{ placeId: 'custom', name: val, address: 'Google Business Profile' }]);
           setShowDropdown(true);
         }
-      } catch (err) {
-        setSuggestions([]);
+      } catch {
+        setSuggestions(localMatches.length > 0 ? localMatches : [{ placeId: 'custom', name: val, address: 'Google Business Profile' }]);
+        setShowDropdown(true);
       }
     } else {
       setSuggestions([]);
@@ -330,7 +359,7 @@ export default function Home() {
     try {
       const res = await fetch(`${API}/api/audit/run`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ businessName: cleanName, phone: cleanPhone, city: 'Hyderabad', lang, industry }),
+        body: JSON.stringify({ businessName: cleanName, phone: cleanPhone, city: 'Hyderabad', lang }),
       });
       if (res.status === 429) {
         throw new Error('Too many audit scans. Please wait a minute before trying again.');
@@ -343,7 +372,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [businessName, phone, lang, industry]);
+  }, [businessName, phone, lang]);
 
   const painView = useInView();
   const stepsView = useInView();
@@ -445,14 +474,22 @@ export default function Home() {
             <p className="audit-card-subtitle">{t.auditSub}</p>
             <form onSubmit={runAudit} className="audit-form">
               <div className="input-with-icon" style={{ position: 'relative' }}>
-                <span className="input-icon">🏫</span>
-                <input id="audit-business-name" required placeholder={t.namePlaceholder}
-                  value={businessName} onChange={e => handleNameChange(e.target.value)} className="form-input" />
+                <span className="input-icon">🔍</span>
+                <input
+                  id="audit-business-name"
+                  required
+                  placeholder="Search your Google Business Name (e.g. Digitalvint, Green Trends)"
+                  value={businessName}
+                  onChange={e => handleNameChange(e.target.value)}
+                  onFocus={() => businessName.trim().length >= 2 && setShowDropdown(true)}
+                  className="form-input"
+                  autoComplete="off"
+                />
                 {showDropdown && suggestions.length > 0 && (
                   <div style={{
                     position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                    background: '#ffffff', border: '1.5px solid #cbd5e1', borderRadius: '12px',
-                    boxShadow: '0 8px 24px rgba(3, 53, 64, 0.15)', maxHeight: '220px', overflowY: 'auto'
+                    background: '#ffffff', border: '1.5px solid #2E9AA6', borderRadius: '14px',
+                    boxShadow: '0 12px 32px rgba(3, 53, 64, 0.2)', maxHeight: '240px', overflowY: 'auto'
                   }}>
                     {suggestions.map((item, idx) => (
                       <div key={idx}
@@ -460,49 +497,51 @@ export default function Home() {
                           setBusinessName(item.name);
                           setShowDropdown(false);
                         }}
-                        style={{ padding: '10px 16px', cursor: 'pointer', borderBottom: '1px solid #f1f5f9', fontSize: '14px' }}>
-                        <strong style={{ color: '#033540', display: 'block' }}>{item.name}</strong>
+                        style={{
+                          padding: '12px 16px',
+                          cursor: 'pointer',
+                          borderBottom: idx === suggestions.length - 1 ? 'none' : '1px solid #f1f5f9',
+                          fontSize: '14px',
+                          transition: 'background 0.15s ease'
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f0fdf4')}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = '#ffffff')}
+                      >
+                        <strong style={{ color: '#033540', display: 'block', fontSize: '14px' }}>📍 {item.name}</strong>
                         <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-              <div className="input-with-icon">
-                <span className="input-icon">🏢</span>
-                <select
-                  id="audit-industry"
-                  value={industry}
-                  onChange={e => setIndustry(e.target.value)}
-                  className="form-input"
-                  style={{ cursor: 'pointer', appearance: 'auto', background: '#ffffff' }}
-                >
-                  <option value="coaching">🎓 Coaching &amp; Tuition Center</option>
-                  <option value="healthcare">🏥 Clinic, Dental &amp; Healthcare</option>
-                  <option value="beauty">💇 Salon, Spa &amp; Beauty Studio</option>
-                  <option value="restaurant">🍽️ Restaurant, Cafe &amp; Bakery</option>
-                  <option value="retail">🛍️ Retail Store &amp; Fashion Boutique</option>
-                  <option value="fitness">🏋️ Gym, Fitness &amp; Yoga Center</option>
-                  <option value="realestate">🏡 Real Estate &amp; Home Services</option>
-                  <option value="services">🚗 Auto Repair &amp; Local Services</option>
-                </select>
-              </div>
+
               <div>
-                <div className="input-with-icon">
-                  <span className="input-icon">💬</span>
-                  <input id="audit-phone" required placeholder="🇮🇳 10-digit WhatsApp number (e.g. 9876543210)" type="tel"
-                    value={phone} onChange={e => setPhone(e.target.value)} className="form-input" />
+                <div className="input-with-icon" style={{ display: 'flex', alignItems: 'center' }}>
+                  <span className="input-icon" style={{ fontSize: '13px', fontWeight: 800, color: '#0E4459', paddingRight: '4px' }}>
+                    🇮🇳 +91
+                  </span>
+                  <input
+                    id="audit-phone"
+                    required
+                    placeholder="Enter 10-digit WhatsApp number"
+                    type="tel"
+                    maxLength={10}
+                    value={phone}
+                    onChange={e => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
+                    className="form-input"
+                  />
                 </div>
-                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.75)', marginTop: '4px', textAlign: 'left', paddingLeft: '4px' }}>
-                  ℹ️ Enter 10-digit mobile number (country code +91 added automatically)
+                <div style={{ fontSize: '11px', color: '#5e7984', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
+                  🔒 100% Private • Instant WhatsApp Audit Report Delivery
                 </div>
               </div>
-              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '6px' }}>
+
+              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '8px' }}>
                 {loading ? <><span className="spinner" />{t.btnLoading}</> : t.btnAudit}
               </button>
             </form>
             <div className="audit-trust-strip">
-              <span>🔒 100% Free</span> • <span> Instant WhatsApp Delivery</span> • <span>⚡ 500+ Audited</span>
+              <span>🔒 100% Free</span> • <span>Instant WhatsApp Delivery</span> • <span>⚡ 500+ Audited</span>
             </div>
             {loading && (
               <div className="radar-scan-box">

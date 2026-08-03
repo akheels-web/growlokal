@@ -257,7 +257,7 @@ export default function GoogleScoreCalculatorPage() {
                   textAlign: 'center'
                 }}>
                   <div style={{ fontSize: '13px', fontWeight: '700', color: '#dc2626', textTransform: 'uppercase' }}>
-                    YOUR CENTER
+                    YOUR BUSINESS
                   </div>
                   <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#033540', margin: '4px 0 12px' }}>
                     {centerName}
