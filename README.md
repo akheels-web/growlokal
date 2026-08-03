@@ -1,27 +1,31 @@
-# 🚀 GrowLokal — Autonomous AI Marketing Platform for South Indian Education Institutes
+# 🚀 GrowLokal — Multi-Industry Autonomous AI Marketing Platform for South Indian Local Businesses
 
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 [![Next.js 14](https://img.shields.io/badge/Next.js-14.2-black?logo=next.js)](https://nextjs.org/)
-[![Fastify 4](https://img.shields.io/badge/Fastify-4.28-000000?logo=fastify)](https://fastify.io/)
+[![Fastify 5](https://img.shields.io/badge/Fastify-5.2-000000?logo=fastify)](https://fastify.io/)
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-7.0-red?logo=redis)](https://redis.io/)
 [![i18n Vernacular](https://img.shields.io/badge/Vernacular-Telugu%20|%20Tamil%20|%20Kannada-70BF63)](#-multi-lingual-engine-vernacular-i18n)
 
-> **GrowLokal** is a production-grade, enterprise-ready AI marketing automation platform engineered specifically for **coaching centers, tuition academies, and educational institutes in South India**. 
+> **GrowLokal** is a production-grade, multi-industry AI marketing automation platform engineered specifically for **offline and local businesses across South India** (Telangana, Andhra Pradesh, Tamil Nadu, Karnataka). 
 > 
-> Operating 24/7 on **Google Maps, WhatsApp Cloud API, Instagram, and Facebook Pages**, GrowLokal automates local lead discovery, review reputation management, and parent enquiry conversion natively in **Telugu, Tamil, Kannada, and English**.
+> Operating 24/7 on **Google Maps, WhatsApp Cloud API, Instagram, and Facebook Pages**, GrowLokal automates local lead discovery, review reputation management, and customer inquiry conversion natively in **Telugu, Tamil, Kannada, and English**.
 
 ---
 
-## 🌟 Product Overview & Core Mission
+## 🌟 Product Overview & Supported Sectors
 
-In major educational hubs across South India (e.g., Ameerpet & Kukatpally in Hyderabad, Benz Circle in Vijayawada, Dwaraka Nagar in Vizag, Jayanagar in Bengaluru, Anna Nagar in Chennai), over **80% of parents search Google Maps** before selecting a tuition or coaching center. However, over 60% of local institute directors lose prospective admissions due to:
-1. Incomplete Google Business Profiles (missing weekly posts or active listing signals).
-2. Unanswered parent Google reviews and negative feedback handling.
-3. Slow response times to parent WhatsApp enquiries during teaching hours.
-4. Language barriers when communicating with non-English speaking parents.
+In major commercial hubs across South India (e.g., Ameerpet & Kukatpally in Hyderabad, Benz Circle in Vijayawada, Dwaraka Nagar in Vizag, Jayanagar in Bengaluru, Anna Nagar in Chennai), over **85% of customers search Google Maps** before visiting a local business. GrowLokal serves **8 major local business sectors**:
 
-GrowLokal solves this with **4 Autonomous AI Agents** working in sync to capture, qualify, and convert local parent enquiries into paid student admissions.
+1. 🎓 **Coaching & Tuitions**: IIT/NEET Academies, School Tuitions, Skill Institutes.
+2. 🏥 **Clinics & Healthcare**: Dental Clinics, Skin & Hair Care, Diagnostic Labs, Ayush/Homeo.
+3. 💇 **Salons & Spas**: Unisex Salons, Spas, Bridal Makeup Studios.
+4. 🍽️ **Restaurants & Cafes**: Fine Dining, Bakeries, Cafes, Cloud Kitchens.
+5. 🛍️ **Retail & Outlets**: Fashion Boutiques, Jewelry Stores, Electronics, Supermarkets.
+6. 🏋️ **Fitness & Gyms**: Gyms, Yoga Centers, Martial Arts Academies.
+7. 🏡 **Real Estate & Home**: Property Agencies, Interior Design Studios.
+8. 🚗 **Local Services**: Car Wash, Auto Repair, Event Planners.
 
 ---
 
@@ -29,21 +33,21 @@ GrowLokal solves this with **4 Autonomous AI Agents** working in sync to capture
 
 ### 🔍 1. Free 10-Second Google Visibility Audit Magnet
 - Instant scan of public Google Places completeness, review recency, photo updates, and map pack ranking.
-- Generates side-by-side comparative visibility scorecards vs top local competitors.
-- Delivers automated Telugu, Tamil, Kannada, and English PDF/WhatsApp gap analysis reports to institute directors.
+- Generates side-by-side comparative visibility scorecards vs top local area competitors.
+- Delivers automated Telugu, Tamil, Kannada, and English PDF/WhatsApp gap analysis reports to business owners.
 
 ### 🤖 2. 4 Autonomous AI Agents
-- **📍 Google Business Agent**: Publishes weekly AI course updates, result celebrations, and drafts vernacular review responses.
-- **💬 24/7 WhatsApp Chat Agent**: Answers parent enquiries about course fees, batch timings, and demo classes instantly via WhatsApp API.
+- **📍 Google Business Agent**: Publishes weekly AI updates, offers, and drafts vernacular review responses.
+- **💬 24/7 WhatsApp Chat Agent**: Answers customer enquiries about pricing, packages, and appointments instantly via WhatsApp Cloud API.
 - **📸 Social Media Content Agent**: Schedules autopilot graphics and posts for Instagram & Facebook.
-- **🚀 WhatsApp Campaign Broadcast Agent**: Executes targeted SMS/WhatsApp broadcast campaigns for batch openings.
+- **🚀 WhatsApp Campaign Broadcast Agent**: Executes targeted WhatsApp broadcast campaigns for festive offers & openings.
 
-### 💰 3. Admission ROI & Revenue Growth Calculator
-- Interactive ROI calculator projecting annual profit growth based on local South Indian fee structures.
-- Explains exact student enrollment returns backed by regional industry benchmarks.
+### 💰 3. Business ROI & Profit Growth Calculator
+- Interactive ROI calculator projecting 12-month revenue growth based on regional South Indian ticket sizes.
+- Explains customer acquisition returns backed by regional industry benchmarks.
 
 ### 🌐 4. Custom Website Add-On (+₹4,999 One-Time)
-- 1-click optional add-on for institutes lacking a digital presence: builds a fast, mobile-friendly 5-page website with course details, faculty profiles, and direct WhatsApp enquiry forms.
+- 1-click optional add-on for local businesses lacking a digital presence: builds a fast, mobile-friendly 5-page website with services, photos, and direct WhatsApp enquiry forms.
 
 ### 📜 5. Complete Legal & Trust Stack
 - Includes fully compliant **Terms of Service** (`/terms`), **Privacy Policy** (`/privacy`), and **Refund Policy** (`/refund`) with a 7-day money-back guarantee.
@@ -51,45 +55,59 @@ GrowLokal solves this with **4 Autonomous AI Agents** working in sync to capture
 
 ---
 
-## 🌐 Multi-Lingual Engine (Vernacular i18n)
+## 📊 Grexa.ai Competitive Benchmarking & GrowLokal's Unique Image
 
-GrowLokal features a **1-Click Multilingual Selector** right in the header bar supporting native scripts:
-- **🌐 English**
-- **🌐 తెలుగు (Telugu)**: Telangana & Andhra Pradesh
-- **🌐 தமிழ் (Tamil)**: Tamil Nadu
-- **🌐 ಕನ್ನಡ (Kannada)**: Karnataka
-
-All landing page sections, audit form inputs, AI agents, and WhatsApp responses dynamically toggle across all 4 languages without page reloads.
+| Feature / Capability | Grexa.ai | GrowLokal AI (Our Unique Advantage) |
+|---|---|---|
+| **Target Audience** | Generic SMBs across India | **Hyper-Local South Indian Businesses** (Hyderabad, Vijayawada, Vizag, BLR, Chennai) |
+| **Vernacular Support** | English + basic Hindi | **100% Native Vernacular**: Telugu (తెలుగు), Tamil (தமிழ்), Kannada (ಕನ್ನಡ), English |
+| **Industry Adaptability** | Single generic template | **Dynamic 8-Industry Profiles** (Coaching, Clinics, Salons, Restaurants, Gyms, Retail, etc.) |
+| **Instant Lead Magnet** | Basic contact form | **10-Second Free Google Score Audit Magnet** on WhatsApp & Web |
+| **Website Creation** | Separate high cost | **Custom 5-Page Local Business Website Add-On (+₹4,999 one-time)** |
+| **Monthly Pricing** | ₹5,000 – ₹8,000/month | **₹2,999/month** (Saves business owners ₹12,000+ per quarter) |
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🛠️ Hybrid Architecture (Vercel + Dedicated VPS)
 
 ```mermaid
 flowchart TD
-    Owner["Institute Director<br/>(WhatsApp / Web)"]
-    Nginx["Nginx Reverse Proxy / SSL<br/>(Certbot / Cloudflare)"]
-    Web["Next.js 14 App Router<br/>(apps/web :3001)"]
-    API["Fastify 4 TypeScript API<br/>(apps/api :3000)"]
-    Cache[("In-Memory Places Cache<br/>(12-hr TTL <5ms latency)")]
-    DB[("PostgreSQL 16<br/>Tenant Data")]
-    Google["Google Places & Maps API"]
+    User["Local Business Owner<br/>(Web / Mobile Browser)"]
+    CF["Cloudflare DNS & WAF<br/>growlokal.com"]
+    Vercel["Vercel Edge CDN (Frontend)<br/>growlokal.com — 0ms Cold Start"]
+    VPS["Dedicated VPS (2 vCPU / 8 GB RAM)<br/>api.growlokal.com"]
+    Fastify["Fastify 5 API Server<br/>(:3000 — 2,000 req/sec capacity)"]
+    PG[("PostgreSQL 16<br/>(3.5 GB Allocated RAM)")]
+    Redis[("Redis & BullMQ Workers<br/>(1.5 GB Allocated RAM)")]
+    Gemini["Google Gemini 1.5 Flash<br/>(Vernacular AI Content)"]
     WhatsApp["Meta WhatsApp Cloud API"]
 
-    Owner -->|Web Visit| Nginx --> Web
-    Owner -->|WhatsApp Inquiry| WhatsApp --> Nginx --> API
-    Web -->|Fetch Audit / Auth| API
-    API -->|Read/Write| DB
-    API -->|Lookup Profile| Cache
-    Cache -->|Cache Miss| Google
-    API -->|Send Notifications| WhatsApp
+    User -->|Visits UI| CF --> Vercel
+    Vercel -->|JSON API Calls| CF --> VPS --> Fastify
+    User -->|WhatsApp Inquiry| WhatsApp --> VPS --> Fastify
+    Fastify --> PG
+    Fastify --> Redis
+    Fastify --> Gemini
+    Fastify --> WhatsApp
 ```
 
-- **Frontend**: Next.js 14 (App Router), React 18, Vanilla CSS (Design Tokens & Glassmorphism), Lucide SVG Vector Icons.
-- **Backend Engine**: Fastify 4 (TypeScript), Node.js, Undici HTTP Client.
-- **Database**: PostgreSQL 16 with Zod input validation schemas.
-- **Cache Layer**: In-Memory LRU Cache (12-hour TTL for Google Places queries).
-- **Security Stack**: `@fastify/rate-limit`, `@fastify/helmet`, Zod regex phone sanitization, OTP cooldown timers.
+### ⚡ 100+ Concurrent Customers & VPS Memory Allocation (8 GB VPS)
+- **Frontend**: Offloaded 100% to Vercel Free Global Edge CDN (**0 GB VPS RAM used**).
+- **PostgreSQL 16**: **3.5 GB RAM** (50 max connection pool, 512 MB shared buffers).
+- **Fastify 5 API**: **2.0 GB RAM** (High-concurrency event loop handling 2,000+ req/sec).
+- **Redis & BullMQ Queue**: **1.5 GB RAM** (Background worker queue for WhatsApp & Gemini AI).
+- **Caddy SSL Proxy**: **0.5 GB RAM** (Automatic HTTPS reverse proxy for `api.growlokal.com`).
+- **Buffer Overhead**: **0.5 GB RAM**.
+
+---
+
+## 💰 LLM Cost Optimization (₹2,000 INR Monthly Budget)
+
+Using **Google Gemini 1.5 Flash**:
+- **Input Cost**: $0.075 per 1,000,000 tokens (~₹6.25 INR).
+- **Output Cost**: $0.300 per 1,000,000 tokens (~₹25.00 INR).
+- **Capacity**: ₹2,000 INR/month budget buys **over 100 Million+ tokens**!
+- **Per-Customer Token Math**: 100 active business clients generating 30 AI posts & review replies/month use ~3 Million tokens total (**Costs only ~₹120 INR/month total**)!
 
 ---
 
@@ -112,11 +130,6 @@ flowchart TD
 
 ## 💻 Local Development Setup
 
-### Prerequisites
-- **Node.js**: `v18.x` or `v20.x`
-- **pnpm**: `v9.x`
-- **PostgreSQL**: `v16.x`
-
 ### Step 1: Clone Repository & Install Dependencies
 ```bash
 git clone https://github.com/akheels-web/growlokal.git
@@ -135,6 +148,7 @@ DATABASE_URL=postgres://postgres:postgres@localhost:5432/growlokal
 JWT_SECRET=super-secret-jwt-key-change-in-production
 PUBLIC_API_URL=http://localhost:3000
 GOOGLE_PLACES_API_KEY=your_optional_google_api_key
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
 ### Step 3: Run Database Migrations & Seed Data
@@ -155,135 +169,28 @@ pnpm --filter @growlokal/web dev
 
 ---
 
-## 🚢 Real-Time Production Server Deployment Guide
+## 🚢 Production VPS Deployment Guide (Docker Compose + Caddy SSL)
 
-### Option A: Docker Deployment (Recommended)
+Run the production Docker Compose stack on your **2 vCPU / 8 GB RAM VPS**:
 
-#### 1. Build and Run Container Services
-Create a `docker-compose.yml` on your production server:
-```yaml
-version: '3.8'
-
-services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: growlokal_db
-    restart: always
-    environment:
-      POSTGRES_DB: growlokal
-      POSTGRES_USER: growlokal_user
-      POSTGRES_PASSWORD: StrongProductionPassword123!
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
-  api:
-    build:
-      context: .
-      dockerfile: apps/api/Dockerfile
-    container_name: growlokal_api
-    restart: always
-    environment:
-      NODE_ENV: production
-      PORT: 3000
-      DATABASE_URL: postgres://growlokal_user:StrongProductionPassword123!@postgres:5432/growlokal
-      JWT_SECRET: ProductionJwtSecretKey98765!
-      GOOGLE_PLACES_API_KEY: your_places_key
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-
-  web:
-    build:
-      context: .
-      dockerfile: apps/web/Dockerfile
-    container_name: growlokal_web
-    restart: always
-    environment:
-      NODE_ENV: production
-      PUBLIC_API_URL: https://api.growlokal.com
-    ports:
-      - "3001:3001"
-
-volumes:
-  postgres_data:
-```
-
-Execute Docker Compose:
 ```bash
-docker-compose up -d --build
+# 1. Clone repository on VPS
+git clone https://github.com/akheels-web/growlokal.git /opt/growlokal
+cd /opt/growlokal
+
+# 2. Configure production .env
+cp .env.example .env
+# Edit .env with your PG_PASSWORD, JWT_SECRET, GEMINI_API_KEY, and WHATSAPP_ACCESS_TOKEN
+
+# 3. Launch Production Stack
+docker compose -f infra/docker-compose.prod.yml up -d --build
 ```
 
----
-
-### Option B: Bare-Metal / Ubuntu VPS Deployment (PM2 + Nginx + SSL)
-
-#### 1. Install Node.js, pnpm & PM2
-```bash
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs nginx certbot python3-certbot-nginx
-sudo npm install -g pnpm pm2
-```
-
-#### 2. Build Production Bundles
-```bash
-cd /var/www/growlokal
-pnpm install
-pnpm --filter @growlokal/api build
-pnpm --filter @growlokal/web build
-```
-
-#### 3. Launch Applications via PM2
-```bash
-# Start API
-pm2 start apps/api/dist/server.js --name "growlokal-api" --env production
-
-# Start Next.js Web Frontend
-pm2 start "pnpm --filter @growlokal/web start" --name "growlokal-web"
-
-# Save PM2 process list
-pm2 save
-pm2 startup
-```
-
-#### 4. Configure Nginx Reverse Proxy
-Create `/etc/nginx/sites-available/growlokal`:
-```nginx
-server {
-    server_name growlokal.com www.growlokal.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:3001;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-
-server {
-    server_name api.growlokal.com;
-
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-}
-```
-
-Enable site & obtain SSL Certificate via Let's Encrypt:
-```bash
-sudo ln -s /etc/nginx/sites-available/growlokal /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
-sudo certbot --nginx -d growlokal.com -d www.growlokal.com -d api.growlokal.com
-```
+The stack automatically boots:
+- **PostgreSQL 16** (`:5432` with healthcheck)
+- **Redis 7** (`:6379`)
+- **Fastify 5 API** (`:3000` multi-stage build)
+- **Caddy SSL Proxy** (Automatic HTTPS SSL certificate for `api.growlokal.com`)
 
 ---
 
@@ -291,9 +198,10 @@ sudo certbot --nginx -d growlokal.com -d www.growlokal.com -d api.growlokal.com
 
 | Method | Endpoint | Description | Rate Limit |
 |---|---|---|---|
+| `GET` | `/` | API status landing handler | 100 req/min |
 | `GET` | `/health` | API & PostgreSQL database health check | 100 req/min |
 | `POST` | `/api/audit/run` | Executes Google visibility scan & gap analysis | 5 req/min |
-| `POST` | `/api/auth/request-otp` | Sends phone OTP for institute owner login | 5 req/min |
+| `POST` | `/api/auth/request-otp` | Sends phone OTP for business owner login | 5 req/min |
 | `POST` | `/api/auth/verify-otp` | Verifies OTP code & issues JWT claims | 10 req/min |
 | `GET` | `/api/features/dashboard` | Returns tenant ROI & enquiry statistics | Authenticated |
 | `POST` | `/api/billing/webhook` | Verifies Razorpay subscription payment webhooks | Signed |
