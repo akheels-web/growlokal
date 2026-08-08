@@ -1880,8 +1880,8 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .biz-showcase-card {
   position: relative;
-  background: #D8ECF8;
-  border: 1.5px solid #C4E0F2;
+  background: linear-gradient(135deg, #e3f2fd 0%, #c4e4f7 100%);
+  border: 1.5px solid #bce0f7;
   border-radius: 20px;
   padding: 22px 16px 22px 22px;
   display: flex;
@@ -1895,7 +1895,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .biz-showcase-card:hover {
   transform: translateY(-5px);
-  background: #D8ECF8;
+  background: linear-gradient(135deg, #d8eefe 0%, #b8e0f8 100%);
   border-color: #2E9AA6;
   box-shadow: 0 14px 36px rgba(46, 154, 166, 0.22);
 }
@@ -1912,7 +1912,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .biz-showcase-img-wrap {
-  width: 52%;
+  width: 55%;
   height: 100%;
   position: absolute;
   right: 0;
@@ -1930,7 +1930,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
