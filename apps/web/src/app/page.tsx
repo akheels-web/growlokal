@@ -905,30 +905,160 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ─── BEFORE / AFTER ─── */}
-      <Section className="section--alt">
+      {/* ─── REAL RESULTS: 30-DAY TRANSFORMATION SHOWCASE ─── */}
+      <Section id="results" className="section--alt results-showcase-section">
         <div className="section-header">
-          <p className="section-eyebrow">Real results</p>
-          <h2 className="section-title">What happens in 30 days with GrowLokal</h2>
+          <p className="section-eyebrow">⚡ Proven ROI &amp; Local Dominance</p>
+          <h2 className="section-title">What Happens in 30 Days with GrowLokal AI</h2>
+          <p className="section-subtitle">
+            From hidden on Google Search &amp; Maps to the #1 choice in your area — fully automated on WhatsApp.
+          </p>
         </div>
-        <div className="score-compare">
-          <div className="score-compare-item">
-            <div className="score-compare-label">Before GrowLokal</div>
-            <div className="score-compare-value score-low">23<span style={{ fontSize: '1.25rem', opacity: 0.5 }}>/100</span></div>
+
+        {/* Before / After Visual Interactive Showcase */}
+        <div className="results-compare-wrapper">
+          {/* Card 1: BEFORE GrowLokal */}
+          <div className="results-card results-card--before">
+            <div className="results-card-badge results-card-badge--before">
+              <span>⚠️ Day 1 — Before GrowLokal</span>
+            </div>
+            
+            <div className="results-img-frame">
+              <img 
+                src="/images/result_before.png" 
+                alt="Business dashboard before GrowLokal showing low score 23" 
+                className="results-img"
+              />
+              <div className="results-img-overlay results-img-overlay--before">
+                <div className="results-score-pill results-score-pill--low">
+                  <span className="results-score-num">23</span>
+                  <span className="results-score-denom">/100</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="results-card-content">
+              <h3 className="results-card-title results-card-title--before">Invisible to Nearby Customers</h3>
+              <p className="results-card-desc">
+                Low Google ranking, missing reviews, no vernacular posts, and zero automated response system.
+              </p>
+              <ul className="results-metrics-list">
+                <li className="results-metric-item metric--negative">
+                  <span className="metric-icon">❌</span>
+                  <span>Google Maps Rank: <strong>#18 in local area</strong></span>
+                </li>
+                <li className="results-metric-item metric--negative">
+                  <span className="metric-icon">❌</span>
+                  <span>Review Response Rate: <strong>0% (Ignored)</strong></span>
+                </li>
+                <li className="results-metric-item metric--negative">
+                  <span className="metric-icon">❌</span>
+                  <span>Monthly Inquiries: <strong>Only 4-5 phone calls</strong></span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="score-compare-arrow">→</div>
-          <div className="score-compare-item">
-            <div className="score-compare-label">After 30 Days</div>
-            <div className="score-compare-value score-high">87<span style={{ fontSize: '1.25rem', opacity: 0.5 }}>/100</span></div>
+
+          {/* Center Badge / Arrow */}
+          <div className="results-compare-arrow-wrap">
+            <div className="results-arrow-circle">
+              <span style={{ fontSize: '18px' }}>⚡</span>
+              <span className="results-arrow-label">30 DAYS</span>
+            </div>
+          </div>
+
+          {/* Card 2: AFTER 30 Days */}
+          <div className="results-card results-card--after">
+            <div className="results-card-badge results-card-badge--after">
+              <span>🚀 Day 30 — With GrowLokal AI</span>
+            </div>
+
+            <div className="results-img-frame">
+              <img 
+                src="/images/result_after.png" 
+                alt="Business dashboard after GrowLokal showing high score 87" 
+                className="results-img"
+              />
+              <div className="results-img-overlay results-img-overlay--after">
+                <div className="results-score-pill results-score-pill--high">
+                  <span className="results-score-num">87</span>
+                  <span className="results-score-denom">/100</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="results-card-content">
+              <h3 className="results-card-title results-card-title--after">#1 Local Pack &amp; 3x Enquiries</h3>
+              <p className="results-card-desc">
+                Fully optimized profile, weekly vernacular AI posts, warm 1-click review replies &amp; automated WhatsApp lead captures.
+              </p>
+              <ul className="results-metrics-list">
+                <li className="results-metric-item metric--positive">
+                  <span className="metric-icon">✅</span>
+                  <span>Google Maps Rank: <strong>#1 Top Local Pack</strong></span>
+                </li>
+                <li className="results-metric-item metric--positive">
+                  <span className="metric-icon">✅</span>
+                  <span>Review Response Rate: <strong>100% (Instant AI)</strong></span>
+                </li>
+                <li className="results-metric-item metric--positive">
+                  <span className="metric-icon">✅</span>
+                  <span>Monthly Inquiries: <strong>48+ WhatsApp Leads</strong></span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        <ul className="transform-checklist" style={{ listStyle: 'none' }}>
-          <li>Complete Google Business Profile optimization</li>
-          <li>Weekly AI-written Google posts in your language</li>
-          <li>Every review replied to professionally</li>
-          <li>Instagram &amp; Facebook running on autopilot</li>
-          <li>Customers finding you when they search &ldquo;best clinic / salon / store near me&rdquo;</li>
-        </ul>
+
+        {/* 4 Pillars of Transformation Grid */}
+        <div className="results-pillars-grid">
+          <div className="pillar-card">
+            <div className="pillar-icon-wrap icon-wrap--emerald">📍</div>
+            <h4 className="pillar-title">Google Maps Pack #1</h4>
+            <p className="pillar-desc">
+              Dominates local &ldquo;near me&rdquo; customer searches on Google Maps &amp; Search with optimized keywords.
+            </p>
+            <div className="pillar-stat-tag stat-tag--emerald">+278% Map Views</div>
+          </div>
+
+          <div className="pillar-card">
+            <div className="pillar-icon-wrap icon-wrap--blue">🗣️</div>
+            <h4 className="pillar-title">Vernacular AI Posts</h4>
+            <p className="pillar-desc">
+              Weekly festive offers and updates written automatically in Telugu, Tamil, Kannada, and English.
+            </p>
+            <div className="pillar-stat-tag stat-tag--blue">4 Languages Native</div>
+          </div>
+
+          <div className="pillar-card">
+            <div className="pillar-icon-wrap icon-wrap--purple">⭐</div>
+            <h4 className="pillar-title">100% Review Replies</h4>
+            <p className="pillar-desc">
+              AI drafts warm, professional review replies in seconds. You just click approve on WhatsApp.
+            </p>
+            <div className="pillar-stat-tag stat-tag--purple">&lt; 2-Min Response</div>
+          </div>
+
+          <div className="pillar-card">
+            <div className="pillar-icon-wrap icon-wrap--amber">💬</div>
+            <h4 className="pillar-title">WhatsApp Lead Funnel</h4>
+            <p className="pillar-desc">
+              Captures customer leads 24/7 with instant booking links and automated answer bots.
+            </p>
+            <div className="pillar-stat-tag stat-tag--amber">3x Enquiry Growth</div>
+          </div>
+        </div>
+
+        {/* Bottom CTA Banner inside Results */}
+        <div className="results-bottom-cta">
+          <div>
+            <h4 className="results-cta-heading">Ready to see your business score jump from 23 to 87?</h4>
+            <p className="results-cta-sub">Run your free 10-second Google Business Audit now. No credit card required.</p>
+          </div>
+          <a href="#audit-form" className="btn-primary" style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
+            <span>⚡ Audit My Business Free</span>
+          </a>
+        </div>
       </Section>
 
       {/* ─── PLATFORM PROMISE (HONEST STARTUP PROMISE) ─── */}
