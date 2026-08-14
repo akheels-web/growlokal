@@ -89,7 +89,7 @@ export async function draftReviewReplies(businessId: string) {
   let drafted = 0;
   for (const r of reviews.rows) {
     const reply = await generate({
-      system: `You write warm, professional replies to Google reviews for a coaching center, in ${ctx.primary_lang === 'te' ? 'Telugu' : 'the local language'} mixed with natural English. Thank happy reviewers; for complaints, be gracious, apologize, and invite them to connect. Never be defensive. Keep under 350 chars.`,
+      system: `You write warm, professional replies to Google reviews for a local business, in ${ctx.primary_lang === 'te' ? 'Telugu' : 'the local language'} mixed with natural English. Thank happy reviewers; for complaints, be gracious, apologize, and invite them to connect. Never be defensive. Keep under 350 chars.`,
       prompt: `Review (${r.rating}★) by ${r.author}: "${r.text}". Write a reply.`,
       tier: 'quality',
       maxTokens: 250,

@@ -9,7 +9,7 @@ export default function RevenueRoiCalculatorPage() {
 
   const monthlyExtraRevenue = serviceValue * extraCustomers;
   const yearlyExtraRevenue = monthlyExtraRevenue * 12;
-  const growLokalCostYearly = 2999 * 12;
+  const growLokalCostYearly = 2499 * 12; // Growth plan — the recommended tier
   const netProfitYearly = yearlyExtraRevenue - growLokalCostYearly;
   const roiPercentage = Math.round((netProfitYearly / growLokalCostYearly) * 100);
 

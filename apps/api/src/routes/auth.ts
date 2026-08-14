@@ -64,7 +64,7 @@ export function authRoutes(app: FastifyInstance) {
     if (!user) {
       const biz = await queryOne<{ id: string }>(
         `INSERT INTO businesses (name, status, plan) VALUES ($1, 'pilot', 'trial') RETURNING id`,
-        [businessName || 'My Coaching Center']
+        [businessName || 'My Business']
       );
       user = await queryOne(
         `INSERT INTO users (business_id, phone, role) VALUES ($1, $2, 'owner')

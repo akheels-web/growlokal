@@ -6,7 +6,7 @@ Source of truth: `db/schema.sql`. This doc explains the *why*.
 
 | Table | What it is | Notes |
 |---|---|---|
-| `businesses` | A customer (coaching center) = one tenant | `profile_context` (jsonb) feeds the LLM; `wa_credit_paise` is prepaid WhatsApp balance |
+| `businesses` | A customer (any local business — salon, clinic, restaurant, coaching center, etc.) = one tenant | `profile_context` (jsonb) feeds the LLM; `wa_credit_paise` is prepaid WhatsApp balance |
 | `users` | Dashboard logins | Phone-OTP login; `role` = owner/staff/admin(your team) |
 | `leads` | Top of funnel — captured by the audit bot **before** signup | `converted_business_id` links to a business once they subscribe |
 | `audit_reports` | Each run of the free Google audit | `raw_signals`, `score_breakdown`, `gaps`, and the vernacular `summary_text` sent to the user |
@@ -27,7 +27,7 @@ All money is **integer paise**. ₹999 = `99900`. Never use floats for money. Co
 
 ## The ROI view (your headline metric)
 
-`v_monthly_enquiries` aggregates `events` into monthly counts of `enquiry_received`, `demo_booked`, `leads_captured` per business. The dashboard shows "You got X admission enquiries this month" — the single most important thing for retention, because coaching owners renew when they *see* the leads.
+`v_monthly_enquiries` aggregates `events` into monthly counts of `enquiry_received`, `demo_booked`, `leads_captured` per business. The dashboard shows "You got X customer enquiries this month" — the single most important thing for retention, because owners renew when they *see* the leads.
 
 Emit an event wherever value happens:
 - audit bot captures a lead → `lead_captured`

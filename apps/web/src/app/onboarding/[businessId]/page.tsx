@@ -1,7 +1,8 @@
 'use client';
 // Onboarding: fills profile_context (what the AI uses for all content + chat).
-// ponytail: courses/fees/faculty as free text -> stored in profile_context jsonb.
-// No structured course editor until a center actually needs one.
+// ponytail: services/pricing/highlights as free text -> stored in profile_context
+// jsonb, works for any business type. No structured per-vertical editor until
+// a specific vertical actually needs one.
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api';

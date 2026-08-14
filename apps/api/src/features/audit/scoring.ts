@@ -9,13 +9,13 @@ export interface AuditResult {
   gaps: string[];                     // gap codes, worst-first
 }
 
-// Weights sum to 100. Tuned for coaching centers: reviews + website + photos
-// matter most for admissions decisions.
+// Weights sum to 100. Tuned for local businesses generally: reviews +
+// website + photos matter most for a customer's "should I call/visit" decision.
 const WEIGHTS = {
   reviews_volume: 25,   // enough reviews to look credible
   rating_quality: 20,   // average rating
   website: 20,          // has a website / booking page
-  photos: 15,           // visual proof (campus, results, faculty)
+  photos: 15,           // visual proof (space, work, staff)
   hours: 10,            // opening hours listed
   address: 10,          // complete address
 } as const;
@@ -23,11 +23,11 @@ const WEIGHTS = {
 // Human-readable gap labels (code -> what's wrong). The LLM prompt turns
 // these into friendly vernacular advice; the dashboard shows them too.
 export const GAP_LABELS: Record<string, string> = {
-  few_reviews: 'Very few Google reviews — parents trust centers with 20+ reviews',
-  low_rating: 'Google rating is below 4.0 — hurts admissions enquiries',
+  few_reviews: 'Very few Google reviews — customers trust businesses with 20+ reviews',
+  low_rating: 'Google rating is below 4.0 — hurts new customer enquiries',
   no_website: 'No website/booking page linked — losing direct enquiries',
-  few_photos: 'Too few photos — no campus/results/faculty visuals to build trust',
-  no_hours: 'Opening hours not listed — parents can’t tell when to visit',
+  few_photos: 'Too few photos — no visuals of your space/work to build trust',
+  no_hours: 'Opening hours not listed — customers can’t tell when to visit',
   incomplete_address: 'Incomplete address — harder to be found on Google Maps',
   not_operational: 'Google shows this business as not operational — critical fix',
 };

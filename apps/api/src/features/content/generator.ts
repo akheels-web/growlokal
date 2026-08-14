@@ -11,7 +11,7 @@ const LANG_NAME: Record<Lang, string> = {
   te: 'Telugu', ta: 'Tamil', kn: 'Kannada', ml: 'Malayalam', hi: 'Hindi', en: 'English',
 };
 
-const SYSTEM = `You create engaging, culturally-aware marketing content for a local South Indian coaching/tuition center. Content is short, energetic, and drives admission enquiries. Write in the requested language, mixing natural English words the way locals actually speak. NEVER invent fake results, numbers, or testimonials.`;
+const SYSTEM = `You create engaging, culturally-aware marketing content for a local South Indian business (could be a salon, clinic, restaurant, gym, coaching center, retail store, or service provider). Content is short, energetic, and drives customer enquiries and bookings. Write in the requested language, mixing natural English words the way locals actually speak. NEVER invent fake results, numbers, or testimonials.`;
 
 export interface BusinessContext {
   id: string;
@@ -45,7 +45,7 @@ export async function generateSocialPost(
 Language: ${lang}
 Highlight in this post: ${focus}
 ${occasion ? `Occasion: ${occasion}` : ''}
-Business context (courses, fees, USPs, faculty): ${JSON.stringify(ctx.profile_context)}
+Business context (services, pricing, offers, staff/highlights): ${JSON.stringify(ctx.profile_context)}
 
 Generate a social media post. Return ONLY valid JSON:
 {"caption": "<under 300 chars, hook + CTA to call/WhatsApp>", "hashtags": ["<5-8 local+topic tags>"], "visual_idea": "<one-line phone-shootable idea>"}`;
@@ -67,22 +67,23 @@ export async function generateCampaignMessage(
   goal: string
 ): Promise<string> {
   const lang = LANG_NAME[ctx.primary_lang];
-  const prompt = `Write a short WhatsApp marketing message from ${ctx.name} to parents/students in ${lang} (mix natural English words). Goal: ${goal}. Context: ${JSON.stringify(ctx.profile_context)}. Under 500 chars, warm, one clear CTA. Return ONLY the message text.`;
+  const prompt = `Write a short WhatsApp marketing message from ${ctx.name} to its customers in ${lang} (mix natural English words). Goal: ${goal}. Context: ${JSON.stringify(ctx.profile_context)}. Under 500 chars, warm, one clear CTA. Return ONLY the message text.`;
   return (await generate({ system: SYSTEM, prompt, tier: 'quality', maxTokens: 400 })).trim();
 }
 
 /**
  * Answer a customer's WhatsApp question using the business's own info.
  * ponytail: profile_context is small — stuff it in the prompt, no vector DB.
- * Add real RAG only if context outgrows one prompt (it won't for a coaching center).
+ * Add real RAG only if context outgrows one prompt (unlikely for a single
+ * local business's profile, regardless of vertical).
  */
 export async function answerCustomerQuestion(
   ctx: BusinessContext,
   question: string
 ): Promise<string> {
   const lang = LANG_NAME[ctx.primary_lang];
-  const prompt = `You are the WhatsApp assistant for ${ctx.name}, a coaching center in ${ctx.city}.
-Answer the parent/student's question in ${lang} (mix natural English words as locals do), using ONLY the info below. If the info doesn't cover it, say you'll have the team call them — never invent fees, dates, or results.
+  const prompt = `You are the WhatsApp assistant for ${ctx.name}, a local business in ${ctx.city}.
+Answer the customer's question in ${lang} (mix natural English words as locals do), using ONLY the info below. If the info doesn't cover it, say you'll have the team call them — never invent prices, dates, or results.
 
 Business info: ${JSON.stringify(ctx.profile_context)}
 
@@ -109,7 +110,7 @@ function parseSocial(raw: string, fallbackName: string): SocialPost {
   }
   // Fallback: use the raw text as the caption.
   return {
-    caption: raw.trim() || `Admissions open at ${fallbackName}! Call us today.`,
+    caption: raw.trim() || `${fallbackName} is open! Call or WhatsApp us today.`,
     hashtags: [],
     visualIdea: '',
   };

@@ -2071,7 +2071,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
 
-/* Card 2: Standard Plan (Featured) */
+/* Featured/dark pricing card style — reused for the Growth (recommended) tier */
 .pricing-card-standard {
   position: relative;
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);

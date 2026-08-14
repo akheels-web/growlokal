@@ -53,7 +53,7 @@ export default function RefundPage() {
               🛡️ 7-Day Money-Back Guarantee
             </h2>
             <p style={{ color: '#033540' }}>
-              We want you to feel 100% confident in GrowLokal. If you subscribe to our <strong>Growth Plan (₹2,999/month)</strong> and are not completely satisfied with your Google visibility improvements or AI features within the first <strong>7 days</strong> of payment, we will refund <strong>100% of your money — no questions asked</strong>.
+              We want you to feel 100% confident in GrowLokal. If you subscribe to any paid plan (<strong>Starter, Growth, or Pro</strong>) and are not completely satisfied with your Google visibility improvements or AI features within the first <strong>7 days</strong> of payment, we will refund <strong>100% of your money — no questions asked</strong>.
             </p>
           </section>
 

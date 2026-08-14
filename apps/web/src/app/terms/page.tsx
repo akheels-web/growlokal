@@ -87,7 +87,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>5. Subscriptions, Fees &amp; Billing</h2>
             <p>
-              GrowLokal offers a <strong>Free Plan</strong> (Instant Google Audit) and a paid <strong>Growth Plan</strong> billed at ₹2,999/month (or ₹7,999 quarterly). Fees are processed securely via encrypted Indian payment gateways supporting UPI, Credit/Debit Cards, and Net Banking. All charges are exclusive of applicable GST.
+              GrowLokal offers a <strong>Free Plan</strong> (Instant Google Audit) and three paid plans — <strong>Starter (₹999/month), Growth (₹2,499/month), and Pro (₹4,999/month)</strong> — each also available at a discounted annual rate. Fees are processed securely via encrypted Indian payment gateways supporting UPI, Credit/Debit Cards, and Net Banking. All charges are exclusive of applicable GST.
             </p>
           </section>
 

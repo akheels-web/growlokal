@@ -1,5 +1,5 @@
 // Builds the LLM prompt that turns audit gaps into a warm, persuasive
-// vernacular WhatsApp message for a coaching-center owner.
+// vernacular WhatsApp message for a local business owner (any vertical).
 //
 // The prompt templates themselves also live in /prompts (for non-devs to edit).
 // Keep this in sync with prompts/audit-summary.md.

@@ -94,7 +94,7 @@ async function handleMessage(from: string, text: string): Promise<void> {
     convo.set(from, 'awaiting_name');
     await sendText(
       from,
-      'Namaste! 🙏 I can give you a FREE report on how your coaching center looks on Google — and what’s losing you admission enquiries.\n\nJust reply with your coaching center’s *name* (and area, e.g. "Bright Future, Ameerpet").'
+      'Namaste! 🙏 I can give you a FREE report on how your business looks on Google — and what’s losing you customer enquiries.\n\nJust reply with your business *name* (and area, e.g. "Bright Future Salon, Ameerpet").'
     );
     return;
   }

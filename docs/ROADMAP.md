@@ -18,7 +18,7 @@ Ship the audit bot FIRST — it's the acquisition engine and it's already built 
 - [ ] Get a Telugu WhatsApp **message template** approved for the first outbound touch.
 - [ ] Restrict Places API key + set billing cap + rate-limit the endpoint.
 - [ ] Move convo state to Redis; add Meta webhook signature check.
-- [ ] Soft-launch: put the bot link (wa.me/…) in front of 20 coaching centers in Ameerpet.
+- [ ] Soft-launch: put the bot link (wa.me/…) in front of 20 local businesses (any vertical) in Ameerpet.
 
 ## Milestone 2 — Core product for pilots (Weeks 3–8)
 - [x] Dashboard auth (phone OTP + JWT) — `auth/`, `routes/auth.ts`, web `/login`.
@@ -48,4 +48,4 @@ Ship the audit bot FIRST — it's the acquisition engine and it's already built 
 - [ ] "Get found by AI" structured-data feature (12–18 months ahead of Grexa).
 
 ## Definition of "shipped" for the audit bot
-A coaching-center owner in Ameerpet sends a WhatsApp, and within ~10 seconds gets a Telugu report scoring their Google presence and naming their top 2-3 gaps, and replying "DEMO" puts them in your sales queue. **That single loop working end-to-end is your first real milestone.**
+A local business owner in Ameerpet — any vertical — sends a WhatsApp, and within ~10 seconds gets a Telugu report scoring their Google presence and naming their top 2-3 gaps, and replying "DEMO" puts them in your sales queue. **That single loop working end-to-end is your first real milestone.**

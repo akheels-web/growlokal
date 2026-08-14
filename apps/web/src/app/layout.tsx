@@ -86,9 +86,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         operatingSystem: 'Web, WhatsApp, Android, iOS',
         applicationCategory: 'BusinessApplication',
         offers: {
-          '@type': 'Offer',
-          price: '2999',
+          '@type': 'AggregateOffer',
+          lowPrice: '999',
+          highPrice: '4999',
           priceCurrency: 'INR',
+          offerCount: '3',
           priceValidUntil: '2027-12-31',
           availability: 'https://schema.org/InStock',
         },

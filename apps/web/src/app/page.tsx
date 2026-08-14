@@ -1174,27 +1174,26 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Card 2: Standard Plan (Featured) */}
-            <div className="pricing-card-standard">
-              <div className="pricing-ribbon-badge">Most Popular</div>
+            {/* Card 2: Starter Plan */}
+            <div className="pricing-card-free">
               <div>
-                <div className="pricing-plan-title">Standard</div>
-                <p className="pricing-plan-subtitle" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Most popular deal for growth</p>
+                <div className="pricing-plan-title" style={{ color: '#0F172A' }}>Starter</div>
+                <p className="pricing-plan-subtitle" style={{ color: '#64748B' }}>For small businesses just getting started</p>
                 <div className="pricing-divider" />
-                <div className="pricing-price-val">
-                  ₹{billingCycle === 'annually' ? '2,399' : '2,999'}{' '}
-                  <span className="pricing-price-period">/ month</span>
+                <div className="pricing-price-val" style={{ color: '#0F172A' }}>
+                  ₹{billingCycle === 'annually' ? '799' : '999'}{' '}
+                  <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
                 </div>
                 {billingCycle === 'annually' && (
-                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#ffd166', marginTop: '-18px', marginBottom: '22px', letterSpacing: '0.02em' }}>
-                    ⚡ Billed annually (₹28,788/yr — Save ₹7,200)
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#047857', marginTop: '-18px', marginBottom: '22px' }}>
+                    ⚡ Billed annually (₹9,588/yr — Save ₹2,400)
                   </div>
                 )}
 
                 <ul className="pricing-feature-list">
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
-                    <span>Everything included in Free Plan</span>
+                    <span>Everything in Free</span>
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
@@ -1202,11 +1201,53 @@ export default function Home() {
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
-                    <span>Auto-drafted review replies (1-click approve)</span>
+                    <span>24/7 automated WhatsApp customer responder</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>Instagram &amp; Facebook post scheduler</span>
+                  </li>
+                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
+                    <span className="pricing-icon-cross">✕</span>
+                    <span>WhatsApp broadcast campaigns</span>
+                  </li>
+                </ul>
+              </div>
+              <a
+                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Starter%20Plan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pricing-btn-free"
+              >
+                Choose Plan
+              </a>
+            </div>
+
+            {/* Card 3: Growth Plan (Featured — undercuts Grexa's ₹5,000/mo floor) */}
+            <div className="pricing-card-standard">
+              <div className="pricing-ribbon-badge">Most Popular</div>
+              <div>
+                <div className="pricing-plan-title">Growth</div>
+                <p className="pricing-plan-subtitle" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Most popular — full automation for growing businesses</p>
+                <div className="pricing-divider" />
+                <div className="pricing-price-val">
+                  ₹{billingCycle === 'annually' ? '1,999' : '2,499'}{' '}
+                  <span className="pricing-price-period">/ month</span>
+                </div>
+                {billingCycle === 'annually' && (
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#ffd166', marginTop: '-18px', marginBottom: '22px', letterSpacing: '0.02em' }}>
+                    ⚡ Billed annually (₹23,988/yr — Save ₹6,000)
+                  </div>
+                )}
+
+                <ul className="pricing-feature-list">
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Everything in Starter</span>
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
-                    <span>24/7 Automated WhatsApp lead responder</span>
+                    <span>Auto-drafted review replies (1-click approve)</span>
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
@@ -1218,7 +1259,48 @@ export default function Home() {
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
-                    <span>WhatsApp Broadcast Campaign manager</span>
+                    <span>WhatsApp broadcast campaign manager</span>
+                  </li>
+                </ul>
+              </div>
+              <a
+                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Growth%20Plan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pricing-btn-standard"
+              >
+                Choose Plan
+              </a>
+            </div>
+
+            {/* Card 4: Pro Plan */}
+            <div className="pricing-card-free">
+              <div>
+                <div className="pricing-plan-title" style={{ color: '#0F172A' }}>Pro</div>
+                <p className="pricing-plan-subtitle" style={{ color: '#64748B' }}>For multi-branch businesses &amp; power users</p>
+                <div className="pricing-divider" />
+                <div className="pricing-price-val" style={{ color: '#0F172A' }}>
+                  ₹{billingCycle === 'annually' ? '3,999' : '4,999'}{' '}
+                  <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
+                </div>
+                {billingCycle === 'annually' && (
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#047857', marginTop: '-18px', marginBottom: '22px' }}>
+                    ⚡ Billed annually (₹47,988/yr — Save ₹12,000)
+                  </div>
+                )}
+
+                <ul className="pricing-feature-list">
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Everything in Growth</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Multi-branch / multi-location support</span>
+                  </li>
+                  <li className="pricing-feature-item">
+                    <span className="pricing-icon-check">✓</span>
+                    <span>Priority support</span>
                   </li>
                   <li className="pricing-feature-item">
                     <span className="pricing-icon-check">✓</span>
@@ -1227,10 +1309,10 @@ export default function Home() {
                 </ul>
               </div>
               <a
-                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Standard%20Growth%20Plan"
+                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Pro%20Plan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pricing-btn-standard"
+                className="pricing-btn-free"
               >
                 Choose Plan
               </a>
@@ -1589,7 +1671,7 @@ const FAQ_DATA = [
   { q: 'Does it work in Telugu and Tamil?', a: 'Yes! GrowLokal creates content in Telugu, Tamil, Kannada, and English. Our AI understands the local context and creates authentic vernacular content that resonates with customers in your area.' },
   { q: "What if I don't have a Google Business Profile?", a: "No problem! We'll help you set one up as part of the onboarding process. It's free on Google — and it's the single most important thing for getting found by customers searching online." },
   { q: 'Can I cancel anytime?', a: "Absolutely. There are no contracts or lock-in periods. You can cancel your Growth Plan anytime. The free audit is always free, forever." },
-  { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for South Indian local businesses, not a generic tool for all companies. Our AI speaks Telugu, Tamil, and Kannada natively. And at ₹2,999/month vs their ₹5,000+/month, you save over ₹12,000 per quarter.' },
+  { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for South Indian local businesses, not a generic tool for all companies. Our AI speaks Telugu, Tamil, and Kannada natively. And our plans start at ₹999/month vs their ₹5,000+/month flat plan — pick the tier that fits your business, save thousands every quarter.' },
 ];
 
 function ContactSection() {
