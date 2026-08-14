@@ -12,6 +12,7 @@ import { authRoutes } from './routes/auth.js';
 import { featureRoutes } from './routes/features.js';
 import { billingRoutes } from './routes/billing.js';
 import { pool } from './db.js';
+import { redis } from './redis.js';
 
 const app = Fastify({
   logger: false,
@@ -71,6 +72,7 @@ for (const sig of ['SIGINT', 'SIGTERM'] as const) {
     log.info(`${sig} received, shutting down`);
     await app.close();
     await pool.end();
+    redis.disconnect();
     process.exit(0);
   });
 }

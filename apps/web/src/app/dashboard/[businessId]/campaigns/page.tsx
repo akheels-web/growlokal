@@ -37,9 +37,11 @@ export default function Campaigns({ params }: { params: { businessId: string } }
     if (!draft) return;
     setBusy(true); setErr('');
     try {
+      // Recipients/template/body were already persisted when the draft was
+      // created — nothing to re-send here.
       const r = await api<{ sent: number; failed: number; stoppedForCredits: boolean }>(
         `/api/businesses/${businessId}/campaigns/${draft.id}/send`,
-        { method: 'POST', body: JSON.stringify({ recipients, templateName, languageCode: 'te', bodyParam: goal }) }
+        { method: 'POST' }
       );
       setResult(
         `✅ Sent ${r.sent}, failed ${r.failed}.` +
@@ -53,7 +55,7 @@ export default function Campaigns({ params }: { params: { businessId: string } }
   return (
     <main style={{ maxWidth: 640, margin: '0 auto', padding: '32px 20px' }}>
       <h1>WhatsApp campaign</h1>
-      <p style={{ color: '#555' }}>Send an offer or announcement to parents/students. Marketing messages cost ~₹1 each from your prepaid credits.</p>
+      <p style={{ color: '#555' }}>Send an offer or announcement to your customers. Marketing messages cost ~₹1 each from your prepaid credits.</p>
 
       <form onSubmit={createDraft} style={{ display: 'grid', gap: 12 }}>
         <input required placeholder="Campaign name (internal)" value={name} onChange={(e) => setName(e.target.value)} style={inp} />

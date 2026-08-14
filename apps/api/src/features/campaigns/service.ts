@@ -39,25 +39,45 @@ export async function createCampaign(input: CreateCampaignInput) {
     ]
   );
 
+  // Persist the recipient list now — the send step reads it back from here,
+  // so callers never have to re-supply the same list twice.
+  if (input.recipients.length > 0) {
+    const values: string[] = [];
+    const params: unknown[] = [];
+    input.recipients.forEach((phone, i) => {
+      values.push(`($${i * 2 + 1}, $${i * 2 + 2})`);
+      params.push(row!.id, phone);
+    });
+    await query(
+      `INSERT INTO campaign_recipients (campaign_id, phone) VALUES ${values.join(',')}`,
+      params
+    );
+  }
+
   return { id: row!.id, bodyPreview, recipientCount: input.recipients.length };
 }
 
 /**
- * Execute a campaign: debit credits atomically, then send to each recipient.
- * Returns counts. Stops early if credits are exhausted.
+ * Execute a campaign: debit credits atomically, then send to each pending
+ * recipient (read from campaign_recipients — the campaign's own template
+ * name, language, and generated body are the source of truth, not re-passed
+ * arguments). Returns counts. Stops early if credits are exhausted.
  */
 export async function sendCampaign(
-  campaignId: string,
-  recipients: string[],
-  templateName: string,
-  languageCode: string,
-  bodyParam: string
+  campaignId: string
 ): Promise<{ sent: number; failed: number; stoppedForCredits: boolean }> {
-  const camp = await queryOne<{ business_id: string }>(
-    `SELECT business_id FROM campaigns WHERE id = $1`,
+  const camp = await queryOne<{
+    business_id: string; template_name: string; lang: string; body_preview: string;
+  }>(
+    `SELECT business_id, template_name, lang, body_preview FROM campaigns WHERE id = $1`,
     [campaignId]
   );
   if (!camp) throw new Error('campaign not found');
+
+  const pending = await query<{ id: string; phone: string }>(
+    `SELECT id, phone FROM campaign_recipients WHERE campaign_id = $1 AND status = 'pending'`,
+    [campaignId]
+  );
 
   await query(`UPDATE campaigns SET status = 'sending' WHERE id = $1`, [campaignId]);
 
@@ -65,7 +85,7 @@ export async function sendCampaign(
   let failed = 0;
   let stoppedForCredits = false;
 
-  for (const to of recipients) {
+  for (const recipient of pending.rows) {
     // Atomically reserve credit for one message. Debit only if balance suffices.
     const debit = await debitCredit(camp.business_id, MARKETING_COST_PAISE);
     if (!debit) {
@@ -74,15 +94,17 @@ export async function sendCampaign(
       break;
     }
 
-    const res = await sendTemplate(to, templateName, languageCode, [
-      { type: 'body', parameters: [{ type: 'text', text: bodyParam }] },
+    const res = await sendTemplate(recipient.phone, camp.template_name, camp.lang, [
+      { type: 'body', parameters: [{ type: 'text', text: camp.body_preview }] },
     ]);
 
     if (res.ok) {
       sent++;
-      await logMessage(camp.business_id, to, res.messageId, templateName, MARKETING_COST_PAISE);
+      await markRecipient(recipient.id, 'sent', res.messageId);
+      await logMessage(camp.business_id, recipient.phone, res.messageId, camp.template_name, MARKETING_COST_PAISE);
     } else {
       failed++;
+      await markRecipient(recipient.id, 'failed', undefined, res.error);
       // Refund the reserved credit on failure.
       await query(`UPDATE businesses SET wa_credit_paise = wa_credit_paise + $2 WHERE id = $1`,
         [camp.business_id, MARKETING_COST_PAISE]);
@@ -90,11 +112,22 @@ export async function sendCampaign(
   }
 
   await query(
-    `UPDATE campaigns SET status = $2, sent_count = $3, failed_count = $4, cost_paise = $5 WHERE id = $1`,
+    `UPDATE campaigns SET status = $2, sent_count = sent_count + $3, failed_count = failed_count + $4, cost_paise = cost_paise + $5 WHERE id = $1`,
     [campaignId, 'sent', sent, failed, sent * MARKETING_COST_PAISE]
   );
 
   return { sent, failed, stoppedForCredits };
+}
+
+async function markRecipient(
+  recipientId: string, status: 'sent' | 'failed', waMessageId?: string, error?: string
+) {
+  await query(
+    `UPDATE campaign_recipients SET status = $2, wa_message_id = $3, error = $4,
+       sent_at = CASE WHEN $2 = 'sent' THEN now() ELSE sent_at END
+     WHERE id = $1`,
+    [recipientId, status, waMessageId ?? null, error ?? null]
+  );
 }
 
 /**

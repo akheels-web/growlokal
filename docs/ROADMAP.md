@@ -17,7 +17,7 @@ Ship the audit bot FIRST — it's the acquisition engine and it's already built 
 - [x] WhatsApp webhook conversation flow (greet → name → audit → DEMO).
 - [ ] Get a Telugu WhatsApp **message template** approved for the first outbound touch.
 - [ ] Restrict Places API key + set billing cap + rate-limit the endpoint.
-- [ ] Move convo state to Redis; add Meta webhook signature check.
+- [x] Move convo state to Redis; add Meta webhook signature check.
 - [ ] Soft-launch: put the bot link (wa.me/…) in front of 20 local businesses (any vertical) in Ameerpet.
 
 ## Milestone 2 — Core product for pilots (Weeks 3–8)
@@ -33,7 +33,7 @@ Ship the audit bot FIRST — it's the acquisition engine and it's already built 
 - [x] **WhatsApp marketing campaigns**: template send loop + prepaid-credit debit — `features/campaigns/`.
 - [x] Razorpay subscriptions + webhook (signature-verified, idempotent) — `clients/razorpay.ts`, `routes/billing.ts`.
 - [ ] **Booking microsite** per center via Cal.com + public page (courses/fees/faculty + WhatsApp + UPI link). *(next)*
-- [ ] Connect real Mixpost account IDs per business (worker currently dry-runs). *(next)*
+- [x] Connect real Mixpost account IDs per business (worker now looks it up; skips + retries if unset).
 
 ## Milestone 4 — Monetize & harden (Month 4)
 - [ ] Provision Bangalore VPS; move web + API + source-of-truth Postgres there.

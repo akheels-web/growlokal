@@ -12,11 +12,23 @@ import { sendText, verifyWebhookSignature } from '../clients/whatsapp.js';
 import { runAudit } from '../features/audit/service.js';
 import { answerCustomerQuestion, loadBusinessContext } from '../features/content/generator.js';
 import { query, queryOne } from '../db.js';
+import { redis } from '../redis.js';
 
-// Minimal in-memory conversation state. For production, move to Redis so it
-// survives restarts and works across multiple API instances.
+// Conversation state in Redis — survives restarts and works across multiple
+// API instances. TTL means a stale, abandoned chat just resets to the
+// greeting rather than getting stuck; no cleanup job needed.
 type ConvState = 'awaiting_name' | 'done';
-const convo = new Map<string, ConvState>();
+const CONVO_TTL_SECONDS = 24 * 60 * 60; // 24h
+
+function convoKey(phone: string): string {
+  return `wa:convo:${phone}`;
+}
+async function getConvo(phone: string): Promise<ConvState | null> {
+  return (await redis.get(convoKey(phone))) as ConvState | null;
+}
+async function setConvo(phone: string, state: ConvState): Promise<void> {
+  await redis.set(convoKey(phone), state, 'EX', CONVO_TTL_SECONDS);
+}
 
 export function whatsappRoutes(app: FastifyInstance) {
   // ── Verification handshake (Meta calls this once when you set the webhook)
@@ -76,7 +88,7 @@ export function whatsappRoutes(app: FastifyInstance) {
 
 async function handleMessage(from: string, text: string): Promise<void> {
   const lower = text.toLowerCase();
-  const state = convo.get(from);
+  const state = await getConvo(from);
 
   // "DEMO" at any time -> mark the lead demo-requested + hand off to sales.
   if (lower === 'demo') {
@@ -85,13 +97,13 @@ async function handleMessage(from: string, text: string): Promise<void> {
       from,
       'Super! 🙌 Our team will call you within a few hours for your free 15-minute session. Meanwhile, is morning or evening better for you?'
     );
-    convo.set(from, 'done');
+    await setConvo(from, 'done');
     return;
   }
 
   // First contact / greeting -> ask for business name.
   if (!state || lower === 'hi' || lower === 'hello' || lower === 'start' || lower === 'namaste') {
-    convo.set(from, 'awaiting_name');
+    await setConvo(from, 'awaiting_name');
     await sendText(
       from,
       'Namaste! 🙏 I can give you a FREE report on how your business looks on Google — and what’s losing you customer enquiries.\n\nJust reply with your business *name* (and area, e.g. "Bright Future Salon, Ameerpet").'
@@ -112,7 +124,7 @@ async function handleMessage(from: string, text: string): Promise<void> {
       lang: 'te', // TODO: detect / ask preferred language
     });
     await sendText(from, result.message);
-    convo.set(from, 'done');
+    await setConvo(from, 'done');
     return;
   }
 

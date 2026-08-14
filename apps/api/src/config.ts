@@ -5,6 +5,7 @@ const schema = z.object({
   NODE_ENV: z.string().default('development'),
   API_PORT: z.coerce.number().default(3000),
   DATABASE_URL: z.string(),
+  REDIS_URL: z.string().default('redis://localhost:6379'),
 
   // WhatsApp
   WHATSAPP_PHONE_NUMBER_ID: z.string().default(''),
@@ -47,7 +48,9 @@ const schema = z.object({
   RAZORPAY_WEBHOOK_SECRET: z.string().default(''),
 
   // GBP (Google Business Profile API — apply early, 0 QPM until approved)
-  GBP_ACCESS_TOKEN: z.string().default(''),
+  GBP_ACCESS_TOKEN: z.string().default(''),      // static fallback (single-account pilot)
+  GBP_CLIENT_ID: z.string().default(''),         // OAuth client — see clients/gbp-oauth.ts
+  GBP_CLIENT_SECRET: z.string().default(''),
 
   // Pricing (paise). Kept in config so it's easy to change.
   PRICE_STARTER_PAISE: z.coerce.number().default(99900),

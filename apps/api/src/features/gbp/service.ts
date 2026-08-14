@@ -4,13 +4,14 @@
 // early). The API surface here targets the Business Profile APIs:
 //   - localPosts.create  (v4 mybusiness.googleapis.com / accountmanagement)
 //   - reviews.list + reviews.updateReply
-// Auth is OAuth; we assume a valid access token in config.GBP_ACCESS_TOKEN
-// (refresh-token exchange is a TODO — see note).
+// Auth: resolveGbpAccessToken() (clients/gbp-oauth.ts) resolves a per-business
+// token from its stored refresh_token, falling back to the static
+// config.GBP_ACCESS_TOKEN for a single-account pilot.
 import { request } from 'undici';
-import { config } from '../../config.js';
 import { log } from '../../logger.js';
 import { loadBusinessContext, generateGbpPost } from '../content/generator.js';
 import { generate } from '../../clients/llm.js';
+import { resolveGbpAccessToken } from '../../clients/gbp-oauth.js';
 import { query, queryOne } from '../../db.js';
 
 // NOTE: The GBP API has several host/version surfaces. Endpoints below are
@@ -21,8 +22,8 @@ export async function createGbpPost(businessId: string, focus: string) {
   const ctx = await loadBusinessContext(businessId);
   if (!ctx) throw new Error('business not found');
 
-  const biz = await queryOne<{ gbp_location_id: string | null }>(
-    `SELECT gbp_location_id FROM businesses WHERE id = $1`,
+  const biz = await queryOne<{ gbp_location_id: string | null; gbp_refresh_token: string | null }>(
+    `SELECT gbp_location_id, gbp_refresh_token FROM businesses WHERE id = $1`,
     [businessId]
   );
 
@@ -35,7 +36,9 @@ export async function createGbpPost(businessId: string, focus: string) {
     [businessId, ctx.primary_lang, text]
   );
 
-  if (!config.GBP_ACCESS_TOKEN || !biz?.gbp_location_id) {
+  const accessToken = biz ? await resolveGbpAccessToken(businessId, biz.gbp_refresh_token) : null;
+
+  if (!accessToken || !biz?.gbp_location_id) {
     log.warn('GBP not configured/approved — post saved as draft only');
     return { id: row!.id, text, published: false, reason: 'gbp_not_configured' };
   }
@@ -46,7 +49,7 @@ export async function createGbpPost(businessId: string, focus: string) {
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${config.GBP_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -99,6 +102,3 @@ export async function draftReviewReplies(businessId: string) {
   }
   return { drafted };
 }
-
-// TODO(auth): implement OAuth refresh-token -> access-token exchange so
-// GBP_ACCESS_TOKEN is refreshed automatically. Store refresh token per business.

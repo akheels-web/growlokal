@@ -13,19 +13,26 @@ const POLL_MS = 60_000; // every minute
 
 async function tick() {
   try {
-    // Find social posts whose scheduled time has arrived and are still scheduled.
-    const due = await query<{ id: string; business_id: string }>(
-      `SELECT id, business_id FROM posts
-       WHERE status = 'scheduled' AND channel IN ('instagram','facebook')
-         AND scheduled_for <= now()
-       ORDER BY scheduled_for ASC LIMIT 20`
+    // Find social posts whose scheduled time has arrived and are still scheduled,
+    // joined to the business's connected Mixpost account IDs (set by an admin
+    // after linking the business's Instagram/FB inside Mixpost's own dashboard).
+    const due = await query<{ id: string; business_id: string; mixpost_account_ids: number[] }>(
+      `SELECT p.id, p.business_id, b.mixpost_account_ids
+       FROM posts p
+       JOIN businesses b ON b.id = p.business_id
+       WHERE p.status = 'scheduled' AND p.channel IN ('instagram','facebook')
+         AND p.scheduled_for <= now()
+       ORDER BY p.scheduled_for ASC LIMIT 20`
     );
 
     for (const post of due.rows) {
-      // TODO: look up the business's connected Mixpost account IDs.
-      // Placeholder: empty array -> Mixpost client dry-runs / no-op.
-      const accountIds: number[] = [];
-      log.info({ postId: post.id }, 'publishing due post');
+      const accountIds = post.mixpost_account_ids ?? [];
+      if (accountIds.length === 0) {
+        log.warn({ postId: post.id, businessId: post.business_id },
+          'no Mixpost accounts connected for this business — skipping publish (post stays scheduled)');
+        continue;
+      }
+      log.info({ postId: post.id, accountIds }, 'publishing due post');
       await publishDuePost(post.id, accountIds);
     }
   } catch (err) {

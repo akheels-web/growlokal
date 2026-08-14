@@ -155,6 +155,7 @@ GEMINI_API_KEY=your_gemini_api_key
 ```bash
 psql "$DATABASE_URL" -f db/schema.sql
 psql "$DATABASE_URL" -f db/migrations/002_auth_billing.sql
+psql "$DATABASE_URL" -f db/migrations/003_mixpost_and_campaigns.sql
 psql "$DATABASE_URL" -f db/seed.sql
 ```
 

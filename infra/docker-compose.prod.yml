@@ -49,6 +49,7 @@ services:
       NODE_ENV: production
       PORT: 3000
       DATABASE_URL: postgres://${PG_USER:-growlokal}:${PG_PASSWORD}@postgres:5432/${PG_DB:-growlokal}
+      REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
       PUBLIC_API_URL: https://${API_DOMAIN:-api.growlokal.com}
       GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY}
@@ -66,6 +67,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_started
 
   caddy:
     image: caddy:2-alpine

@@ -16,7 +16,13 @@ export function featureRoutes(app: FastifyInstance) {
     primaryLang: z.enum(['te', 'ta', 'kn', 'ml', 'hi', 'en']).optional(),
     whatsappNumber: z.string().optional(),
     websiteUrl: z.string().optional(),
-    profileContext: z.record(z.any()).optional(), // courses, fees, faculty, USPs, upiId, timings
+    profileContext: z.record(z.any()).optional(), // services, pricing, offers, staff/highlights, upiId, timings
+    // Mixpost account IDs the business's IG/FB were connected to (set after
+    // an admin links the account inside Mixpost's own dashboard).
+    mixpostAccountIds: z.array(z.number()).optional(),
+    // GBP OAuth refresh token — obtained via a one-time manual consent flow,
+    // see clients/gbp-oauth.ts header comment.
+    gbpRefreshToken: z.string().optional(),
   });
   app.put('/api/businesses/:id', { preHandler: requireBusiness }, async (req, reply) => {
     const parsed = onboard.safeParse(req.body);
@@ -30,11 +36,14 @@ export function featureRoutes(app: FastifyInstance) {
          primary_lang = COALESCE($4, primary_lang),
          whatsapp_number = COALESCE($5, whatsapp_number),
          website_url = COALESCE($6, website_url),
-         profile_context = COALESCE($7, profile_context)
-       WHERE id = $1 RETURNING id, name, city, primary_lang, whatsapp_number, website_url, profile_context`,
+         profile_context = COALESCE($7, profile_context),
+         mixpost_account_ids = COALESCE($8, mixpost_account_ids),
+         gbp_refresh_token = COALESCE($9, gbp_refresh_token)
+       WHERE id = $1 RETURNING id, name, city, primary_lang, whatsapp_number, website_url, profile_context, mixpost_account_ids`,
       [id, d.name ?? null, d.city ?? null, d.primaryLang ?? null,
        d.whatsappNumber ?? null, d.websiteUrl ?? null,
-       d.profileContext ? JSON.stringify(d.profileContext) : null]
+       d.profileContext ? JSON.stringify(d.profileContext) : null,
+       d.mixpostAccountIds ?? null, d.gbpRefreshToken ?? null]
     );
     return row;
   });
@@ -129,18 +138,12 @@ export function featureRoutes(app: FastifyInstance) {
   });
 
   // ── Campaigns: send now ──
-  const sendBody = z.object({
-    recipients: z.array(z.string()).min(1),
-    templateName: z.string(),
-    languageCode: z.string().default('te'),
-    bodyParam: z.string().default(''),
-  });
+  // Recipients, template name, language, and message body all come from what
+  // was stored at creation time — nothing to re-supply. Safe to call again to
+  // retry any recipients still 'pending' (e.g. after a credit top-up).
   app.post('/api/businesses/:id/campaigns/:cid/send', { preHandler: requireBusiness }, async (req, reply) => {
-    const parsed = sendBody.safeParse(req.body);
-    if (!parsed.success) return reply.code(400).send({ error: parsed.error.flatten() });
     const { cid } = req.params as { cid: string };
-    const r = await sendCampaign(cid, parsed.data.recipients, parsed.data.templateName,
-      parsed.data.languageCode, parsed.data.bodyParam);
+    const r = await sendCampaign(cid);
     return r;
   });
 

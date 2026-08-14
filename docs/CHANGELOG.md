@@ -1,5 +1,14 @@
 # Changelog
 
+## Build session 7 — Phase 1: finish known backend TODOs
+
+- **WhatsApp conversation state → Redis** (`redis.ts`, new `ioredis` dep) — was an in-memory `Map` in `routes/whatsapp.ts`, lost on restart and broken across multiple instances. 24h TTL, no cleanup job needed.
+- **Per-business Mixpost account IDs** — `businesses.mixpost_account_ids` (migration 003), settable via the onboarding route. `worker.ts` now reads it and **skips publishing (leaves the post `scheduled` for retry) instead of silently marking a no-op as "published"** when no account is connected — that was a real correctness bug, not just a missing feature.
+- **Campaign recipients persisted** (migration 003, `campaign_recipients` table) — `createCampaign` now stores the list once; `sendCampaign(campaignId)` reads recipients + template + language + body back from the DB instead of requiring the caller to re-supply the same list on every send call. Also makes retrying just-`pending` recipients (e.g. after a credit top-up) safe — counters are additive, not overwritten.
+- **GBP OAuth refresh mechanism** (`clients/gbp-oauth.ts`, migration 004 `businesses.gbp_refresh_token`) — resolves a fresh access token from a stored refresh token, cached in Redis (~50min), falling back to the static `GBP_ACCESS_TOKEN` if unset. **Deliberately does NOT include the authorization-consent redirect flow** — that needs a Google Cloud OAuth client + approved GBP access (external, user-completed prerequisites); building an unusable redirect route now would be untestable scaffolding. The one-time manual token-acquisition step is documented in the file's header comment.
+
+Verified: API typecheck clean, 4/4 tests pass, `next build` clean on all 17 routes.
+
 ## Build session 5 — bug/security audit fixes
 
 Found via full-repo read-through (marketing site, calculators, prod Docker/Caddy stack were added by a prior session). Fixed, verified: API typecheck clean, 4/4 audit-scoring tests pass, `next build` clean on all 17 web routes.
