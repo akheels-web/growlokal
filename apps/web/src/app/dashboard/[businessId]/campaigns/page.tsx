@@ -6,6 +6,14 @@
 import { useState } from 'react';
 import { api } from '@/lib/api';
 
+// Common WhatsApp template use-cases. Meta template approval itself is an
+// external step you complete in the WhatsApp Manager — this just saves
+// re-typing/remembering the exact approved name once you have it.
+const TEMPLATE_SUGGESTIONS = [
+  'new_offer_announcement', 'appointment_reminder', 'review_request',
+  'booking_confirmation', 'seasonal_promo', 'payment_reminder',
+];
+
 export default function Campaigns({ params }: { params: { businessId: string } }) {
   const { businessId } = params;
   const [name, setName] = useState('');
@@ -61,6 +69,11 @@ export default function Campaigns({ params }: { params: { businessId: string } }
         <input required placeholder="Campaign name (internal)" value={name} onChange={(e) => setName(e.target.value)} style={inp} />
         <input required placeholder="Goal (what to say)" value={goal} onChange={(e) => setGoal(e.target.value)} style={inp} />
         <input required placeholder="Approved WhatsApp template name" value={templateName} onChange={(e) => setTemplateName(e.target.value)} style={inp} />
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: -6 }}>
+          {TEMPLATE_SUGGESTIONS.map((t) => (
+            <button key={t} type="button" onClick={() => setTemplateName(t)} style={chip}>{t}</button>
+          ))}
+        </div>
         <textarea required placeholder="Recipient numbers, one per line (91XXXXXXXXXX)" value={recipientsRaw}
           onChange={(e) => setRecipientsRaw(e.target.value)} style={{ ...inp, minHeight: 100, fontFamily: 'monospace' }} />
         <small style={{ color: '#777' }}>{recipients.length} recipient(s) · est. ₹{recipients.length} in credits</small>
@@ -86,3 +99,4 @@ export default function Campaigns({ params }: { params: { businessId: string } }
 
 const inp: React.CSSProperties = { padding: '11px 13px', fontSize: 15, border: '1px solid #ccc', borderRadius: 8 };
 const btn: React.CSSProperties = { padding: '12px 16px', fontSize: 15, fontWeight: 600, color: '#fff', background: '#1a7f37', border: 'none', borderRadius: 8, cursor: 'pointer' };
+const chip: React.CSSProperties = { padding: '4px 10px', fontSize: 12, color: '#1a7f37', background: '#f0f7f0', border: '1px solid #cde6cd', borderRadius: 12, cursor: 'pointer' };

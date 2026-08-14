@@ -74,11 +74,32 @@ export function featureRoutes(app: FastifyInstance) {
 
   // ── Leads (staff/admin) ──
   app.get('/api/leads', { preHandler: requireAuth }, async (req) => {
-    const q = req.query as { stage?: string };
-    const res = q.stage
-      ? await query('SELECT * FROM leads WHERE stage = $1 ORDER BY created_at DESC LIMIT 100', [q.stage])
-      : await query('SELECT * FROM leads ORDER BY created_at DESC LIMIT 100');
+    const q = req.query as { stage?: string; mine?: string };
+    const conditions: string[] = [];
+    const params: unknown[] = [];
+    if (q.stage) { params.push(q.stage); conditions.push(`stage = $${params.length}`); }
+    if (q.mine === 'true') { params.push(req.auth!.userId); conditions.push(`owner_user_id = $${params.length}`); }
+    const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+    const res = await query(`SELECT * FROM leads ${where} ORDER BY created_at DESC LIMIT 100`, params);
     return { leads: res.rows };
+  });
+
+  // ── Leads: claim / assign / unassign ──
+  // A small sales team (1-2 reps) mostly needs "assign to me"; omit ownerUserId
+  // to do that. Pass an explicit ownerUserId (or null) to assign someone else /
+  // unassign — no separate "list of staff" UI until the team is bigger than that.
+  const assignBody = z.object({ ownerUserId: z.string().uuid().nullable().optional() });
+  app.patch('/api/leads/:id/assign', { preHandler: requireAuth }, async (req, reply) => {
+    const parsed = assignBody.safeParse(req.body ?? {});
+    if (!parsed.success) return reply.code(400).send({ error: parsed.error.flatten() });
+    const { id } = req.params as { id: string };
+    const ownerUserId = parsed.data.ownerUserId !== undefined ? parsed.data.ownerUserId : req.auth!.userId;
+    const row = await queryOne(
+      `UPDATE leads SET owner_user_id = $2 WHERE id = $1 RETURNING id, owner_user_id`,
+      [id, ownerUserId]
+    );
+    if (!row) return reply.code(404).send({ error: 'lead not found' });
+    return row;
   });
 
   // ── GBP: create a post ──

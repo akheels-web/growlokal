@@ -1,5 +1,13 @@
 # Changelog
 
+## Build session 8 — Phase 2: new feature candidates
+
+- **City × vertical SEO landing pages** — new `/city/[cityName]/[vertical]` route (32 pages: 4 cities × 8 verticals, matching the homepage's own business-showcase list). Extracted `CITY_DATA`/`getCity()` out of `city/[cityName]/page.tsx` into `lib/cityData.ts` (now has two consumers) and added `lib/verticalData.ts`. Both city pages now cross-link to each other (other verticals in the same city, this vertical in other cities) — the actual SEO value of the matrix.
+- **Lead assignment** — `leads.owner_user_id` existed in the schema since the first build but nothing ever set or read it. Added `PATCH /api/leads/:id/assign` (defaults to "assign to me" — no staff-picker UI needed for a 1-2 person team) and `?mine=true` filter on `GET /api/leads`. Web `/leads` page has an "Assign to me" button + "my leads" toggle.
+- **WhatsApp template quick-pick** — the campaigns UI's template-name field was free text; added a row of common-use-case suggestion chips (`new_offer_announcement`, `appointment_reminder`, etc.) that prefill it. Meta's own template approval is still an external step in WhatsApp Manager — this just removes the "remember the exact approved name" friction.
+
+Verified: API typecheck clean, 4/4 tests pass, `next build` clean on all 18 routes (17 + the new nested city/vertical route).
+
 ## Build session 7 — Phase 1: finish known backend TODOs
 
 - **WhatsApp conversation state → Redis** (`redis.ts`, new `ioredis` dep) — was an in-memory `Map` in `routes/whatsapp.ts`, lost on restart and broken across multiple instances. 24h TTL, no cleanup job needed.

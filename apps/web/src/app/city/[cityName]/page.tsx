@@ -1,54 +1,14 @@
 import Link from 'next/link';
+import { getCity } from '@/lib/cityData';
+import { VERTICAL_DATA } from '@/lib/verticalData';
 
 interface Props {
   params: { cityName: string };
 }
 
-const CITY_DATA: Record<string, { name: string; areas: string[]; state: string; heroDesc: string; searchVolume: string; competition: string }> = {
-  hyderabad: {
-    name: 'Hyderabad',
-    areas: ['Ameerpet', 'Kukatpally', 'Dilsukhnagar', 'Madhapur', 'Himayatnagar', 'Secunderabad', 'Gachibowli', 'Jubilee Hills'],
-    state: 'Telangana',
-    heroDesc: 'Clinics, salons, cafes, and retail stores in Ameerpet, Kukatpally & Madhapur are competing heavily for local customer calls. GrowLokal AI puts your business at the top of Google Maps & WhatsApp.',
-    searchVolume: '85,000+ monthly local searches',
-    competition: 'High (2,500+ registered businesses)',
-  },
-  vijayawada: {
-    name: 'Vijayawada',
-    areas: ['Benz Circle', 'Governorpet', 'Moghalrajpuram', 'Patamata', 'Gudavalli', 'Kanuru'],
-    state: 'Andhra Pradesh',
-    heroDesc: 'Vijayawada residents actively search Google Maps for top clinics, salons, restaurants & stores. GrowLokal automates your local marketing in Telugu.',
-    searchVolume: '48,000+ monthly local searches',
-    competition: 'Very High (1,200+ businesses)',
-  },
-  visakhapatnam: {
-    name: 'Visakhapatnam',
-    areas: ['Dwaraka Nagar', 'MVP Colony', 'Gajuwaka', 'Asilmetta', 'Siripuram', 'Maddilapalem'],
-    state: 'Andhra Pradesh',
-    heroDesc: 'Attract customers across Dwaraka Nagar & MVP Colony with AI-generated Google posts and automated 24/7 WhatsApp customer enquiry responses.',
-    searchVolume: '42,000+ monthly local searches',
-    competition: 'High (950+ businesses)',
-  },
-  bengaluru: {
-    name: 'Bengaluru',
-    areas: ['Jayanagar', 'Rajajinagar', 'Marathahalli', 'Hebbal', 'Indiranagar', 'HSR Layout', 'Koramangala'],
-    state: 'Karnataka',
-    heroDesc: 'Dominate local business searches in Jayanagar, Rajajinagar & HSR Layout with native Kannada & English AI marketing automation.',
-    searchVolume: '120,000+ monthly local searches',
-    competition: 'Extreme (4,500+ businesses)',
-  },
-};
-
 export default function CityPage({ params }: Props) {
+  const city = getCity(params.cityName);
   const cityKey = params.cityName.toLowerCase();
-  const city = CITY_DATA[cityKey] || {
-    name: params.cityName.charAt(0).toUpperCase() + params.cityName.slice(1),
-    areas: ['Central Commercial Hub', 'Market District', 'Main Bazaar', 'North Area', 'South Area'],
-    state: 'South India',
-    heroDesc: `Supercharge new customer growth for local businesses in ${params.cityName} with GrowLokal AI.`,
-    searchVolume: '25,000+ monthly local searches',
-    competition: 'Moderate',
-  };
 
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
@@ -137,6 +97,24 @@ export default function CityPage({ params }: Props) {
               }}>
                 🏬 {area}
               </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Vertical cross-links for this city */}
+        <div style={{ marginBottom: '40px' }}>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '16px', color: '#033540' }}>
+            GrowLokal for {city.name} businesses, by type
+          </h2>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            {Object.values(VERTICAL_DATA).map((v) => (
+              <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{
+                padding: '8px 16px', background: '#F8FAFC', border: '1px solid #e2e8f0',
+                borderRadius: '20px', fontSize: '14px', fontWeight: '600', color: '#2E9AA6',
+                textDecoration: 'none',
+              }}>
+                {v.label} in {city.name} →
+              </Link>
             ))}
           </div>
         </div>

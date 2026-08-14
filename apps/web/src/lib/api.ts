@@ -14,6 +14,20 @@ export function clearToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
+// Decode the JWT payload client-side (no signature check needed — this is
+// only for UI display, e.g. highlighting "my" leads; the server re-verifies
+// on every request that actually matters).
+export function getCurrentUserId(): string | null {
+  const token = getToken();
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.userId ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function api<T = any>(path: string, opts: RequestInit = {}): Promise<T> {
   const token = getToken();
   const res = await fetch(`${API}${path}`, {
