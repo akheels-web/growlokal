@@ -6,210 +6,227 @@
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7.0-red?logo=redis)](https://redis.io/)
-[![i18n Vernacular](https://img.shields.io/badge/Vernacular-Telugu%20|%20Tamil%20|%20Kannada-70BF63)](#-multi-lingual-engine-vernacular-i18n)
+[![i18n Vernacular](https://img.shields.io/badge/Vernacular-Telugu%20|%20Tamil%20|%20Kannada-70BF63)](#-multi-lingual-engine-vernacular-ii8n)
 
-> **GrowLokal** is a production-grade, multi-industry AI marketing automation platform engineered specifically for **offline and local businesses across South India** (Telangana, Andhra Pradesh, Tamil Nadu, Karnataka). 
-> 
-> Operating 24/7 on **Google Maps, WhatsApp Cloud API, Instagram, and Facebook Pages**, GrowLokal automates local lead discovery, review reputation management, and customer inquiry conversion natively in **Telugu, Tamil, Kannada, and English**.
+> **GrowLokal** is an AI marketing automation platform for **local businesses across South India** (Telangana, Andhra Pradesh, Tamil Nadu, Karnataka) — any vertical, not one niche.
+>
+> Operating on **Google Business Profile, WhatsApp Cloud API, Instagram, and Facebook**, GrowLokal automates local lead discovery, review reputation management, and customer enquiry conversion natively in **Telugu, Tamil, Kannada, and English**.
 
 ---
 
-## 🌟 Product Overview & Supported Sectors
+## 🌟 Product Overview & Featured Sectors
 
-In major commercial hubs across South India (e.g., Ameerpet & Kukatpally in Hyderabad, Benz Circle in Vijayawada, Dwaraka Nagar in Vizag, Jayanagar in Bengaluru, Anna Nagar in Chennai), over **85% of customers search Google Maps** before visiting a local business. GrowLokal serves **8 major local business sectors**:
+In South India's major commercial hubs (Ameerpet & Kukatpally in Hyderabad, Benz Circle in Vijayawada, Dwaraka Nagar in Vizag, Jayanagar in Bengaluru), most customers check Google Maps before visiting a local business. GrowLokal works for **any local business type** — the AI content engine is vertical-neutral by design (`profile_context` is freeform per business). Featured sectors with dedicated SEO landing pages (`/city/[cityName]/[vertical]`):
 
-1. 🎓 **Coaching & Tuitions**: IIT/NEET Academies, School Tuitions, Skill Institutes.
-2. 🏥 **Clinics & Healthcare**: Dental Clinics, Skin & Hair Care, Diagnostic Labs, Ayush/Homeo.
-3. 💇 **Salons & Spas**: Unisex Salons, Spas, Bridal Makeup Studios.
-4. 🍽️ **Restaurants & Cafes**: Fine Dining, Bakeries, Cafes, Cloud Kitchens.
-5. 🛍️ **Retail & Outlets**: Fashion Boutiques, Jewelry Stores, Electronics, Supermarkets.
-6. 🏋️ **Fitness & Gyms**: Gyms, Yoga Centers, Martial Arts Academies.
-7. 🏡 **Real Estate & Home**: Property Agencies, Interior Design Studios.
-8. 🚗 **Local Services**: Car Wash, Auto Repair, Event Planners.
+1. 💇 **Salons & Spas**
+2. 🏥 **Doctors & Health Clinics**
+3. 🍽️ **Restaurants & Cafes**
+4. 🏋️ **Gyms & Fitness Centres**
+5. 🚗 **Car Garages & Mechanics**
+6. 🎂 **Bakers & Cake Shops**
+7. ✈️ **Tours & Travel Agencies**
+8. 🔧 **Handyman & Repair Services**
+
+(Coaching centers, clinics, salons, restaurants, real estate, and other verticals are all supported at the data layer — this list reflects what has dedicated SEO content today, not a hard limit.)
 
 ---
 
 ## ✨ Key Features & Capabilities
 
-### 🔍 1. Free 10-Second Google Visibility Audit Magnet
-- Instant scan of public Google Places completeness, review recency, photo updates, and map pack ranking.
-- Generates side-by-side comparative visibility scorecards vs top local area competitors.
-- Delivers automated Telugu, Tamil, Kannada, and English PDF/WhatsApp gap analysis reports to business owners.
+### 🔍 1. Free Google Visibility Audit (Lead Magnet)
+- Scores a business's Google Business Profile completeness, review volume/rating, photos, hours, and address (see `apps/api/src/features/audit/scoring.ts`).
+- Delivered via a WhatsApp bot conversation (`routes/whatsapp.ts`) or the web audit form — both call the same `runAudit()` service.
+- Vernacular summary (Telugu default, Tamil/Kannada/Malayalam/Hindi/English) written by an LLM, with a scripted fallback if the LLM call fails.
+- Captures the phone number + business name as a `lead` for follow-up, independent of whether they ever become a paying customer.
 
-### 🤖 2. 4 Autonomous AI Agents
-- **📍 Google Business Agent**: Publishes weekly AI updates, offers, and drafts vernacular review responses.
-- **💬 24/7 WhatsApp Chat Agent**: Answers customer enquiries about pricing, packages, and appointments instantly via WhatsApp Cloud API.
-- **📸 Social Media Content Agent**: Schedules autopilot graphics and posts for Instagram & Facebook.
-- **🚀 WhatsApp Campaign Broadcast Agent**: Executes targeted WhatsApp broadcast campaigns for festive offers & openings.
+### 🤖 2. AI Agents
+- **📍 Google Business Profile agent**: generates GBP posts and drafts AI review replies. Publishing requires Google's GBP API approval (an external, applied-for process) — until then, generated content saves as a draft.
+- **💬 WhatsApp chat agent**: answers customer questions about a business's services/pricing/hours from its own profile data, replying inside Meta's free 24-hour service window.
+- **📸 Social scheduler**: generates Instagram/Facebook captions + hashtags and schedules them to a self-hosted Mixpost instance via a polling worker (`apps/api/src/worker.ts`).
+- **📢 WhatsApp campaigns**: broadcast messages to a business's customer list using pre-approved Meta templates, billed against prepaid credits (atomic debit, refunded on send failure).
 
-### 💰 3. Business ROI & Profit Growth Calculator
-- Interactive ROI calculator projecting 12-month revenue growth based on regional South Indian ticket sizes.
-- Explains customer acquisition returns backed by regional industry benchmarks.
+### 💰 3. ROI Calculators
+- `/tools/admission-roi-calculator` — projects yearly profit from extra customers vs. subscription cost.
+- `/tools/google-score-calculator` — instant estimate, then a real Google-visibility score delivered via the same audit engine as the homepage form.
 
-### 🌐 4. Custom Website Add-On (+₹4,999 One-Time)
-- 1-click optional add-on for local businesses lacking a digital presence: builds a fast, mobile-friendly 5-page website with services, photos, and direct WhatsApp enquiry forms.
+### 🌐 4. Optional Website Add-On
+- One-time add-on for businesses without a website: a custom-built multi-page site with services, photos, and a WhatsApp enquiry form (separate from the auto-generated booking microsite included in paid plans — see below).
 
-### 📜 5. Complete Legal & Trust Stack
-- Includes fully compliant **Terms of Service** (`/terms`), **Privacy Policy** (`/privacy`), and **Refund Policy** (`/refund`) with a 7-day money-back guarantee.
-- Displays official SVG brand payment logos (GPay, PhonePe, Paytm, BHIM UPI, VISA, Mastercard, RuPay, NetBanking) for trust-building.
+### 📄 5. Auto-Generated Booking Microsite
+- Every subscribed business gets a public page (`/c/[businessId]`) with services, pricing, a `wa.me` enquiry link, and a UPI payment deep link — no separate website builder required.
+
+### 📜 6. Legal & Trust Pages
+- `/terms`, `/privacy`, `/refund` (7-day money-back guarantee on any paid plan).
 
 ---
 
-## 📊 Grexa.ai Competitive Benchmarking & GrowLokal's Unique Image
+## 💳 Pricing
 
-| Feature / Capability | Grexa.ai | GrowLokal AI (Our Unique Advantage) |
+| Plan | Price | Notes |
 |---|---|---|
-| **Target Audience** | Generic SMBs across India | **Hyper-Local South Indian Businesses** (Hyderabad, Vijayawada, Vizag, BLR, Chennai) |
-| **Vernacular Support** | English + basic Hindi | **100% Native Vernacular**: Telugu (తెలుగు), Tamil (தமிழ்), Kannada (ಕನ್ನಡ), English |
-| **Industry Adaptability** | Single generic template | **Dynamic 8-Industry Profiles** (Coaching, Clinics, Salons, Restaurants, Gyms, Retail, etc.) |
-| **Instant Lead Magnet** | Basic contact form | **10-Second Free Google Score Audit Magnet** on WhatsApp & Web |
-| **Website Creation** | Separate high cost | **Custom 5-Page Local Business Website Add-On (+₹4,999 one-time)** |
-| **Monthly Pricing** | ₹5,000 – ₹8,000/month | **₹2,999/month** (Saves business owners ₹12,000+ per quarter) |
+| **Free** | ₹0 | Instant Google visibility audit + competitor benchmark |
+| **Starter** | ₹999/mo (₹799/mo annual) | Weekly GBP posts, 24/7 WhatsApp responder |
+| **Growth** ⭐ | ₹2,499/mo (₹1,999/mo annual) | + review replies, Instagram/FB scheduler, booking microsite, campaigns |
+| **Pro** | ₹4,999/mo (₹3,999/mo annual) | + multi-branch support, priority support |
+
+Prices are defined in one place — `apps/api/src/config.ts` (`PRICE_*_PAISE`) — and mirrored on the landing page's pricing section and the legal pages. Keep all three in sync if you change pricing.
 
 ---
 
-## 🛠️ Hybrid Architecture (Vercel + Dedicated VPS)
+## 🛠️ Architecture (Vercel + Dedicated VPS)
 
 ```mermaid
 flowchart TD
-    User["Local Business Owner<br/>(Web / Mobile Browser)"]
+    User["Local Business Owner<br/>(Web / WhatsApp)"]
     CF["Cloudflare DNS & WAF<br/>growlokal.com"]
-    Vercel["Vercel Edge CDN (Frontend)<br/>growlokal.com — 0ms Cold Start"]
-    VPS["Dedicated VPS (2 vCPU / 8 GB RAM)<br/>api.growlokal.com"]
-    Fastify["Fastify 5 API Server<br/>(:3000 — 2,000 req/sec capacity)"]
-    PG[("PostgreSQL 16<br/>(3.5 GB Allocated RAM)")]
-    Redis[("Redis & BullMQ Workers<br/>(1.5 GB Allocated RAM)")]
-    Gemini["Google Gemini 1.5 Flash<br/>(Vernacular AI Content)"]
+    Vercel["Vercel Edge CDN (Frontend)<br/>app.growlokal.com"]
+    VPS["Dedicated VPS<br/>api.growlokal.com"]
+    Fastify["Fastify 5 API<br/>(:3000)"]
+    PG[("PostgreSQL 16<br/>source of truth")]
+    Redis[("Redis<br/>WhatsApp chat-session state,<br/>GBP token cache")]
+    Worker["Polling worker<br/>(social post scheduler)"]
+    Gemini["Gemini 2.0/2.5 Flash<br/>(vernacular AI content)"]
     WhatsApp["Meta WhatsApp Cloud API"]
 
     User -->|Visits UI| CF --> Vercel
-    Vercel -->|JSON API Calls| CF --> VPS --> Fastify
-    User -->|WhatsApp Inquiry| WhatsApp --> VPS --> Fastify
+    Vercel -->|JSON API calls| CF --> VPS --> Fastify
+    User -->|WhatsApp message| WhatsApp --> VPS --> Fastify
     Fastify --> PG
     Fastify --> Redis
     Fastify --> Gemini
     Fastify --> WhatsApp
+    Worker --> PG
+    Worker -.->|Mixpost API| Fastify
 ```
 
-### ⚡ 100+ Concurrent Customers & VPS Memory Allocation (8 GB VPS)
-- **Frontend**: Offloaded 100% to Vercel Free Global Edge CDN (**0 GB VPS RAM used**).
-- **PostgreSQL 16**: **3.5 GB RAM** (50 max connection pool, 512 MB shared buffers).
-- **Fastify 5 API**: **2.0 GB RAM** (High-concurrency event loop handling 2,000+ req/sec).
-- **Redis & BullMQ Queue**: **1.5 GB RAM** (Background worker queue for WhatsApp & Gemini AI).
-- **Caddy SSL Proxy**: **0.5 GB RAM** (Automatic HTTPS reverse proxy for `api.growlokal.com`).
-- **Buffer Overhead**: **0.5 GB RAM**.
+**What Redis is actually used for today:** WhatsApp conversation state (24h TTL, so a stale chat just resets rather than getting stuck) and a cached GBP OAuth access token (~50min TTL). It is not a job queue — the social-post scheduler (`worker.ts`) is a simple `setInterval` poller by design (see the file's own comment on when to graduate to a real queue like BullMQ).
+
+### VPS resource allocation (`infra/docker-compose.prod.yml`, sized for a 2 vCPU / 8 GB RAM box)
+- **Frontend**: 100% offloaded to Vercel — 0 GB VPS RAM.
+- **PostgreSQL 16**: 3.5 GB RAM limit.
+- **Fastify 5 API**: 2.0 GB RAM limit.
+- **Redis**: 1.5 GB RAM limit (`maxmemory-policy volatile-lru`).
+- **Caddy** (automatic HTTPS reverse proxy): 0.5 GB RAM limit.
 
 ---
 
-## 💰 LLM Cost Optimization (₹2,000 INR Monthly Budget)
+## 💰 LLM Cost
 
-Using **Google Gemini 1.5 Flash**:
-- **Input Cost**: $0.075 per 1,000,000 tokens (~₹6.25 INR).
-- **Output Cost**: $0.300 per 1,000,000 tokens (~₹25.00 INR).
-- **Capacity**: ₹2,000 INR/month budget buys **over 100 Million+ tokens**!
-- **Per-Customer Token Math**: 100 active business clients generating 30 AI posts & review replies/month use ~3 Million tokens total (**Costs only ~₹120 INR/month total**)!
+Default provider is Gemini (`LLM_PROVIDER=gemini` in `config.ts`), with Anthropic, OpenRouter, and a local Ollama fallback also supported:
+- **Cheap tier** (`gemini-2.0-flash-lite`): bulk content drafts (social captions).
+- **Quality tier** (`gemini-2.5-flash`): customer-facing text (audit summaries, WhatsApp chat replies, review replies).
 
----
-
-## 🔒 Security & Hardening Stack
-
-- **Global & Route Rate Limiting**: `@fastify/rate-limit` enforces 100 req/min globally, 5 req/min on `/api/auth/request-otp`, and 5 req/min on `/api/audit/run` to block brute-force & DDoS attacks.
-- **Security Headers**: `@fastify/helmet` enforces HSTS, Content Security Policy, XSS Protection, and MIME Sniffing prevention.
-- **Payload Limits**: 1MB max body payload limit configured on Fastify.
-- **Strict Input Validation**: Zod schema validation for all phone numbers (`/[^0-9]/g`) and inputs.
+At the volumes this product runs at (a handful of posts/replies per business per month), token cost is negligible — well under ₹1/business/month on the cheap tier, and still only tens of rupees/month even entirely on the quality tier. Infra and people costs dominate, not LLM spend.
 
 ---
 
-## ⚡ Performance & Caching Engine
+## 🔒 Security & Hardening
 
-- **API Sub-5ms Responses**: Google Places lookups are stored in an in-memory cache (`12-hour TTL`), reducing audit latency from 1,200ms to **< 5ms** on repeat scans.
-- **Next.js Asset Optimization**: `compress: true` (Gzip/Brotli), WebP/AVIF image formats, static asset caching headers (`Cache-Control: public, max-age=31536000, immutable`).
-- **Font Optimization**: `dns-prefetch` and `preconnect` for Google Fonts (`Inter`, `Manrope`) with `font-display: swap`.
+- **Rate limiting** (`@fastify/rate-limit`): 100 req/min globally, tightened per sensitive route — see the API table below.
+- **Security headers** (`@fastify/helmet`): HSTS, MIME-sniffing prevention, etc. (CSP left to the frontend/CDN layer since this API only serves JSON.)
+- **Payload limit**: 1 MB max request body.
+- **Webhook signature verification**: both `/webhooks/whatsapp` (Meta's `X-Hub-Signature-256`) and `/webhooks/razorpay` (Razorpay's HMAC signature) are verified over the raw request body before any handler logic runs.
+- **Production boot guard**: the API refuses to start if `NODE_ENV=production` and `JWT_SECRET` is still the insecure dev default.
+- **Tenant isolation**: every `/api/businesses/:id/*` route requires the caller's JWT to belong to that business (or have `role: admin`).
+- **Zod validation** on all request bodies, including phone-number format checks.
+
+---
+
+## ⚡ Performance
+
+- **Google Places lookups cached** in-memory with a 12-hour TTL — repeat audits for the same business skip the external API call entirely.
+- **Next.js asset optimization**: gzip/brotli compression, WebP/AVIF images, long-lived static asset caching.
+- **Font optimization**: `dns-prefetch`/`preconnect` for Google Fonts with `font-display: swap`.
 
 ---
 
 ## 💻 Local Development Setup
 
-### Step 1: Clone Repository & Install Dependencies
+### Step 1: Clone & install
 ```bash
-git clone https://github.com/akheels-web/growlokal.git
+git clone <your-repo-url>
 cd growlokal
 pnpm install
 ```
 
-### Step 2: Configure Environment Variables
-Copy `.env.example` to `.env`:
+### Step 2: Configure environment
 ```bash
 cp .env.example .env
 ```
-Edit `.env` and set your PostgreSQL connection string:
+At minimum, set:
 ```env
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/growlokal
-JWT_SECRET=super-secret-jwt-key-change-in-production
+JWT_SECRET=<a long random string — required, not the dev default, once NODE_ENV=production>
 PUBLIC_API_URL=http://localhost:3000
-GOOGLE_PLACES_API_KEY=your_optional_google_api_key
-GEMINI_API_KEY=your_gemini_api_key
 ```
+`GOOGLE_PLACES_API_KEY` and `GEMINI_API_KEY` are optional for a first run — without them, Places returns mock data and the LLM returns stub text, so the app still boots and the audit form still works end-to-end.
 
-### Step 3: Run Database Migrations & Seed Data
+### Step 3: Create the database
 ```bash
 psql "$DATABASE_URL" -f db/schema.sql
 psql "$DATABASE_URL" -f db/migrations/002_auth_billing.sql
 psql "$DATABASE_URL" -f db/migrations/003_mixpost_and_campaigns.sql
-psql "$DATABASE_URL" -f db/seed.sql
+psql "$DATABASE_URL" -f db/migrations/004_gbp_refresh_token.sql
+psql "$DATABASE_URL" -f db/seed.sql   # optional demo data
 ```
 
-### Step 4: Start Local Development Servers
+### Step 4: Start dev servers
 ```bash
-# Start API server on http://localhost:3000
-pnpm --filter @growlokal/api dev
-
-# In a new terminal, start Web Frontend on http://localhost:3001
-pnpm --filter @growlokal/web dev
+pnpm --filter @growlokal/api dev     # API  → http://localhost:3000
+pnpm --filter @growlokal/web dev     # Web  → http://localhost:3001
 ```
+
+**Full setup, deploy steps, and the DNS/Vercel plan → [`IMPLEMENTATION.md`](IMPLEMENTATION.md).**
 
 ---
 
-## 🚢 Production VPS Deployment Guide (Docker Compose + Caddy SSL)
-
-Run the production Docker Compose stack on your **2 vCPU / 8 GB RAM VPS**:
+## 🚢 Production VPS Deployment (Docker Compose + Caddy)
 
 ```bash
-# 1. Clone repository on VPS
-git clone https://github.com/akheels-web/growlokal.git /opt/growlokal
+# 1. Clone on the VPS
+git clone <your-repo-url> /opt/growlokal
 cd /opt/growlokal
 
-# 2. Configure production .env
+# 2. Configure production .env (PG_PASSWORD, JWT_SECRET, WHATSAPP_APP_SECRET,
+#    GEMINI_API_KEY, etc. are all required — the compose file fails fast if unset)
 cp .env.example .env
-# Edit .env with your PG_PASSWORD, JWT_SECRET, GEMINI_API_KEY, and WHATSAPP_ACCESS_TOKEN
 
-# 3. Launch Production Stack
+# 3. Launch
 docker compose -f infra/docker-compose.prod.yml up -d --build
 ```
 
-The stack automatically boots:
-- **PostgreSQL 16** (`:5432` with healthcheck)
-- **Redis 7** (`:6379`)
-- **Fastify 5 API** (`:3000` multi-stage build)
-- **Caddy SSL Proxy** (Automatic HTTPS SSL certificate for `api.growlokal.com`)
+Boots: PostgreSQL 16, Redis 7, the Fastify API (multi-stage Docker build), and Caddy (automatic HTTPS for `api.growlokal.com`). The web dashboard deploys separately to **Vercel** (Root Directory = `apps/web`) — see `IMPLEMENTATION.md` for the DNS split between Cloudflare (owns DNS) and Vercel (reached via a CNAME).
 
 ---
 
 ## 📡 API Endpoint Reference
 
-| Method | Endpoint | Description | Rate Limit |
+| Method | Endpoint | Description | Rate limit |
 |---|---|---|---|
-| `GET` | `/` | API status landing handler | 100 req/min |
-| `GET` | `/health` | API & PostgreSQL database health check | 100 req/min |
-| `POST` | `/api/audit/run` | Executes Google visibility scan & gap analysis | 5 req/min |
-| `POST` | `/api/auth/request-otp` | Sends phone OTP for business owner login | 5 req/min |
-| `POST` | `/api/auth/verify-otp` | Verifies OTP code & issues JWT claims | 10 req/min |
-| `GET` | `/api/features/dashboard` | Returns tenant ROI & enquiry statistics | Authenticated |
-| `POST` | `/api/billing/webhook` | Verifies Razorpay subscription payment webhooks | Signed |
+| `GET` | `/` | API status | 100/min (global) |
+| `GET` | `/health` | API + Postgres health check | 100/min |
+| `GET` | `/api/audit/autocomplete?q=` | Google Places business-name autocomplete | 20/min |
+| `POST` | `/api/audit/run` | Runs the free Google visibility audit | 5/min |
+| `POST` | `/api/auth/request-otp` | Sends a phone OTP | 5/min |
+| `POST` | `/api/auth/verify-otp` | Verifies OTP, issues a JWT | 10/min |
+| `GET` | `/api/auth/me` | Current user's claims | Authenticated |
+| `PUT` | `/api/businesses/:id` | Onboarding — sets profile, Mixpost accounts, GBP refresh token | Authenticated (own business) |
+| `GET` | `/api/public/business/:id` | Public booking-microsite data | Public |
+| `GET` | `/api/businesses/:id/roi` | Monthly enquiries/demos/leads | Authenticated |
+| `GET` | `/api/businesses/:id/wallet` | WhatsApp prepaid credit balance | Authenticated |
+| `POST` | `/api/businesses/:id/gbp/post` | Generate (and, if approved, publish) a GBP post | Authenticated |
+| `POST` | `/api/businesses/:id/reviews/draft-replies` | AI-draft replies to stored reviews | Authenticated |
+| `POST` | `/api/businesses/:id/social/schedule` | Generate + schedule an Instagram/FB post | Authenticated |
+| `POST` | `/api/businesses/:id/campaigns` | Create a WhatsApp campaign draft | Authenticated |
+| `POST` | `/api/businesses/:id/campaigns/:cid/send` | Send a campaign to its persisted recipients | Authenticated |
+| `POST` | `/api/businesses/:id/billing/subscribe` | Create a Razorpay subscription checkout | Authenticated |
+| `GET` | `/api/leads?stage=&mine=` | List leads (sales) | Authenticated |
+| `PATCH` | `/api/leads/:id/assign` | Assign a lead (defaults to "assign to me") | Authenticated |
+| `GET`/`POST` | `/webhooks/whatsapp` | Meta verification handshake / inbound messages | Signature-verified |
+| `POST` | `/webhooks/razorpay` | Subscription payment events | Signature-verified |
 
 ---
 
-## 📄 License & Credits
+## 📄 License
 
-- **License**: Proprietary — All rights reserved © 2026 **GrowLokal Technologies**.
-- **Engineered by**: Advanced Agentic Coding Team.
+Proprietary — All rights reserved © 2026 **GrowLokal Technologies**.
