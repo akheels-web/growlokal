@@ -11,15 +11,19 @@ const schema = z.object({
   WHATSAPP_ACCESS_TOKEN: z.string().default(''),
   WHATSAPP_VERIFY_TOKEN: z.string().default('dev_verify_token'),
   WHATSAPP_API_VERSION: z.string().default('v21.0'),
+  // Meta App Secret — used to verify X-Hub-Signature-256 on inbound webhooks.
+  // Empty in dev (verification skipped with a warning); REQUIRED in production.
+  WHATSAPP_APP_SECRET: z.string().default(''),
 
   // Google
   GOOGLE_PLACES_API_KEY: z.string().default(''),
 
   // LLM
-  LLM_PROVIDER: z.enum(['gemini', 'anthropic', 'ollama']).default('gemini'),
+  LLM_PROVIDER: z.enum(['gemini', 'openrouter', 'anthropic', 'ollama']).default('gemini'),
   LLM_MODEL_CHEAP: z.string().default('gemini-2.0-flash-lite'),
   LLM_MODEL_QUALITY: z.string().default('gemini-2.5-flash'),
   GEMINI_API_KEY: z.string().default(''),
+  OPENROUTER_API_KEY: z.string().default(''),
   ANTHROPIC_API_KEY: z.string().default(''),
   OLLAMA_BASE_URL: z.string().default('http://localhost:11434'),
   OLLAMA_MODEL: z.string().default('qwen2.5:3b'),
@@ -29,7 +33,7 @@ const schema = z.object({
 
   // SMS (MSG91 — cheap Indian aggregator; needs DLT registration)
   MSG91_AUTH_KEY: z.string().default(''),
-  MSG91_SENDER_ID: z.string().default('PRCHAR'),
+  MSG91_SENDER_ID: z.string().default('GRWLKL'),
   MSG91_OTP_TEMPLATE_ID: z.string().default(''),
 
   // Mixpost (self-hosted social scheduler on Proxmox)
@@ -55,3 +59,11 @@ const schema = z.object({
 export const config = schema.parse(process.env);
 
 export const isProd = config.NODE_ENV === 'production';
+
+// Refuse to boot in production with the insecure default JWT secret — a
+// silent default here means every token is forgeable. Fail loud, not quiet.
+if (isProd && config.JWT_SECRET === 'dev_insecure_change_me') {
+  throw new Error(
+    'JWT_SECRET is unset in production (still the dev default). Set a long random JWT_SECRET before starting.'
+  );
+}

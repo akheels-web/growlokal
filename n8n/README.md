@@ -21,7 +21,7 @@ If you'd rather run the audit bot's WhatsApp handling in n8n instead of the API'
 ```
 [Webhook: WhatsApp inbound]
   → [Switch: is it "DEMO"? / a name? / a greeting?]
-  → [HTTP: POST https://api.yourdomain.in/api/audit/run]   ← reuse the tested service
+  → [HTTP: POST https://api.growlokal.com/api/audit/run]   ← reuse the tested service
   → [HTTP: WhatsApp send (Meta Graph API)]
 ```
 Either way, call `/api/audit/run` so the tested scoring + LLM + persistence logic stays in one place.

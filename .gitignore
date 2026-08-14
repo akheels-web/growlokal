@@ -1,39 +1,68 @@
-# Dependencies
+# ============================================================
+# GrowLokal — .gitignore
+# Rule: Git holds code + templates + docs.
+#        The server holds secrets + data + runtime state.
+# ============================================================
+
+# ---------- Dependencies ----------
 node_modules/
 .pnpm-store/
 
-# Env & secrets — NEVER commit these
-.env
-.env.local
-.env.*.local
-*.pem
-*.key
-credentials/
-*-credentials.json
-.cloudflared/
-
-# Build output
+# ---------- Build artifacts ----------
 dist/
-build/
 .next/
 out/
 *.tsbuildinfo
+next-env.d.ts
 
-# Logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
+# ---------- Package manager extras ----------
+# pnpm-lock.yaml IS committed (workspace lockfile).
+# npm lockfiles generated inside workspace apps are not.
+package-lock.json
 
-# DB dumps / backups
+# ---------- Environment / Secrets ----------
+.env
+.env.*
+!.env.example
+
+# Certificates & credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*-credentials.json
+service-account*.json
+
+# ---------- Cloudflare ----------
+.cloudflared/
+*.crt
+
+# ---------- Database ----------
 *.sql.gz
 backups/
 
-# OS / editor
+# ---------- n8n runtime state ----------
+.n8n/
+
+# ---------- IDE / Editor ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
 Thumbs.db
-.idea/
-.vscode/*
-!.vscode/extensions.json
+desktop.ini
 
-# n8n local data (export workflows explicitly instead)
-.n8n/
+# ---------- OS files ----------
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------- Miscellaneous ----------
+.vercel/
+.turbo/
+coverage/
+*.local

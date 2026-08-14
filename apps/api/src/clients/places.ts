@@ -22,17 +22,36 @@ export interface PlaceSignals {
   addressComplete: boolean;
 }
 
+export interface PlaceSuggestion {
+  placeId: string;
+  name: string;
+  address: string;
+}
+
 /**
  * Text-search for a business by name (+ city) and return the top match's
  * signals. Returns null if nothing found or the API key is missing.
  */
+// Fast In-Memory Cache for Google Places queries (12-hour TTL to save API costs & achieve < 5ms response latency)
+const placesCache = new Map<string, { data: PlaceSignals | null; expiresAt: number }>();
+const CACHE_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
+
 export async function lookupBusiness(
   name: string,
   city = 'Hyderabad'
 ): Promise<PlaceSignals | null> {
+  const cacheKey = `${name.trim().toLowerCase()}_${city.trim().toLowerCase()}`;
+  const cached = placesCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    log.info({ cacheKey }, 'Places lookup cache hit — returning cached signals');
+    return cached.data;
+  }
+
   if (!config.GOOGLE_PLACES_API_KEY) {
     log.warn('GOOGLE_PLACES_API_KEY not set — returning mock signals');
-    return mockSignals(name);
+    const mock = mockSignals(name);
+    placesCache.set(cacheKey, { data: mock, expiresAt: Date.now() + CACHE_TTL_MS });
+    return mock;
   }
 
   try {
@@ -68,7 +87,7 @@ export async function lookupBusiness(
     const p = json?.places?.[0];
     if (!p) return null;
 
-    return {
+    const result: PlaceSignals = {
       placeId: p.id,
       name: p.displayName?.text ?? name,
       rating: p.rating,
@@ -81,6 +100,8 @@ export async function lookupBusiness(
       primaryType: p.primaryType,
       addressComplete: Boolean(p.formattedAddress),
     };
+    placesCache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS });
+    return result;
   } catch (err) {
     log.error({ err }, 'Places lookup exception');
     return null;
@@ -102,4 +123,45 @@ function mockSignals(name: string): PlaceSignals {
     primaryType: 'school',
     addressComplete: true,
   };
+}
+
+export async function autocompletePlaces(queryText: string): Promise<PlaceSuggestion[]> {
+  if (!queryText || queryText.trim().length < 2) return [];
+
+  if (!config.GOOGLE_PLACES_API_KEY) {
+    const q = queryText.trim();
+    return [
+      { placeId: `mock-1`, name: `${q}`, address: `Ameerpet, Hyderabad, Telangana` },
+      { placeId: `mock-2`, name: `${q} Healthcare Clinic`, address: `Kukatpally, Hyderabad, Telangana` },
+      { placeId: `mock-3`, name: `${q} Unisex Salon & Spa`, address: `Jubilee Hills, Hyderabad, Telangana` },
+      { placeId: `mock-4`, name: `${q} Restaurant & Bakery`, address: `Hitech City, Hyderabad, Telangana` },
+    ];
+  }
+
+  try {
+    const res = await request('https://places.googleapis.com/v1/places:searchText', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': config.GOOGLE_PLACES_API_KEY,
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress',
+      },
+      body: JSON.stringify({
+        textQuery: queryText,
+        maxResultCount: 5,
+      }),
+    });
+
+    const json = (await res.body.json()) as any;
+    if (!json?.places) return [];
+
+    return json.places.map((p: any) => ({
+      placeId: p.id ?? '',
+      name: p.displayName?.text ?? '',
+      address: p.formattedAddress ?? '',
+    })).filter((s: PlaceSuggestion) => s.name);
+  } catch (err) {
+    log.error({ err }, 'Google Places Autocomplete failed');
+    return [];
+  }
 }

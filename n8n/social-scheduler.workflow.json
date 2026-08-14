@@ -1,5 +1,5 @@
 {
-  "name": "Prachaar — Daily Social Post Generator",
+  "name": "GrowLokal — Daily Social Post Generator",
   "nodes": [
     {
       "parameters": {
@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "url": "https://api.yourdomain.in/api/businesses/due-for-post",
+        "url": "https://api.growlokal.com/api/businesses/due-for-post",
         "options": {}
       },
       "name": "Fetch due businesses",
@@ -30,7 +30,7 @@
     },
     {
       "parameters": {
-        "url": "https://api.yourdomain.in/api/businesses/{{$json.id}}/social/schedule",
+        "url": "https://api.growlokal.com/api/businesses/{{$json.id}}/social/schedule",
         "method": "POST",
         "sendBody": true,
         "bodyParameters": {

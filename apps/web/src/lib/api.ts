@@ -1,7 +1,7 @@
 // Tiny API client for the dashboard. Stores the JWT in localStorage.
 const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
-const TOKEN_KEY = 'prachaar_token';
+const TOKEN_KEY = 'growlokal_token';
 
 export function getToken(): string | null {
   if (typeof window === 'undefined') return null;

@@ -6,23 +6,23 @@ credentials-file: /root/.cloudflared/REPLACE-WITH-TUNNEL-UUID.json
 
 ingress:
   # Public app + API (on the VPS in Phase 1, on home in Phase 0)
-  - hostname: app.yourdomain.in
+  - hostname: app.growlokal.com
     service: http://10.0.0.20:3001        # Next.js web
-  - hostname: api.yourdomain.in
+  - hostname: api.growlokal.com
     service: http://10.0.0.20:3000        # Fastify API (WhatsApp webhook lives here)
 
   # Internal tools — ALSO put these behind Cloudflare Access (Zero Trust)
-  - hostname: n8n.yourdomain.in
+  - hostname: n8n.growlokal.com
     service: http://10.0.0.30:5678
-  - hostname: bot.yourdomain.in
+  - hostname: bot.growlokal.com
     service: http://10.0.0.30:8080        # Typebot viewer
-  - hostname: chat.yourdomain.in
+  - hostname: chat.growlokal.com
     service: http://10.0.0.30:3001        # Chatwoot
-  - hostname: social.yourdomain.in
+  - hostname: social.growlokal.com
     service: http://10.0.0.30:8000        # Mixpost
-  - hostname: book.yourdomain.in
+  - hostname: book.growlokal.com
     service: http://10.0.0.30:3002        # Cal.com
-  - hostname: metrics.yourdomain.in
+  - hostname: metrics.growlokal.com
     service: http://10.0.0.30:3003        # Metabase
 
   # Catch-all (required, must be last)

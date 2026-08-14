@@ -8,7 +8,7 @@
 import type { FastifyInstance } from 'fastify';
 import { config } from '../config.js';
 import { log } from '../logger.js';
-import { sendText } from '../clients/whatsapp.js';
+import { sendText, verifyWebhookSignature } from '../clients/whatsapp.js';
 import { runAudit } from '../features/audit/service.js';
 import { answerCustomerQuestion, loadBusinessContext } from '../features/content/generator.js';
 import { query, queryOne } from '../db.js';
@@ -33,8 +33,18 @@ export function whatsappRoutes(app: FastifyInstance) {
   });
 
   // ── Inbound messages
-  app.post('/webhooks/whatsapp', async (req, reply) => {
-    // Always 200 fast so Meta doesn't retry; process async.
+  app.post('/webhooks/whatsapp', { config: { rawBody: true } }, async (req, reply) => {
+    // Verify this really came from Meta before doing anything paid (LLM/Places
+    // calls). Reject silently rather than ack — a forged request isn't Meta's
+    // to retry.
+    const signature = req.headers['x-hub-signature-256'] as string | undefined;
+    const raw = (req as any).rawBody as string | undefined;
+    if (!verifyWebhookSignature(raw ?? '', signature)) {
+      log.warn('WhatsApp webhook signature invalid — rejecting');
+      return reply.code(403).send('invalid signature');
+    }
+
+    // Ack fast so Meta doesn't retry; process async.
     reply.code(200).send('ok');
 
     try {

@@ -2,7 +2,7 @@
 // public API). Polls for due content and publishes it. Kept dead-simple
 // (setInterval) rather than a full queue; move to BullMQ when volume grows.
 //
-// Run: pnpm --filter @prachaar/api worker
+// Run: pnpm --filter @growlokal/api worker
 import 'dotenv/config';
 import { log } from './logger.js';
 import { query } from './db.js';

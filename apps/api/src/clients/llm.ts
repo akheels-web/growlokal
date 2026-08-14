@@ -21,6 +21,8 @@ export async function generate(opts: GenerateOpts): Promise<string> {
   switch (config.LLM_PROVIDER) {
     case 'gemini':
       return generateGemini(system, prompt, tier, maxTokens, temperature);
+    case 'openrouter':
+      return generateOpenRouter(system, prompt, tier, maxTokens, temperature);
     case 'anthropic':
       return generateAnthropic(system, prompt, maxTokens, temperature);
     case 'ollama':
@@ -28,6 +30,52 @@ export async function generate(opts: GenerateOpts): Promise<string> {
     default:
       throw new Error(`Unknown LLM_PROVIDER: ${config.LLM_PROVIDER}`);
   }
+}
+
+// ── OpenRouter (Multi-model: Claude, Llama 3.3, Gemini, FLUX graphics) ──────
+async function generateOpenRouter(
+  system: string | undefined,
+  prompt: string,
+  tier: Tier,
+  maxTokens: number,
+  temperature: number
+): Promise<string> {
+  if (!config.OPENROUTER_API_KEY) {
+    log.warn('OPENROUTER_API_KEY not set — falling back to Gemini or stub');
+    if (config.GEMINI_API_KEY) {
+      return generateGemini(system, prompt, tier, maxTokens, temperature);
+    }
+    return `[stub openrouter output for prompt: ${prompt.slice(0, 60)}...]`;
+  }
+
+  const model = tier === 'cheap' ? 'google/gemini-2.0-flash-lite-001' : 'google/gemini-2.0-flash-001';
+  const res = await request('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${config.OPENROUTER_API_KEY}`,
+      'HTTP-Referer': 'https://growlokal.com',
+      'X-Title': 'GrowLokal AI',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: maxTokens,
+      temperature,
+      messages: [
+        ...(system ? [{ role: 'system', content: system }] : []),
+        { role: 'user', content: prompt }
+      ],
+    }),
+  });
+  const json = (await res.body.json()) as any;
+  if (res.statusCode >= 400) {
+    log.error({ status: res.statusCode, json }, 'OpenRouter failed — trying Gemini fallback');
+    if (config.GEMINI_API_KEY) {
+      return generateGemini(system, prompt, tier, maxTokens, temperature);
+    }
+    throw new Error(json?.error?.message ?? 'openrouter error');
+  }
+  return json?.choices?.[0]?.message?.content ?? '';
 }
 
 // ── Gemini (default; cheapest for vernacular at scale) ────────

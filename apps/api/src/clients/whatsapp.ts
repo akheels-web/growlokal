@@ -2,6 +2,7 @@
 // Docs: https://developers.facebook.com/docs/whatsapp/cloud-api
 // See ../../../../Technical-Setup-Guide.md §4 for account setup.
 import { request } from 'undici';
+import crypto from 'node:crypto';
 import { config } from '../config.js';
 import { log } from '../logger.js';
 
@@ -49,6 +50,27 @@ export async function sendTemplate(
       components,
     },
   });
+}
+
+/**
+ * Verify Meta's X-Hub-Signature-256 header on an inbound webhook, computed
+ * over the RAW request body using the Meta App Secret. Without this, anyone
+ * who finds the webhook URL can POST fake messages and trigger paid LLM/Places
+ * calls. If WHATSAPP_APP_SECRET is unset (dev), verification is skipped.
+ */
+export function verifyWebhookSignature(rawBody: string, signatureHeader: string | undefined): boolean {
+  if (!config.WHATSAPP_APP_SECRET) {
+    log.warn('WHATSAPP_APP_SECRET not set — skipping webhook signature check (dev only)');
+    return true;
+  }
+  if (!signatureHeader) return false;
+  const expected =
+    'sha256=' + crypto.createHmac('sha256', config.WHATSAPP_APP_SECRET).update(rawBody).digest('hex');
+  try {
+    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signatureHeader));
+  } catch {
+    return false; // length mismatch etc. -> not equal
+  }
 }
 
 async function post(payload: unknown): Promise<SendResult> {

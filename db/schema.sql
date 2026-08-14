@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────
--- Prachaar — Postgres schema (source of truth)
+-- GrowLokal — Postgres schema (source of truth)
 -- Postgres 16. Run: psql "$DATABASE_URL" -f db/schema.sql
 --
 -- Design notes:

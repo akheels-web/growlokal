@@ -25,7 +25,7 @@ export async function requestOtp(phone: string): Promise<void> {
   );
 
   if (config.NODE_ENV === 'production') {
-    await sendSms(phone, `Your Prachaar login code is ${code}. Valid ${OTP_TTL_MIN} min.`);
+    await sendSms(phone, `Your GrowLokal login code is ${code}. Valid ${OTP_TTL_MIN} min.`);
   } else {
     log.info({ phone, code }, 'DEV OTP (not sent over SMS)');
   }

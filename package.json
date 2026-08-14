@@ -1,13 +1,21 @@
 {
-  "name": "prachaar",
+  "name": "growlokal",
   "version": "0.1.0",
   "private": true,
   "description": "AI marketing platform for South Indian local businesses",
   "packageManager": "pnpm@9.0.0",
   "engines": { "node": ">=20" },
   "scripts": {
-    "dev": "echo 'Run per-app: pnpm --filter @prachaar/api dev  |  pnpm --filter @prachaar/web dev'",
+    "dev": "echo 'Run per-app: pnpm --filter @growlokal/api dev  |  pnpm --filter @growlokal/web dev'",
     "db:schema": "psql \"$DATABASE_URL\" -f db/schema.sql",
     "db:seed": "psql \"$DATABASE_URL\" -f db/seed.sql"
+  },
+  "pnpm": {
+    "overrides": {
+      "fastify": "^5.2.1",
+      "@fastify/cors": "^10.0.1",
+      "@fastify/helmet": "^13.0.1",
+      "@fastify/rate-limit": "^10.2.1"
+    }
   }
 }
