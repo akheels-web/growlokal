@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import Link from 'next/link';
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
@@ -853,16 +854,20 @@ export default function Home() {
         </div>
         <div ref={industryView.ref} className="biz-showcase-grid stagger-children">
           {BUSINESS_TYPES.map((biz, i) => (
-            <div
+            <Link
               key={biz.name}
+              href={`/industry/${biz.slug}`}
               className={`biz-showcase-card fade-up ${industryView.visible ? 'visible' : ''}`}
-              style={{ transitionDelay: `${i * 60}ms` }}
+              style={{ transitionDelay: `${i * 60}ms`, textDecoration: 'none' }}
             >
-              <div className="biz-showcase-title">{biz.name}</div>
+              <div>
+                <div className="biz-showcase-title">{biz.name}</div>
+                <span className="biz-showcase-badge">Explore AI Plan →</span>
+              </div>
               <div className="biz-showcase-img-wrap">
                 <img src={biz.image} alt={biz.name} className="biz-showcase-img" />
               </div>
-            </div>
+            </Link>
           ))}
 
           {/* Feature CTA Card matching Grexa style */}
@@ -1433,11 +1438,11 @@ export default function Home() {
             <div>
               <h4 className="footer-col-title">Solutions</h4>
               <ul className="footer-links-list">
-                <li className="footer-link-item"><a href="#industries">Clinics &amp; Healthcare</a></li>
-                <li className="footer-link-item"><a href="#industries">Salons &amp; Spas</a></li>
-                <li className="footer-link-item"><a href="#industries">Restaurants &amp; Cafes</a></li>
-                <li className="footer-link-item"><a href="#industries">Retail &amp; Boutiques</a></li>
-                <li className="footer-link-item"><a href="#industries">Local Services &amp; Repairs</a></li>
+                <li className="footer-link-item"><Link href="/industry/doctors-clinics">Clinics &amp; Healthcare</Link></li>
+                <li className="footer-link-item"><Link href="/industry/salons-spas">Salons &amp; Spas</Link></li>
+                <li className="footer-link-item"><Link href="/industry/restaurants-cafes">Restaurants &amp; Cafes</Link></li>
+                <li className="footer-link-item"><Link href="/industry/gyms-fitness">Gyms &amp; Fitness</Link></li>
+                <li className="footer-link-item"><Link href="/industry/bakers-cake-shops">Bakeries &amp; Cake Shops</Link></li>
               </ul>
             </div>
 
@@ -1640,14 +1645,14 @@ const AGENTS = [
 ];
 
 const BUSINESS_TYPES = [
-  { name: 'Gym & Fitness Centres', image: '/images/biz_gym.png' },
-  { name: 'Doctors & Health Clinics', image: '/images/biz_doctor.png' },
-  { name: 'Bakers & Cake Shops', image: '/images/biz_baker.png' },
-  { name: 'Salon Owners & Spas', image: '/images/biz_salon.png' },
-  { name: 'Restaurants & Cafes', image: '/images/biz_chef.png' },
-  { name: 'Car Garages & Mechanics', image: '/images/biz_mechanic.png' },
-  { name: 'Tours & Travel Agencies', image: '/images/biz_travel.png' },
-  { name: 'Handyman & Repair Services', image: '/images/biz_handyman.png' },
+  { name: 'Gym & Fitness Centres', image: '/images/biz_gym.png', slug: 'gyms-fitness' },
+  { name: 'Doctors & Health Clinics', image: '/images/biz_doctor.png', slug: 'doctors-clinics' },
+  { name: 'Bakers & Cake Shops', image: '/images/biz_baker.png', slug: 'bakers-cake-shops' },
+  { name: 'Salon Owners & Spas', image: '/images/biz_salon.png', slug: 'salons-spas' },
+  { name: 'Restaurants & Cafes', image: '/images/biz_chef.png', slug: 'restaurants-cafes' },
+  { name: 'Car Garages & Mechanics', image: '/images/biz_mechanic.png', slug: 'garages-mechanics' },
+  { name: 'Tours & Travel Agencies', image: '/images/biz_travel.png', slug: 'travel-agencies' },
+  { name: 'Handyman & Repair Services', image: '/images/biz_handyman.png', slug: 'handyman-repair' },
 ];
 
 const TESTIMONIALS = [

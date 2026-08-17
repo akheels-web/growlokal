@@ -1,5 +1,13 @@
 # Changelog
 
+## Build session 10 — Dedicated industry & sector landing pages
+
+- **Dedicated sector landing pages** — new dynamic `/industry/[slug]` route covering all 8 business verticals (Gyms, Clinics, Bakeries, Salons, Restaurants, Garages, Travel Agencies, Handyman Services). Each page features sector-specific hero headlines, growth stats, 3 core local pain points with AI fixes, customized breakdowns for all 4 AI agents, real South Indian customer case study with before/after metrics, search keywords, localized city cross-links to `/city/[cityName]/[vertical]`, collapsible FAQs, and an instant Google visibility audit form.
+- **Enriched `verticalData.ts`** — expanded the shared vertical data model with comprehensive marketing copy, case studies, pain points, and FAQs for all 8 business categories.
+- **Connected homepage showcase cards** — all 8 cards in the "Built for Small Business Owners" section on the homepage are now clickable Next.js `Link` components (`/industry/[slug]`) with animated hover badges. Footer "Solutions" column updated with direct links to the new sector landing pages.
+
+Verified: Live browser testing verified click-through navigation from the homepage to all sector pages (`/industry/gyms-fitness`, `/industry/doctors-clinics`, `/industry/salons-spas`, etc.).
+
 ## Build session 9 — landing page UI refinements
 
 - **Pricing grid → 4-column single-row layout** — expanded `#pricing .section-center` and `.pricing-gosaas-wrapper` max-width to `1360px` to properly fit 4 cards side-by-side on desktop without cramped wrapping. Standardized `.pricing-plan-subtitle` with `min-height: 38px` so card dividers and prices align horizontally. Added `white-space: nowrap` and flex alignment on `.pricing-price-val` (`₹999 / month`, `₹2,499 / month`, `₹4,999 / month`). Maintained responsive breakpoints: `@media (max-width: 1100px)` for 2-column tablet layout, and mobile (≤640px) for single-column.

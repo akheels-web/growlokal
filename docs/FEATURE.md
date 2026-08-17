@@ -16,6 +16,22 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Dedicated sector & industry landing pages (`/industry/[slug]`) — shipped 2026-08-17
+- **What it does:** Creates dedicated, full-length marketing landing pages for all 8 business verticals (Gyms, Clinics, Bakeries, Salons, Restaurants, Garages, Travel Agencies, Handyman Services). Turns the 8 homepage showcase cards into interactive clickable links and connects the footer solutions links. Each sector page includes tailored hero messaging, stats, 3 sector-specific local pain points with AI fixes, 4 AI agent breakdowns, real South Indian case study with metrics, search keywords, city cross-links, FAQs, and a free Google audit form.
+- **Files:** `apps/web/src/app/industry/[slug]/page.tsx` (new), `apps/web/src/lib/verticalData.ts`, `apps/web/src/app/page.tsx`, `apps/web/src/app/globals.css` (`.biz-showcase-badge`, `.biz-showcase-card:hover`)
+- **Test checklist:**
+  - [x] Clicking any of the 8 cards in "Built for Small Business Owners" opens its `/industry/[slug]` landing page
+  - [x] Sector page renders tailored hero headline, subheadline, badge, and stats
+  - [x] 3 sector-specific pain points & AI fixes display correctly
+  - [x] 4 AI Agent use cases describe real vertical-specific workflows
+  - [x] Real South Indian case study displays quote, founder initials, and 3 before/after metrics
+  - [x] City matrix cards link to `/city/[cityName]/[vertical]`
+  - [x] FAQ accordion expands/collapses properly on click
+  - [x] Instant Google audit form submits and shows confirmation
+  - [x] Footer "Solutions" column links navigate to respective sector pages
+  - [x] Floating WhatsApp CTA includes the sector name in prefilled message
+- **Rollback:** Remove `apps/web/src/app/industry/[slug]/page.tsx` and revert the `Link` wrapper in `page.tsx` back to standard `div` cards.
+
 ### Pricing grid 4-column single-row layout — shipped 2026-08-17
 - **What it does:** Changes the pricing section from a 2×2 grid to a 4×1 single-row layout on desktop. Widens the container to `1360px` so all four plans (Free / Starter / Growth / Pro) display side-by-side without vertical wrapping on prices or cramped text. Aligns subtitles with `min-height: 38px` so card dividers and prices stay at matching horizontal lines. Responsive breakpoints: ≤1100px → 2 columns, ≤640px → 1 column.
 - **Files:** `apps/web/src/app/globals.css` (`.pricing-gosaas-wrapper`, `#pricing .section-center`, `.pricing-gosaas-grid`, `.pricing-card-free`, `.pricing-card-standard`, `.pricing-plan-subtitle`, `.pricing-price-val`)

@@ -1911,6 +1911,27 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   letter-spacing: -0.015em;
 }
 
+.biz-showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0E4459;
+  background: rgba(14, 68, 89, 0.1);
+  padding: 3px 10px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  z-index: 2;
+  position: relative;
+}
+
+.biz-showcase-card:hover .biz-showcase-badge {
+  background: #0E4459;
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
 .biz-showcase-img-wrap {
   width: 55%;
   height: 100%;
