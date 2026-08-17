@@ -32,7 +32,7 @@ export default function RefundPage() {
             textTransform: 'uppercase',
             letterSpacing: '0.1em'
           }}>
-            100% Risk-Free Guarantee
+            100% Risk-Free First Payment
           </span>
           <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginTop: '8px', marginBottom: '12px' }}>
             Refund &amp; Cancellation Policy
@@ -50,54 +50,64 @@ export default function RefundPage() {
             borderRadius: '16px'
           }}>
             <h2 style={{ fontSize: '1.25rem', color: '#033540', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              🛡️ 7-Day Money-Back Guarantee
+              🛡️ 7-Day Money-Back Guarantee — First Payment Only
             </h2>
             <p style={{ color: '#033540' }}>
-              We want you to feel 100% confident in GrowLokal. If you subscribe to any paid plan (<strong>Starter, Growth, or Pro</strong>) and are not completely satisfied with your Google visibility improvements or AI features within the first <strong>7 days</strong> of payment, we will refund <strong>100% of your money — no questions asked</strong>.
+              We want you to feel 100% confident trying GrowLokal. If you subscribe to any paid plan (<strong>Starter, Growth, or Pro</strong>) for the <strong>first time</strong> and are not completely satisfied within <strong>7 days</strong> of that first payment, we will refund <strong>100% of your money — no questions asked</strong>.
+            </p>
+            <p style={{ marginTop: '10px', color: '#033540' }}>
+              This guarantee applies to your <strong>first subscription payment only</strong>. Subsequent renewal charges are covered by our standard cancellation terms below (Section 2), not this guarantee — you can always cancel auto-renewal before your next billing date to avoid being charged again.
             </p>
           </section>
 
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>1. Free Instant Audit (No Risk)</h2>
             <p>
-              The GrowLokal Google Business Audit is <strong>100% Free forever</strong>. You do not need to enter a credit card, debit card, or payment details to receive your instant report and baseline score.
+              The GrowLokal Google Business Audit is <strong>100% free forever</strong>. You do not need to enter a credit card, debit card, or payment details to receive your instant report and baseline score.
             </p>
           </section>
 
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>2. Subscription Cancellation Terms</h2>
             <p>
-              You can cancel your Growth Plan subscription at any time without long-term contracts, lock-in periods, or cancellation penalties:
+              You can cancel auto-renewal at any time, with no long-term contracts, lock-in periods, or cancellation penalties:
             </p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <li><strong>Self-Service Dashboard:</strong> Cancel directly from your owner dashboard under Account Settings.</li>
-              <li><strong>1-Click WhatsApp Cancellation:</strong> Message our support team on WhatsApp requesting cancellation, and it will be processed instantly.</li>
-              <li><strong>Access Until Cycle End:</strong> Upon cancellation, your AI automation features will remain fully active until the end of your current paid billing period.</li>
+              <li><strong>Self-Service Dashboard:</strong> cancel directly from your owner dashboard under Account Settings.</li>
+              <li><strong>WhatsApp Cancellation:</strong> message our support team requesting cancellation.</li>
+              <li><strong>Access Until Cycle End:</strong> once cancelled, your paid features remain active until the end of your current billing period — you're only charged for time you can still use.</li>
             </ul>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>3. How Refund Requests are Processed</h2>
-            <p>To request a refund under our 7-Day Money-Back Guarantee:</p>
+            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>3. How Refund Requests Are Processed</h2>
+            <p>To request a refund under the 7-Day Money-Back Guarantee (first payment only):</p>
             <ol style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <li>Send a brief email to <strong>support@growlokal.com</strong> or message us on WhatsApp (+91 98765 43210) within 7 days of payment.</li>
+              <li>Email <strong>support@growlokal.com</strong> or message us on WhatsApp (+91 98765 43210) within 7 days of your first payment.</li>
               <li>Include your registered mobile number and business name.</li>
-              <li>Once verified, your refund will be initiated immediately.</li>
+              <li>Once verified, your refund is initiated immediately.</li>
             </ol>
             <p style={{ marginTop: '12px' }}>
-              Refunds are credited directly back to your original payment method (UPI account, Credit/Debit Card, or Net Banking) within <strong>5 to 7 business days</strong> depending on your bank.
+              Refunds are credited to your original payment method (UPI, Credit/Debit Card, or Net Banking) within <strong>5 to 7 business days</strong>, depending on your bank.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>4. WhatsApp Broadcast Campaign Credits</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>4. What Happens to Your Account After a Refund</h2>
             <p>
-              For prepaid WhatsApp campaign broadcast credits, unused message credits remain valid indefinitely and roll over month-to-month. If you decide to close your account, any unspent broadcast credit balance can be refunded to your original payment source.
+              Once a refund is processed, your subscription is cancelled and your account is restricted to the same limited view available to unsubscribed accounts — paid features stop working immediately. Your business profile, leads, and historical data are preserved (not deleted), so you can resubscribe later without losing anything.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>5. Contact Us for Billing Help</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>5. WhatsApp Broadcast Campaign Credits</h2>
+            <p>
+              Prepaid WhatsApp campaign credits remain valid and roll over month-to-month. If you close your account, any unspent credit balance can be refunded to your original payment source.
+            </p>
+          </section>
+
+          <section>
+            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>6. Contact Us for Billing Help</h2>
             <div style={{ marginTop: '12px', padding: '16px', background: '#F2F2F2', borderRadius: '12px', fontSize: '0.9rem' }}>
               <strong>GrowLokal Billing &amp; Refunds Support</strong><br />
               Email: support@growlokal.com<br />

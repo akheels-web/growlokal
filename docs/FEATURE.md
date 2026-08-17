@@ -16,6 +16,19 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Legal pages rewritten (Privacy/Terms/Refund) — drafted 2026-07-11, NOT yet production-final
+- **What it does:** replaces all three legal pages with DPDP-informed, factually-accurate versions. See `DECISIONS.md` for the full rationale and the two corrections made during the quiz-gate check (invoices can't be deleted on request; this is a strong draft, not a lawyer-reviewed final).
+- **Files:** `apps/web/src/app/privacy/page.tsx`, `apps/web/src/app/terms/page.tsx`, `apps/web/src/app/refund/page.tsx`.
+- **Test checklist:**
+  - [ ] `next build` compiles all three pages with no size regression (they're static server components — confirmed at 190B each, unchanged)
+  - [ ] No mention of "Grexa" anywhere in any of the three files (re-checked; still clean)
+  - [ ] No stale `₹2,999` pricing references (re-checked; still clean — matches the Starter/Growth/Pro ladder already fixed in an earlier chunk)
+  - [ ] Privacy Policy's third-party list matches the actual providers used in code: Google, Meta, Gemini/Anthropic/OpenRouter, MSG91, Amazon SES, Razorpay
+  - [ ] Terms' feature-access table (Section 5) matches the real plan→feature mapping in `auth/entitlement.ts`
+  - [ ] **NOT checked by anyone with legal training.** This is the one item in this project that requires a human professional before it's actually done — no amount of code verification substitutes for that.
+- **Rollback:** `git revert` the commit; these are standalone content files with no code dependencies.
+- **Outstanding before this can be called "shipped" in the normal sense:** (1) a qualified lawyer's review, (2) replacing the placeholder contact details (phone/email) with real ones, (3) revisiting Terms Section 3 once the pay-first signup flow (Chunk C) actually ships, since it currently describes the sign-up-then-pay flow that's live today.
+
 ### Expiry widget, renewal reminders, real email client — shipped 2026-07-11
 - **What it does:** closes the loop on the entitlement system — an owner now sees their renewal date on the dashboard, gets warned 7 days before it lapses (WhatsApp + email), and the codebase has a real (if minimal) email-sending mechanism for the first time. See `DECISIONS.md` for the three decisions this involved.
 - **Files:** `apps/api/src/clients/email.ts` (new), `apps/api/src/auth/entitlement.ts` (now also checks `current_period_end`), `apps/api/src/worker.ts` (`checkRenewalReminders()`, a second timer), `apps/api/src/config.ts` (SES_*/EMAIL_FROM/WHATSAPP_RENEWAL_TEMPLATE_NAME), `db/migrations/005_renewal_reminders.sql` (`subscriptions.reminder_sent_at`), `apps/web/src/components/PlanGate.tsx` (`ExpiryBadge`, `Entitlement.currentPeriodEnd`), `apps/web/src/app/dashboard/[businessId]/page.tsx`.
