@@ -593,7 +593,7 @@ export default function Home() {
             </div>
             <div className="stat-card">
               <div className="stat-card-icon">⚡</div>
-              <AnimatedNumber target={10} suffix="s" />
+              <AnimatedNumber target={30} suffix="s" />
               <span className="stat-label">Instant Google Audit Report</span>
             </div>
             <div className="stat-card">
@@ -927,11 +927,11 @@ export default function Home() {
             <div className="results-card-badge results-card-badge--before">
               <span>⚠️ Day 1 — Before GrowLokal</span>
             </div>
-            
+
             <div className="results-img-frame">
-              <img 
-                src="/images/results_day1_before.jpg" 
-                alt="Business buried at position 18 on Google Maps with low visibility score" 
+              <img
+                src="/images/results_day1_before.jpg"
+                alt="Business buried at position 18 on Google Maps with low visibility score"
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--before">
@@ -979,9 +979,9 @@ export default function Home() {
             </div>
 
             <div className="results-img-frame">
-              <img 
-                src="/images/results_day30_after.jpg" 
-                alt="Business ranking #1 on Google Maps Local Pack with top rating" 
+              <img
+                src="/images/results_day30_after.jpg"
+                alt="Business ranking #1 on Google Maps Local Pack with top rating"
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--after">
@@ -1058,7 +1058,7 @@ export default function Home() {
         <div className="results-bottom-cta">
           <div>
             <h4 className="results-cta-heading">Ready to see your business score jump from 23 to 87?</h4>
-            <p className="results-cta-sub">Run your free 10-second Google Business Audit now. No credit card required.</p>
+            <p className="results-cta-sub">Run your free 30-second Google Business Audit now. No credit card required.</p>
           </div>
           <a href="#audit-form" className="btn-primary" style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
             <span>⚡ Audit My Business Free</span>
