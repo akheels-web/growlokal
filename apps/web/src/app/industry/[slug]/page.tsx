@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { CITY_DATA } from '@/lib/cityData';
+import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 interface Props {
@@ -40,21 +41,8 @@ export default function IndustryLandingPage({ params }: Props) {
 
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
-      {/* ─── STICKY HEADER ─── */}
-      <header className="nav nav--scrolled" style={{ position: 'sticky', top: 0, zIndex: 100 }}>
-        <div className="nav-content">
-          <Link href="/" className="nav-brand">
-            Grow<span>Lokal</span>
-          </Link>
-          <div className="nav-links">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/#pricing" className="nav-link">Pricing</Link>
-            <Link href="/tools/google-score-calculator" className="nav-link">Score Tool</Link>
-            <Link href="/#industries" className="nav-link">All Sectors</Link>
-            <Link href="/login" className="btn-nav">Owner Sign In →</Link>
-          </div>
-        </div>
-      </header>
+      {/* ─── UNIFIED HEADER ─── */}
+      <Navbar isSticky />
 
       {/* ─── HERO SECTION ─── */}
       <section style={{
@@ -720,16 +708,27 @@ export default function IndustryLandingPage({ params }: Props) {
       </footer>
 
       {/* ─── FLOATING WHATSAPP BUTTON ─── */}
-      <a
-        href={`https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20know%20more%20about%20GrowLokal%20for%20my%20${encodeURIComponent(vertical.singular)}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="wa-float"
-      >
-        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-        <span className="wa-float-icon">💬</span>
-        <span>Chat on WhatsApp</span>
-      </a>
+      <div className="floating_btn">
+        <a
+          href={`https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20know%20more%20about%20GrowLokal%20for%20my%20${encodeURIComponent(vertical.singular)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Chat on WhatsApp with GrowLokal for ${vertical.title}`}
+        >
+          <div className="contact_icon">
+            <svg
+              viewBox="0 0 32 32"
+              width="34"
+              height="34"
+              fill="#ffffff"
+              aria-hidden="true"
+            >
+              <path d="M16 2C8.28 2 2 8.28 2 16c0 2.68.75 5.18 2.06 7.32L2 30l6.89-1.99C11 29.21 13.43 30 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.55c-2.3 0-4.47-.67-6.3-1.83l-.45-.29-4.68 1.35 1.36-4.54-.3-.47C4.41 19.92 3.73 17.99 3.73 16c0-6.77 5.5-12.27 12.27-12.27 6.77 0 12.27 5.5 12.27 12.27 0 6.77-5.5 12.28-12.27 12.28zm6.73-9.19c-.37-.18-2.18-1.08-2.52-1.2-.34-.12-.59-.18-.84.18-.25.37-.96 1.2-1.18 1.45-.22.25-.43.28-.8.09-.37-.18-1.56-.58-2.98-1.84-1.1-0.98-1.85-2.19-2.07-2.56-.22-.37-.02-.57.16-.75.17-.16.37-.43.55-.65.18-.22.25-.37.37-.62.12-.25.06-.46-.03-.65-.09-.18-.84-2.02-1.15-2.77-.3-.72-.61-.63-.84-.64l-.71-.01c-.25 0-.65.09-.99.46-.34.37-1.3 1.27-1.3 3.1 0 1.83 1.33 3.6 1.52 3.85.18.25 2.62 4 6.35 5.61.89.38 1.58.61 2.12.78.89.28 1.7.24 2.34.15.72-.11 2.18-.89 2.49-1.75.31-.86.31-1.6.22-1.75-.1-.15-.34-.24-.71-.43z" />
+            </svg>
+          </div>
+        </a>
+        <p className="text_icon">Talk to us?</p>
+      </div>
     </div>
   );
 }

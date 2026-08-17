@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { Navbar } from '@/components/Navbar';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 const ARTICLES = [
   {
@@ -42,24 +44,16 @@ export default function BlogHubPage() {
 
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
-      {/* Navigation */}
-      <header className="nav nav--scrolled" style={{ position: 'sticky' }}>
-        <div className="nav-content">
-          <Link href="/" className="nav-brand">
-            Grow<span>Lokal</span>
-          </Link>
-          <div className="nav-links">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/tools/google-score-calculator" className="nav-link">Score Tool</Link>
-            <Link href="/tools/admission-roi-calculator" className="nav-link">ROI Calculator</Link>
-            <Link href="/resources/whatsapp-kit" className="nav-link">WhatsApp Kit</Link>
-            <Link href="/login" className="btn-nav">Owner Sign In →</Link>
-          </div>
-        </div>
-      </header>
+      {/* Unified Navigation */}
+      <Navbar isSticky />
 
       {/* Main Content */}
-      <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Blog & Case Studies' },
+          ]}
+        />
         {/* Header Title */}
         <div style={{ textAlign: 'center', marginBottom: '52px' }}>
           <span style={{

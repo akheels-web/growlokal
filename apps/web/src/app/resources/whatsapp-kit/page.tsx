@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export default function WhatsappKitPage() {
@@ -26,19 +26,8 @@ export default function WhatsappKitPage() {
 
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
-      {/* Navigation */}
-      <header className="nav nav--scrolled" style={{ position: 'sticky' }}>
-        <div className="nav-content">
-          <Link href="/" className="nav-brand">
-            Grow<span>Lokal</span>
-          </Link>
-          <div className="nav-links">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/#pricing" className="nav-link">Pricing</Link>
-            <Link href="/login" className="btn-nav">Owner Sign In →</Link>
-          </div>
-        </div>
-      </header>
+      {/* Unified Navigation */}
+      <Navbar isSticky />
 
       {/* Main Content */}
       <main style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px 90px' }}>

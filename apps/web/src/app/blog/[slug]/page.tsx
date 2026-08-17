@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Navbar } from '@/components/Navbar';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 interface ArticleData {
   title: string;
@@ -112,23 +114,17 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
-      {/* Navigation */}
-      <header className="nav nav--scrolled" style={{ position: 'sticky' }}>
-        <div className="nav-content">
-          <Link href="/" className="nav-brand">
-            Grow<span>Lokal</span>
-          </Link>
-          <div className="nav-links">
-            <Link href="/blog" className="nav-link">← All Playbooks</Link>
-            <Link href="/tools/google-score-calculator" className="nav-link">Score Tool</Link>
-            <Link href="/tools/admission-roi-calculator" className="nav-link">ROI Calculator</Link>
-            <Link href="/login" className="btn-nav">Owner Sign In →</Link>
-          </div>
-        </div>
-      </header>
+      {/* Unified Navigation */}
+      <Navbar isSticky />
 
       {/* Main Layout with Article Content & Sticky Sidebar */}
-      <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '1140px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Blog & Case Studies', href: '/blog' },
+            { label: article.title },
+          ]}
+        />
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '48px', alignItems: 'start' }}>
           {/* Left: Main Article Content */}
           <div>

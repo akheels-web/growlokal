@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import { Navbar } from '@/components/Navbar';
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
@@ -434,173 +435,8 @@ export default function Home() {
 
   return (
     <div className="page-wrapper">
-      {/* ─── MODERN HEADER & NAVIGATION ─── */}
-      <header className={`nav-header ${scrolled ? 'nav-header--scrolled' : ''}`}>
-        <div className="nav-container">
-          {/* Brand Logo & Language Picker */}
-          <div className="nav-brand-group">
-            <a href="/" className="nav-brand">
-              Grow<span>Lokal</span>
-            </a>
-
-            {/* Desktop Language Selector */}
-            <div className="nav-lang-wrap">
-              <select
-                value={lang}
-                onChange={(e) => setLang(e.target.value as Lang)}
-                className="nav-lang-select"
-                aria-label="Select Language"
-              >
-                <option value="en">🌐 English</option>
-                <option value="te">🌐 తెలుగు (Telugu)</option>
-                <option value="ta">🌐 தமிழ் (Tamil)</option>
-                <option value="kn">🌐 ಕನ್ನಡ (Kannada)</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Desktop Navigation Links */}
-          <nav className="nav-desktop-links" aria-label="Main navigation">
-            <a href="#how-it-works" className="nav-link-item">{t.howItWorks}</a>
-            <a href="#agents" className="nav-link-item">{t.agents}</a>
-            <a href="#pricing" className="nav-link-item">Pricing</a>
-            <a href="#industries" className="nav-link-item">Industries</a>
-            <a href="/tools/admission-roi-calculator" className="nav-link-item">ROI Tool</a>
-            <a href="/blog" className="nav-link-item">Blog</a>
-            <a href="#contact" className="nav-link-item">Contact</a>
-          </nav>
-
-          {/* Right Action Buttons */}
-          <div className="nav-actions">
-            <a href="/login" className="nav-signin-link">{t.signIn}</a>
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-cta-btn"
-            >
-              <span>{t.demoBtn}</span>
-            </a>
-
-            {/* Mobile Hamburger Toggle Button */}
-            <button
-              type="button"
-              id="toggleOpen"
-              aria-controls="mobile-nav-drawer"
-              aria-expanded={mobileMenuOpen}
-              aria-label="Open navigation menu"
-              onClick={() => setMobileMenuOpen(true)}
-              className="nav-mobile-toggle"
-            >
-              <svg className="nav-hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* ─── MOBILE DRAWER (OFF-CANVAS SLIDE-IN) ─── */}
-      {mobileMenuOpen && (
-        <div
-          className="nav-mobile-backdrop"
-          onClick={() => setMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      <div
-        id="mobile-nav-drawer"
-        tabIndex={-1}
-        aria-hidden={!mobileMenuOpen}
-        className={`nav-mobile-drawer ${mobileMenuOpen ? 'nav-mobile-drawer--open' : ''}`}
-      >
-        {/* Drawer Header */}
-        <div className="nav-drawer-header">
-          <a href="/" className="nav-brand" onClick={() => setMobileMenuOpen(false)}>
-            Grow<span>Lokal</span>
-          </a>
-          <button
-            type="button"
-            id="toggleClose"
-            aria-label="Close navigation menu"
-            onClick={() => setMobileMenuOpen(false)}
-            className="nav-drawer-close"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="nav-close-icon" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Drawer Content */}
-        <div className="nav-drawer-body">
-          {/* Language Selector Inside Mobile Drawer */}
-          <div className="nav-drawer-lang-section">
-            <label className="nav-drawer-lang-label">Language / భాష / மொழி:</label>
-            <select
-              value={lang}
-              onChange={(e) => setLang(e.target.value as Lang)}
-              className="nav-drawer-lang-select"
-            >
-              <option value="en">🌐 English</option>
-              <option value="te">🌐 తెలుగు (Telugu)</option>
-              <option value="ta">🌐 தமிழ் (Tamil)</option>
-              <option value="kn">🌐 ಕನ್ನಡ (Kannada)</option>
-            </select>
-          </div>
-
-          <nav className="nav-drawer-links" aria-label="Mobile navigation">
-            <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>{t.howItWorks}</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="#agents" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>{t.agents}</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Pricing Plans</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="#industries" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Industries &amp; Sectors</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="/tools/admission-roi-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Revenue ROI Calculator</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="/blog" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Blog &amp; Case Studies</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Contact Us</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </a>
-          </nav>
-
-          {/* Drawer Actions */}
-          <div className="nav-drawer-actions">
-            <a href="/login" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-signin">
-              {t.signIn}
-            </a>
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="nav-drawer-cta"
-            >
-              💬 {t.demoBtn}
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* ─── MODERN UNIFIED HEADER & NAVIGATION ─── */}
+      <Navbar currentLang={lang} onLangChange={setLang} />
 
       {/* ─── HERO ─── */}
       <section className="hero">
@@ -811,18 +647,9 @@ export default function Home() {
           <h2 className="section-title">Free Self-Service Growth Tools</h2>
           <p className="section-subtitle">Audit your local Google presence and calculate your annual business profit growth instantly.</p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px', maxWidth: '1020px', margin: '0 auto' }}>
+        <div className="growth-tools-grid">
           {/* Card 1: Google Score Tool */}
-          <div style={{
-            padding: '36px 32px',
-            background: 'var(--color-bg-primary)',
-            border: '1.5px solid var(--color-border)',
-            borderRadius: '24px',
-            boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
+          <div className="growth-tool-card">
             <div>
               <div style={{ fontSize: '36px', marginBottom: '12px' }}>📊</div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -843,16 +670,7 @@ export default function Home() {
           </div>
 
           {/* Card 2: Revenue Growth Calculator */}
-          <div style={{
-            padding: '36px 32px',
-            background: 'var(--color-bg-primary)',
-            border: '1.5px solid var(--color-border)',
-            borderRadius: '24px',
-            boxShadow: '0 8px 24px rgba(3, 53, 64, 0.05)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
+          <div className="growth-tool-card">
             <div>
               <div style={{ fontSize: '36px', marginBottom: '12px' }}>💰</div>
               <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -1723,17 +1541,189 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ─── FLOATING WHATSAPP ─── */}
-      <a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C%20I%20want%20to%20know%20more%20about%20GrowLokal"
-        target="_blank" rel="noopener noreferrer" className="wa-float">
-        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: '#ffffff', boxShadow: '0 0 8px #ffffff' }} />
-        <span className="wa-float-icon">💬</span>
-        <span>Chat on WhatsApp</span>
-      </a>
+      {/* ─── FLOATING WHATSAPP BUTTON ─── */}
+      <div className="floating_btn">
+        <a
+          href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20know%20more%20about%20GrowLokal"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp with GrowLokal"
+        >
+          <div className="contact_icon">
+            <svg
+              viewBox="0 0 32 32"
+              width="34"
+              height="34"
+              fill="#ffffff"
+              aria-hidden="true"
+            >
+              <path d="M16 2C8.28 2 2 8.28 2 16c0 2.68.75 5.18 2.06 7.32L2 30l6.89-1.99C11 29.21 13.43 30 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.55c-2.3 0-4.47-.67-6.3-1.83l-.45-.29-4.68 1.35 1.36-4.54-.3-.47C4.41 19.92 3.73 17.99 3.73 16c0-6.77 5.5-12.27 12.27-12.27 6.77 0 12.27 5.5 12.27 12.27 0 6.77-5.5 12.28-12.27 12.28zm6.73-9.19c-.37-.18-2.18-1.08-2.52-1.2-.34-.12-.59-.18-.84.18-.25.37-.96 1.2-1.18 1.45-.22.25-.43.28-.8.09-.37-.18-1.56-.58-2.98-1.84-1.1-0.98-1.85-2.19-2.07-2.56-.22-.37-.02-.57.16-.75.17-.16.37-.43.55-.65.18-.22.25-.37.37-.62.12-.25.06-.46-.03-.65-.09-.18-.84-2.02-1.15-2.77-.3-.72-.61-.63-.84-.64l-.71-.01c-.25 0-.65.09-.99.46-.34.37-1.3 1.27-1.3 3.1 0 1.83 1.33 3.6 1.52 3.85.18.25 2.62 4 6.35 5.61.89.38 1.58.61 2.12.78.89.28 1.7.24 2.34.15.72-.11 2.18-.89 2.49-1.75.31-.86.31-1.6.22-1.75-.1-.15-.34-.24-.71-.43z" />
+            </svg>
+          </div>
+        </a>
+        <p className="text_icon">Talk to us?</p>
+      </div>
 
       {/* ─── LIVE AI ACTIVITY TOAST (FOMO FEED) ─── */}
       <LiveToastFeed />
     </div>
+  );
+}
+
+function ContactSection() {
+  const [contactName, setContactName] = useState('');
+  const [contactBiz, setContactBiz] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [contactMsg, setContactMsg] = useState('');
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactName || !contactPhone) return;
+    setContactSubmitted(true);
+    const msg = `Hi GrowLokal Team, my name is ${contactName} from ${contactBiz || 'my local business'}. Phone: +91 ${contactPhone}. Query: ${contactMsg || 'I want to know more about GrowLokal AI.'}`;
+    window.open(`https://api.whatsapp.com/send?phone=919876543210&text=${encodeURIComponent(msg)}`, '_blank');
+  };
+
+  return (
+    <Section id="contact" className="section--alt contact-section">
+      <div className="section-header">
+        <p className="section-eyebrow">Get In Touch</p>
+        <h2 className="section-title">Talk to Our Local Growth Specialists</h2>
+        <p className="section-subtitle">
+          Have questions about onboarding, vernacular AI setup, or pricing? We&apos;re here to help your business grow.
+        </p>
+      </div>
+
+      <div className="contact-grid">
+        {/* Left: Interactive Enquiry Form */}
+        <div className="contact-form-card">
+          <h3 className="contact-card-title">Send us a direct message</h3>
+          <p className="contact-card-subtitle">
+            Fill in your details below and our Hyderabad support team will reply on WhatsApp within 15 minutes.
+          </p>
+
+          {contactSubmitted ? (
+            <div className="contact-success-box">
+              <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
+              <h4 style={{ color: '#047857', fontWeight: 800, fontSize: '18px', margin: '0 0 6px' }}>
+                Thank you! Message forwarded to WhatsApp.
+              </h4>
+              <p style={{ color: '#065f46', fontSize: '14px', margin: 0 }}>
+                Our team is connecting with you right now on WhatsApp.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="contact-form-row">
+                <div className="contact-field">
+                  <label className="contact-label">Your Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Ramesh Kumar"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    className="contact-input"
+                  />
+                </div>
+                <div className="contact-field">
+                  <label className="contact-label">Business Name</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Apollo Dental / Royal Salon"
+                    value={contactBiz}
+                    onChange={(e) => setContactBiz(e.target.value)}
+                    className="contact-input"
+                  />
+                </div>
+              </div>
+
+              <div className="contact-field">
+                <label className="contact-label">WhatsApp Number *</label>
+                <div className="phone-input-group">
+                  <div className="phone-prefix">
+                    <svg width="22" height="15" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '2.5px', flexShrink: 0 }}>
+                      <rect width="20" height="4.67" fill="#FF9933"/>
+                      <rect y="4.67" width="20" height="4.67" fill="#FFFFFF"/>
+                      <rect y="9.33" width="20" height="4.67" fill="#138808"/>
+                      <circle cx="10" cy="7" r="1.8" stroke="#000080" strokeWidth="0.6" fill="none"/>
+                    </svg>
+                    <span className="phone-code">+91</span>
+                    <span className="phone-divider" />
+                  </div>
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    placeholder="Enter 10-digit mobile number"
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value.replace(/[^0-9]/g, ''))}
+                    className="phone-input-field"
+                  />
+                </div>
+              </div>
+
+              <div className="contact-field">
+                <label className="contact-label">How can we help your business?</label>
+                <textarea
+                  rows={3}
+                  placeholder="Tell us about your business goals (e.g. Need more patient bookings, Google Maps ranking, Telugu WhatsApp campaigns...)"
+                  value={contactMsg}
+                  onChange={(e) => setContactMsg(e.target.value)}
+                  className="contact-textarea"
+                />
+              </div>
+
+              <button type="submit" className="contact-submit-btn">
+                <span>💬 Send via WhatsApp Support →</span>
+              </button>
+            </form>
+          )}
+        </div>
+
+        {/* Right: Direct Helpline & Office Cards */}
+        <div className="contact-info-stack">
+          {/* Card 1: WhatsApp Support */}
+          <a
+            href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%20Support"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-info-card contact-info-card--wa"
+          >
+            <div className="contact-info-icon">💬</div>
+            <div>
+              <div className="contact-info-badge">Fastest Response (2 Mins)</div>
+              <h4 className="contact-info-title">WhatsApp Support Desk</h4>
+              <p className="contact-info-desc">Chat directly with our South Indian business advisors in Telugu, Tamil, Kannada, or English.</p>
+              <div className="contact-info-action">+91 98765 43210 →</div>
+            </div>
+          </a>
+
+          {/* Card 2: Phone Helpline */}
+          <div className="contact-info-card">
+            <div className="contact-info-icon">📞</div>
+            <div>
+              <div className="contact-info-badge">Mon - Sat (9 AM - 8 PM IST)</div>
+              <h4 className="contact-info-title">Direct Helpline</h4>
+              <p className="contact-info-desc">Speak to our customer onboarding team for account setup and custom integrations.</p>
+              <div className="contact-info-phone">+91 (040) 4892-3100</div>
+            </div>
+          </div>
+
+          {/* Card 3: Office Address */}
+          <div className="contact-info-card">
+            <div className="contact-info-icon">📍</div>
+            <div>
+              <div className="contact-info-badge">Headquarters</div>
+              <h4 className="contact-info-title">Hyderabad Office</h4>
+              <p className="contact-info-desc">Plot 42, Hitech City Main Road, Madhapur, Hyderabad, Telangana 500081</p>
+              <div className="contact-info-email">support@growlokal.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Section>
   );
 }
 
@@ -1896,180 +1886,3 @@ const FAQ_DATA = [
   },
 ];
 
-function ContactSection() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!name || !phone) return;
-    setSubmitted(true);
-  }
-
-  return (
-    <Section id="contact" className="section--alt">
-      <div className="section-header">
-        <p className="section-eyebrow">Get in touch</p>
-        <h2 className="section-title">Have Questions? Talk to Our Growth Team</h2>
-        <p className="section-subtitle">Send us a message and our team will call or WhatsApp you within 15 minutes.</p>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1.2fr',
-        gap: '40px',
-        maxWidth: '1060px',
-        margin: '0 auto',
-        background: '#ffffff',
-        border: '1.5px solid var(--color-border)',
-        borderRadius: '24px',
-        padding: '40px',
-        boxShadow: '0 12px 36px rgba(3, 53, 64, 0.06)'
-      }}>
-        {/* Left Col: Contact Info */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <div>
-            <span style={{ fontSize: '12px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.1)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
-              📍 South India Headquarters
-            </span>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#033540', margin: '14px 0 16px' }}>
-              GrowLokal Technologies
-            </h3>
-            <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
-              We assist local businesses, clinics, salons &amp; stores across Hyderabad, Vijayawada, Vizag, Bengaluru, and Chennai.
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '14px', color: '#0E4459' }}>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <span style={{ fontSize: '20px' }}>💬</span>
-                <div>
-                  <strong>WhatsApp &amp; Phone Support:</strong>
-                  <div style={{ color: '#5e7984' }}>+91 98765 43210 (Mon–Sat 9:00 AM – 7:00 PM)</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <span style={{ fontSize: '20px' }}>✉️</span>
-                <div>
-                  <strong>Email Inquiry:</strong>
-                  <div style={{ color: '#5e7984' }}>support@growlokal.com</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <span style={{ fontSize: '20px' }}>🏬</span>
-                <div>
-                  <strong>Regional Office:</strong>
-                  <div style={{ color: '#5e7984' }}>Commercial Hub, Ameerpet, Hyderabad, Telangana 500016</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ marginTop: '32px', padding: '16px', background: 'rgba(112, 191, 99, 0.12)', borderRadius: '14px', fontSize: '13px', color: '#047857', fontWeight: '700' }}>
-            ⚡ Fast Response Guaranteed: Most inquiries are answered within 15 minutes during working hours.
-          </div>
-        </div>
-
-        {/* Right Col: Contact Form */}
-        <div>
-          {!submitted ? (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div>
-                <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
-                  Your Full Name *
-                </label>
-                <input
-                  required
-                  placeholder="e.g. Srikanth Rao"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
-                />
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
-                    Phone / WhatsApp Number *
-                  </label>
-                  <input
-                    required
-                    type="tel"
-                    placeholder="e.g. 9876543210"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
-                  />
-                </div>
-                <div>
-                  <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="e.g. srikanth@business.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px' }}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label style={{ fontSize: '13px', fontWeight: '700', color: '#033540', marginBottom: '6px', display: 'block' }}>
-                  Your Message or Question
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Tell us about your business, products, services, or any questions you have..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', border: '1.5px solid #cbd5e1', fontSize: '14.5px', fontFamily: 'inherit' }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  width: '100%',
-                  padding: '14px 24px',
-                  background: '#0E4459',
-                  color: '#ffffff',
-                  borderRadius: '12px',
-                  fontSize: '15px',
-                  fontWeight: '800',
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(14, 68, 89, 0.25)',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                Send Message →
-              </button>
-            </form>
-          ) : (
-            <div style={{
-              padding: '32px',
-              background: 'rgba(112, 191, 99, 0.15)',
-              border: '1.5px solid #70BF63',
-              borderRadius: '16px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '40px', marginBottom: '12px' }}>✅</div>
-              <h4 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#047857', marginBottom: '8px' }}>
-                Message Sent Successfully!
-              </h4>
-              <p style={{ fontSize: '0.95rem', color: '#033540', lineHeight: '1.6' }}>
-                Thank you, <strong>{name}</strong>. Our team has received your inquiry and will reach out to you at <strong>{phone}</strong> shortly.
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </Section>
-  );
-}
