@@ -133,7 +133,7 @@ const I18N: Record<Lang, {
     heroAccent: 'AI Marketing & Growth Team',
     heroTitle2: ' that Delivers Real Customer Sales',
     heroSub: 'Most local clinics, salons, restaurants & stores lose 60%+ of potential customers on Google Maps. Get a free instant visibility report.',
-    auditBadge: '⚡ Instant 10-Sec Scan',
+    auditBadge: '⚡ Instant 30-Sec Scan',
     auditTitle: 'Get your free Google visibility report',
     auditSub: 'Search or select your business details — we will check your Google presence instantly.',
     namePlaceholder: 'Search business name + area (e.g. Green Trends, Ameerpet)',
@@ -518,10 +518,17 @@ export default function Home() {
               </div>
 
               <div>
-                <div className="input-with-icon" style={{ display: 'flex', alignItems: 'center' }}>
-                  <span className="input-icon" style={{ fontSize: '13px', fontWeight: 800, color: '#0E4459', paddingRight: '4px' }}>
-                    🇮🇳 +91
-                  </span>
+                <div className="phone-input-group">
+                  <div className="phone-prefix">
+                    <svg width="22" height="15" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '2.5px', boxShadow: '0 1px 3px rgba(0,0,0,0.15)', flexShrink: 0 }}>
+                      <rect width="20" height="4.67" fill="#FF9933"/>
+                      <rect y="4.67" width="20" height="4.67" fill="#FFFFFF"/>
+                      <rect y="9.33" width="20" height="4.67" fill="#138808"/>
+                      <circle cx="10" cy="7" r="1.8" stroke="#000080" strokeWidth="0.6" fill="none"/>
+                    </svg>
+                    <span className="phone-code">+91</span>
+                    <span className="phone-divider" />
+                  </div>
                   <input
                     id="audit-phone"
                     required
@@ -530,7 +537,7 @@ export default function Home() {
                     maxLength={10}
                     value={phone}
                     onChange={e => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
-                    className="form-input"
+                    className="phone-input-field"
                   />
                 </div>
                 <div style={{ fontSize: '11px', color: '#5e7984', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
@@ -975,7 +982,7 @@ export default function Home() {
           {/* Card 2: AFTER 30 Days */}
           <div className="results-card results-card--after">
             <div className="results-card-badge results-card-badge--after">
-              <span>🚀 Day 30 — With GrowLokal AI</span>
+              <span>🚀 Day 30 — With GrowLokal</span>
             </div>
 
             <div className="results-img-frame">

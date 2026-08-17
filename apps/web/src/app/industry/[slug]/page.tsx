@@ -597,20 +597,27 @@ export default function IndustryLandingPage({ params }: Props) {
                   fontSize: '15px',
                 }}
               />
-              <input
-                required
-                type="tel"
-                placeholder="WhatsApp Number (e.g. 9876543210)"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '14px 18px',
-                  borderRadius: '12px',
-                  border: '1.5px solid #cbd5e1',
-                  fontSize: '15px',
-                }}
-              />
+              <div className="phone-input-group">
+                <div className="phone-prefix">
+                  <svg width="22" height="15" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '2.5px', boxShadow: '0 1px 3px rgba(0,0,0,0.15)', flexShrink: 0 }}>
+                    <rect width="20" height="4.67" fill="#FF9933"/>
+                    <rect y="4.67" width="20" height="4.67" fill="#FFFFFF"/>
+                    <rect y="9.33" width="20" height="4.67" fill="#138808"/>
+                    <circle cx="10" cy="7" r="1.8" stroke="#000080" strokeWidth="0.6" fill="none"/>
+                  </svg>
+                  <span className="phone-code">+91</span>
+                  <span className="phone-divider" />
+                </div>
+                <input
+                  required
+                  type="tel"
+                  maxLength={10}
+                  placeholder="Enter 10-digit WhatsApp number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
+                  className="phone-input-field"
+                />
+              </div>
               <button
                 type="submit"
                 style={{

@@ -6,7 +6,9 @@
 - **Enriched `verticalData.ts`** — expanded the shared vertical data model with comprehensive marketing copy, case studies, pain points, and FAQs for all 8 business categories.
 - **Connected homepage showcase cards** — all 8 cards in the "Built for Small Business Owners" section on the homepage are now clickable Next.js `Link` components (`/industry/[slug]`) with animated hover badges. Footer "Solutions" column updated with direct links to the new sector landing pages.
 
-Verified: Live browser testing verified click-through navigation from the homepage to all sector pages (`/industry/gyms-fitness`, `/industry/doctors-clinics`, `/industry/salons-spas`, etc.).
+- **Phone input group & typography enhancement** — replaced the previous single input with a `.phone-input-group` component featuring a vector Indian flag SVG, bold `+91` country code, vertical separator divider, and prominent `18px` bold digits (`font-weight: 700`, `letter-spacing: 0.08em`). The typed number now proportionally fills the box with balanced spacing and high legibility.
+
+Verified: Live browser testing verified click-through navigation from the homepage to all sector pages (`/industry/gyms-fitness`, `/industry/doctors-clinics`, `/industry/salons-spas`, etc.) and confirmed bold, crisp typography and zero overlap in the phone input across default, focused, and typed states on both desktop and mobile.
 
 ## Build session 9 — landing page UI refinements
 
