@@ -16,6 +16,18 @@ Every meaningful change to this codebase gets an entry here — **logged before 
 
 ## Entries (newest first)
 
+### 2026-07-11 — Entitlement system: plan→feature mapping, enforcement points, and edge-case handling
+- **Why:** confirmed as the single biggest gap in `FLOW.md`/`ARCHITECTURE.md` — nothing anywhere checked `businesses.plan`/`status` before running a feature.
+- **Purpose:** enforce plan tiers server-side (not just hide UI buttons), with the project owner's confirmed rules: (1) `trial` (never paid) and `past_due`/`churned` (lapsed) get the identical restricted view — no distinction between "never subscribed" and "stopped paying"; (2) login always stays open, but a non-entitled business's dashboard shows nothing except a renewal prompt; (3) no customer-facing API-key system exists today, so "campaigns only via our dashboard" is already true by construction — noted as a future constraint (if customer API keys ever ship, exclude WhatsApp endpoints from them) rather than built now.
+- **How:**
+  - `auth/entitlement.ts` — `getEntitlement()`, `hasMinPlan()`, and a `requirePlan(minPlan)` Fastify preHandler (composes `requireBusiness`). Returns HTTP 402, not 403 — this is a billing problem, not a permissions one.
+  - Plan→feature mapping: GBP posts + WhatsApp 24/7 responder → Starter+; review replies, Instagram/FB scheduler, WhatsApp campaigns, booking microsite → Growth+. (Multi-branch/Pro-only features don't exist yet — N/A.)
+  - The public booking microsite (`GET /api/public/business/:id`) returns a plain 404 when not entitled, not a 402 with billing details — the visitor is a random member of the public, not the business owner.
+  - The WhatsApp chat agent goes silent (no reply sent, just logged) rather than telling the end customer "this account is suspended" — that reflects badly on the business, not on us; the owner finds out via the dashboard wall instead.
+  - `/api/auth/me` extended to return `entitlement` so the frontend can decide what to render.
+  - Frontend: `components/PlanGate.tsx` (`useEntitlement()`, `RenewalWall`, `UpgradeWall`) — the dashboard and campaigns pages render nothing but the renewal wall when not entitled; Growth-only actions (Instagram post button, the campaigns nav link, the whole campaigns page) individually check `hasMinPlan(entitlement, 'growth')`.
+- **Status:** implemented (server-side enforcement + UI walls). **Not yet done:** the dashboard expiry countdown, 7-day renewal reminder job, and the pay-first signup/auto-provisioning flow — those remain separate, not-yet-started chunks.
+
 ### 2026-07-11 — Refund guarantee applies to first payment only
 - **Why:** the 7-day money-back guarantee's scope was ambiguous — could be read as applying to every renewal charge.
 - **Purpose:** avoid a customer using the product for months then getting any single renewal refunded; matches standard SaaS practice.

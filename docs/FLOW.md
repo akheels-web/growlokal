@@ -152,16 +152,19 @@ Dashboard → POST /api/businesses/:id/gbp/post → features/gbp/service.ts: cre
 
 ## 8. Cross-cutting: what touches `businesses.plan` / `businesses.status`
 
-Grep for these two columns before changing either — this is the map of every place that currently reads or writes them:
+**Updated 2026-07-11 — this gap is now closed for the routes that matter; see `DECISIONS.md` and `FEATURE.md` for the entitlement system.** Grep for these two columns before changing either:
 
 | File | Reads/Writes | What it does with it |
 |---|---|---|
 | `routes/billing.ts` | Writes `status`, `plan` | Sets `active`/`past_due` from Razorpay webhook events |
 | `routes/auth.ts` | Writes `status` (indirectly, via `INSERT ... 'pilot','trial'`) | New signup default |
-| `apps/web/.../dashboard/[businessId]/page.tsx` | — | **Does not read either** — the dashboard shows the same buttons regardless of plan |
-| `features/gbp/service.ts`, `features/social/service.ts`, `features/campaigns/service.ts`, `routes/whatsapp.ts` (chat agent) | — | **None of these check `status` or `plan` before running** |
+| `auth/entitlement.ts` | Reads both | `getEntitlement()` / `hasMinPlan()` / `requirePlan()` — the single source of truth for "is this business allowed to do X" |
+| `features.ts`: GBP post/review-replies/social-schedule/campaigns routes, public booking page | Reads (via `requirePlan`/`hasMinPlan`) | Returns 402 (or 404 for the public page) if not entitled |
+| `routes/whatsapp.ts` (chat agent) | Reads (via `getEntitlement`/`hasMinPlan`) | Silently skips replying (no message to the end customer) if not entitled |
+| `apps/web/.../dashboard/[businessId]/page.tsx`, `.../campaigns/page.tsx` | Reads (via `components/PlanGate.tsx`) | Renders only the renewal/upgrade wall if not entitled |
+| `routes/features.ts` onboarding PUT, `roi`, `wallet`, `routes/features.ts` leads routes | — | **Deliberately NOT gated** — account management and viewing your own status/renewal path must always work regardless of plan |
 
-This table is the concrete evidence behind the "no entitlement enforcement exists" gap called out in `DECISIONS.md` and the customer-journey discussion. When that gets built, expect every row in the second column to gain a new check.
+**Still not built:** the pay-first signup/auto-provisioning flow (`DECISIONS.md`, 2026-07-11 "pay-first"), the dashboard expiry countdown, and the 7-day renewal reminder job. The entitlement *check* exists; the *triggers around it* (what happens 7 days before expiry, how a brand-new business gets created after paying) don't yet.
 
 ---
 

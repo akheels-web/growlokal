@@ -3,6 +3,7 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { requireBusiness, requireAuth } from '../auth/middleware.js';
+import { requirePlan, getEntitlement, hasMinPlan } from '../auth/entitlement.js';
 import { query, queryOne } from '../db.js';
 import { createScheduledSocialPost } from '../features/social/service.js';
 import { createCampaign, sendCampaign } from '../features/campaigns/service.js';
@@ -51,8 +52,17 @@ export function featureRoutes(app: FastifyInstance) {
   // ── Public booking/enquiry microsite data (NO auth — it's a public page) ──
   // ponytail: skipped Cal.com; a public page + wa.me + UPI link is the MVP.
   // Add real calendar slots only when centers ask for time-slot booking.
+  //
+  // Booking microsite is a Growth-tier feature — a lapsed/trial/Starter-only
+  // business's page goes dark exactly like everything else (the "Netflix"
+  // rule). We return a plain 404 here (not a 402 "plan_required" message)
+  // since the visitor is a random member of the public, not the business
+  // owner — no reason to expose billing details to them.
   app.get('/api/public/business/:id', async (req, reply) => {
     const { id } = req.params as { id: string };
+    const entitlement = await getEntitlement(id);
+    if (!entitlement || !hasMinPlan(entitlement, 'growth')) return reply.code(404).send({ error: 'not found' });
+
     const row = await queryOne<{ name: string; city: string; whatsapp_number: string | null; profile_context: Record<string, unknown> }>(
       `SELECT name, city, whatsapp_number, profile_context FROM businesses WHERE id = $1 AND status IN ('active','pilot')`,
       [id]
@@ -102,22 +112,22 @@ export function featureRoutes(app: FastifyInstance) {
     return row;
   });
 
-  // ── GBP: create a post ──
+  // ── GBP: create a post (Starter+ — the "GBP posts + WhatsApp responder" tier) ──
   const gbpBody = z.object({ focus: z.string().min(2) });
-  app.post('/api/businesses/:id/gbp/post', { preHandler: requireBusiness }, async (req, reply) => {
+  app.post('/api/businesses/:id/gbp/post', { preHandler: requirePlan('starter') }, async (req, reply) => {
     const parsed = gbpBody.safeParse(req.body);
     if (!parsed.success) return reply.code(400).send({ error: 'focus required' });
     const { id } = req.params as { id: string };
     return createGbpPost(id, parsed.data.focus);
   });
 
-  // ── GBP: draft review replies ──
-  app.post('/api/businesses/:id/reviews/draft-replies', { preHandler: requireBusiness }, async (req) => {
+  // ── GBP: draft review replies (Growth+) ──
+  app.post('/api/businesses/:id/reviews/draft-replies', { preHandler: requirePlan('growth') }, async (req) => {
     const { id } = req.params as { id: string };
     return draftReviewReplies(id);
   });
 
-  // ── Social: schedule an Instagram/FB post ──
+  // ── Social: schedule an Instagram/FB post (Growth+) ──
   const socialBody = z.object({
     channel: z.enum(['instagram', 'facebook']),
     focus: z.string().min(2),
@@ -125,7 +135,7 @@ export function featureRoutes(app: FastifyInstance) {
     scheduledFor: z.string().datetime().optional(),
     mixpostAccountIds: z.array(z.number()).optional(),
   });
-  app.post('/api/businesses/:id/social/schedule', { preHandler: requireBusiness }, async (req, reply) => {
+  app.post('/api/businesses/:id/social/schedule', { preHandler: requirePlan('growth') }, async (req, reply) => {
     const parsed = socialBody.safeParse(req.body);
     if (!parsed.success) return reply.code(400).send({ error: parsed.error.flatten() });
     const { id } = req.params as { id: string };
@@ -139,7 +149,7 @@ export function featureRoutes(app: FastifyInstance) {
     });
   });
 
-  // ── Campaigns: create (draft) ──
+  // ── Campaigns: create (draft) (Growth+) ──
   const campBody = z.object({
     name: z.string().min(2),
     goal: z.string().min(2),
@@ -147,7 +157,7 @@ export function featureRoutes(app: FastifyInstance) {
     recipients: z.array(z.string()).min(1),
     scheduledFor: z.string().datetime().optional(),
   });
-  app.post('/api/businesses/:id/campaigns', { preHandler: requireBusiness }, async (req, reply) => {
+  app.post('/api/businesses/:id/campaigns', { preHandler: requirePlan('growth') }, async (req, reply) => {
     const parsed = campBody.safeParse(req.body);
     if (!parsed.success) return reply.code(400).send({ error: parsed.error.flatten() });
     const { id } = req.params as { id: string };
@@ -158,11 +168,11 @@ export function featureRoutes(app: FastifyInstance) {
     return { ...created, note: 'Call POST .../campaigns/:cid/send to dispatch.' };
   });
 
-  // ── Campaigns: send now ──
+  // ── Campaigns: send now (Growth+) ──
   // Recipients, template name, language, and message body all come from what
   // was stored at creation time — nothing to re-supply. Safe to call again to
   // retry any recipients still 'pending' (e.g. after a credit top-up).
-  app.post('/api/businesses/:id/campaigns/:cid/send', { preHandler: requireBusiness }, async (req, reply) => {
+  app.post('/api/businesses/:id/campaigns/:cid/send', { preHandler: requirePlan('growth') }, async (req, reply) => {
     const { cid } = req.params as { cid: string };
     const r = await sendCampaign(cid);
     return r;

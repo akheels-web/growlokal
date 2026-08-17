@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { requestOtp, verifyOtp } from '../auth/otp.js';
 import { signToken } from '../auth/jwt.js';
 import { requireAuth } from '../auth/middleware.js';
+import { getEntitlement } from '../auth/entitlement.js';
 import { queryOne } from '../db.js';
 
 const phoneSchema = z.object({
@@ -81,6 +82,10 @@ export function authRoutes(app: FastifyInstance) {
     return reply.send({ token, businessId: user!.business_id, role: user!.role });
   });
 
-  // Who am I (for the dashboard to hydrate)
-  app.get('/api/auth/me', { preHandler: requireAuth }, async (req) => req.auth);
+  // Who am I (for the dashboard to hydrate) — includes plan/status/entitled
+  // so the dashboard can decide whether to show the renewal wall.
+  app.get('/api/auth/me', { preHandler: requireAuth }, async (req) => {
+    const entitlement = req.auth!.businessId ? await getEntitlement(req.auth!.businessId) : null;
+    return { ...req.auth, entitlement };
+  });
 }

@@ -4,11 +4,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { useEntitlement, hasMinPlan, RenewalWall } from '@/components/PlanGate';
 
 interface RoiRow { month: string; enquiries: number; demos_booked: number; leads_captured: number; }
 
 export default function Dashboard({ params }: { params: { businessId: string } }) {
   const { businessId } = params;
+  const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [roi, setRoi] = useState<RoiRow[]>([]);
   const [credit, setCredit] = useState<number | null>(null);
   const [focus, setFocus] = useState('New NEET & JEE batch starting soon');
@@ -21,6 +23,12 @@ export default function Dashboard({ params }: { params: { businessId: string } }
   }, [businessId]);
 
   const thisMonth = roi[0] ?? { enquiries: 0, demos_booked: 0, leads_captured: 0, month: '' };
+
+  // Not entitled to any paid plan (never subscribed, or lapsed) -> show
+  // nothing else, per the confirmed "same restricted view" rule.
+  if (entitlementLoading) return null;
+  if (!entitlement?.entitled) return <RenewalWall />;
+  const canUseGrowthFeatures = hasMinPlan(entitlement, 'growth');
 
   async function generateSocial() {
     setBusy(true); setMsg('');
@@ -61,9 +69,11 @@ export default function Dashboard({ params }: { params: { businessId: string } }
             Grow<span style={{ color: '#70BF63' }}>Lokal</span>
           </Link>
           <div style={{ display: 'flex', gap: '16px', fontSize: '14px', fontWeight: 500 }}>
-            <Link href={`/dashboard/${businessId}/campaigns`} style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>
-              💬 WhatsApp Campaigns
-            </Link>
+            {canUseGrowthFeatures && (
+              <Link href={`/dashboard/${businessId}/campaigns`} style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>
+                💬 WhatsApp Campaigns
+              </Link>
+            )}
             <Link href={`/onboarding/${businessId}`} style={{ color: '#2E9AA6', textDecoration: 'none' }}>
               ⚙️ Edit Profile
             </Link>
@@ -110,9 +120,15 @@ export default function Dashboard({ params }: { params: { businessId: string } }
               style={{ background: 'var(--color-bg-primary)' }}
             />
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <button disabled={busy} onClick={generateSocial} className="btn-primary" style={{ width: 'auto', background: 'var(--gradient-cta)' }}>
-                {busy ? <span className="spinner" /> : '✨ Generate Instagram Post'}
-              </button>
+              {canUseGrowthFeatures ? (
+                <button disabled={busy} onClick={generateSocial} className="btn-primary" style={{ width: 'auto', background: 'var(--gradient-cta)' }}>
+                  {busy ? <span className="spinner" /> : '✨ Generate Instagram Post'}
+                </button>
+              ) : (
+                <span style={{ fontSize: 13, color: 'var(--color-text-muted)', alignSelf: 'center' }}>
+                  ✨ Instagram posts need the Growth plan — <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20to%20upgrade%20my%20GrowLokal%20plan" target="_blank" rel="noopener noreferrer" style={{ color: '#1a7f37', fontWeight: 600 }}>upgrade →</a>
+                </span>
+              )}
               <button disabled={busy} onClick={generateGbp} className="btn-outline" style={{ width: 'auto', border: '1.5px solid var(--color-brand-dark)', color: 'var(--color-brand-dark)' }}>
                 {busy ? <span className="spinner" /> : '📍 Generate Google Post'}
               </button>

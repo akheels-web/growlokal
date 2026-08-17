@@ -16,6 +16,22 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Entitlement / plan-gating system — shipped 2026-07-11
+- **What it does:** closes the single biggest gap identified in `FLOW.md`/`ARCHITECTURE.md` — server-side enforcement of what a business's plan actually allows, plus a dashboard that shows nothing but a renewal prompt when a business isn't entitled. See `DECISIONS.md` for the full rationale and the plan→feature mapping.
+- **Files:** `apps/api/src/auth/entitlement.ts` (new), `apps/api/src/routes/features.ts` (`requirePlan()` added to GBP/social/campaigns routes, entitlement check on the public booking page), `apps/api/src/routes/whatsapp.ts` (chat agent gated), `apps/api/src/routes/auth.ts` (`/api/auth/me` returns `entitlement`), `apps/web/src/components/PlanGate.tsx` (new), `apps/web/src/app/dashboard/[businessId]/page.tsx`, `apps/web/src/app/dashboard/[businessId]/campaigns/page.tsx`.
+- **Test checklist:**
+  - [ ] A business with `plan='trial'` gets `entitled: false` from `getEntitlement()`; one with `plan='growth', status='active'` gets `entitled: true`
+  - [ ] A business with `status='past_due'` gets `entitled: false` **regardless of its `plan` value** (the "same restricted view" rule)
+  - [ ] `POST /api/businesses/:id/gbp/post` on a Starter-entitled business succeeds; the same call on a trial/past_due business returns `402 {error:'plan_required'}`
+  - [ ] `POST /api/businesses/:id/social/schedule` on a Starter-only (not Growth) business returns 402 — Starter isn't enough for this route
+  - [ ] `GET /api/public/business/:id` for a non-entitled or Starter-only business returns a plain `404`, not a 402 with billing info
+  - [ ] An inbound WhatsApp message to a non-entitled business's chat agent produces **no reply** (check logs for the warning, not an error to the end customer)
+  - [ ] Web: visiting `/dashboard/:id` as a non-entitled business shows *only* the renewal wall — no stats, no buttons, no nav links
+  - [ ] Web: visiting `/dashboard/:id/campaigns` as a Starter-only (entitled but not Growth) business shows the upgrade wall, not the campaign form
+  - [ ] Web: the "Generate Instagram Post" button on the main dashboard is replaced with an upgrade prompt for Starter-only businesses, while "Generate Google Post" stays usable
+  - [ ] None of the above verified against a live database/deployment in this session — exercise each case for real once deployed, especially the WhatsApp-silent-skip behavior (easy to miss since nothing errors)
+- **Rollback:** remove `requirePlan(...)` from the route options in `features.ts` (revert to plain `requireBusiness`) and the entitlement check in `whatsapp.ts`'s `handleChatAgent` — this fully reverts backend enforcement. On the frontend, remove the `useEntitlement()`/`RenewalWall` blocks from both pages to restore unconditional rendering. The `entitlement.ts` file and `PlanGate.tsx` component can stay unused without side effects if only partially rolling back.
+
 ### City × vertical SEO landing pages — shipped 2026-07-11
 - **What it does:** 32 SEO landing pages (`/city/[cityName]/[vertical]`) — 4 cities × 8 verticals matching the homepage's business-showcase list, cross-linked both ways (other verticals in the same city; this vertical in other cities).
 - **Files:** `apps/web/src/lib/cityData.ts`, `apps/web/src/lib/verticalData.ts`, `apps/web/src/app/city/[cityName]/[vertical]/page.tsx`; `city/[cityName]/page.tsx` was refactored to import the shared `cityData.ts` instead of a local copy.

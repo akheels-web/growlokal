@@ -11,6 +11,7 @@ import { log } from '../logger.js';
 import { sendText, verifyWebhookSignature } from '../clients/whatsapp.js';
 import { runAudit } from '../features/audit/service.js';
 import { answerCustomerQuestion, loadBusinessContext } from '../features/content/generator.js';
+import { getEntitlement, hasMinPlan } from '../auth/entitlement.js';
 import { query, queryOne } from '../db.js';
 import { redis } from '../redis.js';
 
@@ -139,8 +140,20 @@ async function handleMessage(from: string, text: string): Promise<void> {
  * Chat agent for a customer's own WhatsApp number. Answers questions from the
  * business's profile_context and logs an enquiry event (feeds the ROI dashboard).
  * ponytail: replies inside the free 24h service window, so no template cost.
+ *
+ * The 24/7 responder is a Starter+ feature. A lapsed/trial business's chat
+ * agent stops answering — the "Netflix" rule. We do NOT send the end
+ * customer an "account suspended" message (that reflects badly on the
+ * business, not us); we just stay silent and log it, so the owner notices
+ * via missing replies + the dashboard's renewal wall.
  */
 async function handleChatAgent(businessId: string, from: string, text: string): Promise<void> {
+  const entitlement = await getEntitlement(businessId);
+  if (!entitlement || !hasMinPlan(entitlement, 'starter')) {
+    log.warn({ businessId }, 'chat agent skipped — business not entitled (plan lapsed or trial)');
+    return;
+  }
+
   const ctx = await loadBusinessContext(businessId);
   if (!ctx) return;
   const reply = await answerCustomerQuestion(ctx, text);

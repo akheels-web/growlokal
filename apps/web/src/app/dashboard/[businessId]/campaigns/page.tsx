@@ -5,6 +5,7 @@
 // ponytail: recipients as a textarea (one number/line). No CSV upload until asked.
 import { useState } from 'react';
 import { api } from '@/lib/api';
+import { useEntitlement, hasMinPlan, RenewalWall, UpgradeWall } from '@/components/PlanGate';
 
 // Common WhatsApp template use-cases. Meta template approval itself is an
 // external step you complete in the WhatsApp Manager — this just saves
@@ -16,6 +17,7 @@ const TEMPLATE_SUGGESTIONS = [
 
 export default function Campaigns({ params }: { params: { businessId: string } }) {
   const { businessId } = params;
+  const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('Announce new NEET batch starting June 1');
   const [templateName, setTemplateName] = useState('');
@@ -58,6 +60,19 @@ export default function Campaigns({ params }: { params: { businessId: string } }
       setDraft(null);
     } catch { setErr('Send failed.'); }
     finally { setBusy(false); }
+  }
+
+  // Campaigns are a Growth+ feature. Not entitled at all -> the same
+  // renewal wall as everywhere else; entitled but Starter-only -> upgrade
+  // prompt instead of the form.
+  if (entitlementLoading) return null;
+  if (!entitlement?.entitled) return <RenewalWall />;
+  if (!hasMinPlan(entitlement, 'growth')) {
+    return (
+      <main style={{ maxWidth: 640, margin: '80px auto', padding: '0 20px' }}>
+        <UpgradeWall requiredPlan="growth" />
+      </main>
+    );
   }
 
   return (

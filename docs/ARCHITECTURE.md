@@ -75,9 +75,9 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 
 ## Known gaps (as of 2026-07-11 — check `DECISIONS.md` and `docs/ROADMAP.md` for anything resolved since)
 
-**The big one: no entitlement enforcement exists.** `businesses.status` and `businesses.plan` are correctly written by the Razorpay webhook, but **nothing downstream ever checks them.** A `past_due` business has identical access to an `active` one; the dashboard shows every feature to every plan regardless of what they're subscribed to. See `FLOW.md` §8 for the exact list of files that would need a check added.
+**Entitlement enforcement now exists** (`auth/entitlement.ts` + `components/PlanGate.tsx` — see `DECISIONS.md`/`FEATURE.md` for the full design). GBP, social, campaigns, the booking microsite, and the WhatsApp chat agent all check `businesses.plan`/`status` before running; the dashboard shows only a renewal/upgrade wall when a business isn't entitled. See `FLOW.md` §8 for the current map.
 
-**Billing/customer-journey gaps** (see conversation-log discussion, not yet built):
+**What entitlement enforcement does NOT yet cover** (billing/customer-journey gaps, not yet built):
 - No payment-confirmation email or WhatsApp message is ever sent.
 - No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented).
 - No dashboard UI showing plan expiry date, despite `current_period_end` being stored.
