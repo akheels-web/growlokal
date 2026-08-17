@@ -33,3 +33,17 @@ export async function requireBusiness(req: FastifyRequest, reply: FastifyReply) 
     return reply.code(403).send({ error: 'forbidden' });
   }
 }
+
+/**
+ * Internal-team-only routes (e.g. generating a checkout link for a lead).
+ * Note: nothing in this codebase sets role='admin' automatically — promote
+ * a user manually (`UPDATE users SET role='admin' WHERE phone='...'`) after
+ * they've signed up once via the normal OTP flow.
+ */
+export async function requireAdmin(req: FastifyRequest, reply: FastifyReply) {
+  await requireAuth(req, reply);
+  if (reply.sent) return;
+  if (req.auth!.role !== 'admin') {
+    return reply.code(403).send({ error: 'admin only' });
+  }
+}

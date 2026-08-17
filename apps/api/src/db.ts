@@ -24,3 +24,27 @@ export async function queryOne<T extends pg.QueryResultRow = pg.QueryResultRow>(
   const res = await pool.query<T>(text, params);
   return res.rows[0] ?? null;
 }
+
+/**
+ * Run `fn` inside a single Postgres transaction. Use whenever a change spans
+ * more than one table and must either fully apply or not at all — e.g. the
+ * pay-first checkout auto-provisioning (business + user + subscription rows
+ * created together). A dedicated client is checked out for the duration so
+ * BEGIN/COMMIT/ROLLBACK all land on the same connection.
+ */
+export async function withTransaction<T>(
+  fn: (client: pg.PoolClient) => Promise<T>
+): Promise<T> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const result = await fn(client);
+    await client.query('COMMIT');
+    return result;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}

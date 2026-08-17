@@ -164,7 +164,7 @@ Dashboard → POST /api/businesses/:id/gbp/post → features/gbp/service.ts: cre
 | `apps/web/.../dashboard/[businessId]/page.tsx`, `.../campaigns/page.tsx` | Reads (via `components/PlanGate.tsx`) | Renders only the renewal/upgrade wall if not entitled |
 | `routes/features.ts` onboarding PUT, `roi`, `wallet`, `routes/features.ts` leads routes | — | **Deliberately NOT gated** — account management and viewing your own status/renewal path must always work regardless of plan |
 
-**Updated again 2026-07-11 (Chunk E):** the expiry countdown and 7-day renewal reminder job are now built too — see the new §10 below. **Still not built:** the pay-first signup/auto-provisioning flow (`DECISIONS.md`, 2026-07-11 "pay-first") — nothing yet creates a business automatically after payment; today a business only exists once someone logs in via phone OTP.
+**Updated again 2026-07-11 (Chunk E):** the expiry countdown and 7-day renewal reminder job are now built too — see §10. **Updated again 2026-07-11 (Chunk C):** the pay-first auto-provisioning flow is now built too — see §11. A business can now come into existence two ways: via phone-OTP signup (§2, still the only path for the Free tier / trying before paying) or via a paid checkout link (§11, sales-assisted, not public self-serve).
 
 ## 10. Renewal reminders (added 2026-07-11)
 
@@ -187,6 +187,34 @@ checkRenewalReminders():
 **Blast radius:** `reminder_sent_at` is the only thing preventing this from re-sending the same reminder every 6 hours for the full 7-day window. If you ever add a way to "un-remind" a subscription (e.g. a plan change mid-window), remember to null this column out, or the owner just won't get reminded again that cycle.
 
 **Notifies the owner (`users.role='owner'`), not the business's own customer-facing WhatsApp number** — don't confuse `businesses.whatsapp_number` (which the business uses to talk to *its* customers) with the owner's login phone (`users.phone`, where reminders go). These are two different numbers by design.
+
+## 11. Pay-first checkout (added 2026-07-11)
+
+```
+Team member (NOT a public form) → POST /api/admin/checkout-links (requireAdmin)
+  → clients/razorpay.ts: createSubscription({planId, notes: {phone, businessName, plan, source:'pay_first_checkout'}})
+  → returns a Razorpay-hosted checkout URL — NO row written to our database yet
+  → the admin copies this link and sends it to the lead manually (WhatsApp)
+
+Lead pays on Razorpay's page
+Razorpay → POST /webhooks/razorpay (signature-verified, deduped — same as always)
+  → handleRazorpayEvent(): tries the sign-up-then-pay path first
+      UPDATE subscriptions ... WHERE razorpay_sub_id = $1 RETURNING business_id
+    if that finds a row → existing flow (business already existed, e.g. subscribed via its own dashboard)
+    if it finds NOTHING → provisionFromPayFirstCheckout(subId, entity, periodEnd):
+        reads entity.notes {phone, businessName, plan}
+        db.ts: withTransaction() — ALL of the following succeed together or none do:
+          SELECT users WHERE phone = $1
+            found  → reuse business_id; UPDATE businesses SET status/plan;
+                     deactivate any prior active subscription for this business
+            absent → INSERT businesses (status='active', plan) → INSERT users (role='owner')
+          INSERT subscriptions (business_id, plan, razorpay_sub_id, active=true, current_period_end)
+        → sendPaymentConfirmation(): sendTemplate() (if template configured) + sendEmail() (if owner has one)
+```
+
+**Blast radius:** `provisionFromPayFirstCheckout()` is the only place a `business` can be created **without** going through the phone-OTP signup route (`routes/auth.ts`). If you ever add a third way to create a business, make sure it also creates a `users` row in the same transaction — nothing else in this codebase tolerates a business existing with zero users attached (login has nothing to authenticate against).
+
+**Two entry points, one webhook handler:** `routes/billing.ts`'s `handleRazorpayEvent()` now branches on whether a local `subscriptions` row already exists for the `razorpay_sub_id`. This means the *same* webhook event type (`subscription.charged`) is handled completely differently depending on which path created the Razorpay subscription in the first place — read both branches together if you're debugging a payment that didn't activate correctly.
 
 ---
 

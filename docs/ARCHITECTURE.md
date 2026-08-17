@@ -77,10 +77,13 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 
 **Entitlement enforcement now exists** (`auth/entitlement.ts` + `components/PlanGate.tsx` — see `DECISIONS.md`/`FEATURE.md` for the full design). GBP, social, campaigns, the booking microsite, and the WhatsApp chat agent all check `businesses.plan`/`status` before running; the dashboard shows only a renewal/upgrade wall when a business isn't entitled. See `FLOW.md` §8 for the current map.
 
-**What entitlement enforcement does NOT yet cover** (billing/customer-journey gaps):
-- No payment-confirmation email or WhatsApp message is ever sent (email is now *possible* — see below — just not wired to the payment-success path yet).
-- No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented).
-- Current signup flow is sign-up-then-pay; the intended flow is pay-first with auto-provisioning (architectural change, not yet built — see `DECISIONS.md`).
+**What's still not built** (billing/customer-journey gaps):
+- No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented; the pay-first flow's confirmation message doesn't include an invoice link yet).
+- No downgrade protection in the pay-first flow — attaching a lower-tier payment to an existing higher-tier business simply sets the lower plan, no warning (deliberately out of scope for now, see `DECISIONS.md`).
+
+**Resolved 2026-07-11 (Chunk C):**
+- ~~Current signup flow is sign-up-then-pay only~~ — a business can now also come into existence via a paid checkout link, with the business/user/subscription rows created atomically the moment payment succeeds. Sales-assisted (a team member generates the link), not public self-serve — see `DECISIONS.md` for why, and how the same mechanism would support self-serve later.
+- ~~No payment-confirmation email or WhatsApp message is ever sent~~ — sent on both paths now (`routes/billing.ts`'s `sendPaymentConfirmation()`): pay-first provisioning, and the existing sign-up-then-pay `/billing/subscribe` path (added while documenting this chunk — the two paths had drifted to send different things).
 
 **Resolved 2026-07-11 (Chunk E):**
 - ~~No dashboard UI showing plan expiry date~~ — `ExpiryBadge` on the main dashboard now shows it.

@@ -16,6 +16,22 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Pay-first checkout (sales-assisted) — shipped 2026-07-11
+- **What it does:** a team member generates a Razorpay checkout link for a known lead (phone/business name/plan already agreed via WhatsApp); nothing is written to our database until they actually pay. The webhook then auto-creates the business + user + subscription in one transaction and sends "payment confirmed, here's how to log in." See `DECISIONS.md` for the full design and the two decisions delegated to me (no DB row before payment; re-used phone attaches to the existing business).
+- **Files:** `apps/api/src/db.ts` (`withTransaction()`), `apps/api/src/auth/middleware.ts` (`requireAdmin`), `apps/api/src/config.ts` (`WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME`, `DASHBOARD_LOGIN_URL`), `apps/api/src/routes/billing.ts` (new `POST /api/admin/checkout-links` route, `provisionFromPayFirstCheckout()`, `sendPaymentConfirmation()`, and the webhook handler's fallback path), `apps/web/src/app/admin/create-checkout/page.tsx` (new).
+- **Test checklist:**
+  - [ ] `POST /api/admin/checkout-links` as a non-admin user returns 403
+  - [ ] As an admin: generates a real Razorpay subscription with `notes: {phone, businessName, plan, source:'pay_first_checkout'}` — **no row appears in our `businesses`/`users`/`subscriptions` tables at this point**
+  - [ ] Simulate (or trigger for real, in a Razorpay test/sandbox account) a `subscription.charged` webhook for that subscription ID — confirm exactly one `businesses` row, one `users` row, and one `subscriptions` row (`active=true`) now exist, and they're consistent (same `business_id` throughout)
+  - [ ] Re-run the same webhook event (simulating a Razorpay retry) — `webhook_events` dedup prevents a second provisioning attempt entirely (this path was already tested when billing was first built; confirm it still holds for the new fallback branch)
+  - [ ] Generate a **second** checkout link for a phone number that now has an account (from the previous test) — after payment, confirm their **existing** business's plan/status updates rather than a new business appearing, and their previous subscription row is `active=false`
+  - [ ] If the auto-provisioning transaction fails partway (e.g. simulate a DB error mid-transaction) — confirm `ROLLBACK` leaves **no partial rows** (no business without a user, no user without a business)
+  - [ ] With `WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME` unset: warning logged, no WhatsApp attempted; email still sent if the (newly-created) user happens to have one on file (they won't, for a brand-new signup — only the phone was collected at checkout)
+  - [ ] Log in via the normal OTP flow using the phone number from the checkout — confirm it reaches the now-provisioned business's dashboard, showing the correct plan and full entitlement
+  - [ ] The *existing* sign-up-then-pay path (`/billing/subscribe`, subscribing from an already-logged-in dashboard) also sends a payment confirmation now — found and fixed mid-chunk, since only the new pay-first path sent one at first
+  - [ ] **None of the above verified against a live database or a real Razorpay account in this session** — this is now the single largest "authored, not exercised" risk in the project, since it's the one flow that creates money-bearing customer accounts. Test end-to-end in a Razorpay sandbox before ever generating a real link.
+- **Rollback:** the new `/api/admin/checkout-links` route and the webhook's fallback branch are additive — the original sign-up-then-pay path (`/billing/subscribe`) is untouched and still works exactly as before. To fully roll back, remove the new route and revert `handleRazorpayEvent`'s activated/charged case to its single-path version (skip the `updated` check, always assume a local subscription row exists).
+
 ### Legal pages rewritten (Privacy/Terms/Refund) — drafted 2026-07-11, NOT yet production-final
 - **What it does:** replaces all three legal pages with DPDP-informed, factually-accurate versions. See `DECISIONS.md` for the full rationale and the two corrections made during the quiz-gate check (invoices can't be deleted on request; this is a strong draft, not a lawyer-reviewed final).
 - **Files:** `apps/web/src/app/privacy/page.tsx`, `apps/web/src/app/terms/page.tsx`, `apps/web/src/app/refund/page.tsx`.

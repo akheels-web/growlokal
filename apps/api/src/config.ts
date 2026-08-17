@@ -62,6 +62,12 @@ const schema = z.object({
   // like GBP). Empty until you have one; the reminder job skips the WhatsApp
   // send (still sends email) and logs a warning if unset.
   WHATSAPP_RENEWAL_TEMPLATE_NAME: z.string().default(''),
+  // Same situation for the pay-first "payment confirmed, here's how to log
+  // in" message — a different template since it's a different use case.
+  WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME: z.string().default(''),
+
+  // Where the login-instructions message points customers.
+  DASHBOARD_LOGIN_URL: z.string().default('https://app.growlokal.com/login'),
 
   // Pricing (paise). Kept in config so it's easy to change.
   PRICE_STARTER_PAISE: z.coerce.number().default(99900),
