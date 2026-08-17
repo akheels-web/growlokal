@@ -1,113 +1,90 @@
 # Architecture
 
-## The two-phase hosting model
+The system map — read this before touching anything you didn't write. Pairs with `FLOW.md` (how execution moves between files) and `DECISIONS.md` (why it's built this way).
 
-**Phase 0 (build + pilots):** everything on the home Proxmox box, exposed via Cloudflare Tunnel. Cost ≈ ₹0 + LLM credits.
+## Hosting model: Vercel (web) + VPS (API/data) + home Proxmox (automation)
 
-**Phase 1 (paying customers):** customer-facing path moves to a ₹1,000–1,200 Bangalore VPS; home box becomes the automation/compute backend.
-
-```
-                    ┌─────────────────────────────────────────┐
-   Coaching-center  │            Cloudflare (free)             │
-   owner on         │   DNS · CDN · Tunnel · Access · WAF      │
-   WhatsApp / web   └───────────────┬─────────────────────────┘
-        │                           │ (outbound tunnel, no public IP needed)
-        │ WhatsApp Cloud API        │
-        ▼                           ▼
-   ┌─────────┐        ┌──────────────────────────────────────┐
-   │  Meta   │◀──────▶│  API (Fastify)   app.  api.           │  ← VPS in Phase 1
-   │ WA Cloud│webhook │  - /webhooks/whatsapp (audit bot)     │
-   └─────────┘        │  - /api/audit/run                     │
-                      │  - /api/businesses/* (GBP/social/…)   │
-                      └───────┬───────────────────┬───────────┘
-                              │                   │
-                     ┌────────▼─────┐      ┌───────▼────────┐
-                     │  Postgres    │      │  LLM providers │
-                     │ (source of   │      │ Gemini/Claude/ │
-                     │  truth)      │      │ Ollama(local)  │
-                     └──────────────┘      └────────────────┘
-                              ▲
-        ┌─────────────────────┴───────────── Home Proxmox (Phase 1 backend) ──┐
-        │  n8n (schedules) · Mixpost (IG/FB) · Chatwoot · Cal.com · Metabase   │
-        │  Ollama (cheap drafts) · nightly backups → B2/R2                     │
-        └─────────────────────────────────────────────────────────────────────┘
-```
-
-## System diagram (rendered on GitHub)
+- **`apps/web`** (Next.js dashboard, landing page, SEO pages) deploys to **Vercel**.
+- **`apps/api`** (Fastify), **Postgres**, and **Redis** run on a **dedicated VPS** (`infra/docker-compose.prod.yml`), fronted by **Caddy** for automatic HTTPS.
+- **Cloudflare** owns DNS for `growlokal.com` (nameservers point there). `app.growlokal.com` is a Cloudflare CNAME to Vercel (DNS-only, not proxied); `api.growlokal.com` and internal tools are reached via a **Cloudflare Tunnel** to the home Proxmox box during the build/pilot phase, or directly to the VPS once provisioned. See `IMPLEMENTATION.md` for the exact DNS split and why Cloudflare/Vercel don't conflict.
+- **Home Proxmox server** runs the automation layer: the scheduler worker (`apps/api/src/worker.ts`, a separate process from the API), and self-hosted tools referenced in `infra/docker-compose.yml` (n8n, and — not yet deployed — Mixpost, Chatwoot, Cal.com, Metabase).
 
 ```mermaid
 flowchart TD
-    Owner["Coaching-center owner<br/>(WhatsApp / web)"]
-    CF["Cloudflare (free)<br/>DNS · CDN · Tunnel · Access · WAF"]
+    Owner["Business owner<br/>(WhatsApp / web)"]
+    CF["Cloudflare<br/>DNS · CDN · Tunnel · WAF"]
+    Vercel["Vercel<br/>apps/web"]
+    VPS["VPS<br/>Postgres · Redis · Caddy"]
+    API["API — Fastify<br/>(apps/api)"]
     Meta["Meta WhatsApp<br/>Cloud API"]
-    API["API (Fastify)<br/>/webhooks/whatsapp · /api/audit/run<br/>/api/businesses/*"]
-    PG[("Postgres<br/>source of truth")]
-    LLM["LLM providers<br/>Gemini / Claude / Ollama"]
-    Home["Home Proxmox (Phase-1 backend)<br/>n8n · Mixpost · worker · Ollama · backups"]
+    LLM["LLM providers<br/>Gemini (default) / Anthropic / OpenRouter / Ollama"]
+    Home["Home Proxmox<br/>worker.ts (social scheduler) · n8n"]
 
-    Owner -->|WhatsApp| Meta
-    Owner -->|HTTPS| CF
-    Meta -->|webhook| API
-    CF --> API
-    API --> PG
+    Owner -->|WhatsApp| Meta --> API
+    Owner -->|app.growlokal.com| CF --> Vercel --> API
+    API --> VPS
     API --> LLM
-    API -.->|Phase 1: VPS| CF
-    Home --> PG
-    Home --> LLM
-    Home -->|schedules posts| API
+    Home --> VPS
+    Home -->|Mixpost API| API
 ```
 
-### Audit bot flow (the lead magnet)
+### Audit bot flow (the lead magnet — see `FLOW.md` §1 for the full trace)
 
 ```mermaid
 sequenceDiagram
-    participant O as Owner (WhatsApp)
-    participant M as Meta Cloud API
-    participant A as API webhook
+    participant O as Owner (WhatsApp or web form)
+    participant A as API
     participant G as Google Places
     participant L as LLM
     participant DB as Postgres
 
-    O->>M: "Bright Future, Ameerpet"
-    M->>A: inbound webhook
-    A->>G: lookup business
+    O->>A: business name (+ phone, if via WhatsApp)
+    A->>G: lookup business (12h cache)
     G-->>A: rating, reviews, website…
-    A->>A: score 0-100 + gaps
-    A->>L: write Telugu summary
+    A->>A: score 0-100 + gaps (pure function, unit-tested)
+    A->>L: write vernacular summary
     L-->>A: message text
-    A->>DB: save lead + report + event
-    A->>M: send report
-    M-->>O: "Score 42/100 — reply DEMO"
+    A->>DB: save lead + audit_report + event
+    A-->>O: score + summary; "reply DEMO" (WhatsApp) or shown on page (web)
 ```
 
 ## Components
 
-- **`apps/api`** — the brain. WhatsApp webhook, audit bot, business logic, LLM/Places/WhatsApp clients. Stateless (except the in-memory convo map → move to Redis for prod).
-- **`apps/web`** — Next.js dashboard for center owners (ROI, content approval, campaigns) and for your sales team (leads).
-- **Postgres** — single source of truth (`db/schema.sql`). Everything else (Metabase, NocoDB) reads from it.
-- **n8n** — scheduling + orchestration; calls the API rather than reimplementing logic.
-- **Self-hosted tools** — Mixpost (social), Chatwoot (inbox), Cal.com (booking), Listmonk (email), Metabase (dashboards).
+- **`apps/api`** — all business logic. WhatsApp webhook (signature-verified), audit bot, auth (phone OTP + JWT), GBP agent, social scheduler, WhatsApp campaigns, Razorpay billing. Conversation state lives in **Redis**, not memory — survives restarts and works across multiple instances.
+- **`apps/api/src/worker.ts`** — a **separate process** from the API server; polls every 60s for scheduled social posts and publishes them via Mixpost. If you deploy/restart only the API, this process (and scheduled publishing) stops unless it's also running.
+- **`apps/web`** — the dashboard (owners: ROI, content, campaigns; sales: leads), plus the public marketing site (landing page, `/city/[cityName]` and `/city/[cityName]/[vertical]` SEO pages, blog, legal pages, ROI/audit calculators).
+- **Postgres** — single source of truth (`db/schema.sql` + `db/migrations/*.sql`, applied in order).
+- **Redis** — two real uses today: WhatsApp conversation-state (24h TTL) and a cached GBP OAuth access token (~50min TTL). **Not a job queue** — the worker is a plain polling loop by design (see its own header comment for when to graduate to something like BullMQ).
+- **Self-hosted tools (planned, not all deployed)** — Mixpost (social posting, referenced by the worker), n8n (orchestration), Chatwoot/Cal.com/Metabase (not yet integrated).
 
-## Data flow: the audit bot (fully built)
+## Data model highlights
 
-1. Owner WhatsApps the business number → Meta → `POST /webhooks/whatsapp`.
-2. Conversation SM asks for the business name.
-3. `runAudit()` → Google Places lookup → `scoreBusiness()` → `llm.generate()` (vernacular) → persist `lead` + `audit_report` + `events`.
-4. Reply sent via WhatsApp Cloud API. "DEMO" → lead marked `demo_booked` → sales follows up.
+See `docs/DATA_MODEL.md` for the full schema rationale. The two things most likely to surprise you:
+- **`leads` exist independently of `businesses`** — the audit bot captures a phone number + business name as a lead *before* anyone signs up. A lead only links to a business via `converted_business_id` once/if they subscribe.
+- **Money is always integer paise** (`₹999` = `99900`) — never introduce a float for a money column.
 
 ## Key decisions & rationale
 
-- **Direct Meta Cloud API, not a BSP** — saves ₹2,500–3,800/mo; you pay only per-message.
-- **LLM tiering** — cheap model for bulk drafts, quality model for customer-facing vernacular; keeps cost ~₹0.60/business/mo.
-- **Money in paise (integers)** — no float rounding bugs in billing/credits.
-- **API-first logic, n8n for orchestration** — keeps logic unit-testable.
-- **Multi-tenant by `business_id`** — but leads exist pre-signup (audit bot captures them before they're customers).
+(Full list with dates in `DECISIONS.md` — highlights only here.)
 
-## Known gaps / TODO before production
+- **Direct Meta Cloud API, not a WhatsApp BSP** — saves the ₹2,500–3,800/mo subscription; pay only per-message.
+- **LLM tiering** (`cheap`/`quality` in `clients/llm.ts`) — cheap model for bulk drafts, quality model for anything customer-facing; keeps LLM cost negligible (well under ₹1/business/month on the cheap tier).
+- **API-first logic, tools for orchestration** — business logic lives in testable TypeScript (`features/*/service.ts`), not inside n8n workflows or the frontend.
+- **Vertical-neutral by design** — `profile_context` is freeform JSON; the product isn't hardcoded to one business type (this was actively fixed after drifting coaching-specific — see `DECISIONS.md`).
+- **GBP OAuth: mechanism built, consent flow deliberately not** — see `DECISIONS.md`; building an unusable redirect route before you have a Google Cloud OAuth client and approved GBP access would be untestable scaffolding.
 
-- Move conversation state from in-memory `Map` to **Redis** (survives restarts, multi-instance).
-- Add **webhook signature verification** for Meta (X-Hub-Signature-256) and Razorpay.
-- Add **auth** (phone-OTP) to the dashboard + protect `/api/businesses/*`.
-- **Rate-limit** the audit endpoint (Places + LLM cost per hit) + Cloudflare WAF rule.
-- Restrict the Google Places API key + **billing cap**.
-- Real **GBP / Mixpost / campaign** integrations (currently stubs).
+## Known gaps (as of 2026-07-11 — check `DECISIONS.md` and `docs/ROADMAP.md` for anything resolved since)
+
+**The big one: no entitlement enforcement exists.** `businesses.status` and `businesses.plan` are correctly written by the Razorpay webhook, but **nothing downstream ever checks them.** A `past_due` business has identical access to an `active` one; the dashboard shows every feature to every plan regardless of what they're subscribed to. See `FLOW.md` §8 for the exact list of files that would need a check added.
+
+**Billing/customer-journey gaps** (see conversation-log discussion, not yet built):
+- No payment-confirmation email or WhatsApp message is ever sent.
+- No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented).
+- No dashboard UI showing plan expiry date, despite `current_period_end` being stored.
+- No scheduled job for renewal reminders (the only scheduled worker handles social posts).
+- Current signup flow is sign-up-then-pay; the intended flow is pay-first with auto-provisioning (architectural change, not yet built — see `DECISIONS.md`).
+- No email system exists at all (SES was scoped but never built).
+
+**Smaller/operational gaps:**
+- Restrict the Google Places API key + set a billing cap (it's called on every audit + autocomplete keystroke; rate-limited but not capped).
+- Self-hosted tools referenced in `infra/docker-compose.yml` (Mixpost, Chatwoot, Cal.com, Metabase) aren't all actually deployed yet — the worker's Mixpost calls dry-run until a real instance + per-business account IDs exist.
