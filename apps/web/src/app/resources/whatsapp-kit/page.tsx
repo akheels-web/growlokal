@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export default function WhatsappKitPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -40,7 +41,13 @@ export default function WhatsappKitPage() {
       </header>
 
       {/* Main Content */}
-      <main style={{ maxWidth: '860px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Resources', href: '/#resources' },
+            { label: 'WhatsApp Marketing Kit' },
+          ]}
+        />
         <div style={{ textAlign: 'center', marginBottom: '44px' }}>
           <span style={{
             fontSize: '12px',

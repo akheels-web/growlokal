@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export default function GoogleScoreCalculatorPage() {
   const [centerName, setCenterName] = useState('');
@@ -116,7 +117,13 @@ export default function GoogleScoreCalculatorPage() {
       </header>
 
       {/* Main Hero & Calculator */}
-      <main style={{ maxWidth: '960px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Growth Tools', href: '/#features' },
+            { label: 'Google Visibility Score Tool' },
+          ]}
+        />
         <div style={{ textAlign: 'center', marginBottom: '44px' }}>
           <span style={{
             fontSize: '12px',

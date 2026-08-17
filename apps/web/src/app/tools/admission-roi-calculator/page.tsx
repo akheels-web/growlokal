@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export default function RevenueRoiCalculatorPage() {
   const [serviceValue, setServiceValue] = useState(2500);
@@ -30,7 +31,13 @@ export default function RevenueRoiCalculatorPage() {
       </header>
 
       {/* Hero */}
-      <main style={{ maxWidth: '960px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Growth Tools', href: '/#features' },
+            { label: 'Revenue ROI Calculator' },
+          ]}
+        />
         <div style={{ textAlign: 'center', marginBottom: '44px' }}>
           <span style={{
             fontSize: '12px',
@@ -55,12 +62,9 @@ export default function RevenueRoiCalculatorPage() {
         </div>
 
         {/* Calculator Widget */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '32px',
-          background: 'var(--color-bg-card)',
-          border: '1.5px solid var(--color-border)',
+        <div className="roi-calculator-grid" style={{
+          background: '#ffffff',
+          border: '1.5px solid #e2e8f0',
           borderRadius: '24px',
           padding: '36px',
           boxShadow: '0 12px 36px rgba(3, 53, 64, 0.06)'
@@ -68,11 +72,11 @@ export default function RevenueRoiCalculatorPage() {
           {/* Controls */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540' }}>
-                  Average Customer Service / Order Value (₹)
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
+                <label style={{ fontSize: '14.5px', fontWeight: '700', color: '#033540', lineHeight: '1.4' }}>
+                  Average Order / Service Value (₹)
                 </label>
-                <span style={{ fontSize: '16px', fontWeight: '800', color: '#2E9AA6' }}>
+                <span style={{ fontSize: '16px', fontWeight: '800', color: '#2E9AA6', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   ₹{serviceValue.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -92,12 +96,12 @@ export default function RevenueRoiCalculatorPage() {
             </div>
 
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <label style={{ fontSize: '14px', fontWeight: '700', color: '#033540' }}>
-                  Additional New Local Customers per Month
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
+                <label style={{ fontSize: '14.5px', fontWeight: '700', color: '#033540', lineHeight: '1.4' }}>
+                  New Local Customers Acquired / Month
                 </label>
-                <span style={{ fontSize: '16px', fontWeight: '800', color: '#70BF63' }}>
-                  +{extraCustomers} Customers / Mo
+                <span style={{ fontSize: '16px', fontWeight: '800', color: '#70BF63', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  +{extraCustomers} Customers
                 </span>
               </div>
               <input
@@ -115,7 +119,7 @@ export default function RevenueRoiCalculatorPage() {
               </div>
             </div>
 
-            <div style={{ padding: '16px', background: '#F8FAFC', borderRadius: '12px', fontSize: '13px', color: '#475569' }}>
+            <div style={{ padding: '16px', background: '#F8FAFC', borderRadius: '12px', fontSize: '13px', color: '#475569', lineHeight: '1.5' }}>
               💡 <strong>How it works:</strong> GrowLokal AI ranks your Google Business Profile for "near me" searches and answers customer WhatsApp enquiries 24/7.
             </div>
           </div>

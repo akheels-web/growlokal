@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 export const metadata = {
   title: 'Refund & Cancellation Policy — GrowLokal',
@@ -23,7 +24,13 @@ export default function RefundPage() {
       </header>
 
       {/* ─── MAIN CONTENT ─── */}
-      <main style={{ maxWidth: '900px', margin: '0 auto', padding: '60px 24px 90px' }}>
+      <main style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 24px 90px' }}>
+        <Breadcrumbs
+          items={[
+            { label: 'Legal & Trust', href: '/#footer' },
+            { label: 'Refund & Cancellation Policy' },
+          ]}
+        />
         <div style={{ marginBottom: '40px' }}>
           <span style={{
             fontSize: '12px',

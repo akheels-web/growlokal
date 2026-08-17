@@ -70,17 +70,45 @@ function Section({ id, className = '', children }: { id?: string; className?: st
   );
 }
 
-/* ─── FAQ Item ─── */
-function FaqItem({ q, a }: { q: string; a: string }) {
+/* ─── FAQ Accordion Card ─── */
+function FaqCard({ q, a, id }: { q: string; a: string; id: string }) {
   const [open, setOpen] = useState(false);
+
   return (
-    <div className={`faq-item ${open ? 'faq-item--open' : ''}`}>
-      <button className="faq-question" onClick={() => setOpen(!open)}>
-        {q}
-        <span className="faq-chevron">▼</span>
-      </button>
-      <div className="faq-answer">
-        <div className="faq-answer-inner">{a}</div>
+    <div className={`faq-card ${open ? 'faq-card--open' : ''}`}>
+      <h3 className="faq-heading">
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={`faq-panel-${id}`}
+          onClick={() => setOpen(!open)}
+          className="faq-toggle-btn"
+        >
+          <span className="faq-question-text">{q}</span>
+          <svg
+            className={`faq-icon ${open ? 'faq-icon--open' : ''}`}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" className="faq-icon-vert" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </h3>
+      <div
+        id={`faq-panel-${id}`}
+        role="region"
+        aria-hidden={!open}
+        className="faq-panel"
+      >
+        <div className="faq-panel-inner">
+          <p className="faq-answer-text">{a}</p>
+        </div>
       </div>
     </div>
   );
@@ -283,6 +311,7 @@ export default function Home() {
   const [result, setResult] = useState<{ score: number; message: string } | null>(null);
   const [error, setError] = useState('');
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
 
   // Live Autocomplete State & Sample Fallback Database
@@ -344,6 +373,27 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
   const runAudit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanPhone = phone.replace(/[^0-9]/g, '');
@@ -384,28 +434,117 @@ export default function Home() {
 
   return (
     <div className="page-wrapper">
-      {/* ─── NAV ─── */}
-      <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
-        <div className="nav-content">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <a href="/" className="nav-brand">Grow<span>Lokal</span></a>
+      {/* ─── MODERN HEADER & NAVIGATION ─── */}
+      <header className={`nav-header ${scrolled ? 'nav-header--scrolled' : ''}`}>
+        <div className="nav-container">
+          {/* Brand Logo & Language Picker */}
+          <div className="nav-brand-group">
+            <a href="/" className="nav-brand">
+              Grow<span>Lokal</span>
+            </a>
 
-            {/* PROMINENT 4-LANGUAGE DROPDOWN */}
+            {/* Desktop Language Selector */}
+            <div className="nav-lang-wrap">
+              <select
+                value={lang}
+                onChange={(e) => setLang(e.target.value as Lang)}
+                className="nav-lang-select"
+                aria-label="Select Language"
+              >
+                <option value="en">🌐 English</option>
+                <option value="te">🌐 తెలుగు (Telugu)</option>
+                <option value="ta">🌐 தமிழ் (Tamil)</option>
+                <option value="kn">🌐 ಕನ್ನಡ (Kannada)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <nav className="nav-desktop-links" aria-label="Main navigation">
+            <a href="#how-it-works" className="nav-link-item">{t.howItWorks}</a>
+            <a href="#agents" className="nav-link-item">{t.agents}</a>
+            <a href="#pricing" className="nav-link-item">Pricing</a>
+            <a href="#industries" className="nav-link-item">Industries</a>
+            <a href="/tools/admission-roi-calculator" className="nav-link-item">ROI Tool</a>
+            <a href="/blog" className="nav-link-item">Blog</a>
+            <a href="#contact" className="nav-link-item">Contact</a>
+          </nav>
+
+          {/* Right Action Buttons */}
+          <div className="nav-actions">
+            <a href="/login" className="nav-signin-link">{t.signIn}</a>
+            <a
+              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-cta-btn"
+            >
+              <span>{t.demoBtn}</span>
+            </a>
+
+            {/* Mobile Hamburger Toggle Button */}
+            <button
+              type="button"
+              id="toggleOpen"
+              aria-controls="mobile-nav-drawer"
+              aria-expanded={mobileMenuOpen}
+              aria-label="Open navigation menu"
+              onClick={() => setMobileMenuOpen(true)}
+              className="nav-mobile-toggle"
+            >
+              <svg className="nav-hamburger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ─── MOBILE DRAWER (OFF-CANVAS SLIDE-IN) ─── */}
+      {mobileMenuOpen && (
+        <div
+          className="nav-mobile-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <div
+        id="mobile-nav-drawer"
+        tabIndex={-1}
+        aria-hidden={!mobileMenuOpen}
+        className={`nav-mobile-drawer ${mobileMenuOpen ? 'nav-mobile-drawer--open' : ''}`}
+      >
+        {/* Drawer Header */}
+        <div className="nav-drawer-header">
+          <a href="/" className="nav-brand" onClick={() => setMobileMenuOpen(false)}>
+            Grow<span>Lokal</span>
+          </a>
+          <button
+            type="button"
+            id="toggleClose"
+            aria-label="Close navigation menu"
+            onClick={() => setMobileMenuOpen(false)}
+            className="nav-drawer-close"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="nav-close-icon" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Drawer Content */}
+        <div className="nav-drawer-body">
+          {/* Language Selector Inside Mobile Drawer */}
+          <div className="nav-drawer-lang-section">
+            <label className="nav-drawer-lang-label">Language / భాష / மொழி:</label>
             <select
               value={lang}
               onChange={(e) => setLang(e.target.value as Lang)}
-              style={{
-                background: '#0E4459',
-                color: '#ffffff',
-                border: '1.5px solid #2E9AA6',
-                padding: '6px 12px',
-                borderRadius: '12px',
-                fontSize: '13px',
-                fontWeight: '700',
-                cursor: 'pointer',
-                outline: 'none',
-                boxShadow: '0 2px 8px rgba(14, 68, 89, 0.2)'
-              }}
+              className="nav-drawer-lang-select"
             >
               <option value="en">🌐 English</option>
               <option value="te">🌐 తెలుగు (Telugu)</option>
@@ -414,19 +553,54 @@ export default function Home() {
             </select>
           </div>
 
-          <div className="nav-links">
-            <a href="#how-it-works" className="nav-link">{t.howItWorks}</a>
-            <a href="#agents" className="nav-link">{t.agents}</a>
-            <a href="#pricing" className="nav-link">Pricing</a>
-            <a href="/blog" className="nav-link">Blog</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <a href="/login" className="nav-link">{t.signIn}</a>
-            <a href="https://wa.me/91XXXXXXXXXX?text=I%20want%20a%20free%20demo" target="_blank" rel="noopener noreferrer" className="btn-nav">
-              {t.demoBtn}
+          <nav className="nav-drawer-links" aria-label="Mobile navigation">
+            <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>{t.howItWorks}</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="#agents" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>{t.agents}</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>Pricing Plans</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="#industries" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>Industries &amp; Sectors</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="/tools/admission-roi-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>Revenue ROI Calculator</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="/blog" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>Blog &amp; Case Studies</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+              <span>Contact Us</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </a>
+          </nav>
+
+          {/* Drawer Actions */}
+          <div className="nav-drawer-actions">
+            <a href="/login" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-signin">
+              {t.signIn}
+            </a>
+            <a
+              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="nav-drawer-cta"
+            >
+              💬 {t.demoBtn}
             </a>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* ─── HERO ─── */}
       <section className="hero">
@@ -1067,7 +1241,7 @@ export default function Home() {
             <h4 className="results-cta-heading">Ready to see your business score jump from 23 to 87?</h4>
             <p className="results-cta-sub">Run your free 30-second Google Business Audit now. No credit card required.</p>
           </div>
-          <a href="#audit-form" className="btn-primary" style={{ textDecoration: 'none', whiteSpace: 'nowrap' }}>
+          <a href="#audit-form" className="results-cta-btn">
             <span>⚡ Audit My Business Free</span>
           </a>
         </div>
@@ -1386,15 +1560,25 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* ─── FAQ ─── */}
+      {/* ─── FAQ (2-COLUMN ACCORDION) ─── */}
       <Section id="faq">
         <div className="section-header">
           <p className="section-eyebrow">{t.faqEyebrow}</p>
           <h2 className="section-title">{t.faqTitle}</h2>
           <p className="section-subtitle">{t.faqSubtitle}</p>
         </div>
-        <div className="faq-list">
-          {FAQ_DATA.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}
+
+        <div className="faq-2col-grid">
+          <div className="faq-col">
+            {FAQ_DATA.slice(0, Math.ceil(FAQ_DATA.length / 2)).map((f, idx) => (
+              <FaqCard key={f.q} id={`left-${idx}`} q={f.q} a={f.a} />
+            ))}
+          </div>
+          <div className="faq-col">
+            {FAQ_DATA.slice(Math.ceil(FAQ_DATA.length / 2)).map((f, idx) => (
+              <FaqCard key={f.q} id={`right-${idx}`} q={f.q} a={f.a} />
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -1678,12 +1862,38 @@ const TESTIMONIALS = [
 ];
 
 const FAQ_DATA = [
-  { q: 'Is this too technical for me?', a: 'Not at all! If you can use WhatsApp, you can use GrowLokal. Our AI handles all the technical marketing work. You just approve what it creates.' },
-  { q: 'How soon will I see results?', a: 'Most local businesses see improvements in their Google visibility within 2-3 weeks. The free audit gives you your baseline score immediately, and our AI starts working on improvements from day one.' },
-  { q: 'Does it work in Telugu and Tamil?', a: 'Yes! GrowLokal creates content in Telugu, Tamil, Kannada, and English. Our AI understands the local context and creates authentic vernacular content that resonates with customers in your area.' },
-  { q: "What if I don't have a Google Business Profile?", a: "No problem! We'll help you set one up as part of the onboarding process. It's free on Google — and it's the single most important thing for getting found by customers searching online." },
-  { q: 'Can I cancel anytime?', a: "Absolutely. There are no contracts or lock-in periods. You can cancel your Growth Plan anytime. The free audit is always free, forever." },
-  { q: 'How is GrowLokal different from Grexa?', a: 'We\'re purpose-built for South Indian local businesses, not a generic tool for all companies. Our AI speaks Telugu, Tamil, and Kannada natively. And our plans start at ₹999/month vs their ₹5,000+/month flat plan — pick the tier that fits your business, save thousands every quarter.' },
+  {
+    q: 'Is this too technical for me?',
+    a: 'Not at all! If you know how to use WhatsApp, you can use GrowLokal. Our 4 AI agents handle all the complex Google SEO, local ranking optimizations, and social media posting. You simply review and approve drafts with a single tap on WhatsApp.'
+  },
+  {
+    q: 'How soon will I see results in my Google rankings?',
+    a: 'Most local clinics, salons, and stores see noticeable visibility improvements on Google Maps within 14 to 21 days. Your instant audit provides a baseline score in 30 seconds, and our AI starts fixing NAP consistency, keywords, and review workflows from Day 1.'
+  },
+  {
+    q: 'Does it support regional languages like Telugu, Tamil, and Kannada?',
+    a: 'Yes! GrowLokal natively generates marketing copy, festive offers, and customer chat replies in Telugu, Tamil, Kannada, and English. Our vernacular models understand local slang, festivals, and cultural context across South India.'
+  },
+  {
+    q: "What if I don't have a Google Business Profile yet?",
+    a: "No problem! We help you set up and verify your Google Business Profile as part of your onboarding. Having a verified profile is 100% free on Google and is essential for capturing nearby customers."
+  },
+  {
+    q: 'How do review replies and WhatsApp follow-ups work?',
+    a: 'Whenever a customer leaves a Google review, GrowLokal AI automatically drafts a warm, personalized reply and pings you on WhatsApp for 1-click approval. It also answers customer enquiries on WhatsApp 24/7 with instant booking links.'
+  },
+  {
+    q: 'Are my business data and customer phone numbers secure?',
+    a: '100% private and secure. We never sell or share your business data or customer phone numbers with third parties. All communications, audit reports, and analytics are encrypted with enterprise-grade security standards.'
+  },
+  {
+    q: 'Can I cancel or upgrade my plan anytime?',
+    a: 'Yes, absolutely. There are no lock-in contracts or hidden cancellation fees. You can upgrade, downgrade, or cancel your plan anytime directly from your dashboard or via WhatsApp support.'
+  },
+  {
+    q: 'How is GrowLokal different from generic marketing agencies?',
+    a: 'Traditional digital agencies charge ₹15,000–₹25,000/month for slow manual work. GrowLokal gives you 4 specialized AI agents working 24/7 for a fraction of the cost (starting at ₹999/mo) with native South Indian language support.'
+  },
 ];
 
 function ContactSection() {

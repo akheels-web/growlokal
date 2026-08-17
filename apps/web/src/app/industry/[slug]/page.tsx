@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { CITY_DATA } from '@/lib/cityData';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 interface Props {
   params: { slug: string };
@@ -57,11 +58,17 @@ export default function IndustryLandingPage({ params }: Props) {
 
       {/* ─── HERO SECTION ─── */}
       <section style={{
-        padding: '70px 24px 60px',
+        padding: '50px 24px 60px',
         background: 'linear-gradient(180deg, #F0F9FF 0%, #ffffff 100%)',
         borderBottom: '1px solid #e2e8f0',
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <Breadcrumbs
+            items={[
+              { label: 'Industries', href: '/#industries' },
+              { label: vertical.label },
+            ]}
+          />
           <div style={{
             display: 'grid',
             gridTemplateColumns: '1.2fr 0.8fr',
