@@ -50,16 +50,32 @@ backups/
 *.swp
 *.swo
 *~
-.DS_Store
-Thumbs.db
-desktop.ini
 
 # ---------- OS files ----------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ---------- Logs ----------
 *.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ---------- Lint/test caches & backup files ----------
+.eslintcache
+*.bak
+*.orig
+*.tmp
+*.pid
 
 # ---------- Miscellaneous ----------
 .vercel/
