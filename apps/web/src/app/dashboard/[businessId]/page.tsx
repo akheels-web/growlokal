@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
-import { useEntitlement, hasMinPlan, RenewalWall } from '@/components/PlanGate';
+import { useEntitlement, hasMinPlan, RenewalWall, ExpiryBadge } from '@/components/PlanGate';
 
 interface RoiRow { month: string; enquiries: number; demos_booked: number; leads_captured: number; }
 
@@ -88,9 +88,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
             <h1 style={{ fontSize: '2rem', color: 'var(--color-brand-darkest)', marginBottom: '4px' }}>Business Overview</h1>
             <p style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem' }}>Track your ROI, enquiries, and generate AI posts instantly.</p>
           </div>
-          <span style={{ padding: '6px 16px', background: 'rgba(46, 154, 166, 0.1)', color: 'var(--color-brand-dark)', borderRadius: '999px', fontSize: '13px', fontWeight: 600, border: '1px solid rgba(46, 154, 166, 0.25)' }}>
-            🟢 Live Sync
-          </span>
+          <ExpiryBadge currentPeriodEnd={entitlement.currentPeriodEnd} />
         </div>
 
         {/* Stats Section */}

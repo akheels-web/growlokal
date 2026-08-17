@@ -6,6 +6,13 @@
 // (plan='trial') and a business whose subscription lapsed (status='past_due'
 // or 'churned') get the SAME restricted view — there's no difference in
 // treatment between "never paid" and "stopped paying."
+//
+// Also checks the active subscription's current_period_end directly, not
+// just businesses.status — so access is correctly restricted the moment the
+// paid period ends even if Razorpay's webhook is delayed. There is
+// deliberately no separate "suspend" job: this check is evaluated live on
+// every request, so it's always correct without needing anything to
+// proactively flip a status column.
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { queryOne } from '../db.js';
 import { requireBusiness } from './middleware.js';
@@ -17,8 +24,10 @@ const PLAN_RANK: Record<PlanTier, number> = { trial: 0, starter: 1, growth: 2, p
 export interface EntitlementInfo {
   plan: PlanTier;
   status: string;
-  /** false if status is past_due/churned OR plan is still 'trial' (never subscribed) */
+  /** false if status is past_due/churned, plan is 'trial', or the active subscription's period has ended */
   entitled: boolean;
+  /** the active subscription's renewal date, if any — for the dashboard expiry widget */
+  currentPeriodEnd: string | null;
 }
 
 /** For checks outside an authenticated route (e.g. the public booking page). */
@@ -32,8 +41,26 @@ export async function getEntitlement(businessId: string): Promise<EntitlementInf
     [businessId]
   );
   if (!row) return null;
-  const entitled = row.status !== 'past_due' && row.status !== 'churned' && row.plan !== 'trial';
-  return { plan: row.plan, status: row.status, entitled };
+
+  // Most recent active subscription, if any — a business can have several
+  // rows over time (plan changes, resubscribes).
+  const sub = await queryOne<{ current_period_end: string | null }>(
+    `SELECT current_period_end FROM subscriptions
+     WHERE business_id = $1 AND active = true
+     ORDER BY current_period_end DESC NULLS LAST LIMIT 1`,
+    [businessId]
+  );
+
+  const periodExpired = !!sub?.current_period_end && new Date(sub.current_period_end) < new Date();
+  const entitled =
+    row.status !== 'past_due' && row.status !== 'churned' && row.plan !== 'trial' && !periodExpired;
+
+  return {
+    plan: row.plan,
+    status: row.status,
+    entitled,
+    currentPeriodEnd: sub?.current_period_end ?? null,
+  };
 }
 
 /**

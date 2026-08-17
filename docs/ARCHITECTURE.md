@@ -77,13 +77,16 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 
 **Entitlement enforcement now exists** (`auth/entitlement.ts` + `components/PlanGate.tsx` — see `DECISIONS.md`/`FEATURE.md` for the full design). GBP, social, campaigns, the booking microsite, and the WhatsApp chat agent all check `businesses.plan`/`status` before running; the dashboard shows only a renewal/upgrade wall when a business isn't entitled. See `FLOW.md` §8 for the current map.
 
-**What entitlement enforcement does NOT yet cover** (billing/customer-journey gaps, not yet built):
-- No payment-confirmation email or WhatsApp message is ever sent.
+**What entitlement enforcement does NOT yet cover** (billing/customer-journey gaps):
+- No payment-confirmation email or WhatsApp message is ever sent (email is now *possible* — see below — just not wired to the payment-success path yet).
 - No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented).
-- No dashboard UI showing plan expiry date, despite `current_period_end` being stored.
-- No scheduled job for renewal reminders (the only scheduled worker handles social posts).
 - Current signup flow is sign-up-then-pay; the intended flow is pay-first with auto-provisioning (architectural change, not yet built — see `DECISIONS.md`).
-- No email system exists at all (SES was scoped but never built).
+
+**Resolved 2026-07-11 (Chunk E):**
+- ~~No dashboard UI showing plan expiry date~~ — `ExpiryBadge` on the main dashboard now shows it.
+- ~~No scheduled job for renewal reminders~~ — `worker.ts`'s `checkRenewalReminders()`, every 6h. WhatsApp side needs a Meta-approved template before it actually sends; email side needs real SES credentials configured.
+- ~~No email system exists at all~~ — `clients/email.ts` (Amazon SES) now exists and is reusable for payment confirmations/invoices whenever those get built.
+- Entitlement now also checks `current_period_end` directly (not just `businesses.status`), so there's no dependency on Razorpay webhook timing and no separate "suspend" job is needed.
 
 **Smaller/operational gaps:**
 - Restrict the Google Places API key + set a billing cap (it's called on every audit + autocomplete keystroke; rate-limited but not capped).

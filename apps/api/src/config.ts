@@ -52,6 +52,17 @@ const schema = z.object({
   GBP_CLIENT_ID: z.string().default(''),         // OAuth client — see clients/gbp-oauth.ts
   GBP_CLIENT_SECRET: z.string().default(''),
 
+  // Email (Amazon SES) — see clients/email.ts. Empty in dev (logs instead of sending).
+  SES_REGION: z.string().default('ap-south-1'),
+  SES_ACCESS_KEY_ID: z.string().default(''),
+  SES_SECRET_ACCESS_KEY: z.string().default(''),
+  EMAIL_FROM: z.string().default('hello@growlokal.com'),
+
+  // Renewal reminder WhatsApp template — needs Meta approval first (external,
+  // like GBP). Empty until you have one; the reminder job skips the WhatsApp
+  // send (still sends email) and logs a warning if unset.
+  WHATSAPP_RENEWAL_TEMPLATE_NAME: z.string().default(''),
+
   // Pricing (paise). Kept in config so it's easy to change.
   PRICE_STARTER_PAISE: z.coerce.number().default(99900),
   PRICE_GROWTH_PAISE: z.coerce.number().default(249900),

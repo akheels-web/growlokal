@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
-export interface Entitlement { plan: string; status: string; entitled: boolean; }
+export interface Entitlement { plan: string; status: string; entitled: boolean; currentPeriodEnd: string | null; }
 
 const PLAN_RANK: Record<string, number> = { trial: 0, starter: 1, growth: 2, pro: 3 };
 
@@ -49,6 +49,24 @@ export function RenewalWall() {
         Renew on WhatsApp →
       </a>
     </main>
+  );
+}
+
+/** Small badge showing renewal date + days remaining; warns inside 7 days. */
+export function ExpiryBadge({ currentPeriodEnd }: { currentPeriodEnd: string | null }) {
+  if (!currentPeriodEnd) return null;
+  const daysLeft = Math.ceil((new Date(currentPeriodEnd).getTime() - Date.now()) / 86_400_000);
+  const warning = daysLeft <= 7;
+  const dateStr = new Date(currentPeriodEnd).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  return (
+    <span style={{
+      padding: '6px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600,
+      background: warning ? 'rgba(220, 38, 38, 0.1)' : 'rgba(46, 154, 166, 0.1)',
+      color: warning ? '#dc2626' : 'var(--color-brand-dark, #0E4459)',
+      border: `1px solid ${warning ? 'rgba(220,38,38,0.3)' : 'rgba(46,154,166,0.25)'}`,
+    }}>
+      {warning ? '⚠️' : '🔄'} Renews {dateStr} ({daysLeft} day{daysLeft === 1 ? '' : 's'})
+    </span>
   );
 }
 

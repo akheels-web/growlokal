@@ -16,6 +16,19 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Expiry widget, renewal reminders, real email client — shipped 2026-07-11
+- **What it does:** closes the loop on the entitlement system — an owner now sees their renewal date on the dashboard, gets warned 7 days before it lapses (WhatsApp + email), and the codebase has a real (if minimal) email-sending mechanism for the first time. See `DECISIONS.md` for the three decisions this involved.
+- **Files:** `apps/api/src/clients/email.ts` (new), `apps/api/src/auth/entitlement.ts` (now also checks `current_period_end`), `apps/api/src/worker.ts` (`checkRenewalReminders()`, a second timer), `apps/api/src/config.ts` (SES_*/EMAIL_FROM/WHATSAPP_RENEWAL_TEMPLATE_NAME), `db/migrations/005_renewal_reminders.sql` (`subscriptions.reminder_sent_at`), `apps/web/src/components/PlanGate.tsx` (`ExpiryBadge`, `Entitlement.currentPeriodEnd`), `apps/web/src/app/dashboard/[businessId]/page.tsx`.
+- **Test checklist:**
+  - [ ] A business with `current_period_end` in the past is `entitled: false` even if `businesses.status` still says `'active'` (simulates a delayed Razorpay webhook)
+  - [ ] A business with `current_period_end` more than 7 days out is unaffected
+  - [ ] `checkRenewalReminders()` picks up a subscription expiring in 3 days with `reminder_sent_at IS NULL`, and does **not** pick it up again after `reminder_sent_at` is set
+  - [ ] With `WHATSAPP_RENEWAL_TEMPLATE_NAME` unset: a warning is logged, no WhatsApp send attempted, but email still sends (if the owner has one on file)
+  - [ ] With `SES_ACCESS_KEY_ID` unset: `sendEmail()` logs the would-be email instead of throwing
+  - [ ] Dashboard: `ExpiryBadge` shows the teal "🔄 Renews" state for >7 days out, and the red "⚠️" warning state for ≤7 days
+  - [ ] None of the above verified against a live database, a real AWS SES account, or a real approved WhatsApp template in this session — this is the biggest "authored, not exercised" risk so far in this project. Test the SES send with real credentials before relying on it for anything real.
+- **Rollback:** remove the second `setInterval`/`checkRenewalReminders()` call in `worker.ts` to stop reminders (the DB column and email client can stay unused harmlessly). Revert `entitlement.ts`'s `periodExpired` check to fall back to status-only if the period-end logic ever misbehaves — it's a single `&& !periodExpired` clause in one function.
+
 ### Entitlement / plan-gating system — shipped 2026-07-11
 - **What it does:** closes the single biggest gap identified in `FLOW.md`/`ARCHITECTURE.md` — server-side enforcement of what a business's plan actually allows, plus a dashboard that shows nothing but a renewal prompt when a business isn't entitled. See `DECISIONS.md` for the full rationale and the plan→feature mapping.
 - **Files:** `apps/api/src/auth/entitlement.ts` (new), `apps/api/src/routes/features.ts` (`requirePlan()` added to GBP/social/campaigns routes, entitlement check on the public booking page), `apps/api/src/routes/whatsapp.ts` (chat agent gated), `apps/api/src/routes/auth.ts` (`/api/auth/me` returns `entitlement`), `apps/web/src/components/PlanGate.tsx` (new), `apps/web/src/app/dashboard/[businessId]/page.tsx`, `apps/web/src/app/dashboard/[businessId]/campaigns/page.tsx`.

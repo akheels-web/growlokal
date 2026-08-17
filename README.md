@@ -167,6 +167,7 @@ psql "$DATABASE_URL" -f db/schema.sql
 psql "$DATABASE_URL" -f db/migrations/002_auth_billing.sql
 psql "$DATABASE_URL" -f db/migrations/003_mixpost_and_campaigns.sql
 psql "$DATABASE_URL" -f db/migrations/004_gbp_refresh_token.sql
+psql "$DATABASE_URL" -f db/migrations/005_renewal_reminders.sql
 psql "$DATABASE_URL" -f db/seed.sql   # optional demo data
 ```
 

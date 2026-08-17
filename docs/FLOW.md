@@ -164,7 +164,29 @@ Dashboard → POST /api/businesses/:id/gbp/post → features/gbp/service.ts: cre
 | `apps/web/.../dashboard/[businessId]/page.tsx`, `.../campaigns/page.tsx` | Reads (via `components/PlanGate.tsx`) | Renders only the renewal/upgrade wall if not entitled |
 | `routes/features.ts` onboarding PUT, `roi`, `wallet`, `routes/features.ts` leads routes | — | **Deliberately NOT gated** — account management and viewing your own status/renewal path must always work regardless of plan |
 
-**Still not built:** the pay-first signup/auto-provisioning flow (`DECISIONS.md`, 2026-07-11 "pay-first"), the dashboard expiry countdown, and the 7-day renewal reminder job. The entitlement *check* exists; the *triggers around it* (what happens 7 days before expiry, how a brand-new business gets created after paying) don't yet.
+**Updated again 2026-07-11 (Chunk E):** the expiry countdown and 7-day renewal reminder job are now built too — see the new §10 below. **Still not built:** the pay-first signup/auto-provisioning flow (`DECISIONS.md`, 2026-07-11 "pay-first") — nothing yet creates a business automatically after payment; today a business only exists once someone logs in via phone OTP.
+
+## 10. Renewal reminders (added 2026-07-11)
+
+```
+worker.ts runs TWO independent timers (separate from each other):
+  tick()                  every 60s   — the social-post scheduler (§5)
+  checkRenewalReminders() every 6h    — this flow
+
+checkRenewalReminders():
+  SELECT subscriptions WHERE active AND current_period_end BETWEEN now() AND now()+7d
+                        AND reminder_sent_at IS NULL
+    JOIN businesses (name) JOIN users (role='owner', for phone/email)
+  for each row:
+    if config.WHATSAPP_RENEWAL_TEMPLATE_NAME set → clients/whatsapp.ts: sendTemplate()
+    else → log warning, skip WhatsApp (email still sent)
+    if owner has an email → clients/email.ts: sendEmail()
+    UPDATE subscriptions SET reminder_sent_at = now()   ← idempotency, prevents re-sending daily
+```
+
+**Blast radius:** `reminder_sent_at` is the only thing preventing this from re-sending the same reminder every 6 hours for the full 7-day window. If you ever add a way to "un-remind" a subscription (e.g. a plan change mid-window), remember to null this column out, or the owner just won't get reminded again that cycle.
+
+**Notifies the owner (`users.role='owner'`), not the business's own customer-facing WhatsApp number** — don't confuse `businesses.whatsapp_number` (which the business uses to talk to *its* customers) with the owner's login phone (`users.phone`, where reminders go). These are two different numbers by design.
 
 ---
 
