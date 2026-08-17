@@ -1966,7 +1966,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
    GOSAAS TRANSPARENT PRICING COMPONENT (2 CARDS: FREE & STANDARD)
    ============================================================ */
 .pricing-gosaas-wrapper {
-  max-width: 880px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -2042,22 +2042,27 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .pricing-gosaas-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 18px;
   align-items: stretch;
 }
 
 @media (max-width: 1100px) {
   .pricing-gosaas-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 22px;
   }
 }
 
 @media (max-width: 640px) {
   .pricing-gosaas-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 22px;
   }
+}
+
+/* Override section-center max-width for the pricing section */
+#pricing .section-center {
+  max-width: 1360px;
 }
 
 /* Card 1: Free Plan */
@@ -2065,7 +2070,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
   border-radius: 24px;
-  padding: 28px 22px;
+  padding: 30px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2083,7 +2088,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   position: relative;
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   border-radius: 24px;
-  padding: 28px 22px;
+  padding: 30px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2116,7 +2121,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 /* Card Header Typography */
 .pricing-plan-title {
-  font-size: 2rem;
+  font-size: 1.55rem;
   font-weight: 800;
   margin-bottom: 4px;
   font-family: var(--font-body), 'Plus Jakarta Sans', sans-serif;
@@ -2124,9 +2129,12 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .pricing-plan-subtitle {
-  font-size: 0.92rem;
-  margin-bottom: 20px;
-  line-height: 1.4;
+  font-size: 0.84rem;
+  margin-bottom: 16px;
+  line-height: 1.35;
+  min-height: 38px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .pricing-divider {
@@ -2141,23 +2149,27 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 /* Price Value Typography */
 .pricing-price-val {
-  font-size: 2.8rem;
+  font-size: 2.1rem;
   font-weight: 900;
   line-height: 1;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   font-family: var(--font-heading);
+  white-space: nowrap;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
 }
 
 .pricing-card-free .pricing-price-period {
   color: #64748B;
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 700;
   opacity: 1;
 }
 
 .pricing-card-standard .pricing-price-period {
   color: #ffffff !important;
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 700;
   opacity: 0.95;
 }
@@ -2166,45 +2178,45 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .pricing-feature-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 32px;
+  margin: 0 0 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .pricing-feature-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 14.5px;
+  gap: 8px;
+  font-size: 13px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .pricing-icon-check {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #22c55e;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   flex-shrink: 0;
 }
 
 .pricing-icon-cross {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: #cbd5e1;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
   flex-shrink: 0;
 }
@@ -2217,12 +2229,12 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 /* Action Buttons matching GoSaaS Pill Style */
 .pricing-btn-free {
   width: 100%;
-  padding: 14px 28px;
+  padding: 12px 20px;
   border: 2px solid #0F172A;
   background: transparent;
   color: #0F172A;
   border-radius: 50px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
@@ -2238,12 +2250,12 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .pricing-btn-standard {
   width: 100%;
-  padding: 14px 28px;
+  padding: 12px 20px;
   border: none;
   background: #ffffff;
   color: #4f46e5;
   border-radius: 50px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   text-align: center;
   text-decoration: none;

@@ -925,8 +925,8 @@ export default function Home() {
             
             <div className="results-img-frame">
               <img 
-                src="/images/result_before.jpg" 
-                alt="Business buried at position 18 on Google Maps with low 23/100 visibility score" 
+                src="/images/results_day1_before.jpg" 
+                alt="Business buried at position 18 on Google Maps with low visibility score" 
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--before">
@@ -975,8 +975,8 @@ export default function Home() {
 
             <div className="results-img-frame">
               <img 
-                src="/images/result_after.jpg" 
-                alt="Business ranking #1 on Google Maps with high 87/100 visibility score" 
+                src="/images/results_day30_after.jpg" 
+                alt="Business ranking #1 on Google Maps Local Pack with top rating" 
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--after">

@@ -2,10 +2,10 @@
 
 ## Build session 9 — landing page UI refinements
 
-- **Pricing grid → 4 columns** — `.pricing-gosaas-grid` changed from `repeat(2, 1fr)` to `repeat(4, 1fr)` so all four plans (Free / Starter / Growth / Pro) display in a single row on desktop. Added `@media (max-width: 1100px)` breakpoint for 2-col tablet layout; mobile (≤640px) remains single-column. Card padding reduced from `36px 32px` → `28px 22px` to fit comfortably at the narrower 4-col width.
-- **ROI "30-day transformation" images replaced** — removed `result_before.png` and `result_after.png` (which showed the actual backend dashboard UI, exposing internal layout to visitors) and replaced with illustrative concept images (`result_before.jpg`, `result_after.jpg`) that show the Google Maps visibility difference without revealing the product's admin interface. Alt text updated accordingly.
+- **Pricing grid → 4-column single-row layout** — expanded `#pricing .section-center` and `.pricing-gosaas-wrapper` max-width to `1360px` to properly fit 4 cards side-by-side on desktop without cramped wrapping. Standardized `.pricing-plan-subtitle` with `min-height: 38px` so card dividers and prices align horizontally. Added `white-space: nowrap` and flex alignment on `.pricing-price-val` (`₹999 / month`, `₹2,499 / month`, `₹4,999 / month`). Maintained responsive breakpoints: `@media (max-width: 1100px)` for 2-column tablet layout, and mobile (≤640px) for single-column.
+- **ROI "30-day transformation" images replaced** — removed backend dashboard screenshots that exposed the internal product UI. Replaced with realistic Google Maps search & ranking UI comparisons (`results_day1_before.jpg` showing competitor dominance and business buried at #18, `results_day30_after.jpg` showing #1 Local Pack ranking with 4.9 stars and WhatsApp booking CTA). Alt text and overlays updated to match.
 
-Verified: `next build` not run (no Postgres); CSS + JSX changes are safe — layout-only, no logic changes.
+Verified: Layout inspected via live browser at `http://localhost:3001` across desktop viewports. All 4 pricing cards render side-by-side cleanly; ROI before/after cards render without dashboard exposure or overlapping badge glitches.
 
 ## Build session 8 — Phase 2: new feature candidates
 
