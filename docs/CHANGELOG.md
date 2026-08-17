@@ -8,6 +8,7 @@
   - Strengthened `.phone-input-group` with flexbox layout, country code prefix, separator divider, and flexible input width to guarantee zero clipping on viewports down to 320px width.
   - Resolved duplicate old contact component definitions and ensured seamless 1-column stacking for Growth Tools, 30-Day Results, Pricing, and Contact sections on mobile and tablet.
   - Formatted footer payment logos (`GPay`, `PhonePe`, `Paytm`, `UPI`, `VISA`, `Mastercard`, `RuPay`, `NetBanking`) with centered wrapping on small screens.
+- **TypeScript build & link audit fix** — resolved `vertical.title` → `vertical.label` type discrepancy on `/city/[cityName]/[vertical]` and `/industry/[slug]`, added missing `Link` import on `/resources/whatsapp-kit`, and verified 100% clean production build (`pnpm run build` exits 0 with all 20 routes generated).
 
 ## Build session 10 — Dedicated industry & sector landing pages
 

@@ -144,6 +144,9 @@ export default function GoogleScoreCalculatorPage() {
     }
   };
 
+  const userScore = realResult?.score ?? Math.round((metrics.rating / 5) * 40 + (Math.min(metrics.reviews, 100) / 100) * 30 + (metrics.hasPhotos ? 10 : 0) + (metrics.hasPosts ? 10 : 0) + (metrics.hasWhatsapp ? 10 : 0));
+  const compScore = Math.min(94, Math.max(78, userScore + 38));
+
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
       {/* Unified Navigation */}
@@ -353,7 +356,7 @@ export default function GoogleScoreCalculatorPage() {
 
               {/* Action Box */}
               {!phoneSubmitted ? (
-                <form onSubmit={handleWhatsAppSend} style={{
+                <form onSubmit={handleSendReport} style={{
                   padding: '24px',
                   background: '#0E4459',
                   borderRadius: '16px',

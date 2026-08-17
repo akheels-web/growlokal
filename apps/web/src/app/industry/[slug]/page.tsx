@@ -713,7 +713,7 @@ export default function IndustryLandingPage({ params }: Props) {
           href={`https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20know%20more%20about%20GrowLokal%20for%20my%20${encodeURIComponent(vertical.singular)}`}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Chat on WhatsApp with GrowLokal for ${vertical.title}`}
+          aria-label={`Chat on WhatsApp with GrowLokal for ${vertical.label}`}
         >
           <div className="contact_icon">
             <svg

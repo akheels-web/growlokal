@@ -38,7 +38,7 @@ export default function CityVerticalPage({ params }: Props) {
           items={[
             { label: 'Cities', href: '/#coverage' },
             { label: `${city.name}`, href: `/city/${cityKey}` },
-            { label: `${vertical.title}` },
+            { label: `${vertical.label}` },
           ]}
         />
         <div style={{ marginBottom: '40px' }}>
