@@ -1,5 +1,12 @@
 # Changelog
 
+## Build session 9 — landing page UI refinements
+
+- **Pricing grid → 4 columns** — `.pricing-gosaas-grid` changed from `repeat(2, 1fr)` to `repeat(4, 1fr)` so all four plans (Free / Starter / Growth / Pro) display in a single row on desktop. Added `@media (max-width: 1100px)` breakpoint for 2-col tablet layout; mobile (≤640px) remains single-column. Card padding reduced from `36px 32px` → `28px 22px` to fit comfortably at the narrower 4-col width.
+- **ROI "30-day transformation" images replaced** — removed `result_before.png` and `result_after.png` (which showed the actual backend dashboard UI, exposing internal layout to visitors) and replaced with illustrative concept images (`result_before.jpg`, `result_after.jpg`) that show the Google Maps visibility difference without revealing the product's admin interface. Alt text updated accordingly.
+
+Verified: `next build` not run (no Postgres); CSS + JSX changes are safe — layout-only, no logic changes.
+
 ## Build session 8 — Phase 2: new feature candidates
 
 - **City × vertical SEO landing pages** — new `/city/[cityName]/[vertical]` route (32 pages: 4 cities × 8 verticals, matching the homepage's own business-showcase list). Extracted `CITY_DATA`/`getCity()` out of `city/[cityName]/page.tsx` into `lib/cityData.ts` (now has two consumers) and added `lib/verticalData.ts`. Both city pages now cross-link to each other (other verticals in the same city, this vertical in other cities) — the actual SEO value of the matrix.

@@ -16,6 +16,27 @@ One heading per shipped feature, in this single file. Newest first. Each entry i
 
 ## Entries (newest first)
 
+### Pricing grid 4-column single-row layout — shipped 2026-08-17
+- **What it does:** Changes the pricing section from a 2×2 grid to a 4×1 single-row layout so all four plans (Free / Starter / Growth / Pro) are visible side-by-side on desktop without scrolling. Responsive breakpoints: ≤1100px → 2 columns, ≤640px → 1 column. Card padding slightly reduced to fit the narrower column width.
+- **Files:** `apps/web/src/app/globals.css` (`.pricing-gosaas-grid`, `.pricing-card-free`, `.pricing-card-standard`)
+- **Test checklist:**
+  - [ ] Desktop (≥1100px): all 4 pricing cards render in a single row
+  - [ ] Tablet (768–1100px): cards wrap to 2×2 grid
+  - [ ] Mobile (≤640px): cards stack vertically in a single column
+  - [ ] The "Most Popular" ribbon badge on the Growth card still renders correctly
+  - [ ] Card content (features, prices, CTA buttons) is not clipped or overflowing
+- **Rollback:** Revert `.pricing-gosaas-grid` to `repeat(2, 1fr)` and card padding to `36px 32px`; remove the 1100px media query.
+
+### ROI section — dashboard screenshots replaced with illustrative images — shipped 2026-08-17
+- **What it does:** Replaces the "Proven ROI & Local Dominance" before/after images that previously showed actual backend dashboard screenshots with illustrative concept images. The new images show Google Maps visibility concepts (buried at #18 vs #1 Local Pack) without exposing the product's admin UI to visitors.
+- **Files:** `apps/web/src/app/page.tsx` (image `src` and `alt` attributes), `apps/web/public/images/result_before.jpg` (new), `apps/web/public/images/result_after.jpg` (new)
+- **Test checklist:**
+  - [ ] Both images load correctly on the landing page in the "30-day transformation" section
+  - [ ] The score overlay pills (23/100 and 87/100) still render on top of the images
+  - [ ] Images maintain correct aspect ratio within the `results-img-frame` container
+  - [ ] No backend dashboard UI is visible in either image
+- **Rollback:** Revert image `src` from `.jpg` back to `.png` in `page.tsx`. The original `.png` files are still in the public/images directory.
+
 ### Pay-first checkout (sales-assisted) — shipped 2026-07-11
 - **What it does:** a team member generates a Razorpay checkout link for a known lead (phone/business name/plan already agreed via WhatsApp); nothing is written to our database until they actually pay. The webhook then auto-creates the business + user + subscription in one transaction and sends "payment confirmed, here's how to log in." See `DECISIONS.md` for the full design and the two decisions delegated to me (no DB row before payment; re-used phone attaches to the existing business).
 - **Files:** `apps/api/src/db.ts` (`withTransaction()`), `apps/api/src/auth/middleware.ts` (`requireAdmin`), `apps/api/src/config.ts` (`WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME`, `DASHBOARD_LOGIN_URL`), `apps/api/src/routes/billing.ts` (new `POST /api/admin/checkout-links` route, `provisionFromPayFirstCheckout()`, `sendPaymentConfirmation()`, and the webhook handler's fallback path), `apps/web/src/app/admin/create-checkout/page.tsx` (new).

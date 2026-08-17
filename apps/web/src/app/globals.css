@@ -2038,15 +2038,22 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   user-select: none;
 }
 
-/* 2-Card Grid */
+/* 4-Card Grid — all plans in a single row */
 .pricing-gosaas-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   align-items: stretch;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+  .pricing-gosaas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
   .pricing-gosaas-grid {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -2058,7 +2065,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
   border-radius: 24px;
-  padding: 36px 32px;
+  padding: 28px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2076,7 +2083,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   position: relative;
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   border-radius: 24px;
-  padding: 36px 32px;
+  padding: 28px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

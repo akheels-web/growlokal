@@ -925,8 +925,8 @@ export default function Home() {
             
             <div className="results-img-frame">
               <img 
-                src="/images/result_before.png" 
-                alt="Business dashboard before GrowLokal showing low score 23" 
+                src="/images/result_before.jpg" 
+                alt="Business buried at position 18 on Google Maps with low 23/100 visibility score" 
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--before">
@@ -975,8 +975,8 @@ export default function Home() {
 
             <div className="results-img-frame">
               <img 
-                src="/images/result_after.png" 
-                alt="Business dashboard after GrowLokal showing high score 87" 
+                src="/images/result_after.jpg" 
+                alt="Business ranking #1 on Google Maps with high 87/100 visibility score" 
                 className="results-img"
               />
               <div className="results-img-overlay results-img-overlay--after">
