@@ -85,7 +85,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>5. Subscription Plans &amp; Feature Access</h2>
             <p>
-              GrowLokal offers a <strong>Free Plan</strong> (instant Google audit, no payment required) and three paid plans — <strong>Starter (₹999/month), Growth (₹2,499/month), and Pro (₹4,999/month)</strong> — each also available at a discounted annual rate. Fees are processed securely via Razorpay, supporting UPI, Credit/Debit Cards, and Net Banking, and are exclusive of applicable GST. An invoice is generated for every payment and can be accessed through your billing history.
+              GrowLokal offers a <strong>Free Plan</strong> (instant Google audit, no payment required) and two paid plans — <strong>Starter (₹999/month) and Growth (₹2,499/month)</strong> — each also available at a discounted annual rate. Fees are processed securely via Razorpay, supporting UPI, Credit/Debit Cards, and Net Banking, and are exclusive of applicable GST. An invoice is generated for every payment and can be accessed through your billing history.
             </p>
             <p style={{ marginTop: '12px' }}>
               <strong>Feature access is strictly tied to your subscribed plan.</strong> Google Business Profile posting and the WhatsApp chat agent require Starter or above; review-reply drafting, the social media scheduler, WhatsApp campaigns, and the booking microsite require Growth or above. Your dashboard shows only the features included in your current plan.

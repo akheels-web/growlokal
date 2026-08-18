@@ -2894,7 +2894,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
    GOSAAS TRANSPARENT PRICING COMPONENT (2 CARDS: FREE & STANDARD)
    ============================================================ */
 .pricing-gosaas-wrapper {
-  max-width: 1360px;
+  max-width: 1100px; /* 3 cards (Pro dropped 2026-08-18, see docs/DECISIONS.md) — was 1360px for 4 */
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -2966,15 +2966,15 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   user-select: none;
 }
 
-/* 4-Card Grid — all plans in a single row */
+/* 3-Card Grid — all plans in a single row (Pro dropped 2026-08-18) */
 .pricing-gosaas-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   align-items: stretch;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
   .pricing-gosaas-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 22px;
@@ -2990,7 +2990,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 /* Override section-center max-width for the pricing section */
 #pricing .section-center {
-  max-width: 1360px;
+  max-width: 1100px; /* 3 cards (Pro dropped 2026-08-18) — was 1360px for 4 */
 }
 
 /* Card 1: Free Plan */

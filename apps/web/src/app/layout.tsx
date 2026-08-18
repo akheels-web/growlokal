@@ -88,9 +88,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         offers: {
           '@type': 'AggregateOffer',
           lowPrice: '999',
-          highPrice: '4999',
+          highPrice: '2499',
           priceCurrency: 'INR',
-          offerCount: '3',
+          offerCount: '2',
           priceValidUntil: '2027-12-31',
           availability: 'https://schema.org/InStock',
         },

@@ -77,6 +77,43 @@ services:
       redis:
         condition: service_started
 
+  worker:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: growlokal_prod_worker
+    restart: always
+    command: ["node", "dist/worker.js"]
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://${PG_USER:-growlokal}:${PG_PASSWORD}@postgres:5432/${PG_DB:-growlokal}
+      REDIS_URL: redis://redis:6379
+      GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID}
+      WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN}
+      WHATSAPP_RENEWAL_TEMPLATE_NAME: ${WHATSAPP_RENEWAL_TEMPLATE_NAME}
+      WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME: ${WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME}
+      DASHBOARD_LOGIN_URL: https://${WEB_DOMAIN:-app.growlokal.com}/login
+      SES_REGION: ${SES_REGION:-ap-south-1}
+      SES_ACCESS_KEY_ID: ${SES_ACCESS_KEY_ID}
+      SES_SECRET_ACCESS_KEY: ${SES_SECRET_ACCESS_KEY}
+      EMAIL_FROM: ${EMAIL_FROM:-hello@growlokal.com}
+    # 256M, not 500M like api — it's a 60s/6h poll loop, not a request server.
+    # Running total with this added: postgres 3500M + redis 1500M + api 2000M
+    # + worker 256M + caddy 500M = 7756M of an 8GB VPS. That's the ceiling —
+    # no more services fit here without either raising the VPS or trimming
+    # postgres/redis limits.
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
   caddy:
     image: caddy:2-alpine
     container_name: growlokal_prod_caddy

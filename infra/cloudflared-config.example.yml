@@ -1,29 +1,42 @@
-# Cloudflare Tunnel config — copy to the ct-cloudflared container as
+# Cloudflare Tunnel config — copy to the cloudflared container/service as
 # ~/.cloudflared/config.yml and fill in your tunnel UUID.
-# See Technical-Setup-Guide.md §2. Replace 10.0.0.x with your LAN IPs.
+# See Technical-Setup-Guide.md §2. Replace 10.0.0.x with your actual LAN IPs.
+#
+# One tunnel, run FROM the home lab box(es) only — it's an outbound-only
+# connection to Cloudflare, so no router port-forwarding, no exposing your
+# home public IP directly, and it keeps working even if your ISP switches
+# you to CGNAT later. The VPS does NOT need this file — it has its own public
+# IP and Caddy issues its own TLS cert directly (see docker-compose.prod.yml).
 tunnel: REPLACE-WITH-TUNNEL-UUID
 credentials-file: /root/.cloudflared/REPLACE-WITH-TUNNEL-UUID.json
 
 ingress:
-  # Public app + API (on the VPS in Phase 1, on home in Phase 0)
-  - hostname: app.growlokal.com
-    service: http://10.0.0.20:3001        # Next.js web
+  # Public app + API — Vercel handles `app` directly (see IMPLEMENTATION.md
+  # DNS section, grey-clouded CNAME, NOT through this tunnel). `api` here only
+  # while the API still lives at home; once on the VPS, point it at the VPS's
+  # own public IP instead and drop this line.
   - hostname: api.growlokal.com
     service: http://10.0.0.20:3000        # Fastify API (WhatsApp webhook lives here)
 
-  # Internal tools — ALSO put these behind Cloudflare Access (Zero Trust)
+  # ── Home-lab box #1 (i5-1235U / 8GB) — monitoring + CRM + automation ──
+  - hostname: status.growlokal.com
+    service: http://10.0.0.30:3001        # Uptime Kuma
+  - hostname: crm.growlokal.com
+    service: http://10.0.0.30:3010        # Twenty CRM
   - hostname: n8n.growlokal.com
-    service: http://10.0.0.30:5678
+    service: http://10.0.0.30:5678        # ALSO put behind Cloudflare Access (Zero Trust)
+
+  # ── Home-lab box #2 (second laptop, not set up yet) — heavier tools ──
   - hostname: bot.growlokal.com
-    service: http://10.0.0.30:8080        # Typebot viewer
+    service: http://10.0.0.40:8080        # Typebot viewer
   - hostname: chat.growlokal.com
-    service: http://10.0.0.30:3001        # Chatwoot
+    service: http://10.0.0.40:3001        # Chatwoot — ALSO behind Cloudflare Access
   - hostname: social.growlokal.com
-    service: http://10.0.0.30:8000        # Mixpost
+    service: http://10.0.0.40:8000        # Mixpost
   - hostname: book.growlokal.com
-    service: http://10.0.0.30:3002        # Cal.com
+    service: http://10.0.0.40:3002        # Cal.com
   - hostname: metrics.growlokal.com
-    service: http://10.0.0.30:3003        # Metabase
+    service: http://10.0.0.40:3003        # Metabase — ALSO behind Cloudflare Access
 
   # Catch-all (required, must be last)
   - service: http_status:404

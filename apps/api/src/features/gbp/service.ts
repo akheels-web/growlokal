@@ -13,12 +13,13 @@ import { loadBusinessContext, generateGbpPost } from '../content/generator.js';
 import { generate } from '../../clients/llm.js';
 import { resolveGbpAccessToken } from '../../clients/gbp-oauth.js';
 import { query, queryOne } from '../../db.js';
+import { config } from '../../config.js';
 
 // NOTE: The GBP API has several host/version surfaces. Endpoints below are
 // placeholders showing the intended shape — verify exact paths against
 // https://developers.google.com/my-business when your access is approved.
 
-export async function createGbpPost(businessId: string, focus: string) {
+export async function createGbpPost(businessId: string, focus?: string) {
   const ctx = await loadBusinessContext(businessId);
   if (!ctx) throw new Error('business not found');
 
@@ -27,20 +28,21 @@ export async function createGbpPost(businessId: string, focus: string) {
     [businessId]
   );
 
-  const text = await generateGbpPost(ctx, focus);
+  const { text, imageUrl } = await generateGbpPost(ctx, focus);
+  const mediaUrls = imageUrl ? [imageUrl] : [];
 
   // Persist first (as draft), so we never lose generated content.
   const row = await queryOne<{ id: string }>(
-    `INSERT INTO posts (business_id, channel, status, lang, caption, generated_by)
-     VALUES ($1, 'gbp', 'draft', $2, $3, 'gemini-quality') RETURNING id`,
-    [businessId, ctx.primary_lang, text]
+    `INSERT INTO posts (business_id, channel, status, lang, caption, media_urls, generated_by)
+     VALUES ($1, 'gbp', 'draft', $2, $3, $4, $5) RETURNING id`,
+    [businessId, ctx.primary_lang, text, mediaUrls, `${config.LLM_PROVIDER}-quality`]
   );
 
   const accessToken = biz ? await resolveGbpAccessToken(businessId, biz.gbp_refresh_token) : null;
 
   if (!accessToken || !biz?.gbp_location_id) {
     log.warn('GBP not configured/approved — post saved as draft only');
-    return { id: row!.id, text, published: false, reason: 'gbp_not_configured' };
+    return { id: row!.id, text, imageUrl, published: false, reason: 'gbp_not_configured' };
   }
 
   try {
@@ -56,20 +58,24 @@ export async function createGbpPost(businessId: string, focus: string) {
           languageCode: ctx.primary_lang,
           summary: text,
           topicType: 'STANDARD',
+          // media requires a real public URL — verify this exact request
+          // shape against https://developers.google.com/my-business when
+          // GBP access is actually approved (see file header note).
+          ...(imageUrl ? { media: [{ mediaFormat: 'PHOTO', sourceUrl: imageUrl }] } : {}),
         }),
       }
     );
     const json = (await res.body.json().catch(() => ({}))) as any;
     if (res.statusCode >= 400) {
       await query(`UPDATE posts SET status='failed', error=$2 WHERE id=$1`, [row!.id, JSON.stringify(json)]);
-      return { id: row!.id, text, published: false, reason: json?.error?.message ?? 'gbp_error' };
+      return { id: row!.id, text, imageUrl, published: false, reason: json?.error?.message ?? 'gbp_error' };
     }
     await query(`UPDATE posts SET status='published', published_at=now(), external_id=$2 WHERE id=$1`,
       [row!.id, json?.name ?? null]);
-    return { id: row!.id, text, published: true };
+    return { id: row!.id, text, imageUrl, published: true };
   } catch (err) {
     log.error({ err }, 'GBP post failed');
-    return { id: row!.id, text, published: false, reason: String(err) };
+    return { id: row!.id, text, imageUrl, published: false, reason: String(err) };
   }
 }
 

@@ -6,7 +6,9 @@
 import 'dotenv/config';
 import { log } from './logger.js';
 import { query } from './db.js';
-import { publishDuePost } from './features/social/service.js';
+import { publishDuePost, createScheduledSocialPost } from './features/social/service.js';
+import { createGbpPost } from './features/gbp/service.js';
+import { getEntitlement, hasMinPlan } from './auth/entitlement.js';
 import { sendTemplate } from './clients/whatsapp.js';
 import { sendEmail } from './clients/email.js';
 import { config } from './config.js';
@@ -14,6 +16,7 @@ import { pool } from './db.js';
 
 const POLL_MS = 60_000;              // social-post scheduler: every minute
 const REMINDER_CHECK_MS = 6 * 60 * 60_000; // renewal reminders: every 6 hours (idempotent — reminder_sent_at prevents re-sends)
+const AUTO_POST_CHECK_MS = 6 * 60 * 60_000; // weekly auto-post check: every 6 hours (idempotent — "no post in 7 days" is the check itself)
 
 async function tick() {
   try {
@@ -97,16 +100,77 @@ async function checkRenewalReminders() {
   }
 }
 
-log.info(`worker started (posts every ${POLL_MS / 1000}s, renewal reminders every ${REMINDER_CHECK_MS / 3_600_000}h)`);
+/**
+ * Weekly auto-posting: no human has to click "generate" for GBP/social
+ * content to keep happening. For each channel, find businesses with no post
+ * in that channel in the last 7 days, then — critically — re-check real
+ * entitlement (getEntitlement) for every single one before generating
+ * anything. This is the ONLY place besides the manual dashboard routes that
+ * can trigger LLM/image spend, so a lapsed business must never slip through:
+ * a business that fell behind on payment simply won't appear as entitled on
+ * the next run, and nothing gets generated or spent on their behalf. No
+ * separate "stop" step needed — same live-check pattern as auth/entitlement.ts.
+ */
+async function checkWeeklyAutoPosts() {
+  try {
+    await autoPostChannel('gbp', 'starter', async (businessId) => {
+      await createGbpPost(businessId);
+    });
+    await autoPostChannel('instagram', 'growth', async (businessId) => {
+      await createScheduledSocialPost({ businessId, channel: 'instagram' });
+    });
+    await autoPostChannel('facebook', 'growth', async (businessId) => {
+      await createScheduledSocialPost({ businessId, channel: 'facebook' });
+    });
+  } catch (err) {
+    log.error({ err }, 'weekly auto-post check failed');
+  }
+}
+
+async function autoPostChannel(
+  channel: 'gbp' | 'instagram' | 'facebook',
+  minPlan: 'starter' | 'growth',
+  generate: (businessId: string) => Promise<void>
+) {
+  // SQL prefilter narrows candidates (cheap); getEntitlement() below is the
+  // one actual authority on whether this business may have anything
+  // generated for it — never trust status='active' alone for a billing gate.
+  const candidates = await query<{ id: string }>(
+    `SELECT b.id FROM businesses b
+     WHERE b.status IN ('active', 'pilot')
+       AND NOT EXISTS (
+         SELECT 1 FROM posts p
+         WHERE p.business_id = b.id AND p.channel = $1 AND p.created_at > now() - interval '7 days'
+       )
+     LIMIT 200`,
+    [channel]
+  );
+
+  for (const row of candidates.rows) {
+    const info = await getEntitlement(row.id);
+    if (!info || !hasMinPlan(info, minPlan)) continue; // not entitled (or lapsed) — skip, no spend
+    try {
+      await generate(row.id);
+      log.info({ businessId: row.id, channel }, 'weekly auto-post generated');
+    } catch (err) {
+      log.error({ businessId: row.id, channel, err }, 'weekly auto-post failed');
+    }
+  }
+}
+
+log.info(`worker started (posts every ${POLL_MS / 1000}s, renewal reminders every ${REMINDER_CHECK_MS / 3_600_000}h, auto-post check every ${AUTO_POST_CHECK_MS / 3_600_000}h)`);
 const postTimer = setInterval(tick, POLL_MS);
 const reminderTimer = setInterval(checkRenewalReminders, REMINDER_CHECK_MS);
+const autoPostTimer = setInterval(checkWeeklyAutoPosts, AUTO_POST_CHECK_MS);
 void tick();
 void checkRenewalReminders();
+void checkWeeklyAutoPosts();
 
 for (const sig of ['SIGINT', 'SIGTERM'] as const) {
   process.on(sig, async () => {
     clearInterval(postTimer);
     clearInterval(reminderTimer);
+    clearInterval(autoPostTimer);
     await pool.end();
     process.exit(0);
   });

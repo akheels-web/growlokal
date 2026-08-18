@@ -25,6 +25,24 @@ const schema = z.object({
   LLM_MODEL_QUALITY: z.string().default('gemini-2.5-flash'),
   GEMINI_API_KEY: z.string().default(''),
   OPENROUTER_API_KEY: z.string().default(''),
+  // Previously hardcoded inside clients/llm.ts, ignoring LLM_PROVIDER=openrouter's
+  // own multi-model access (Claude/Llama/etc). Verify these slugs against
+  // https://openrouter.ai/models before relying on them — IDs change over time.
+  OPENROUTER_MODEL_CHEAP: z.string().default('google/gemini-2.0-flash-lite-001'),
+  OPENROUTER_MODEL_QUALITY: z.string().default('anthropic/claude-haiku-4.5'),
+  // Image generation (GBP + social posts only — see docs/DECISIONS.md 2026-08-18).
+  // ~$0.014/megapixel verified against https://openrouter.ai/models at time of writing.
+  OPENROUTER_MODEL_IMAGE: z.string().default('black-forest-labs/flux.2-klein-4b'),
+
+  // Cloudflare R2 (S3-compatible) — hosts AI-generated images so Mixpost/GBP
+  // can actually publish them (both require a real public URL, not base64).
+  // Empty by default: image generation silently no-ops (caption-only posts)
+  // until a bucket + token are created and these are set.
+  R2_ACCOUNT_ID: z.string().default(''),
+  R2_ACCESS_KEY_ID: z.string().default(''),
+  R2_SECRET_ACCESS_KEY: z.string().default(''),
+  R2_BUCKET: z.string().default('growlokal-media'),
+  R2_PUBLIC_URL_BASE: z.string().default(''),   // e.g. https://media.growlokal.com
   ANTHROPIC_API_KEY: z.string().default(''),
   OLLAMA_BASE_URL: z.string().default('http://localhost:11434'),
   OLLAMA_MODEL: z.string().default('qwen2.5:3b'),
@@ -72,7 +90,7 @@ const schema = z.object({
   // Pricing (paise). Kept in config so it's easy to change.
   PRICE_STARTER_PAISE: z.coerce.number().default(99900),
   PRICE_GROWTH_PAISE: z.coerce.number().default(249900),
-  PRICE_PRO_PAISE: z.coerce.number().default(499900),
+  // PRICE_PRO_PAISE removed 2026-08-18 — Pro plan dropped, see docs/DECISIONS.md
 });
 
 // Load from process.env (dotenv is loaded in server.ts before this)

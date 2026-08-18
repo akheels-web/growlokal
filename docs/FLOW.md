@@ -90,13 +90,23 @@ All four call clients/llm.ts: generate(), which switches on config.LLM_PROVIDER
 
 ---
 
-## 5. Social scheduling (dashboard → worker → Mixpost)
+## 5. Social scheduling (dashboard OR weekly auto-post → worker → Mixpost)
+
+**Two entry points as of 2026-08-18** — same as the audit bot's "one shared service, two triggers" pattern (§1), and for the same reason: fix a bug once, both paths get it.
 
 ```
-Dashboard "Generate Instagram post" → POST /api/businesses/:id/social/schedule
-  → features/social/service.ts: createScheduledSocialPost()
+Dashboard "Generate Instagram/Facebook post" → POST /api/businesses/:id/social/schedule
+  → features/social/service.ts: createScheduledSocialPost()  (focus = what the owner typed)
       → generateSocialPost() (content/generator.ts)
       → INSERT into posts (status='scheduled', scheduled_for)
+
+worker.ts's checkWeeklyAutoPosts() (every 6h) → same createScheduledSocialPost()
+  → but focus is OMITTED — generateSocialPost() has the model pick its own
+    angle using profile_context + the business's own recent-post memory
+  → only called for businesses with no post in that channel in 7 days AND
+    a fresh getEntitlement() check passed for THIS run (see DECISIONS.md
+    2026-08-18 — this is the actual mechanism that stops generation the
+    moment a subscription lapses; there's no separate "disable" step)
 
 Separately, on a 60s poll loop (apps/api/src/worker.ts — a DIFFERENT PROCESS from the API):
   tick() → SELECT posts JOIN businesses WHERE status='scheduled' AND scheduled_for <= now()
@@ -105,9 +115,11 @@ Separately, on a 60s poll loop (apps/api/src/worker.ts — a DIFFERENT PROCESS f
     → UPDATE posts SET status='published'|'failed'
 ```
 
-**Important:** the worker (`pnpm --filter @growlokal/api worker`) is a separate long-running process from the API server (`pnpm --filter @growlokal/api dev`/`start`). If you only deploy/restart the API, scheduled posts stop publishing — nothing will error, they'll just sit as `scheduled` forever. Check both processes are running in production.
+**Important:** the worker (`pnpm --filter @growlokal/api worker`) is a separate long-running process from the API server (`pnpm --filter @growlokal/api dev`/`start`). If you only deploy/restart the API, scheduled posts stop publishing — nothing will error, they'll just sit as `scheduled` forever. Check both processes are running in production. **Runs on the VPS as its own container** (`infra/docker-compose.prod.yml`'s `worker` service), colocated with the API and its Postgres/Redis, not on the home lab — moved 2026-08-18, see `DECISIONS.md`.
 
 **Blast radius:** `worker.ts`'s poll query joins `businesses` for `mixpost_account_ids` — if you rename or restructure that column, the worker silently stops publishing for everyone (no error, just an empty `due.rows` or a broken join) unless you update this query too.
+
+**Image generation (added 2026-08-18):** `generateSocialPost()` also calls `clients/image.ts: generateImage()` then `clients/storage.ts: uploadImage()` (Cloudflare R2), storing the result in `posts.media_urls` for Mixpost to actually publish. Both steps are best-effort — return `null` on any failure rather than throw — so a flaky image API or unconfigured R2 never blocks the caption/text post itself. Don't "fix" this to be blocking; that would turn an image outage into a full posting outage.
 
 ---
 
@@ -135,18 +147,21 @@ Dashboard → POST /api/businesses/:id/campaigns/:cid/send → sendCampaign(camp
 
 ## 7. GBP (Google Business Profile) posting
 
+**Two entry points as of 2026-08-18** — same pattern as social scheduling (§5): manual (dashboard, `focus` provided) or automatic (`worker.ts`'s `checkWeeklyAutoPosts()`, every 6h, `focus` omitted, model picks its own angle, fresh `getEntitlement()` check every run).
+
 ```
-Dashboard → POST /api/businesses/:id/gbp/post → features/gbp/service.ts: createGbpPost()
-  → generateGbpPost() → INSERT posts (status='draft')  ← content is NEVER lost even if publish fails
+Dashboard/worker → POST /api/businesses/:id/gbp/post OR worker.ts direct call → features/gbp/service.ts: createGbpPost()
+  → generateGbpPost() → also generates + uploads one AI image (clients/image.ts, clients/storage.ts — best-effort, never blocks the text)
+  → INSERT posts (status='draft', media_urls)  ← content is NEVER lost even if publish fails
   → clients/gbp-oauth.ts: resolveGbpAccessToken(businessId, storedRefreshToken)
       → Redis cache hit? return cached token
       → else exchange refresh_token for a fresh access_token (Google OAuth), cache ~50min
       → no refresh token stored? fall back to static config.GBP_ACCESS_TOKEN
   → if no usable token OR no gbp_location_id: return published:false, post stays 'draft'
-  → else: POST to mybusiness.googleapis.com, UPDATE posts SET status='published'|'failed'
+  → else: POST to mybusiness.googleapis.com (includes media if an image was generated), UPDATE posts SET status='published'|'failed'
 ```
 
-**Blast radius:** this entire feature is gated on Google's GBP API approval (external, not yet confirmed granted). The "always save as draft first" ordering is deliberate — never reorder this so the API call happens before the DB insert, or a failed/pending-approval publish attempt loses the generated content entirely.
+**Blast radius:** this entire feature is gated on Google's GBP API approval (external, not yet confirmed granted). The "always save as draft first" ordering is deliberate — never reorder this so the API call happens before the DB insert, or a failed/pending-approval publish attempt loses the generated content entirely. The `media` field in the publish body is unverified against a live Google account — verify its exact shape once GBP access is actually approved.
 
 ---
 

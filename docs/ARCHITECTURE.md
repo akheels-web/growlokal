@@ -2,12 +2,14 @@
 
 The system map — read this before touching anything you didn't write. Pairs with `FLOW.md` (how execution moves between files) and `DECISIONS.md` (why it's built this way).
 
-## Hosting model: Vercel (web) + VPS (API/data) + home Proxmox (automation)
+## Hosting model: Vercel (web) + VPS (API/data) + home lab (tools)
 
 - **`apps/web`** (Next.js dashboard, landing page, SEO pages) deploys to **Vercel**.
-- **`apps/api`** (Fastify), **Postgres**, and **Redis** run on a **dedicated VPS** (`infra/docker-compose.prod.yml`), fronted by **Caddy** for automatic HTTPS.
-- **Cloudflare** owns DNS for `growlokal.com` (nameservers point there). `app.growlokal.com` is a Cloudflare CNAME to Vercel (DNS-only, not proxied); `api.growlokal.com` and internal tools are reached via a **Cloudflare Tunnel** to the home Proxmox box during the build/pilot phase, or directly to the VPS once provisioned. See `IMPLEMENTATION.md` for the exact DNS split and why Cloudflare/Vercel don't conflict.
-- **Home Proxmox server** runs the automation layer: the scheduler worker (`apps/api/src/worker.ts`, a separate process from the API), and self-hosted tools referenced in `infra/docker-compose.yml` (n8n, and — not yet deployed — Mixpost, Chatwoot, Cal.com, Metabase).
+- **`apps/api`** (Fastify), **Postgres**, and **Redis** run on a **dedicated VPS** (`infra/docker-compose.prod.yml`), fronted by **Caddy** for automatic HTTPS. This is the only revenue-critical machine — it can't depend on home power/internet.
+- **Cloudflare** owns DNS for `growlokal.com` (nameservers point there). `app.growlokal.com` is a Cloudflare CNAME to Vercel (DNS-only, not proxied); `api.growlokal.com` reaches the VPS directly (its own public IP, Caddy issues its own cert) once provisioned, or via Cloudflare Tunnel during the build phase. Home-lab tool subdomains (`status`, `crm`, `n8n`, …) always go through a **Cloudflare Tunnel** — deliberately, even though the home box has its own public IP now (see `DECISIONS.md` 2026-08-18): a home box shares a network with personal devices, unlike a disposable VPS, so no inbound port is opened there; Tunnel also doesn't care whether the IP is static. See `IMPLEMENTATION.md` for the exact DNS split and why Cloudflare/Vercel don't conflict.
+- **Home lab — box #1** (a laptop: i5-1235U, 8GB RAM, public IP, UPS-backed) is **tools only, nothing revenue-critical**: **n8n** (own embedded SQLite), **Uptime Kuma** (monitoring dashboard for the VPS API + this box's own tools, own SQLite), **Twenty CRM** (admin/finance: leads, deals, revenue — own bundled Postgres/Redis, isolated from the VPS's production database by design). Each tool is fully self-contained — no Postgres/Redis is shared between them, so a bug in one can't take another down. 8GB is a real ceiling — this box does not also run the heavier tools below.
+- **Home lab — box #2** (a second laptop, not yet set up) is reserved for the heavier self-hosted tools once RAM demands it: Mixpost, Chatwoot, Cal.com, Metabase, Listmonk — referenced in `infra/docker-compose.yml` as commented-out additions, and given a separate LAN IP block in `infra/cloudflared-config.example.yml`.
+- **The scheduler worker (`apps/api/src/worker.ts`, a separate process/container from the API) now runs on the VPS** (`infra/docker-compose.prod.yml`'s `worker` service), not the home lab — moved 2026-08-18 (see `DECISIONS.md`): it writes to production tables (`posts`, `subscriptions`) and sends real customer/owner messages, which makes it revenue-adjacent, not a "tool," and it shouldn't depend on home power/internet.
 
 ```mermaid
 flowchart TD
@@ -68,7 +70,7 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 (Full list with dates in `DECISIONS.md` — highlights only here.)
 
 - **Direct Meta Cloud API, not a WhatsApp BSP** — saves the ₹2,500–3,800/mo subscription; pay only per-message.
-- **LLM tiering** (`cheap`/`quality` in `clients/llm.ts`) — cheap model for bulk drafts, quality model for anything customer-facing; keeps LLM cost negligible (well under ₹1/business/month on the cheap tier).
+- **LLM tiering** (`cheap`/`quality` in `clients/llm.ts`) — `quality` for anything customer-facing, `cheap` reserved for future non-customer-facing bulk work. As of 2026-08-18, every actual content-generation call in the codebase (audit summaries, GBP/social/campaign content, the chat agent) runs on `quality` — social posts were the last one still on `cheap` and moved up (see `DECISIONS.md`). Real per-business LLM cost hasn't been measured against production traffic; each business posts a handful of times a week, so the total delta from this move should stay small, but this is an estimate, not a measured number.
 - **API-first logic, tools for orchestration** — business logic lives in testable TypeScript (`features/*/service.ts`), not inside n8n workflows or the frontend.
 - **Vertical-neutral by design** — `profile_context` is freeform JSON; the product isn't hardcoded to one business type (this was actively fixed after drifting coaching-specific — see `DECISIONS.md`).
 - **GBP OAuth: mechanism built, consent flow deliberately not** — see `DECISIONS.md`; building an unusable redirect route before you have a Google Cloud OAuth client and approved GBP access would be untestable scaffolding.
@@ -80,6 +82,14 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 **What's still not built** (billing/customer-journey gaps):
 - No invoice generation (decision made: use Razorpay's built-in invoicing, not a custom one — not yet implemented; the pay-first flow's confirmation message doesn't include an invoice link yet).
 - No downgrade protection in the pay-first flow — attaching a lower-tier payment to an existing higher-tier business simply sets the lower plan, no warning (deliberately out of scope for now, see `DECISIONS.md`).
+- WhatsApp broadcast campaigns need a Meta-approved message template — status unconfirmed, explicitly deferred by the project owner (2026-08-18).
+- "Booking microsite" is really an enquiry/contact page (WhatsApp link + optional UPI pay link), not real date/time appointment booking — Cal.com integration is the planned fix, not yet built.
+
+**Resolved 2026-08-18:**
+- ~~Dashboard could only generate Instagram posts, never Facebook~~ — despite Facebook being sold on the pricing page. Dashboard button was hardcoded; now parametrized.
+- ~~"Weekly" GBP/social posts required a human to click a button every single time~~ — the single biggest gap between the marketing promise and reality, found during a pricing audit. `worker.ts`'s `checkWeeklyAutoPosts()` now auto-generates for any entitled business with no post in 7 days, re-checking entitlement fresh on every run.
+- ~~No AI image generation anywhere~~ — GBP/Instagram/Facebook posts now get one AI image each (FLUX.2 Klein 4B via OpenRouter, hosted on Cloudflare R2). Deliberately not built for campaigns/chat (text-only) or X/LinkedIn (project owner's call — not where this product's customers are).
+- ~~Pro plan advertised multi-branch/multi-location support that never existed in the schema~~ — dropped entirely rather than left as a false promise. `plan_tier` DB enum and `PlanTier`/`PLAN_RANK` in `entitlement.ts` deliberately left untouched (inert, not worth a migration).
 
 **Resolved 2026-07-11 (Chunk C):**
 - ~~Current signup flow is sign-up-then-pay only~~ — a business can now also come into existence via a paid checkout link, with the business/user/subscription rows created atomically the moment payment succeeds. Sales-assisted (a team member generates the link), not public self-serve — see `DECISIONS.md` for why, and how the same mechanism would support self-serve later.

@@ -1,32 +1,22 @@
-# Self-hosted stack for the Proxmox Docker host.
-# Start SMALL (postgres, redis, n8n) then add tools as you need them —
-# 16GB RAM won't run everything at once (see Technical-Setup-Guide.md §1).
+# Self-hosted stack for home-lab box #1 (8GB RAM laptop) — Docker host.
+# TOOLS ONLY — nothing revenue-critical runs here. The API, its Postgres/Redis,
+# and the scheduler worker all run on the VPS now (infra/docker-compose.prod.yml)
+# — see docs/DECISIONS.md (2026-08-18). This box runs n8n + Kuma + Twenty.
+# The heavier tools below (Chatwoot, Mixpost, Cal.com, Metabase, Listmonk) are
+# for box #2, a second machine, once it's set up.
 #
-# Usage: docker compose up -d postgres redis n8n
+# Each tool here is self-contained (own storage, no shared Postgres/Redis
+# between tools) — a bug in one can't take down another.
+#
+# Usage: docker compose up -d n8n kuma twenty-db twenty-redis twenty-server twenty-worker
 # Secrets come from an .env file in this dir (NOT committed).
 version: "3.8"
 
 services:
-  postgres:
-    image: postgres:16
-    restart: always
-    environment:
-      POSTGRES_USER: ${PG_USER:-growlokal}
-      POSTGRES_PASSWORD: ${PG_PASSWORD:?set PG_PASSWORD in infra/.env}
-      POSTGRES_DB: ${PG_DB:-growlokal}
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"    # expose only on the internal LAN, never via the tunnel
-
-  redis:
-    image: redis:7-alpine
-    restart: always
-    command: redis-server --save 60 1 --loglevel warning
-    volumes:
-      - redis_data:/data
-
-  # Automation engine — schedules posts, runs the audit-bot flow, campaign sends.
+  # n8n ships with its own embedded SQLite by default — no Postgres needed
+  # for this workload (a handful of scheduling workflows, not high-throughput
+  # queue mode). Simpler and one less shared dependency than pointing it at a
+  # Postgres database that, until now, was never actually created.
   n8n:
     image: docker.n8n.io/n8nio/n8n
     restart: always
@@ -37,20 +27,98 @@ services:
       N8N_PROTOCOL: https
       WEBHOOK_URL: https://n8n.growlokal.com/
       GENERIC_TIMEZONE: Asia/Kolkata
-      DB_TYPE: postgresdb
-      DB_POSTGRESDB_HOST: postgres
-      DB_POSTGRESDB_DATABASE: ${N8N_DB:-n8n}
-      DB_POSTGRESDB_USER: ${PG_USER:-growlokal}
-      DB_POSTGRESDB_PASSWORD: ${PG_PASSWORD}
       # Put n8n behind Cloudflare Access — do NOT rely on this alone:
       N8N_BASIC_AUTH_ACTIVE: "true"
       N8N_BASIC_AUTH_USER: ${N8N_USER:-admin}
       N8N_BASIC_AUTH_PASSWORD: ${N8N_PASSWORD:?set N8N_PASSWORD}
     volumes:
       - n8n_data:/home/node/.n8n
-    depends_on: [postgres]
 
-  # ── Add these as you reach each build stage (commented to save RAM) ──
+  # Monitoring — is the VPS API / this box's own tools up or down?
+  # SQLite, zero extra DB, single container. Dashboard at :3001.
+  kuma:
+    image: louislam/uptime-kuma:1
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - kuma_data:/app/data
+
+  # ── Internal CRM (admin/finance: leads, deals, revenue — not customer-facing) ──
+  # Runs its OWN postgres/redis (twenty-db / twenty-redis below) — separate from
+  # n8n's storage above and, critically, from the VPS's production database.
+  # A CRM migration or compromise must never be able to touch production data.
+  # This mirrors Twenty's own supported
+  # docker-compose (https://github.com/twentyhq/twenty/blob/main/packages/twenty-docker/docker-compose.yml) —
+  # verify against that upstream file before first deploy, Twenty's self-host
+  # config changes between versions.
+  twenty-db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: ${TWENTY_PG_USER:-twenty}
+      POSTGRES_PASSWORD: ${TWENTY_PG_PASSWORD:?set TWENTY_PG_PASSWORD in infra/.env}
+      POSTGRES_DB: ${TWENTY_PG_DB:-default}
+    volumes:
+      - twenty_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TWENTY_PG_USER:-twenty}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  twenty-redis:
+    image: redis:7-alpine
+    restart: always
+    command: redis-server --maxmemory-policy noeviction
+
+  twenty-server:
+    image: twentycrm/twenty:${TWENTY_TAG:-latest}
+    restart: always
+    ports:
+      - "3010:3000"
+    environment:
+      PG_DATABASE_HOST: twenty-db
+      PG_DATABASE_PORT: 5432
+      PG_DATABASE_USER: ${TWENTY_PG_USER:-twenty}
+      PG_DATABASE_PASSWORD: ${TWENTY_PG_PASSWORD}
+      REDIS_URL: redis://twenty-redis:6379
+      SERVER_URL: https://crm.growlokal.com
+      # openssl rand -base64 32 — losing this loses every secret Twenty stores
+      # (OAuth tokens, app variables, TOTP secrets). Back it up somewhere safe.
+      ENCRYPTION_KEY: ${TWENTY_ENCRYPTION_KEY:?set TWENTY_ENCRYPTION_KEY in infra/.env}
+      STORAGE_TYPE: local
+    volumes:
+      - twenty_server_data:/app/packages/twenty-server/.local-storage
+    depends_on:
+      twenty-db:
+        condition: service_healthy
+      twenty-redis:
+        condition: service_started
+
+  twenty-worker:
+    image: twentycrm/twenty:${TWENTY_TAG:-latest}
+    restart: always
+    command: ["yarn", "worker:prod"]
+    environment:
+      PG_DATABASE_HOST: twenty-db
+      PG_DATABASE_PORT: 5432
+      PG_DATABASE_USER: ${TWENTY_PG_USER:-twenty}
+      PG_DATABASE_PASSWORD: ${TWENTY_PG_PASSWORD}
+      REDIS_URL: redis://twenty-redis:6379
+      SERVER_URL: https://crm.growlokal.com
+      ENCRYPTION_KEY: ${TWENTY_ENCRYPTION_KEY}
+      STORAGE_TYPE: local
+      DISABLE_DB_MIGRATIONS: "true"
+      DISABLE_CRON_JOBS_REGISTRATION: "true"
+    volumes:
+      - twenty_server_data:/app/packages/twenty-server/.local-storage
+    depends_on:
+      twenty-db:
+        condition: service_healthy
+
+  # ── Add these on the SECOND home-lab box once you set it up (RAM: this box
+  # is already at its comfortable ceiling with n8n + Kuma + Twenty on 8GB) ──
 
   # typebot-builder + typebot-viewer: the free audit-bot flow builder
   #   https://docs.typebot.io/self-hosting/docker-compose
@@ -71,6 +139,7 @@ services:
   #   https://listmonk.app/docs/installation/
 
 volumes:
-  pg_data:
-  redis_data:
   n8n_data:
+  kuma_data:
+  twenty_db_data:
+  twenty_server_data:

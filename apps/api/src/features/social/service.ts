@@ -4,13 +4,15 @@ import { loadBusinessContext, generateSocialPost } from '../content/generator.js
 import { schedulePost as mixpostSchedule } from '../../clients/mixpost.js';
 import { query, queryOne } from '../../db.js';
 import { log } from '../../logger.js';
+import { config } from '../../config.js';
 
 type Channel = 'instagram' | 'facebook';
 
 export interface CreateSocialPostInput {
   businessId: string;
   channel: Channel;
-  focus: string;
+  /** Omit for the weekly auto-post job — generateSocialPost picks its own angle. */
+  focus?: string;
   occasion?: string;
   scheduledFor?: Date;        // default: tomorrow 9am IST
   mixpostAccountIds?: number[];
@@ -22,12 +24,17 @@ export async function createScheduledSocialPost(input: CreateSocialPostInput) {
 
   const post = await generateSocialPost(ctx, input.focus, input.occasion);
   const when = input.scheduledFor ?? defaultSlot();
+  const mediaUrls = post.imageUrl ? [post.imageUrl] : [];
 
+  // generateSocialPost always runs on the 'quality' tier — record the actual
+  // provider (not a hardcoded lie; this used to always say 'gemini-cheap'
+  // regardless of what actually ran).
+  const generatedBy = `${config.LLM_PROVIDER}-quality`;
   const row = await queryOne<{ id: string }>(
-    `INSERT INTO posts (business_id, channel, status, lang, caption, hashtags, scheduled_for, generated_by)
-     VALUES ($1, $2, 'scheduled', $3, $4, $5, $6, 'gemini-cheap')
+    `INSERT INTO posts (business_id, channel, status, lang, caption, hashtags, media_urls, scheduled_for, generated_by)
+     VALUES ($1, $2, 'scheduled', $3, $4, $5, $6, $7, $8)
      RETURNING id`,
-    [input.businessId, input.channel, ctx.primary_lang, post.caption, post.hashtags, when]
+    [input.businessId, input.channel, ctx.primary_lang, post.caption, post.hashtags, mediaUrls, when, generatedBy]
   );
 
   return {
@@ -35,6 +42,7 @@ export async function createScheduledSocialPost(input: CreateSocialPostInput) {
     caption: post.caption,
     hashtags: post.hashtags,
     visualIdea: post.visualIdea,
+    imageUrl: post.imageUrl,
     scheduledFor: when,
   };
 }

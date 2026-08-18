@@ -88,29 +88,32 @@ That's Phase 0 done.
 
 ## Phase 1 — Deploy for paying customers (month ~4)
 
-Split per `docs/ARCHITECTURE.md`: customer-facing on a Bangalore VPS, automation
-on home Proxmox.
+Split per `docs/ARCHITECTURE.md`: everything revenue-critical (API, Postgres,
+Redis, the scheduler worker) on a Bangalore VPS; internal tools only (n8n,
+Uptime Kuma, Twenty CRM) on the home lab — see `docs/DECISIONS.md` (2026-08-18)
+for why the worker moved off the home lab.
 
 ### Web dashboard → Vercel (not the VPS)
 The Next.js dashboard (`apps/web`) deploys to Vercel. Import the repo in Vercel,
 set **Root Directory = `apps/web`**, and set env `PUBLIC_API_URL=https://api.growlokal.com`.
 Vercel builds + hosts it; you don't run web on the VPS.
 
-### On the VPS (public API, always-up)
+### On the VPS (public API + worker, always-up)
 ```bash
 git pull
-pnpm install
-pnpm --filter @growlokal/api build
-# run under a process manager (pm2 / systemd), behind Cloudflare Tunnel
-pnpm --filter @growlokal/api start
+docker compose -f infra/docker-compose.prod.yml up -d --build
 ```
-Source-of-truth Postgres lives here. The API serves both the web dashboard and
-(later) the mobile app.
+Runs `postgres`, `redis`, `api`, `worker` (the scheduler — social post
+publishing, renewal reminders), and `caddy` (automatic HTTPS). Source-of-truth
+Postgres lives here. The API serves both the web dashboard and (later) the
+mobile app. `api` and `worker` are separate containers built from the same
+image — restarting one does not restart the other; check both are actually up
+(`docker compose -f infra/docker-compose.prod.yml ps`), a silently-dead worker
+means scheduled posts and renewal reminders stop with no visible error.
 
-### On home Proxmox (backend)
-- `infra/docker-compose.yml` → Postgres (replica/backup), Redis, n8n, Mixpost.
-- Run the scheduler worker: `pnpm --filter @growlokal/api start:worker`.
-- Nightly backups: cron `infra/backup.sh` → B2/R2. **Test a restore once.**
+### On the home lab (tools only — n8n, Kuma, Twenty)
+- `infra/docker-compose.yml` → n8n (own SQLite), Uptime Kuma, Twenty CRM (own Postgres + Redis). Nothing here is customer-facing.
+- Nightly backups of the VPS's Postgres: cron `infra/backup.sh` → B2/R2. **Test a restore once.**
 
 ### Deploy checklist (before real customers — from docs/CHANGELOG.md TODOs)
 - [ ] `JWT_SECRET` set to a long random value (not the dev default).

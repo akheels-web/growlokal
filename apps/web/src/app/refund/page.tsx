@@ -50,7 +50,7 @@ export default function RefundPage() {
               🛡️ 7-Day Money-Back Guarantee — First Payment Only
             </h2>
             <p style={{ color: '#111827' }}>
-              We want you to feel 100% confident trying GrowLokal. If you subscribe to any paid plan (<strong>Starter, Growth, or Pro</strong>) for the <strong>first time</strong> and are not completely satisfied within <strong>7 days</strong> of that first payment, we will refund <strong>100% of your money — no questions asked</strong>.
+              We want you to feel 100% confident trying GrowLokal. If you subscribe to any paid plan (<strong>Starter or Growth</strong>) for the <strong>first time</strong> and are not completely satisfied within <strong>7 days</strong> of that first payment, we will refund <strong>100% of your money — no questions asked</strong>.
             </p>
             <p style={{ marginTop: '10px', color: '#111827' }}>
               This guarantee applies to your <strong>first subscription payment only</strong>. Subsequent renewal charges are covered by our standard cancellation terms below (Section 2), not this guarantee — you can always cancel auto-renewal before your next billing date to avoid being charged again.

@@ -15,6 +15,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
   const [credit, setCredit] = useState<number | null>(null);
   const [focus, setFocus] = useState('New NEET & JEE batch starting soon');
   const [msg, setMsg] = useState('');
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -30,33 +31,35 @@ export default function Dashboard({ params }: { params: { businessId: string } }
   if (!entitlement?.entitled) return <RenewalWall />;
   const canUseGrowthFeatures = hasMinPlan(entitlement, 'growth');
 
-  async function generateSocial() {
-    setBusy(true); setMsg('');
+  async function generateSocial(channel: 'instagram' | 'facebook') {
+    setBusy(true); setMsg(''); setImageUrl(null);
     try {
-      const r = await api<{ caption: string; scheduledFor: string }>(
+      const r = await api<{ caption: string; scheduledFor: string; imageUrl: string | null }>(
         `/api/businesses/${businessId}/social/schedule`,
-        { method: 'POST', body: JSON.stringify({ channel: 'instagram', focus }) }
+        { method: 'POST', body: JSON.stringify({ channel, focus }) }
       );
-      setMsg(`✅ Scheduled: "${r.caption.slice(0, 80)}…"`);
-    } catch { 
-      setMsg('Failed to schedule social post.'); 
-    } finally { 
-      setBusy(false); 
+      setMsg(`✅ Scheduled (${channel}): "${r.caption.slice(0, 80)}…"`);
+      setImageUrl(r.imageUrl);
+    } catch {
+      setMsg('Failed to schedule social post.');
+    } finally {
+      setBusy(false);
     }
   }
 
   async function generateGbp() {
-    setBusy(true); setMsg('');
+    setBusy(true); setMsg(''); setImageUrl(null);
     try {
-      const r = await api<{ published: boolean; text: string }>(
+      const r = await api<{ published: boolean; text: string; imageUrl: string | null }>(
         `/api/businesses/${businessId}/gbp/post`,
         { method: 'POST', body: JSON.stringify({ focus }) }
       );
       setMsg(r.published ? '✅ Posted to Google Business.' : `📝 Draft saved: "${r.text.slice(0, 80)}…"`);
-    } catch { 
-      setMsg('Failed to create Google post.'); 
-    } finally { 
-      setBusy(false); 
+      setImageUrl(r.imageUrl);
+    } catch {
+      setMsg('Failed to create Google post.');
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -119,12 +122,17 @@ export default function Dashboard({ params }: { params: { businessId: string } }
             />
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               {canUseGrowthFeatures ? (
-                <button disabled={busy} onClick={generateSocial} className="btn-primary" style={{ width: 'auto', background: 'var(--gradient-cta)' }}>
-                  {busy ? <span className="spinner" /> : '✨ Generate Instagram Post'}
-                </button>
+                <>
+                  <button disabled={busy} onClick={() => generateSocial('instagram')} className="btn-primary" style={{ width: 'auto', background: 'var(--gradient-cta)' }}>
+                    {busy ? <span className="spinner" /> : '✨ Generate Instagram Post'}
+                  </button>
+                  <button disabled={busy} onClick={() => generateSocial('facebook')} className="btn-primary" style={{ width: 'auto', background: 'var(--gradient-cta)' }}>
+                    {busy ? <span className="spinner" /> : '✨ Generate Facebook Post'}
+                  </button>
+                </>
               ) : (
                 <span style={{ fontSize: 13, color: 'var(--color-text-muted)', alignSelf: 'center' }}>
-                  ✨ Instagram posts need the Growth plan — <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20to%20upgrade%20my%20GrowLokal%20plan" target="_blank" rel="noopener noreferrer" style={{ color: '#1a7f37', fontWeight: 600 }}>upgrade →</a>
+                  ✨ Instagram/Facebook posts need the Growth plan — <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20to%20upgrade%20my%20GrowLokal%20plan" target="_blank" rel="noopener noreferrer" style={{ color: '#1a7f37', fontWeight: 600 }}>upgrade →</a>
                 </span>
               )}
               <button disabled={busy} onClick={generateGbp} className="btn-outline" style={{ width: 'auto', border: '1.5px solid var(--color-brand-dark)', color: 'var(--color-brand-dark)' }}>
@@ -132,6 +140,10 @@ export default function Dashboard({ params }: { params: { businessId: string } }
               </button>
             </div>
             {msg && <p style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(249, 115, 22, 0.12)', border: '1px solid rgba(249, 115, 22, 0.3)', borderRadius: '8px', color: 'var(--color-brand-darkest)', fontSize: '14px' }}>{msg}</p>}
+            {imageUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={imageUrl} alt="AI-generated post visual" style={{ marginTop: '12px', maxWidth: '280px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
+            )}
           </div>
         </section>
 

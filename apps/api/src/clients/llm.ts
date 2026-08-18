@@ -48,7 +48,7 @@ async function generateOpenRouter(
     return `[stub openrouter output for prompt: ${prompt.slice(0, 60)}...]`;
   }
 
-  const model = tier === 'cheap' ? 'google/gemini-2.0-flash-lite-001' : 'google/gemini-2.0-flash-001';
+  const model = tier === 'cheap' ? config.OPENROUTER_MODEL_CHEAP : config.OPENROUTER_MODEL_QUALITY;
   const res = await request('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {

@@ -20,10 +20,12 @@ import { config } from '../config.js';
 import { query, queryOne, withTransaction } from '../db.js';
 import { log } from '../logger.js';
 
+// Pro plan dropped 2026-08-18 (no multi-location support to justify it) — see
+// docs/DECISIONS.md. Not in this map, so a stray Pro checkout notes payload
+// fails the !PLAN_TO_PRICE[plan] guard below and is rejected cleanly.
 const PLAN_TO_PRICE: Record<string, number> = {
   starter: config.PRICE_STARTER_PAISE,
   growth: config.PRICE_GROWTH_PAISE,
-  pro: config.PRICE_PRO_PAISE,
 };
 
 const phoneRegex = /^[0-9+]+$/;
@@ -31,7 +33,7 @@ const phoneRegex = /^[0-9+]+$/;
 export function billingRoutes(app: FastifyInstance) {
   // ── Existing flow: an already-logged-in business subscribes from its own dashboard ──
   const subscribeBody = z.object({
-    plan: z.enum(['starter', 'growth', 'pro']),
+    plan: z.enum(['starter', 'growth']), // Pro plan dropped 2026-08-18 — see docs/DECISIONS.md
     razorpayPlanId: z.string(),
   });
   app.post('/api/businesses/:id/billing/subscribe', { preHandler: requireBusiness }, async (req, reply) => {
@@ -59,7 +61,7 @@ export function billingRoutes(app: FastifyInstance) {
   const checkoutLinkBody = z.object({
     phone: z.string().min(10).max(15).regex(phoneRegex, 'Invalid phone number format'),
     businessName: z.string().min(2).max(100),
-    plan: z.enum(['starter', 'growth', 'pro']),
+    plan: z.enum(['starter', 'growth']), // Pro plan dropped 2026-08-18 — see docs/DECISIONS.md
     razorpayPlanId: z.string(),
   });
   app.post('/api/admin/checkout-links', { preHandler: requireAdmin }, async (req, reply) => {

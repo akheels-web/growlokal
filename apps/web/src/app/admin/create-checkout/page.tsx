@@ -9,7 +9,7 @@ import { api } from '@/lib/api';
 export default function CreateCheckoutLink() {
   const [phone, setPhone] = useState('');
   const [businessName, setBusinessName] = useState('');
-  const [plan, setPlan] = useState<'starter' | 'growth' | 'pro'>('growth');
+  const [plan, setPlan] = useState<'starter' | 'growth'>('growth');
   const [razorpayPlanId, setRazorpayPlanId] = useState('');
   const [result, setResult] = useState<{ checkoutUrl: string; razorpaySubscriptionId: string } | null>(null);
   const [busy, setBusy] = useState(false);
@@ -54,7 +54,6 @@ export default function CreateCheckoutLink() {
         <select value={plan} onChange={(e) => setPlan(e.target.value as typeof plan)} style={inp}>
           <option value="starter">Starter — ₹999/mo</option>
           <option value="growth">Growth — ₹2,499/mo</option>
-          <option value="pro">Pro — ₹4,999/mo</option>
         </select>
         <input required placeholder="Razorpay plan_id for this tier" value={razorpayPlanId}
           onChange={(e) => setRazorpayPlanId(e.target.value)} style={inp} />

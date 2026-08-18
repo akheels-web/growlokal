@@ -1468,50 +1468,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Card 4: Pro Plan */}
-            <div className="pricing-card-free">
-              <div>
-                <div className="pricing-plan-title" style={{ color: '#0F172A' }}>Pro</div>
-                <p className="pricing-plan-subtitle" style={{ color: '#64748B' }}>For multi-branch businesses &amp; power users</p>
-                <div className="pricing-divider" />
-                <div className="pricing-price-val" style={{ color: '#0F172A' }}>
-                  ₹{billingCycle === 'annually' ? '3,999' : '4,999'}{' '}
-                  <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
-                </div>
-                {billingCycle === 'annually' && (
-                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#F97316', marginTop: '-18px', marginBottom: '22px' }}>
-                    ⚡ Billed annually (₹47,988/yr — Save ₹12,000)
-                  </div>
-                )}
-
-                <ul className="pricing-feature-list">
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Everything in Growth</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Multi-branch / multi-location support</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Priority support</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Dedicated South Indian support team</span>
-                  </li>
-                </ul>
-              </div>
-              <a
-                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Pro%20Plan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pricing-btn-free"
-              >
-                Choose Plan
-              </a>
-            </div>
           </div>
         </div>
 

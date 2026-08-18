@@ -17,6 +17,34 @@ One heading per confirmed bug, in this single file. Newest first. Every entry ne
 
 ## Entries (newest first)
 
+### [FIXED] generated_by cost-tracking column always said 'gemini-cheap', regardless of what actually ran — found 2026-08-18
+- **Found in:** `apps/api/src/features/social/service.ts`, while bumping social posts to the quality tier
+- **Symptom:** every row in `posts.generated_by` (the column's own comment: "model used, for cost tracking") was hardcoded to the literal string `'gemini-cheap'`, even when `LLM_PROVIDER` was set to `openrouter`/`anthropic`/`ollama`, and even now that the tier itself changed to `'quality'`. Any cost-tracking built on this column would have been reading fiction.
+- **Root cause:** the literal was written once when the feature was first built and never revisited when the provider became configurable.
+- **Fix:** `createScheduledSocialPost()` now records `` `${config.LLM_PROVIDER}-quality` `` — reflects the actually-configured provider and the actual tier used.
+- **Verified by:** typecheck + existing test suite pass. Not verified against a real multi-provider run in this session (no live LLM credentials configured here).
+
+### [FIXED] OpenRouter model IDs were hardcoded, ignoring OpenRouter's own multi-model access — found 2026-08-18
+- **Found in:** `apps/api/src/clients/llm.ts`, while checking how to get a "good model" for social posts via OpenRouter
+- **Symptom:** `generateOpenRouter()` hardcoded two fixed Gemini model strings for the cheap/quality tiers, regardless of `LLM_MODEL_CHEAP`/`LLM_MODEL_QUALITY` config (which the Gemini-direct path *does* respect). The file's own comment advertised "Multi-model: Claude, Llama 3.3, Gemini, FLUX graphics" access through OpenRouter, but none of those were actually reachable — OpenRouter was silently only ever calling Gemini.
+- **Root cause:** the two model strings were written once as a working default and never made configurable when the Gemini path's equivalent config vars were added.
+- **Fix:** added `OPENROUTER_MODEL_CHEAP`/`OPENROUTER_MODEL_QUALITY` to `config.ts` (defaults: the same Gemini-via-OpenRouter cheap model as before, and `anthropic/claude-haiku-4.5` for quality — verified as a real current OpenRouter slug before using it as a default). `generateOpenRouter()` now reads these instead of hardcoded strings.
+- **Verified by:** typecheck pass; the `anthropic/claude-haiku-4.5` slug was confirmed against OpenRouter's live model listing in this session. Not verified against a real OpenRouter API call (no live credentials in this session).
+
+### [FIXED] n8n's social-scheduler workflow called an endpoint that doesn't exist — found 2026-08-18
+- **Found in:** `n8n/social-scheduler.workflow.json`, while checking n8n workflow correctness
+- **Symptom:** the workflow's first HTTP node called `GET /api/businesses/due-for-post` — no such route exists anywhere in `apps/api`. Its second node POSTed to the real `/api/businesses/:id/social/schedule`, but with no `Authorization` header at all, against a route that requires a JWT and is now `requirePlan('growth')`-gated (built in a later chunk than this workflow). Importing and running this workflow as-is would fail outright on both steps.
+- **Root cause:** written early as a "starter" example before the real social-scheduling flow was built; `apps/api/src/worker.ts`'s 60s poll loop plus the dashboard-triggered `/social/schedule` endpoint ended up implementing the same job differently, and this file was never reconciled or removed.
+- **Fix:** deleted `n8n/social-scheduler.workflow.json` — the real flow (`docs/FLOW.md` §5) already covers post generation (dashboard) and publishing (worker poll) with no n8n involvement needed. Rewrote `n8n/README.md` to stop pointing at it.
+- **Verified by:** confirmed `/api/businesses/due-for-post` has zero matches anywhere in `apps/api/src` (grep); confirmed the real `/social/schedule` route's actual auth/plan requirements in `apps/api/src/routes/features.ts`.
+
+### [FIXED] n8n's database was never actually created — found 2026-08-18
+- **Found in:** `infra/docker-compose.yml`, while adding Twenty CRM alongside n8n on the home-lab box
+- **Symptom:** n8n's service config set `DB_POSTGRESDB_DATABASE: ${N8N_DB:-n8n}`, pointing it at a database named `n8n` inside the shared `postgres` container — but that container's `POSTGRES_DB` env only creates `growlokal` on first boot. Nothing in this repo ever ran `CREATE DATABASE n8n;`. First boot would have failed n8n's DB connection until someone did this manually.
+- **Root cause:** the `postgres` image only auto-creates the single database named in `POSTGRES_DB`; a second logical database on the same server needs either an init script or a one-time manual `CREATE DATABASE`, and neither existed.
+- **Fix:** removed the dependency instead of patching around it — n8n now uses its own embedded SQLite (its documented default), which this workload (a handful of scheduling workflows, no queue-mode concurrency) doesn't outgrow. The shared `postgres`/`redis` containers this bug depended on were themselves unused by anything else (confirmed: `infra/backup.sh` backs up the VPS's production Postgres via a hardcoded LAN IP, unrelated to this container) and have been removed from `infra/docker-compose.yml` entirely — one less thing to run on an 8GB box.
+- **Verified by:** static read of `infra/docker-compose.yml` and `infra/backup.sh` — not exercised against a real `docker compose up` in this session.
+
 ### [FIXED] Next.js build failed due to dangling CSS rule in globals.css — found 2026-08-18
 - **Found in:** `pnpm --filter @growlokal/web build` gate check
 - **Symptom:** Webpack build failed with `Syntax error: E:\Github\grow\growlokal\apps\web\src\app\globals.css Unexpected } (1584:1)`.
