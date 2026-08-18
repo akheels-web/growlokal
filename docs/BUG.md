@@ -17,6 +17,20 @@ One heading per confirmed bug, in this single file. Newest first. Every entry ne
 
 ## Entries (newest first)
 
+### [FIXED] Next.js build failed due to dangling CSS rule in globals.css — found 2026-08-18
+- **Found in:** `pnpm --filter @growlokal/web build` gate check
+- **Symptom:** Webpack build failed with `Syntax error: E:\Github\grow\growlokal\apps\web\src\app\globals.css Unexpected } (1584:1)`.
+- **Root cause:** An orphaned duplicate block `border: 1.5px solid var(--color-brand-teal) !important; background: rgba(46, 154, 166, 0.15) !important; }` lacked a selector and caused a PostCSS parser syntax error.
+- **Fix:** Removed the orphaned block and deduplicated `.cta-buttons .btn-outline:hover` styles.
+- **Verified by:** `pnpm --filter @growlokal/web build` passes with 0 errors and all static routes successfully generated.
+
+### [FIXED] page.tsx invalid UTF-8 byte stream and section corruption — found 2026-08-18
+- **Found in:** `pnpm --filter @growlokal/web build` gate check
+- **Symptom:** Next.js build failed with `Error: Failed to read source code from page.tsx Caused by: stream did not contain valid UTF-8`.
+- **Root cause:** A bad file replacement left a truncated 4-byte emoji sequence (`\xf0\x9f`) merged with a duplicate chunk of the pricing section inside the guarantee section.
+- **Fix:** Restored the clean UTF-8 source baseline from git HEAD and accurately applied the luxury theme color tokens (`#14213D` / `#FCA311`), high-contrast text styles, and contact section.
+- **Verified by:** `pnpm --filter @growlokal/web build` compiles 100% cleanly without errors.
+
 ### [FIXED] Google-score calculator faked a live scan and a fake WhatsApp send — found 2026-07-11
 - **Found in:** full-repo review, `apps/web/src/app/tools/google-score-calculator/page.tsx`
 - **Symptom:** the page showed "📡 Scanning Live Google Maps Profiles…" and claimed the score was "Based on public Google Maps completeness…", but the number was `42 + (name.length * 3) % 25` — a string-length hash, not a real lookup. The "Send Full Audit Fix Plan to Your WhatsApp" button set a fake success state with no backend call at all.

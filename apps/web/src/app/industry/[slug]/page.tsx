@@ -20,10 +20,10 @@ export default function IndustryLandingPage({ params }: Props) {
 
   if (!vertical) {
     return (
-      <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh', padding: '80px 24px', textAlign: 'center' }}>
+      <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh', padding: '80px 24px', textAlign: 'center' }}>
         <h1 style={{ fontSize: '2rem', marginBottom: '16px' }}>Industry Sector Not Found</h1>
-        <p style={{ color: '#5e7984', marginBottom: '24px' }}>The business sector you are looking for does not exist.</p>
-        <Link href="/#industries" style={{ display: 'inline-block', padding: '12px 24px', background: '#0E4459', color: '#fff', borderRadius: '12px', textDecoration: 'none', fontWeight: '700' }}>
+        <p style={{ color: '#64748B', marginBottom: '24px' }}>The business sector you are looking for does not exist.</p>
+        <Link href="/#industries" style={{ display: 'inline-block', padding: '12px 24px', background: '#0B1020', color: '#fff', borderRadius: '12px', textDecoration: 'none', fontWeight: '700' }}>
           ← View All Small Business Sectors
         </Link>
       </div>
@@ -40,7 +40,7 @@ export default function IndustryLandingPage({ params }: Props) {
   }
 
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
       {/* ─── UNIFIED HEADER ─── */}
       <Navbar isSticky />
 
@@ -71,7 +71,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 gap: '6px',
                 padding: '6px 16px',
                 background: 'rgba(14, 68, 89, 0.08)',
-                color: '#0E4459',
+                color: '#0B1020',
                 borderRadius: '50px',
                 fontSize: '13px',
                 fontWeight: '800',
@@ -85,7 +85,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 fontSize: 'clamp(2.1rem, 3.8vw, 3.2rem)',
                 fontWeight: '900',
                 lineHeight: '1.18',
-                color: '#033540',
+                color: '#111827',
                 marginBottom: '20px',
                 letterSpacing: '-0.03em',
               }}>
@@ -121,7 +121,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     <div style={{
                       fontSize: '1.8rem',
                       fontWeight: '900',
-                      color: i === 0 ? '#0E4459' : i === 1 ? '#059669' : '#4f46e5',
+                      color: i === 0 ? '#0B1020' : i === 1 ? '#F97316' : '#4f46e5',
                       lineHeight: '1',
                       marginBottom: '4px',
                     }}>
@@ -143,7 +143,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     padding: '14px 28px',
-                    background: '#0E4459',
+                    background: '#0B1020',
                     color: '#ffffff',
                     borderRadius: '50px',
                     fontSize: '15px',
@@ -165,7 +165,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     justifyContent: 'center',
                     gap: '8px',
                     padding: '14px 24px',
-                    background: '#25D366',
+                    background: '#F97316',
                     color: '#ffffff',
                     borderRadius: '50px',
                     fontSize: '15px',
@@ -195,7 +195,7 @@ export default function IndustryLandingPage({ params }: Props) {
                   position: 'absolute',
                   top: '16px',
                   right: '16px',
-                  background: '#22c55e',
+                  background: '#F97316',
                   color: '#ffffff',
                   fontSize: '11px',
                   fontWeight: '800',
@@ -223,10 +223,10 @@ export default function IndustryLandingPage({ params }: Props) {
                   textAlign: 'left',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: '800', color: '#033540' }}>
+                    <span style={{ fontSize: '13px', fontWeight: '800', color: '#111827' }}>
                       📍 Google Maps Local Pack
                     </span>
-                    <span style={{ fontSize: '12px', fontWeight: '900', color: '#059669', background: '#dcfce7', padding: '2px 8px', borderRadius: '8px' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '900', color: '#F97316', background: '#EEF2FF', padding: '2px 8px', borderRadius: '8px' }}>
                       #1 Rank
                     </span>
                   </div>
@@ -243,10 +243,10 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── PAIN POINTS & AI SOLUTIONS ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <p style={{ fontSize: '13px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
+          <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
             Why Most {vertical.label} Struggle
           </p>
-          <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#033540', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.02em' }}>
             The 3 Growth Roadblocks Costing You Customers
           </h2>
           <p style={{ fontSize: '1rem', color: '#64748B', maxWidth: '650px', margin: '8px auto 0' }}>
@@ -280,7 +280,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     {item.stat} Impact
                   </span>
                 </div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#033540', marginBottom: '10px' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#111827', marginBottom: '10px' }}>
                   {item.title}
                 </h3>
                 <p style={{ fontSize: '0.92rem', color: '#64748b', lineHeight: '1.55', marginBottom: '20px' }}>
@@ -289,12 +289,12 @@ export default function IndustryLandingPage({ params }: Props) {
               </div>
 
               <div style={{
-                background: '#f0fdf4',
-                border: '1px solid #bbf7d0',
+                background: '#EEF2FF',
+                border: '1.5px solid rgba(79, 70, 229, 0.25)',
                 borderRadius: '12px',
                 padding: '14px',
                 fontSize: '13px',
-                color: '#166534',
+                color: '#4338CA',
                 lineHeight: '1.45',
               }}>
                 <strong>⚡ AI Fix:</strong> {item.solution}
@@ -308,10 +308,10 @@ export default function IndustryLandingPage({ params }: Props) {
       <section style={{ padding: '80px 24px', background: '#F8FAFC', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <p style={{ fontSize: '13px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
+            <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
               Your 24/7 AI Marketing Team
             </p>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#033540' }}>
+            <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#111827' }}>
               4 AI Agents Built Specifically for {vertical.label}
             </h2>
             <p style={{ fontSize: '1rem', color: '#64748B', maxWidth: '650px', margin: '8px auto 0' }}>
@@ -342,10 +342,10 @@ export default function IndustryLandingPage({ params }: Props) {
                     {agent.icon}
                   </div>
                   <div>
-                    <span style={{ fontSize: '11.5px', fontWeight: '800', color: '#2E9AA6', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    <span style={{ fontSize: '11.5px', fontWeight: '800', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                       {agent.agent}
                     </span>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#033540', margin: 0 }}>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>
                       {agent.title}
                     </h3>
                   </div>
@@ -357,8 +357,8 @@ export default function IndustryLandingPage({ params }: Props) {
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {agent.bulletPoints.map((bp, j) => (
-                    <li key={j} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: '#0E4459', fontWeight: '600' }}>
-                      <span style={{ color: '#22c55e', fontWeight: '900' }}>✓</span>
+                    <li key={j} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: '#0B1020', fontWeight: '600' }}>
+                      <span style={{ color: '#F97316', fontWeight: '900' }}>✓</span>
                       <span>{bp}</span>
                     </li>
                   ))}
@@ -372,13 +372,13 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── REAL CASE STUDY & 30-DAY PROOF ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '1100px', margin: '0 auto' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #0E4459 0%, #033540 100%)',
+          background: 'linear-gradient(135deg, #0B1020 0%, #111827 100%)',
           borderRadius: '28px',
           padding: '44px',
           color: '#ffffff',
           boxShadow: '0 20px 50px rgba(3, 53, 64, 0.25)',
         }}>
-          <div style={{ display: 'inline-block', background: 'rgba(112, 191, 99, 0.2)', color: '#70BF63', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
+          <div style={{ display: 'inline-block', background: 'rgba(249, 115, 22, 0.2)', color: '#F97316', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
             ⚡ Real South Indian Success Story
           </div>
 
@@ -391,8 +391,8 @@ export default function IndustryLandingPage({ params }: Props) {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: '#70BF63',
-              color: '#033540',
+              background: '#F97316',
+              color: '#111827',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -427,7 +427,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#ffffff', margin: '4px 0' }}>
                   {metric.value}
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#70BF63', background: 'rgba(112, 191, 99, 0.25)', padding: '2px 8px', borderRadius: '6px' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#F97316', background: 'rgba(249, 115, 22, 0.25)', padding: '2px 8px', borderRadius: '6px' }}>
                   {metric.change}
                 </span>
               </div>
@@ -438,7 +438,7 @@ export default function IndustryLandingPage({ params }: Props) {
 
       {/* ─── POPULAR KEYWORDS FOR THIS SECTOR ─── */}
       <section style={{ padding: '40px 24px 60px', maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
-        <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#033540', marginBottom: '14px' }}>
+        <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#111827', marginBottom: '14px' }}>
           Keywords Nearby Customers Are Searching Right Now for {vertical.label}
         </h3>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -450,7 +450,7 @@ export default function IndustryLandingPage({ params }: Props) {
               borderRadius: '50px',
               fontSize: '13.5px',
               fontWeight: '700',
-              color: '#0E4459',
+              color: '#0B1020',
             }}>
               🔍 {kw}
             </span>
@@ -462,7 +462,7 @@ export default function IndustryLandingPage({ params }: Props) {
       <section style={{ padding: '60px 24px', background: '#F8FAFC', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#033540' }}>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827' }}>
               Find {vertical.label} AI Marketing in Your City
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#64748B' }}>
@@ -481,7 +481,7 @@ export default function IndustryLandingPage({ params }: Props) {
                   border: '1.5px solid #e2e8f0',
                   borderRadius: '16px',
                   textDecoration: 'none',
-                  color: '#033540',
+                  color: '#111827',
                   boxShadow: '0 4px 12px rgba(15, 23, 42, 0.03)',
                   transition: 'all 0.2s ease',
                   display: 'block',
@@ -502,10 +502,10 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── SECTOR FAQS ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '860px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <p style={{ fontSize: '13px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+          <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
             Got Questions?
           </p>
-          <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#033540' }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827' }}>
             Frequently Asked Questions by {vertical.label}
           </h2>
         </div>
@@ -536,13 +536,13 @@ export default function IndustryLandingPage({ params }: Props) {
                     border: 'none',
                     fontSize: '16px',
                     fontWeight: '800',
-                    color: '#033540',
+                    color: '#111827',
                     cursor: 'pointer',
                     textAlign: 'left',
                   }}
                 >
                   <span>{faq.q}</span>
-                  <span style={{ fontSize: '12px', color: '#2E9AA6' }}>{isOpen ? '▲' : '▼'}</span>
+                  <span style={{ fontSize: '12px', color: '#4F46E5' }}>{isOpen ? '▲' : '▼'}</span>
                 </button>
                 {isOpen && (
                   <div style={{ padding: '0 24px 20px', fontSize: '14.5px', color: '#475569', lineHeight: '1.6' }}>
@@ -567,10 +567,10 @@ export default function IndustryLandingPage({ params }: Props) {
           boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
           textAlign: 'center',
         }}>
-          <span style={{ fontSize: '12px', fontWeight: '800', color: '#059669', background: '#dcfce7', padding: '4px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '12px', fontWeight: '800', color: '#F97316', background: '#EEF2FF', padding: '4px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>
             ⚡ 100% Free Instant Google Audit
           </span>
-          <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#033540', margin: '14px 0 8px' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#111827', margin: '14px 0 8px' }}>
             Check Your {vertical.singular} Google Score
           </h3>
           <p style={{ fontSize: '0.94rem', color: '#64748b', marginBottom: '28px', lineHeight: '1.5' }}>
@@ -618,7 +618,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 style={{
                   width: '100%',
                   padding: '15px 24px',
-                  background: '#0E4459',
+                  background: '#0B1020',
                   color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '15.5px',
@@ -632,7 +632,7 @@ export default function IndustryLandingPage({ params }: Props) {
               </button>
             </form>
           ) : (
-            <div style={{ padding: '24px', background: '#dcfce7', borderRadius: '16px', color: '#047857' }}>
+            <div style={{ padding: '24px', background: '#EEF2FF', borderRadius: '16px', color: '#F97316' }}>
               <div style={{ fontSize: '32px', marginBottom: '8px' }}>✅</div>
               <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '6px' }}>Audit Scan Initiated!</h4>
               <p style={{ fontSize: '14px', margin: 0 }}>
@@ -646,7 +646,7 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── EXPLORE OTHER SECTORS ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#033540' }}>
+          <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#111827' }}>
             Explore AI Marketing for Other Local Sectors
           </h3>
           <p style={{ fontSize: '0.94rem', color: '#64748B' }}>
@@ -687,13 +687,13 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── FOOTER ─── */}
       <footer className="footer" style={{ borderTop: '1px solid #e2e8f0', background: '#ffffff', padding: '60px 24px 30px' }}>
         <div className="footer-container" style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <Link href="/" className="footer-brand" style={{ fontSize: '1.6rem', fontWeight: '900', color: '#033540', textDecoration: 'none' }}>
+          <Link href="/" className="footer-brand" style={{ fontSize: '1.6rem', fontWeight: '900', color: '#111827', textDecoration: 'none' }}>
             Grow<span>Lokal</span>
           </Link>
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', marginBottom: '24px' }}>
             The #1 AI Marketing Platform built for South Indian Local Businesses.
           </p>
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', fontSize: '14px', color: '#0E4459', fontWeight: '600' }}>
+          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', fontSize: '14px', color: '#0B1020', fontWeight: '600' }}>
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
             <Link href="/#pricing" style={{ textDecoration: 'none', color: 'inherit' }}>Pricing</Link>
             <Link href="/#industries" style={{ textDecoration: 'none', color: 'inherit' }}>All Industries</Link>

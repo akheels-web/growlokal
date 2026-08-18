@@ -66,7 +66,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
       <header style={{ background: 'var(--color-brand-darkest)', color: '#ffffff', padding: '16px 24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Link href="/" className="nav-brand" style={{ color: '#ffffff', fontSize: '1.4rem' }}>
-            Grow<span style={{ color: '#70BF63' }}>Lokal</span>
+            Grow<span style={{ color: '#F97316' }}>Lokal</span>
           </Link>
           <div style={{ display: 'flex', gap: '16px', fontSize: '14px', fontWeight: 500 }}>
             {canUseGrowthFeatures && (
@@ -74,7 +74,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
                 💬 WhatsApp Campaigns
               </Link>
             )}
-            <Link href={`/onboarding/${businessId}`} style={{ color: '#2E9AA6', textDecoration: 'none' }}>
+            <Link href={`/onboarding/${businessId}`} style={{ color: '#4F46E5', textDecoration: 'none' }}>
               ⚙️ Edit Profile
             </Link>
           </div>
@@ -131,7 +131,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
                 {busy ? <span className="spinner" /> : '📍 Generate Google Post'}
               </button>
             </div>
-            {msg && <p style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(112, 191, 99, 0.12)', border: '1px solid rgba(112, 191, 99, 0.3)', borderRadius: '8px', color: 'var(--color-brand-darkest)', fontSize: '14px' }}>{msg}</p>}
+            {msg && <p style={{ marginTop: '12px', padding: '12px 16px', background: 'rgba(249, 115, 22, 0.12)', border: '1px solid rgba(249, 115, 22, 0.3)', borderRadius: '8px', color: 'var(--color-brand-darkest)', fontSize: '14px' }}>{msg}</p>}
           </div>
         </section>
 

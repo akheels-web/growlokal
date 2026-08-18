@@ -55,7 +55,7 @@ function GoogleBusinessOfficialIcon({ size = 32 }: { size?: number }) {
 function WhatsAppOfficialIcon({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="16" fill="#25D366" />
+      <circle cx="16" cy="16" r="16" fill="#F97316" />
       <path d="M23.5 19.8C23.1 19.6 21.1 18.6 20.7 18.5C20.3 18.3 20 18.2 19.7 18.7C19.4 19.1 18.6 20.1 18.3 20.4C18.1 20.7 17.8 20.8 17.4 20.6C17 20.4 15.6 19.9 13.9 18.4C12.6 17.2 11.7 15.8 11.5 15.4C11.3 15 11.5 14.8 11.7 14.6C11.9 14.4 12.1 14.1 12.3 13.9C12.5 13.7 12.6 13.5 12.7 13.3C12.8 13.1 12.8 12.9 12.7 12.7C12.6 12.5 11.7 10.3 11.3 9.4C10.9 8.5 10.5 8.6 10.3 8.6C10.1 8.6 9.8 8.6 9.5 8.6C9.2 8.6 8.7 8.7 8.3 9.1C7.9 9.6 6.8 10.6 6.8 12.7C6.8 14.8 8.3 16.8 8.5 17.1C8.7 17.4 11.5 21.7 15.8 23.5C16.8 23.9 17.6 24.2 18.2 24.4C19.2 24.7 20.1 24.7 20.9 24.6C21.7 24.5 23.4 23.6 23.8 22.5C24.2 21.4 24.2 20.5 24.1 20.3C24 20.1 23.8 20 23.5 19.8Z" fill="#FFFFFF" />
     </svg>
   );
@@ -84,8 +84,8 @@ function WhatsAppCampaignOfficialIcon({ size = 32 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="wa-camp-official-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10b981" />
-          <stop offset="100%" stopColor="#047857" />
+          <stop offset="0%" stopColor="#0B1020" />
+          <stop offset="100%" stopColor="#000000" />
         </linearGradient>
       </defs>
       <rect width="32" height="32" rx="8" fill="url(#wa-camp-official-grad)" />
@@ -588,7 +588,7 @@ export default function Home() {
                 {showDropdown && suggestions.length > 0 && (
                   <div style={{
                     position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                    background: '#ffffff', border: '1.5px solid #2E9AA6', borderRadius: '14px',
+                    background: '#ffffff', border: '1.5px solid #4F46E5', borderRadius: '14px',
                     boxShadow: '0 12px 32px rgba(3, 53, 64, 0.2)', maxHeight: '240px', overflowY: 'auto'
                   }}>
                     {suggestions.map((item, idx) => (
@@ -604,10 +604,10 @@ export default function Home() {
                           fontSize: '14px',
                           transition: 'background 0.15s ease'
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f0fdf4')}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(252, 163, 17, 0.08)')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = '#ffffff')}
                       >
-                        <strong style={{ color: '#033540', display: 'block', fontSize: '14px' }}>📍 {item.name}</strong>
+                        <strong style={{ color: '#111827', display: 'block', fontSize: '14px' }}>📍 {item.name}</strong>
                         <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
                       </div>
                     ))}
@@ -638,7 +638,7 @@ export default function Home() {
                     className="phone-input-field"
                   />
                 </div>
-                <div style={{ fontSize: '11px', color: '#5e7984', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
+                <div style={{ fontSize: '11px', color: 'var(--color-muted)', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
                   🔒 100% Private • Instant WhatsApp Audit Report Delivery
                 </div>
               </div>
@@ -653,7 +653,7 @@ export default function Home() {
             {loading && (
               <div className="radar-scan-box">
                 <div className="radar-sweep-line" />
-                <div style={{ fontWeight: 700, fontSize: '14px', color: '#70BF63', marginBottom: '4px' }}>
+                <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-orange)', marginBottom: '4px' }}>
                   📡 AI Radar Scanning In Progress…
                 </div>
                 <div style={{ fontSize: '12px', opacity: 0.85 }}>
@@ -739,18 +739,18 @@ export default function Home() {
           {/* Card 1: Google Score Tool */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(46, 154, 166, 0.12)', borderRadius: '14px', color: '#2E9AA6', marginBottom: '14px' }}>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(252, 163, 17, 0.12)', borderRadius: '14px', color: 'var(--color-orange)', marginBottom: '14px' }}>
                 <BarChart3 size={28} strokeWidth={2.2} />
               </div>
               <div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#4F46E5', background: 'rgba(79, 70, 229, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   ⚡ Instant Competitor Spy Tool
                 </span>
               </div>
-              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
+              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#111827', margin: '12px 0 10px', lineHeight: 1.3 }}>
                 See Why Competitors Get 3x More Customer Calls
               </h3>
-              <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
+              <p style={{ color: '#64748B', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
                 Find out why competing local businesses in Ameerpet, Kukatpally, Vizag, or Bengaluru rank higher on Google Maps. Get a side-by-side comparative scorecard in 10 seconds.
               </p>
             </div>
@@ -764,18 +764,18 @@ export default function Home() {
           {/* Card 2: Revenue Growth Calculator */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(112, 191, 99, 0.15)', borderRadius: '14px', color: '#047857', marginBottom: '14px' }}>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(20, 33, 61, 0.1)', borderRadius: '14px', color: '#0B1020', marginBottom: '14px' }}>
                 <TrendingUp size={28} strokeWidth={2.2} />
               </div>
               <div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#F97316', background: 'rgba(249, 115, 22, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   📈 Revenue Growth Calculator
                 </span>
               </div>
-              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
+              <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#111827', margin: '12px 0 10px', lineHeight: 1.3 }}>
                 Calculate Your 12-Month Revenue Growth
               </h3>
-              <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
+              <p style={{ color: '#64748B', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
                 See how capturing just 5 to 15 additional local customers per month through GrowLokal AI translates into massive annual profit.
               </p>
             </div>
@@ -845,7 +845,7 @@ export default function Home() {
           <p className="section-subtitle">{t.agentsSubtitle}</p>
         </div>
 
-        {/* Grexa-Beating Shared Brain AI Agents Component */}
+        {/* Shared Brain AI Agents Component */}
         <div className="shared-brain-showcase">
           {/* Left Column: Stack of 4 AI Agent cards with real avatars */}
           <div className="agent-cards-stack">
@@ -935,21 +935,21 @@ export default function Home() {
                   <stop offset="100%" stopColor="#fb923c" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-whatsapp" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#22c55e" />
-                  <stop offset="100%" stopColor="#4ade80" />
+                  <stop offset="0%" stopColor="#7C3AED" />
+                  <stop offset="100%" stopColor="#A78BFA" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-social" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0E4459" />
-                  <stop offset="100%" stopColor="#2E9AA6" />
+                  <stop offset="0%" stopColor="#0B1020" />
+                  <stop offset="100%" stopColor="#4F46E5" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-campaign" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#ca8a04" />
                   <stop offset="100%" stopColor="#facc15" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-merged" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#22c55e" />
-                  <stop offset="50%" stopColor="#2E9AA6" />
-                  <stop offset="100%" stopColor="#0E4459" />
+                  <stop offset="0%" stopColor="#F97316" />
+                  <stop offset="50%" stopColor="#4F46E5" />
+                  <stop offset="100%" stopColor="#0B1020" />
                 </linearGradient>
                 <filter id="circuit-glow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="3" result="blur" />
@@ -959,8 +959,8 @@ export default function Home() {
 
               {/* 1. Base Static Track Lines */}
               <path d="M0 35 H60 C92 35 92 145 160 145" stroke="#ea580c" strokeWidth="2" opacity="0.18" />
-              <path d="M0 108 H60 C92 108 92 145 160 145" stroke="#22c55e" strokeWidth="2" opacity="0.18" />
-              <path d="M0 182 H60 C92 182 92 145 160 145" stroke="#0E4459" strokeWidth="2" opacity="0.18" />
+              <path d="M0 108 H60 C92 108 92 145 160 145" stroke="#F97316" strokeWidth="2" opacity="0.18" />
+              <path d="M0 182 H60 C92 182 92 145 160 145" stroke="#0B1020" strokeWidth="2" opacity="0.18" />
               <path d="M0 255 H60 C92 255 92 145 160 145" stroke="#ca8a04" strokeWidth="2" opacity="0.18" />
 
               {/* 2. Flowing Animated Dash Streams */}
@@ -973,9 +973,9 @@ export default function Home() {
               <path d="M72 145 H160" stroke="url(#grad-circuit-merged)" strokeWidth="3" strokeDasharray="4 6" className="circuit-stream circuit-stream--merged" />
 
               {/* 4. Central Convergence Radar Node */}
-              <circle cx="72" cy="145" r="12" fill="#22c55e" opacity="0.2" className="circuit-radar-wave" />
-              <circle cx="72" cy="145" r="7" fill="#22c55e" opacity="0.4" className="circuit-radar-core" />
-              <circle cx="72" cy="145" r="4.5" fill="#15803d" stroke="#ffffff" strokeWidth="1.5" />
+              <circle cx="72" cy="145" r="12" fill="#F97316" opacity="0.2" className="circuit-radar-wave" />
+              <circle cx="72" cy="145" r="7" fill="#F97316" opacity="0.4" className="circuit-radar-core" />
+              <circle cx="72" cy="145" r="4.5" fill="#7C3AED" stroke="#ffffff" strokeWidth="1.5" />
             </svg>
           </div>
 
@@ -1082,7 +1082,7 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '8px',
                 padding: '12px 24px',
-                background: '#25D366',
+                background: '#F97316',
                 color: '#ffffff',
                 fontWeight: '700',
                 borderRadius: '50px',
@@ -1189,15 +1189,15 @@ export default function Home() {
               </p>
               <ul className="results-metrics-list">
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon">✅</span>
+                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
                   <span>Google Maps Rank: <strong>#1 Top Local Pack</strong></span>
                 </li>
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon">✅</span>
+                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
                   <span>Review Response Rate: <strong>100% (Instant AI)</strong></span>
                 </li>
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon">✅</span>
+                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
                   <span>Monthly Inquiries: <strong>48+ WhatsApp Leads</strong></span>
                 </li>
               </ul>
@@ -1380,7 +1380,7 @@ export default function Home() {
                   <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
                 </div>
                 {billingCycle === 'annually' && (
-                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#047857', marginTop: '-18px', marginBottom: '22px' }}>
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#F97316', marginTop: '-18px', marginBottom: '22px' }}>
                     ⚡ Billed annually (₹9,588/yr — Save ₹2,400)
                   </div>
                 )}
@@ -1479,7 +1479,7 @@ export default function Home() {
                   <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
                 </div>
                 {billingCycle === 'annually' && (
-                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#047857', marginTop: '-18px', marginBottom: '22px' }}>
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#F97316', marginTop: '-18px', marginBottom: '22px' }}>
                     ⚡ Billed annually (₹47,988/yr — Save ₹12,000)
                   </div>
                 )}
@@ -1531,17 +1531,17 @@ export default function Home() {
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ padding: '3px 10px', background: 'rgba(112, 191, 99, 0.15)', color: '#047857', borderRadius: '12px', fontSize: '11px', fontWeight: '800' }}>OPTIONAL ADD-ON</span>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#033540', margin: 0 }}>🌐 Custom Local Business Website Creation</h4>
+              <span style={{ padding: '3px 10px', background: 'rgba(249, 115, 22, 0.15)', color: '#F97316', borderRadius: '12px', fontSize: '11px', fontWeight: '800' }}>OPTIONAL ADD-ON</span>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#111827', margin: 0 }}>🌐 Custom Local Business Website Creation</h4>
             </div>
-            <p style={{ fontSize: '0.9rem', color: '#5e7984', margin: '4px 0 0' }}>
+            <p style={{ fontSize: '0.9rem', color: '#64748B', margin: '4px 0 0' }}>
               Don&apos;t have a dedicated website? We build a fast, mobile-ready 5-page website with your services, photos &amp; direct WhatsApp enquiry forms.
             </p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: '900', color: '#0E4459' }}>+₹4,999 <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>one-time</span></div>
-              <div style={{ fontSize: '11px', color: '#047857', fontWeight: '700' }}>70% cheaper than agencies</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: '900', color: '#0B1020' }}>+₹4,999 <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>one-time</span></div>
+              <div style={{ fontSize: '11px', color: '#F97316', fontWeight: '700' }}>70% cheaper than agencies</div>
             </div>
             <a
               href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20to%20add%20Custom%20Website%20Creation%20(Rs.4999)"
@@ -1552,7 +1552,7 @@ export default function Home() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '14px 24px',
-                background: '#0E4459',
+                background: '#0B1020',
                 color: '#ffffff',
                 borderRadius: '12px',
                 fontSize: '15px',
@@ -1849,7 +1849,7 @@ export default function Home() {
               {/* NetBanking */}
               <svg className="payment-svg-logo" viewBox="0 0 44 28">
                 <title>Net Banking</title>
-                <rect width="44" height="28" rx="5" fill="#0E4459" />
+                <rect width="44" height="28" rx="5" fill="#0B1020" />
                 <text x="22" y="17" fontSize="8" fontWeight="800" textAnchor="middle" fill="#ffffff" fontFamily="sans-serif">BANK</text>
               </svg>
             </div>          </div>
@@ -1921,10 +1921,10 @@ function ContactSection() {
           {contactSubmitted ? (
             <div className="contact-success-box">
               <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
-              <h4 style={{ color: '#047857', fontWeight: 800, fontSize: '18px', margin: '0 0 6px' }}>
+              <h4 style={{ color: '#0B1020', fontWeight: 800, fontSize: '18px', margin: '0 0 6px' }}>
                 Thank you! Message forwarded to WhatsApp.
               </h4>
-              <p style={{ color: '#065f46', fontSize: '14px', margin: 0 }}>
+              <p style={{ color: '#334155', fontSize: '14px', margin: 0 }}>
                 Our team is connecting with you right now on WhatsApp.
               </p>
             </div>
@@ -2088,7 +2088,7 @@ const PAIN_POINTS = [
   },
   {
     icon: Share2,
-    color: '#0E4459',
+    color: '#0B1020',
     stat: '1x/mo',
     title: 'Social media is an afterthought',
     desc: "You know you should post on Instagram and Facebook, but who has the time? So it happens once a month — maybe.",
@@ -2099,19 +2099,19 @@ const PAIN_POINTS = [
 const STEPS = [
   {
     icon: Building2,
-    color: '#2E9AA6',
+    color: '#4F46E5',
     title: 'Enter your business name',
     desc: "Tell us your business's name and area — we do the rest."
   },
   {
     icon: Gauge,
-    color: '#70BF63',
+    color: '#F97316',
     title: 'Get your Google score',
     desc: 'Our AI scans your Google Business Profile and scores it instantly out of 100.'
   },
   {
     icon: Rocket,
-    color: '#0E4459',
+    color: '#0B1020',
     title: 'Fix gaps with AI',
     desc: 'Get AI-generated posts, review replies, and campaigns — all automated.'
   },

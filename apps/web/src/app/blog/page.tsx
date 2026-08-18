@@ -43,7 +43,7 @@ export default function BlogHubPage() {
   const gridArticles = ARTICLES.filter((a) => !a.featured);
 
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
       {/* Unified Navigation */}
       <Navbar isSticky />
 
@@ -59,21 +59,21 @@ export default function BlogHubPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#2E9AA6',
+            color: '#4F46E5',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 14px',
-            background: 'rgba(46, 154, 166, 0.1)',
+            background: 'rgba(79, 70, 229, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
           }}>
             📚 Local SEO &amp; Growth Knowledge Hub
           </span>
-          <h1 style={{ fontSize: '2.6rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
+          <h1 style={{ fontSize: '2.6rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#111827' }}>
             Actionable Playbooks for Business Owners
           </h1>
-          <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ color: '#64748B', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
             Proven strategies on local Google ranking, WhatsApp enquiry conversion, and review management built for South Indian local businesses.
           </p>
         </div>
@@ -93,18 +93,18 @@ export default function BlogHubPage() {
           }}>
             <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#ffffff', background: '#2E9AA6', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#ffffff', background: '#4F46E5', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
                   ⭐ Featured Guide
                 </span>
                 <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>• {featured.category}</span>
                 <span style={{ fontSize: '13px', color: '#64748b' }}>• {featured.readTime}</span>
               </div>
-              <h2 style={{ fontSize: '1.85rem', fontWeight: '800', marginBottom: '14px', color: '#033540', lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: '1.85rem', fontWeight: '800', marginBottom: '14px', color: '#111827', lineHeight: 1.3 }}>
                 <Link href={`/blog/${featured.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                   {featured.title}
                 </Link>
               </h2>
-              <p style={{ color: '#5e7984', fontSize: '1rem', lineHeight: '1.65', marginBottom: '24px' }}>
+              <p style={{ color: '#64748B', fontSize: '1rem', lineHeight: '1.65', marginBottom: '24px' }}>
                 {featured.excerpt}
               </p>
               <div>
@@ -115,7 +115,7 @@ export default function BlogHubPage() {
                     alignItems: 'center',
                     gap: '8px',
                     padding: '14px 24px',
-                    background: '#0E4459',
+                    background: '#0B1020',
                     color: '#ffffff',
                     borderRadius: '12px',
                     fontSize: '15px',
@@ -139,11 +139,11 @@ export default function BlogHubPage() {
 
         {/* Section Header & Filters */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#033540' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#111827' }}>
             All Playbook Articles
           </h2>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            <span style={{ padding: '6px 16px', background: '#0E4459', color: '#ffffff', borderRadius: '20px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>All Guides</span>
+            <span style={{ padding: '6px 16px', background: '#0B1020', color: '#ffffff', borderRadius: '20px', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>All Guides</span>
             <span style={{ padding: '6px 16px', background: '#F1F5F9', color: '#64748b', borderRadius: '20px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>Local SEO</span>
             <span style={{ padding: '6px 16px', background: '#F1F5F9', color: '#64748b', borderRadius: '20px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>Reviews</span>
             <span style={{ padding: '6px 16px', background: '#F1F5F9', color: '#64748b', borderRadius: '20px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>WhatsApp</span>
@@ -177,7 +177,7 @@ export default function BlogHubPage() {
                   left: '14px',
                   fontSize: '11px',
                   fontWeight: '700',
-                  color: '#033540',
+                  color: '#111827',
                   background: '#ffffff',
                   padding: '4px 10px',
                   borderRadius: '12px',
@@ -193,17 +193,17 @@ export default function BlogHubPage() {
                   <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>
                     {article.date} • {article.readTime}
                   </div>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '10px', color: '#033540', lineHeight: 1.35 }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '10px', color: '#111827', lineHeight: 1.35 }}>
                     <Link href={`/blog/${article.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                       {article.title}
                     </Link>
                   </h3>
-                  <p style={{ color: '#5e7984', fontSize: '0.94rem', lineHeight: '1.6', marginBottom: '20px' }}>
+                  <p style={{ color: '#64748B', fontSize: '0.94rem', lineHeight: '1.6', marginBottom: '20px' }}>
                     {article.excerpt}
                   </p>
                 </div>
                 <div>
-                  <Link href={`/blog/${article.slug}`} style={{ fontSize: '14px', fontWeight: '700', color: '#2E9AA6', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <Link href={`/blog/${article.slug}`} style={{ fontSize: '14px', fontWeight: '700', color: '#4F46E5', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     Read Full Playbook →
                   </Link>
                 </div>
@@ -217,7 +217,7 @@ export default function BlogHubPage() {
           <button disabled style={{ padding: '10px 20px', borderRadius: '10px', border: '1px solid #cbd5e1', background: '#f8fafc', color: '#94a3b8', fontSize: '14px', fontWeight: '600' }}>
             ← Previous Page
           </button>
-          <span style={{ fontSize: '14px', fontWeight: '700', color: '#0E4459' }}>Page 1 of 1</span>
+          <span style={{ fontSize: '14px', fontWeight: '700', color: '#0B1020' }}>Page 1 of 1</span>
           <button disabled style={{ padding: '10px 20px', borderRadius: '10px', border: '1px solid #cbd5e1', background: '#f8fafc', color: '#94a3b8', fontSize: '14px', fontWeight: '600' }}>
             Next Page →
           </button>
@@ -226,7 +226,7 @@ export default function BlogHubPage() {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#5e7984' }}>
+        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
           © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
         </div>
       </footer>

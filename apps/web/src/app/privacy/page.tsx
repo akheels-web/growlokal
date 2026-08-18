@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827' }}>
       {/* ─── UNIFIED NAVIGATION HEADER ─── */}
       <Navbar isSticky />
 
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#2E9AA6',
+            color: '#4F46E5',
             textTransform: 'uppercase',
             letterSpacing: '0.1em'
           }}>
@@ -34,21 +34,21 @@ export default function PrivacyPage() {
           <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginTop: '8px', marginBottom: '12px' }}>
             Privacy Policy
           </h1>
-          <p style={{ color: '#5e7984', fontSize: '0.95rem' }}>
+          <p style={{ color: '#64748B', fontSize: '0.95rem' }}>
             Last Updated: July 30, 2026 • Prepared in line with the Digital Personal Data Protection Act, 2023 (DPDP Act) and the Information Technology Act, 2000
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', fontSize: '0.98rem', lineHeight: '1.75', color: '#0E4459' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', fontSize: '0.98rem', lineHeight: '1.75', color: '#0B1020' }}>
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>1. Commitment to Privacy</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>1. Commitment to Privacy</h2>
             <p>
               At <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;), we take your privacy and data security seriously. This Privacy Policy explains what personal and business information we collect, why, how we protect it, who we share it with, and the rights you have over it — as a &ldquo;Data Fiduciary&rdquo; under the DPDP Act, and you as our &ldquo;Data Principal.&rdquo;
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>2. Information We Collect</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>2. Information We Collect</h2>
             <p>We collect only what's necessary to deliver our AI marketing services:</p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Business Details:</strong> Business name, area, city, services/products offered, pricing ranges, and operating hours.</li>
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>3. How We Use Your Information</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>3. How We Use Your Information</h2>
             <p>We use your information only for the following purposes:</p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li>Generating your free Google Business Profile audit report and score.</li>
@@ -76,14 +76,14 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>4. Your Consent</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>4. Your Consent</h2>
             <p>
               By creating an account, verifying your mobile number, or subscribing to a paid plan, you consent to the collection and use of your information as described in this Policy. Where we rely on your consent (for example, to send you WhatsApp marketing messages or connect your Google account), you may <strong>withdraw that consent at any time</strong> — as easily as you gave it — by contacting us (Section 12) or, where available, through your dashboard settings. Withdrawing consent may limit or disable the specific feature that depended on it (for example, disconnecting your Google account will stop automated Google posting), but will not affect the lawfulness of anything already processed before withdrawal.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>5. Data Protection &amp; Security Standards</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>5. Data Protection &amp; Security Standards</h2>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Encryption:</strong> Data transmitted between your browser, WhatsApp, and our servers is encrypted using industry-standard SSL/TLS protocols.</li>
               <li><strong>Tenant Isolation:</strong> Your customer list and enquiry data are isolated from other businesses on the platform and never shared with them.</li>
@@ -92,7 +92,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>6. Third-Party Service Providers</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>6. Third-Party Service Providers</h2>
             <p>
               To operate GrowLokal, we share the minimum necessary data with these providers, each processing it only for the specific purpose below:
             </p>
@@ -110,14 +110,14 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>7. Cross-Border Data Transfers</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>7. Cross-Border Data Transfers</h2>
             <p>
               Some of the providers listed in Section 6 (including our AI and cloud infrastructure providers) may process data on servers located outside India. Under the DPDP Act, such transfers are permitted unless the Government of India specifically restricts transfer to that country. We only transfer the minimum data necessary for each provider's function, and each is contractually required to protect it.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>8. Data Retention</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>8. Data Retention</h2>
             <p>
               We keep your personal data only as long as necessary for the purposes described in this Policy, or as required by applicable law. In particular:
             </p>
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>9. Your Rights Under the DPDP Act</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>9. Your Rights Under the DPDP Act</h2>
             <p>As a Data Principal, you have the right to:</p>
             <ul style={{ paddingLeft: '24px', marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <li><strong>Access:</strong> request a summary of the personal data we hold about you and the third parties we've shared it with (Section 6).</li>
@@ -144,21 +144,21 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>10. Children's Privacy</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>10. Children's Privacy</h2>
             <p>
               GrowLokal is intended for use by business owners aged 18 and above. We do not knowingly collect personal data from, or direct any advertising or behavioral tracking at, individuals under 18. If we become aware that we have inadvertently collected such data, we will delete it promptly.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>11. Data Breach Notification</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>11. Data Breach Notification</h2>
             <p>
               In the unlikely event of a personal data breach, we will notify the Data Protection Board of India and affected users as required under the DPDP Act, and take prompt steps to contain and remediate the breach.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>12. Grievance Officer &amp; Contact Information</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>12. Grievance Officer &amp; Contact Information</h2>
             <p>
               For any privacy questions, consent withdrawal, data access/correction/erasure requests, or grievances, contact our Grievance Officer:
             </p>
@@ -168,13 +168,13 @@ export default function PrivacyPage() {
               WhatsApp: +91 98765 43210<br />
               Location: Hyderabad, Telangana, India
             </div>
-            <p style={{ marginTop: '12px', fontSize: '0.88rem', color: '#5e7984' }}>
+            <p style={{ marginTop: '12px', fontSize: '0.88rem', color: '#64748B' }}>
               We aim to acknowledge and resolve requests within a reasonable time and in line with applicable law.
             </p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: '1.35rem', color: '#033540', marginBottom: '12px' }}>13. Policy Updates</h2>
+            <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>13. Policy Updates</h2>
             <p>
               We may update this Policy periodically to reflect platform changes or regulatory updates. Material changes will be notified via your dashboard, email, or registered WhatsApp number before they take effect.
             </p>
@@ -184,7 +184,7 @@ export default function PrivacyPage() {
 
       {/* ─── FOOTER ─── */}
       <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#5e7984' }}>
+        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
           © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/refund">Refund Policy</Link>
         </div>
       </footer>

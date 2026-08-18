@@ -38,8 +38,8 @@ export function RenewalWall() {
   return (
     <main style={{ maxWidth: 480, margin: '100px auto', textAlign: 'center', padding: '0 24px' }}>
       <div style={{ fontSize: 40, marginBottom: 12 }}>🔒</div>
-      <h1 style={{ fontSize: '1.6rem', marginBottom: 8, color: '#033540' }}>Your plan needs renewal</h1>
-      <p style={{ color: '#5e7984', marginBottom: 24 }}>
+      <h1 style={{ fontSize: '1.6rem', marginBottom: 8, color: '#111827' }}>Your plan needs renewal</h1>
+      <p style={{ color: '#64748B', marginBottom: 24 }}>
         Renew your subscription to get back to your dashboard, AI posts, and WhatsApp automation.
       </p>
       <a href={RENEW_WA_LINK} target="_blank" rel="noopener noreferrer" style={{
@@ -61,9 +61,9 @@ export function ExpiryBadge({ currentPeriodEnd }: { currentPeriodEnd: string | n
   return (
     <span style={{
       padding: '6px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600,
-      background: warning ? 'rgba(220, 38, 38, 0.1)' : 'rgba(46, 154, 166, 0.1)',
-      color: warning ? '#dc2626' : 'var(--color-brand-dark, #0E4459)',
-      border: `1px solid ${warning ? 'rgba(220,38,38,0.3)' : 'rgba(46,154,166,0.25)'}`,
+      background: warning ? 'rgba(220, 38, 38, 0.1)' : 'rgba(79, 70, 229, 0.1)',
+      color: warning ? '#dc2626' : 'var(--color-brand-dark, #0B1020)',
+      border: `1px solid ${warning ? 'rgba(220,38,38,0.3)' : 'rgba(79, 70, 229,0.25)'}`,
     }}>
       {warning ? '⚠️' : '🔄'} Renews {dateStr} ({daysLeft} day{daysLeft === 1 ? '' : 's'})
     </span>
@@ -74,7 +74,7 @@ export function ExpiryBadge({ currentPeriodEnd }: { currentPeriodEnd: string | n
 export function UpgradeWall({ requiredPlan }: { requiredPlan: string }) {
   return (
     <div style={{ padding: 32, textAlign: 'center', background: '#f6f8fa', borderRadius: 12 }}>
-      <p style={{ fontWeight: 600, marginBottom: 8, color: '#033540' }}>
+      <p style={{ fontWeight: 600, marginBottom: 8, color: '#111827' }}>
         This feature needs the {requiredPlan} plan or above.
       </p>
       <a href={UPGRADE_WA_LINK} target="_blank" rel="noopener noreferrer" style={{ color: '#1a7f37', fontWeight: 600, textDecoration: 'none' }}>

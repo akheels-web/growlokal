@@ -26,7 +26,7 @@ export default function WhatsappKitPage() {
   }
 
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
       {/* Unified Navigation */}
       <Navbar isSticky />
 
@@ -42,7 +42,7 @@ export default function WhatsappKitPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#25D366',
+            color: '#F97316',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 12px',
@@ -53,10 +53,10 @@ export default function WhatsappKitPage() {
           }}>
             💬 WhatsApp Growth Distribution Kit
           </span>
-          <h1 style={{ fontSize: '2.3rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
+          <h1 style={{ fontSize: '2.3rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#111827' }}>
             WhatsApp Growth &amp; Share Templates for Business Owners
           </h1>
-          <p style={{ color: '#5e7984', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ color: '#64748B', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
             Share these pre-formatted growth checklists and templates with fellow business owners and merchant WhatsApp groups.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function WhatsappKitPage() {
               borderRadius: '20px',
               boxShadow: '0 4px 16px rgba(3, 53, 64, 0.04)'
             }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#033540', marginBottom: '14px' }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', marginBottom: '14px' }}>
                 {tmpl.title}
               </h2>
               <div style={{
@@ -95,7 +95,7 @@ export default function WhatsappKitPage() {
                   alignItems: 'center',
                   gap: '8px',
                   padding: '14px 24px',
-                  background: copiedIndex === idx ? '#047857' : '#0E4459',
+                  background: copiedIndex === idx ? '#F97316' : '#0B1020',
                   color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '15px',
@@ -115,7 +115,7 @@ export default function WhatsappKitPage() {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#5e7984' }}>
+        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
           © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
         </div>
       </footer>

@@ -29,7 +29,7 @@ export default function CityVerticalPage({ params }: Props) {
   const otherCities = Object.keys(CITY_DATA).filter((c) => c !== cityKey);
 
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
       {/* Unified Navigation */}
       <Navbar isSticky />
 
@@ -43,16 +43,16 @@ export default function CityVerticalPage({ params }: Props) {
         />
         <div style={{ marginBottom: '40px' }}>
           <span style={{
-            fontSize: '12px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase',
-            letterSpacing: '0.1em', padding: '4px 12px', background: 'rgba(46, 154, 166, 0.1)',
+            fontSize: '12px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase',
+            letterSpacing: '0.1em', padding: '4px 12px', background: 'rgba(79, 70, 229, 0.1)',
             borderRadius: '20px', display: 'inline-block', marginBottom: '12px',
           }}>
             📍 {vertical.label} in {city.name}, {city.state}
           </span>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#033540' }}>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#111827' }}>
             AI Marketing for {vertical.label} in {city.name}
           </h1>
-          <p style={{ color: '#5e7984', fontSize: '1.05rem', lineHeight: '1.7', maxWidth: '750px' }}>
+          <p style={{ color: '#64748B', fontSize: '1.05rem', lineHeight: '1.7', maxWidth: '750px' }}>
             When someone in {city.name} searches &ldquo;{vertical.searchExample}&rdquo;, is your {vertical.singular} the one that shows up? Right now you're likely losing {vertical.painPoint} — GrowLokal AI fixes that in {city.name}, in your own language.
           </p>
         </div>
@@ -61,16 +61,16 @@ export default function CityVerticalPage({ params }: Props) {
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px',
         }}>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#2E9AA6', textTransform: 'uppercase' }}>Local Search Demand</div>
-            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#033540', marginTop: '6px' }}>{city.searchVolume}</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase' }}>Local Search Demand</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.searchVolume}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#70BF63', textTransform: 'uppercase' }}>Local Competition</div>
-            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#033540', marginTop: '6px' }}>{city.competition}</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#F97316', textTransform: 'uppercase' }}>Local Competition</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.competition}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#0E4459', textTransform: 'uppercase' }}>WhatsApp Enquiry Rate</div>
-            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#033540', marginTop: '6px' }}>92% Prefer WhatsApp</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#0B1020', textTransform: 'uppercase' }}>WhatsApp Enquiry Rate</div>
+            <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>92% Prefer WhatsApp</div>
           </div>
         </div>
 
@@ -78,14 +78,14 @@ export default function CityVerticalPage({ params }: Props) {
           background: 'var(--color-bg-primary)', border: '1px solid var(--color-border)',
           borderRadius: '20px', padding: '32px', marginBottom: '40px',
         }}>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '16px', color: '#033540' }}>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: '800', marginBottom: '16px', color: '#111827' }}>
             Areas covered for {vertical.label.toLowerCase()} in {city.name}
           </h2>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             {city.areas.map((area) => (
               <span key={area} style={{
                 padding: '8px 16px', background: '#ffffff', border: '1px solid var(--color-border)',
-                borderRadius: '20px', fontSize: '14px', fontWeight: '600', color: '#0E4459',
+                borderRadius: '20px', fontSize: '14px', fontWeight: '600', color: '#0B1020',
               }}>
                 🏬 {area}
               </span>
@@ -99,7 +99,7 @@ export default function CityVerticalPage({ params }: Props) {
             <h3 style={{ fontSize: '1.05rem', fontWeight: '800', marginBottom: '12px' }}>Other businesses in {city.name}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {otherVerticals.slice(0, 5).map((v) => (
-                <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{ color: '#2E9AA6', fontSize: '14px', textDecoration: 'none' }}>
+                <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{ color: '#4F46E5', fontSize: '14px', textDecoration: 'none' }}>
                   {v.label} in {city.name} →
                 </Link>
               ))}
@@ -109,7 +109,7 @@ export default function CityVerticalPage({ params }: Props) {
             <h3 style={{ fontSize: '1.05rem', fontWeight: '800', marginBottom: '12px' }}>{vertical.label} in other cities</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {otherCities.map((c) => (
-                <Link key={c} href={`/city/${c}/${vertical.slug}`} style={{ color: '#2E9AA6', fontSize: '14px', textDecoration: 'none' }}>
+                <Link key={c} href={`/city/${c}/${vertical.slug}`} style={{ color: '#4F46E5', fontSize: '14px', textDecoration: 'none' }}>
                   {vertical.label} in {CITY_DATA[c].name} →
                 </Link>
               ))}
@@ -118,7 +118,7 @@ export default function CityVerticalPage({ params }: Props) {
         </div>
 
         <div style={{
-          padding: '40px', background: '#0E4459', borderRadius: '24px', color: '#ffffff',
+          padding: '40px', background: '#0B1020', borderRadius: '24px', color: '#ffffff',
           textAlign: 'center', boxShadow: '0 12px 36px rgba(14, 68, 89, 0.15)',
         }}>
           <h2 style={{ fontSize: '1.9rem', fontWeight: '800', marginBottom: '12px' }}>
@@ -129,8 +129,8 @@ export default function CityVerticalPage({ params }: Props) {
           </p>
           <Link href="/#audit-form" style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '16px 36px',
-            background: '#70BF63', color: '#033540', borderRadius: '12px', fontSize: '16px',
-            fontWeight: '800', textDecoration: 'none', boxShadow: '0 4px 16px rgba(112, 191, 99, 0.4)',
+            background: '#F97316', color: '#111827', borderRadius: '12px', fontSize: '16px',
+            fontWeight: '800', textDecoration: 'none', boxShadow: '0 4px 16px rgba(249, 115, 22, 0.4)',
           }}>
             Get My Free Audit Report →
           </Link>
@@ -138,7 +138,7 @@ export default function CityVerticalPage({ params }: Props) {
       </main>
 
       <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#5e7984' }}>
+        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
           © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
         </div>
       </footer>

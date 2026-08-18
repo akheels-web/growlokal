@@ -108,7 +108,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   };
 
   return (
-    <div className="page-wrapper" style={{ background: '#ffffff', color: '#033540', minHeight: '100vh' }}>
+    <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -130,7 +130,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <div>
             {/* Category & Meta */}
             <div style={{ marginBottom: '20px' }}>
-              <span style={{ fontSize: '12px', fontWeight: '800', color: '#ffffff', background: '#2E9AA6', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '12px', fontWeight: '800', color: '#ffffff', background: '#4F46E5', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
                 {article.category}
               </span>
               <span style={{ fontSize: '13px', color: '#64748b', marginLeft: '12px' }}>
@@ -138,7 +138,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               </span>
             </div>
 
-            <h1 style={{ fontSize: '2.4rem', fontWeight: '800', marginBottom: '24px', color: '#033540', lineHeight: 1.3 }}>
+            <h1 style={{ fontSize: '2.4rem', fontWeight: '800', marginBottom: '24px', color: '#111827', lineHeight: 1.3 }}>
               {article.title}
             </h1>
 
@@ -146,8 +146,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px', padding: '16px 20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
               <img src={article.authorAvatar} alt={article.author} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
               <div>
-                <div style={{ fontSize: '15px', fontWeight: '800', color: '#033540' }}>{article.author}</div>
-                <div style={{ fontSize: '13px', color: '#5e7984' }}>{article.authorRole}</div>
+                <div style={{ fontSize: '15px', fontWeight: '800', color: '#111827' }}>{article.author}</div>
+                <div style={{ fontSize: '13px', color: '#64748B' }}>{article.authorRole}</div>
               </div>
             </div>
 
@@ -157,7 +157,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             </div>
 
             {/* Article Text Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', fontSize: '1.08rem', lineHeight: '1.8', color: '#0E4459' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', fontSize: '1.08rem', lineHeight: '1.8', color: '#0B1020' }}>
               {article.content.map((paragraph, idx) => (
                 <p key={idx}>{paragraph}</p>
               ))}
@@ -167,7 +167,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <div style={{
               marginTop: '52px',
               padding: '36px',
-              background: '#0E4459',
+              background: '#0B1020',
               borderRadius: '24px',
               color: '#ffffff',
               textAlign: 'center',
@@ -185,13 +185,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   padding: '14px 28px',
-                  background: '#70BF63',
-                  color: '#033540',
+                  background: '#F97316',
+                  color: '#111827',
                   borderRadius: '12px',
                   fontSize: '16px',
                   fontWeight: '800',
                   textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(112, 191, 99, 0.4)'
+                  boxShadow: '0 4px 14px rgba(249, 115, 22, 0.4)'
                 }}
               >
                 Run Free Audit Scan Now →
@@ -204,16 +204,16 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             {/* Key Takeaways Box */}
             <div style={{
               padding: '24px',
-              background: 'rgba(112, 191, 99, 0.12)',
-              border: '1.5px solid rgba(112, 191, 99, 0.4)',
+              background: 'rgba(249, 115, 22, 0.12)',
+              border: '1.5px solid rgba(249, 115, 22, 0.4)',
               borderRadius: '20px'
             }}>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#047857', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#F97316', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 💡 Key Takeaways
               </h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {article.takeaways.map((item, i) => (
-                  <li key={i} style={{ fontSize: '13.5px', color: '#033540', lineHeight: 1.5, display: 'flex', gap: '8px' }}>
+                  <li key={i} style={{ fontSize: '13.5px', color: '#111827', lineHeight: 1.5, display: 'flex', gap: '8px' }}>
                     <span>✓</span>
                     <span>{item}</span>
                   </li>
@@ -230,10 +230,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               textAlign: 'center'
             }}>
               <div style={{ fontSize: '32px', marginBottom: '8px' }}>🔍</div>
-              <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#033540', marginBottom: '8px' }}>
+              <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>
                 Free Google Score Audit
               </h4>
-              <p style={{ fontSize: '0.88rem', color: '#5e7984', marginBottom: '18px' }}>
+              <p style={{ fontSize: '0.88rem', color: '#64748B', marginBottom: '18px' }}>
                 Compare your business vs top area competitors in 10 seconds.
               </p>
               <Link
@@ -241,7 +241,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 style={{
                   display: 'block',
                   padding: '12px 18px',
-                  background: '#0E4459',
+                  background: '#0B1020',
                   color: '#ffffff',
                   borderRadius: '10px',
                   fontSize: '14px',
@@ -260,21 +260,21 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               border: '1px solid #e2e8f0',
               borderRadius: '20px'
             }}>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#033540', marginBottom: '16px' }}>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#111827', marginBottom: '16px' }}>
                 Popular Playbooks
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <Link href="/blog/how-to-reply-to-negative-google-reviews" style={{ display: 'flex', gap: '12px', textDecoration: 'none', alignItems: 'center' }}>
                   <img src="/images/blog_reviews.png" alt="Reviews" style={{ width: '56px', height: '56px', borderRadius: '8px', objectFit: 'cover' }} />
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#033540', lineHeight: 1.35 }}>How to Reply to Negative Reviews</div>
+                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#111827', lineHeight: 1.35 }}>How to Reply to Negative Reviews</div>
                     <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>5 min read</div>
                   </div>
                 </Link>
                 <Link href="/blog/whatsapp-marketing-strategy-for-coaching-centers" style={{ display: 'flex', gap: '12px', textDecoration: 'none', alignItems: 'center' }}>
                   <img src="/images/classroom.png" alt="WhatsApp" style={{ width: '56px', height: '56px', borderRadius: '8px', objectFit: 'cover' }} />
                   <div>
-                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#033540', lineHeight: 1.35 }}>WhatsApp Marketing Strategy 2026</div>
+                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#111827', lineHeight: 1.35 }}>WhatsApp Marketing Strategy 2026</div>
                     <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>6 min read</div>
                   </div>
                 </Link>
@@ -286,7 +286,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#5e7984' }}>
+        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
           © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
         </div>
       </footer>

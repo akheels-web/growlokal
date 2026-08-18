@@ -78,7 +78,7 @@ export default function Login() {
         {/* Left Side: Brand Showcase */}
         <div className="login-hero-side">
           <Link href="/" className="nav-brand" style={{ color: '#ffffff', fontSize: '1.75rem', display: 'inline-block', marginBottom: '24px' }}>
-            Grow<span style={{ color: '#70BF63' }}>Lokal</span>
+            Grow<span style={{ color: '#F97316' }}>Lokal</span>
           </Link>
 
           <div className="login-hero-badge">
