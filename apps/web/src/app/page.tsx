@@ -245,17 +245,17 @@ const I18N: Record<Lang, {
   faqSubtitle: string;
 }> = {
   en: {
-    badge: '⚡ Built for All South Indian Local Businesses',
-    heroTitle1: 'Your All-in-One ',
-    heroAccent: 'AI Marketing & Growth Team',
-    heroTitle2: ' that Delivers Real Customer Sales',
-    heroSub: 'Most local clinics, salons, restaurants & stores lose 60%+ of potential customers on Google Maps. Get a free instant visibility report.',
-    auditBadge: '⚡ Instant 30-Sec Scan',
-    auditTitle: 'Get your free Google visibility report',
-    auditSub: 'Search or select your business details — we will check your Google presence instantly.',
+    badge: '● AI Marketing Team for Local Businesses',
+    heroTitle1: 'Rank #1 on Google Maps & ',
+    heroAccent: 'Get More Customer Enquiries',
+    heroTitle2: '',
+    heroSub: 'Autonomous AI agents that optimize your Google profile, reply to customer reviews in seconds, and capture WhatsApp enquiries 24/7.',
+    auditBadge: '⚡ Free 30-Sec Scan',
+    auditTitle: 'Free Google Business Audit',
+    auditSub: 'Discover your local ranking & what’s losing you customers.',
     namePlaceholder: 'Search business name + area (e.g. Green Trends, Ameerpet)',
     phonePlaceholder: 'Enter 10-digit WhatsApp number (e.g. 9876543210)',
-    btnAudit: 'Get My Free Report →',
+    btnAudit: 'Get Free Audit Report →',
     btnLoading: 'Scanning your Google presence…',
     howItWorks: 'How it works',
     agents: 'AI Agents',
@@ -281,17 +281,17 @@ const I18N: Record<Lang, {
     faqSubtitle: 'Everything you need to know about GrowLokal AI.',
   },
   te: {
-    badge: '⚡ దక్షిణాది స్థానిక వ్యాపారాల కోసం ప్రత్యేకంగా తయారుచేయబడింది',
-    heroTitle1: 'మీ స్థానిక వ్యాపారానికి ',
-    heroAccent: 'రియల్ కస్టమర్లు & ఆదాయం',
-    heroTitle2: ' అందించే AI మార్కెటింగ్ టీమ్',
-    heroSub: 'హైదరాబాద్ మరియు AP/తెలంగాణలోని 60%+ క్లినిక్‌లు, సెలూన్లు, రెస్టారెంట్లు Google Mapsలో సరైన ప్రెజెన్స్ లేకపోవడం వల్ల కస్టమర్లను కోల్పోతున్నాయి.',
-    auditBadge: '⚡ 10-సెకన్ల స్కాన్',
-    auditTitle: 'మీ ఉచిత Google రిపోర్ట్ పొందండి',
-    auditSub: 'మీ వ్యాపారం పేరు ఎంటర్ చేయండి లేదా శోధించండి — మేము ఇన్స్టంట్‌గా చెక్ చేస్తాము.',
+    badge: '● స్థానిక వ్యాపారాల కోసం AI మార్కెటింగ్ టీమ్',
+    heroTitle1: 'Google Mapsలో #1 ర్యాంక్ & ',
+    heroAccent: 'కస్టమర్ విచారణలను పొందండి',
+    heroTitle2: '',
+    heroSub: 'మీ Google ప్రొఫైల్‌ను ఆప్టిమైజ్ చేసి, రివ్యూలకు రిప్లై ఇచ్చి, 24/7 వాట్సాప్ విచారణలను క్యాప్చర్ చేసే స్వయంప్రతిపత్తి AI ఏజెంట్లు.',
+    auditBadge: '⚡ ఉచిత 30-సెకన్ల స్కాన్',
+    auditTitle: 'ఉచిత Google బిజినెస్ ఆడిట్',
+    auditSub: 'మీ స్థానిక ర్యాంకింగ్ మరియు కస్టమర్లను ఎలా పొందాలో తెలుసుకోండి.',
     namePlaceholder: 'మీ వ్యాపారం పేరు శోధించండి (ఉదా. గ్రీన్ ట్రెండ్స్, అమీర్‌పేట్)',
     phonePlaceholder: '10-అంకెల వాట్సాప్ నంబర్ ఎంటర్ చేయండి (ఉదా. 9876543210)',
-    btnAudit: 'నా ఉచిత రిపోర్ట్ పొందండి →',
+    btnAudit: 'ఉచిత ఆడిట్ రిపోర్ట్ పొందండి →',
     btnLoading: 'స్కాన్ చేస్తోంది…',
     howItWorks: 'ఎలా పనిచేస్తుంది',
     agents: 'AI ఏజెంట్లు',
@@ -317,17 +317,17 @@ const I18N: Record<Lang, {
     faqSubtitle: 'GrowLokal AI గురించి మీరు తెలుసుకోవలసిన వివరాలు.',
   },
   ta: {
-    badge: '⚡ தென்னிந்திய உள்ளூர் வணிகங்களுக்காக உருவாக்கப்பட்டது',
-    heroTitle1: 'உங்கள் உள்ளூர் வணிகத்திற்கு ',
-    heroAccent: 'உண்மையான வாடிக்கையாளர்கள்',
-    heroTitle2: ' வழங்கும் AI சந்தைப்படுத்தல் குழு',
-    heroSub: 'கூகிள் மேப்ஸில் தகவல் இல்லாததால் 60%+ கிளினிக்குகள், சலூன்கள், உணவகங்கள் வாடிக்கையாளர்களை இழக்கின்றன.',
-    auditBadge: '⚡ 10 வினாடி சோதனை',
-    auditTitle: 'இலவச கூகிள் அறிக்கையைப் பெறுங்கள்',
-    auditSub: 'உங்கள் வணிகத்தின் பெயரைத் தேடவும் — உடனடி அறிக்கை பெறுங்கள்.',
+    badge: '● உள்ளூர் வணிகங்களுக்கான AI சந்தைப்படுத்தல் குழு',
+    heroTitle1: 'Google Maps-ல் #1 இடம் & ',
+    heroAccent: 'அதிக வாடிக்கையாளர் அழைப்புகளைப் பெறுங்கள்',
+    heroTitle2: '',
+    heroSub: 'கூகிள் வணிக சுயவிவரத்தை மேம்படுத்தி, வாட்ஸ்அப் வழியாக 24/7 வாடிக்கையாளர்களை ஈர்க்கும் தன்னாட்சி AI குழு.',
+    auditBadge: '⚡ இலவச 30-வினாடி சோதனை',
+    auditTitle: 'இலவச கூகிள் வணிக தணிக்கை',
+    auditSub: 'உங்கள் உள்ளூர் தரவரிசையை உடனடியாக அறிந்து கொள்ளுங்கள்.',
     namePlaceholder: 'வணிகத்தின் பெயரைத் தேடவும் (எ.கா. கிரீன் ட்ரெண்ட்ஸ், அண்ணா நகர்)',
     phonePlaceholder: '10-இலக்க வாட்ஸ்அப் எண் (எ.கா. 9876543210)',
-    btnAudit: 'எனது இலவச அறிக்கையைப் பெறவும் →',
+    btnAudit: 'இலவச அறிக்கையைப் பெறவும் →',
     btnLoading: 'சோதிக்கிறது…',
     howItWorks: 'எப்படி செயல்படுகிறது',
     agents: 'AI முகவர்கள்',
@@ -353,17 +353,17 @@ const I18N: Record<Lang, {
     faqSubtitle: 'GrowLokal AI பற்றிய தகவல்கள்.',
   },
   kn: {
-    badge: '⚡ ದಕ್ಷಿಣ ಭಾರತದ ಸ್ಥಳೀಯ ಉದ್ಯಮಗಳಿಗಾಗಿ ನಿರ್ಮಿಸಲಾಗಿದೆ',
-    heroTitle1: 'ನಿಮ್ಮ ಸ್ಥಳೀಯ ಉದ್ಯಮಕ್ಕೆ ',
-    heroAccent: 'ನೈಜ ಗ್ರಾಹಕರು ಮತ್ತು ಆದಾಯ',
-    heroTitle2: ' ನೀಡುವ AI ಮಾರ್ಕೆಟಿಂಗ್ ತಂಡ',
-    heroSub: 'ಗೂಗಲ್ ಮ್ಯಾಪ್ಸ್‌ನಲ್ಲಿ ಸರಿಯಾದ ಮಾಹಿತಿಯಿಲ್ಲದೆ 60%+ ಕ್ಲಿನಿಕ್‌ಗಳು, ಸಲೂನ್‌ಗಳು, ರೆಸ್ಟೋರೆಂಟ್‌ಗಳು ಗ್ರಾಹಕರನ್ನು ಕಳೆದುಕೊಳ್ಳುತ್ತವೆ.',
-    auditBadge: '⚡ 10 ಸೆಕೆಂಡ್ ಸ್ಕ್ಯಾನ್',
-    auditTitle: 'ನಿಮ್ಮ ಉಚಿತ ಗೂಗಲ್ ವರದಿ ಪಡೆಯಿರಿ',
-    auditSub: 'ನಿಮ್ಮ ಉದ್ಯಮದ ಹೆಸರು ಹುಡುಕಿ — ತಕ್ಷಣದ ವರದಿ ಪಡೆಯಿರಿ.',
+    badge: '● ಸ್ಥಳೀಯ ಉದ್ಯಮಗಳಿಗಾಗಿ AI ಮಾರ್ಕೆಟಿಂಗ್ ತಂಡ',
+    heroTitle1: 'Google Maps ನಲ್ಲಿ #1 ಶ್ರೇಣಿ & ',
+    heroAccent: 'ಹೆಚ್ಚು ಗ್ರಾಹಕರ ವಿಚಾರಣೆಗಳನ್ನು ಪಡೆಯಿರಿ',
+    heroTitle2: '',
+    heroSub: 'ನಿಮ್ಮ ಗೂಗಲ್ ಪ್ರೊಫೈಲ್ ಆಪ್ಟಿಮೈಜ್ ಮಾಡುವ ಮತ್ತು 24/7 ವಾಟ್ಸಾಪ್ ಬುಕಿಂಗ್ ತರುವ ಸ್ವಾಯತ್ತ AI ಮಾರ್ಕೆಟಿಂಗ್ ತಂಡ.',
+    auditBadge: '⚡ ಉಚಿತ 30-ಸೆಕೆಂಡ್ ಸ್ಕ್ಯಾನ್',
+    auditTitle: 'ಉಚಿತ ಗೂಗಲ್ ಬಿಸಿನೆಸ್ ಆಡಿಟ್',
+    auditSub: 'ನಿಮ್ಮ ಸ್ಥಳೀಯ ಶ್ರೇಯಾಂಕವನ್ನು ತಕ್ಷಣ ಪರಿಶೀಲಿಸಿ.',
     namePlaceholder: 'ನಿಮ್ಮ ಉದ್ಯಮದ ಹೆಸರು ಹುಡುಕಿ (ಉದಾ. ಗ್ರೀನ್ ಟ್ರೆಂಡ್ಸ್, ಜಯನಗರ)',
     phonePlaceholder: '10-ಅಂಕಿಯ ವಾಟ್ಸಾಪ್ ಸಂಖ್ಯೆ (ಉದಾ. 9876543210)',
-    btnAudit: 'ನನ್ನ ಉಚಿತ ವರದಿ ಪಡೆಯಿರಿ →',
+    btnAudit: 'ಉಚಿತ ವರದಿ ಪಡೆಯಿರಿ →',
     btnLoading: 'ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗುತ್ತಿದೆ…',
     howItWorks: 'ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ',
     agents: 'AI ಏಜೆಂಟ್‌ಗಳು',
@@ -545,24 +545,9 @@ export default function Home() {
             <p className="hero-subtitle">
               {t.heroSub}
             </p>
-            {/* Authentic Launch Offer & Value Prop Strip */}
-            <div className="hero-launch-guarantee-bar">
-              <div className="hero-launch-header">
-                <span className="hero-launch-icon">🚀</span>
-                <div>
-                  <strong>Launch Offer: 100% Free Google Audit</strong>
-                  <div className="hero-launch-sub">No credit card required • Instant WhatsApp delivery</div>
-                </div>
-              </div>
-              <div className="hero-launch-points">
-                <span>✓ Ranking Score</span>
-                <span>✓ Review Replies</span>
-                <span>✓ Vernacular AI Posts</span>
-              </div>
-            </div>
             <div className="hero-trust">
-              <span className="hero-trust-item"><span className="hero-trust-icon">✓</span> Free forever</span>
-              <span className="hero-trust-item"><span className="hero-trust-icon">⚡</span> 30 second report</span>
+              <span className="hero-trust-item"><span className="hero-trust-icon">✓</span> Free 30-Sec Audit</span>
+              <span className="hero-trust-item"><span className="hero-trust-icon">⚡</span> Delivered on WhatsApp</span>
               <span className="hero-trust-item"><span className="hero-trust-icon">🌐</span> Telugu, Tamil, Kannada &amp; English</span>
             </div>
           </div>
@@ -578,7 +563,7 @@ export default function Home() {
                 <input
                   id="audit-business-name"
                   required
-                  placeholder="Search your Google Business Name (e.g. Digitalvint, Green Trends)"
+                  placeholder="Search your Google Business Name (e.g. Apollo, Green Trends)"
                   value={businessName}
                   onChange={e => handleNameChange(e.target.value)}
                   onFocus={() => businessName.trim().length >= 2 && setShowDropdown(true)}
@@ -638,17 +623,14 @@ export default function Home() {
                     className="phone-input-field"
                   />
                 </div>
-                <div style={{ fontSize: '11px', color: 'var(--color-muted)', marginTop: '6px', textAlign: 'left', paddingLeft: '4px', fontWeight: 600 }}>
-                  🔒 100% Private • Instant WhatsApp Audit Report Delivery
-                </div>
               </div>
 
-              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '8px' }}>
+              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '4px' }}>
                 {loading ? <><span className="spinner" />{t.btnLoading}</> : t.btnAudit}
               </button>
             </form>
             <div className="audit-trust-strip">
-              <span>🔒 100% Free</span> • <span>Instant WhatsApp Delivery</span> • <span>⚡ 500+ Audited</span>
+              <span>Instant report on WhatsApp • 100% Free</span>
             </div>
             {loading && (
               <div className="radar-scan-box">
