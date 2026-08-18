@@ -1,6 +1,16 @@
 # Changelog
 
-## Build session 18 — Generalization of Product Classification & Route Renaming
+## Build session 20 — Visual Polish & UI Refinements
+
+- **White Background for Google Business Search Field**:
+  - Styled `.form-input` and `.input-with-icon` with a clean white/light background (`#f8fafc` / `#ffffff`), slate placeholder (`#64748b`), and dark slate text (`#0B1020`) to match the phone input field.
+- **Interactive Growth Tools Button Hovers**:
+  - Enhanced `.btn-growth-tool-teal` (`Spy On Competitor Score ⚡ →`) with a high-contrast Electric Blue hover transformation (`#4F46E5` + glowing shadow).
+  - Enhanced `.btn-growth-tool-green` (`Calculate My Business Profit 💰 →`) with bold white text on orange background (`#FFFFFF`) and glowing orange lift on hover (`box-shadow: var(--shadow-orange-glow-lg)`).
+- **Official Green WhatsApp Floating Icon**:
+  - Updated `.contact_icon` and `.floating_btn:hover` to use official WhatsApp green (`#25D366` in normal state, `#20BA5A` on hover with matching green text pill).
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed (0 errors, 20 routes generated).
 
 - **Route & Page Renaming**:
   - Renamed `/tools/admission-roi-calculator` to `/tools/revenue-roi-calculator`.

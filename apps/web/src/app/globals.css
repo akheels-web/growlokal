@@ -748,25 +748,41 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .input-icon {
   position: absolute;
-  left: 16px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 18px;
+  font-size: 16px;
   pointer-events: none;
-  color: rgba(255, 255, 255, 0.6);
+  z-index: 2;
 }
 
 .form-input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
-  font-size: 14.5px;
+  padding: 13px 16px 13px 44px;
+  font-size: 15px;
+  font-weight: 600;
   font-family: var(--font-body);
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
-  color: #FFFFFF;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 12px;
+  color: #0B1020 !important;
   outline: none;
   transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  background: #ffffff !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18) !important;
+  color: #0B1020 !important;
+}
+
+.form-input::placeholder {
+  color: #64748b !important;
+  font-size: 14.5px;
+  font-weight: 500;
+  opacity: 1 !important;
 }
 
 /* Phone Input Group with Country Code & Prominent Digits */
@@ -774,40 +790,40 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   display: flex;
   align-items: center;
   width: 100%;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 12px;
   transition: all var(--transition-fast);
   box-sizing: border-box;
-  min-height: 52px;
+  min-height: 50px;
 }
 
 .phone-input-group:focus-within {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+  background: #ffffff !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18) !important;
 }
 
 .phone-prefix {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 0 0 16px;
+  padding: 0 0 0 14px;
   flex-shrink: 0;
   user-select: none;
 }
 
 .phone-code {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #0B1020;
   letter-spacing: 0.02em;
 }
 
 .phone-divider {
   width: 1.5px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.2);
+  height: 20px;
+  background: #cbd5e1;
   margin-left: 8px;
   margin-right: 4px;
 }
@@ -815,34 +831,24 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .phone-input-field {
   flex: 1;
   width: 100%;
-  padding: 13px 16px 13px 10px;
-  font-size: 18px;
+  padding: 13px 16px 13px 8px;
+  font-size: 16px;
   font-weight: 700;
   font-family: var(--font-heading), var(--font-body), sans-serif;
-  color: #FFFFFF;
-  letter-spacing: 0.08em;
-  background: transparent;
-  border: none;
-  outline: none;
+  color: #0B1020 !important;
+  letter-spacing: 0.04em;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
 }
 
 .phone-input-field::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 400;
+  color: #64748b !important;
+  font-weight: 500;
   font-size: 14.5px;
   letter-spacing: normal;
   font-family: var(--font-body), sans-serif;
-}
-
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 400;
-}
-
-.form-input:focus {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+  opacity: 1 !important;
 }
 
 /* Hero Primary Action: Bright Orange #F97316 with White text */
@@ -2215,7 +2221,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .contact_icon {
-  background-color: #F97316;
+  background-color: #25D366;
   color: #ffffff;
   width: 60px;
   height: 60px;
@@ -2265,7 +2271,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .floating_btn:hover .text_icon {
-  color: #F97316;
+  color: #25D366;
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
 }
@@ -2723,19 +2729,21 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   align-items: center;
   gap: 8px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #0B1020 0%, #0B1020 100%);
+  background: #0B1020;
   color: #ffffff !important;
-  border-radius: 14px;
+  border: 1.5px solid rgba(79, 70, 229, 0.4);
+  border-radius: 12px;
   font-size: 14.5px;
   font-weight: 800;
   text-decoration: none !important;
-  box-shadow: 0 4px 16px rgba(14, 68, 89, 0.25);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  box-shadow: 0 4px 16px rgba(11, 16, 32, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-growth-tool-teal:hover {
   transform: translateY(-3px) scale(1.02);
-  background: linear-gradient(135deg, #0B1020 0%, #4F46E5 100%);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.35);
+  background: #4F46E5 !important;
+  border-color: #4F46E5 !important;
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.45);
   color: #ffffff !important;
 }
 
@@ -2744,20 +2752,22 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   align-items: center;
   gap: 8px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
-  color: #0B1020 !important;
-  border-radius: 14px;
+  background: var(--color-orange);
+  color: #ffffff !important;
+  border: 1.5px solid var(--color-orange);
+  border-radius: 12px;
   font-size: 14.5px;
   font-weight: 800;
   text-decoration: none !important;
-  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.35);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+  box-shadow: var(--shadow-orange-glow);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .btn-growth-tool-green:hover {
   transform: translateY(-3px) scale(1.02);
-  background: linear-gradient(135deg, #FB923C 0%, #F97316 100%);
-  box-shadow: 0 8px 26px rgba(249, 115, 22, 0.55);
-  color: #0B1020 !important;
+  background: var(--color-orange-hover) !important;
+  border-color: var(--color-orange-hover) !important;
+  box-shadow: var(--shadow-orange-glow-lg);
+  color: #ffffff !important;
 }
 
 /* ============================================================
