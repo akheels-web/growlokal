@@ -3,8 +3,95 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
+import {
+  Search,
+  Star,
+  Share2,
+  Building2,
+  Gauge,
+  Rocket,
+  BarChart3,
+  FileEdit,
+  MapPin,
+  Languages,
+  MessageCircle,
+  Globe,
+  UserCheck,
+  Send,
+  Headphones,
+  Camera,
+  Calendar,
+  Sparkles,
+  Clock,
+  Target,
+  Megaphone,
+  Gift,
+  CreditCard,
+  TrendingUp,
+  Zap,
+  CheckCircle2,
+  HelpCircle,
+  PhoneCall,
+  Mail,
+  ArrowRight
+} from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
+
+/* ─── Official Brand SVG Icons ─── */
+function GoogleBusinessOfficialIcon({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44.5 20H24V28.5H35.8C34.7 34.3 29.8 38 24 38C16.3 38 10 31.7 10 24C10 16.3 16.3 10 24 10C27.5 10 30.6 11.3 33 13.4L39.4 7C35.3 3.2 29.9 1 24 1C11.3 1 1 11.3 1 24C1 36.7 11.3 47 24 47C36.7 47 45.2 38.1 45.2 24C45.2 22.6 44.9 21.3 44.5 20Z" fill="#4285F4"/>
+      <path d="M3.9 14.7L11.3 20.2C13.2 14.2 18.1 10 24 10C27.5 10 30.6 11.3 33 13.4L39.4 7C35.3 3.2 29.9 1 24 1C15.2 1 7.7 6.6 3.9 14.7Z" fill="#EA4335"/>
+      <path d="M24 47C29.8 47 35.1 45 38.9 41.6L31.8 36C29.7 37.4 27 38.2 24 38.2C18.2 38.2 13.3 34.5 11.3 28.5L3.9 34.2C7.7 42.1 15.2 47 24 47Z" fill="#34A853"/>
+      <path d="M44.5 20H24V28.5H35.8C35.2 31.5 33.8 34.1 31.8 36L38.9 41.6C43.1 37.7 45.5 31.7 45.5 24C45.5 22.6 45.1 21.3 44.5 20Z" fill="#4285F4"/>
+      <path d="M11.3 20.2C10.8 21.4 10.5 22.7 10.5 24C10.5 25.3 10.8 26.6 11.3 27.8L3.9 33.5C2.4 30.7 1.5 27.5 1.5 24C1.5 20.5 2.4 17.3 3.9 14.5L11.3 20.2Z" fill="#FBBC05"/>
+    </svg>
+  );
+}
+
+function WhatsAppOfficialIcon({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#25D366" />
+      <path d="M23.5 19.8C23.1 19.6 21.1 18.6 20.7 18.5C20.3 18.3 20 18.2 19.7 18.7C19.4 19.1 18.6 20.1 18.3 20.4C18.1 20.7 17.8 20.8 17.4 20.6C17 20.4 15.6 19.9 13.9 18.4C12.6 17.2 11.7 15.8 11.5 15.4C11.3 15 11.5 14.8 11.7 14.6C11.9 14.4 12.1 14.1 12.3 13.9C12.5 13.7 12.6 13.5 12.7 13.3C12.8 13.1 12.8 12.9 12.7 12.7C12.6 12.5 11.7 10.3 11.3 9.4C10.9 8.5 10.5 8.6 10.3 8.6C10.1 8.6 9.8 8.6 9.5 8.6C9.2 8.6 8.7 8.7 8.3 9.1C7.9 9.6 6.8 10.6 6.8 12.7C6.8 14.8 8.3 16.8 8.5 17.1C8.7 17.4 11.5 21.7 15.8 23.5C16.8 23.9 17.6 24.2 18.2 24.4C19.2 24.7 20.1 24.7 20.9 24.6C21.7 24.5 23.4 23.6 23.8 22.5C24.2 21.4 24.2 20.5 24.1 20.3C24 20.1 23.8 20 23.5 19.8Z" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function InstagramOfficialIcon({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ig-grad-agent" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#f09433" />
+          <stop offset="25%" stopColor="#e6683c" />
+          <stop offset="50%" stopColor="#dc2743" />
+          <stop offset="75%" stopColor="#cc2366" />
+          <stop offset="100%" stopColor="#bc1888" />
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#ig-grad-agent)" />
+      <path d="M16 9.8C18 9.8 18.2 9.8 19 9.9C19.7 9.9 20.2 10 20.5 10.2C21 10.4 21.3 10.6 21.7 11C22 11.4 22.3 11.8 22.5 12.2C22.6 12.6 22.8 13 22.8 13.7C22.9 14.5 22.9 14.7 22.9 16.7C22.9 18.7 22.9 19 22.8 19.7C22.8 20.4 22.6 20.9 22.5 21.2C22.3 21.7 22 22 21.7 22.4C21.3 22.8 20.9 23 20.5 23.2C20.1 23.4 19.7 23.5 19 23.5C18.2 23.6 18 23.6 16 23.6C14 23.6 13.8 23.6 13 23.5C12.3 23.5 11.8 23.4 11.5 23.2C11 23 10.7 22.8 10.3 22.4C10 22 9.7 21.6 9.5 21.2C9.4 20.8 9.2 20.4 9.2 19.7C9.1 18.9 9.1 18.7 9.1 16.7C9.1 14.7 9.1 14.5 9.2 13.7C9.2 13 9.4 12.5 9.5 12.2C9.7 11.7 10 11.4 10.3 11C10.7 10.6 11.1 10.4 11.5 10.2C11.9 10 12.3 9.9 13 9.9C13.8 9.8 14 9.8 16 9.8ZM16 8.3C13.9 8.3 13.7 8.3 12.8 8.4C12 8.4 11.4 8.6 10.8 8.8C10.2 9 9.7 9.4 9.2 9.9C8.7 10.4 8.3 10.9 8.1 11.5C7.9 12.1 7.7 12.7 7.7 13.5C7.6 14.4 7.6 14.6 7.6 16.7C7.6 18.8 7.6 19 7.7 19.9C7.7 20.7 7.9 21.3 8.1 21.9C8.3 22.5 8.7 23 9.2 23.5C9.7 24 10.2 24.4 10.8 24.6C11.4 24.8 12 25 12.8 25C13.7 25.1 13.9 25.1 16 25.1C18.1 25.1 18.3 25.1 19.2 25C20 25 20.6 24.8 21.2 24.6C21.8 24.4 22.3 24 22.8 23.5C23.3 23 23.7 22.5 23.9 21.9C24.1 21.3 24.3 20.7 24.3 19.9C24.4 19 24.4 18.8 24.4 16.7C24.4 14.6 24.4 14.4 24.3 13.5C24.3 12.7 24.1 12.1 23.9 11.5C23.7 10.9 23.3 10.4 22.8 9.9C22.3 9.4 21.8 9 21.2 8.8C20.6 8.6 20 8.4 19.2 8.4C18.3 8.3 18.1 8.3 16 8.3ZM16 12.4C13.6 12.4 11.7 14.3 11.7 16.7C11.7 19.1 13.6 21 16 21C18.4 21 20.3 19.1 20.3 16.7C20.3 14.3 18.4 12.4 16 12.4ZM16 19.5C14.5 19.5 13.2 18.2 13.2 16.7C13.2 15.2 14.5 13.9 16 13.9C17.5 13.9 18.8 15.2 18.8 16.7C18.8 18.2 17.5 19.5 16 19.5ZM21.5 11.5C21.5 12.1 21 12.6 20.4 12.6C19.8 12.6 19.3 12.1 19.3 11.5C19.3 10.9 19.8 10.4 20.4 10.4C21 10.4 21.5 10.9 21.5 11.5Z" fill="#FFFFFF"/>
+    </svg>
+  );
+}
+
+function WhatsAppCampaignOfficialIcon({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wa-camp-official-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#047857" />
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#wa-camp-official-grad)" />
+      <path d="M21.5 11.8C21.2 11.4 20.6 11.1 20 11.1H10C9.4 11.1 8.8 11.4 8.5 11.8C8.2 12.3 8.1 12.9 8.3 13.5L9.7 17.4C9.9 18 10.4 18.4 11 18.6H12V21.6C12 22.2 12.4 22.6 13 22.6H15C15.6 22.6 16 22.2 16 21.6V18.6H17C17.6 18.6 18.1 18.2 18.3 17.6L19.7 13.7C20 13.1 20.6 12.7 21.3 12.7H22.5C23.3 12.7 24 13.4 24 14.2V17C24 17.8 23.3 18.5 22.5 18.5H21.5V20H22.5C24.2 20 25.5 18.7 25.5 17V14.2C25.5 12.5 24.2 11.2 22.5 11.2H21.3C21.4 11.4 21.5 11.6 21.5 11.8Z" fill="#FFFFFF"/>
+    </svg>
+  );
+}
 
 /* ─── Intersection Observer hook ─── */
 function useInView(options?: IntersectionObserverInit) {
@@ -651,12 +738,16 @@ export default function Home() {
           {/* Card 1: Google Score Tool */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ fontSize: '36px', marginBottom: '12px' }}>📊</div>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                ⚡ Instant Competitor Spy Tool
-              </span>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(46, 154, 166, 0.12)', borderRadius: '14px', color: '#2E9AA6', marginBottom: '14px' }}>
+                <BarChart3 size={28} strokeWidth={2.2} />
+              </div>
+              <div>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#2E9AA6', background: 'rgba(46, 154, 166, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  ⚡ Instant Competitor Spy Tool
+                </span>
+              </div>
               <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
-                🔥 See Why Competitors Get 3x More Customer Calls
+                See Why Competitors Get 3x More Customer Calls
               </h3>
               <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
                 Find out why competing local businesses in Ameerpet, Kukatpally, Vizag, or Bengaluru rank higher on Google Maps. Get a side-by-side comparative scorecard in 10 seconds.
@@ -672,12 +763,16 @@ export default function Home() {
           {/* Card 2: Revenue Growth Calculator */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ fontSize: '36px', marginBottom: '12px' }}>💰</div>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                📈 Revenue Growth Calculator
-              </span>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(112, 191, 99, 0.15)', borderRadius: '14px', color: '#047857', marginBottom: '14px' }}>
+                <TrendingUp size={28} strokeWidth={2.2} />
+              </div>
+              <div>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#047857', background: 'rgba(112, 191, 99, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  📈 Revenue Growth Calculator
+                </span>
+              </div>
               <h3 style={{ fontSize: '1.45rem', fontWeight: '800', color: '#033540', margin: '12px 0 10px', lineHeight: 1.3 }}>
-                🚀 Calculate Your 12-Month Revenue Growth
+                Calculate Your 12-Month Revenue Growth
               </h3>
               <p style={{ color: '#5e7984', fontSize: '0.96rem', lineHeight: '1.65', marginBottom: '24px' }}>
                 See how capturing just 5 to 15 additional local customers per month through GrowLokal AI translates into massive annual profit.
@@ -700,15 +795,20 @@ export default function Home() {
           <p className="section-subtitle">{t.painSubtitle}</p>
         </div>
         <div ref={painView.ref} className="pain-grid stagger-children">
-          {PAIN_POINTS.map((p, i) => (
-            <div key={p.title} className={`pain-card fade-up ${painView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="pain-icon">{p.icon}</div>
-              <div className="pain-stat">{p.stat}</div>
-              <h3 className="pain-title">{p.title}</h3>
-              <p className="pain-desc">{p.desc}</p>
-              <div className="pain-solution">✨ {p.solution}</div>
-            </div>
-          ))}
+          {PAIN_POINTS.map((p, i) => {
+            const PainIcon = p.icon;
+            return (
+              <div key={p.title} className={`pain-card fade-up ${painView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="pain-icon" style={{ color: p.color, background: `${p.color}15` }}>
+                  <PainIcon size={26} strokeWidth={2.2} />
+                </div>
+                <div className="pain-stat">{p.stat}</div>
+                <h3 className="pain-title">{p.title}</h3>
+                <p className="pain-desc">{p.desc}</p>
+                <div className="pain-solution">✨ {p.solution}</div>
+              </div>
+            );
+          })}
         </div>
       </Section>
 
@@ -720,14 +820,19 @@ export default function Home() {
           <p className="section-subtitle">{t.stepsSubtitle}</p>
         </div>
         <div ref={stepsView.ref} className="steps stagger-children">
-          {STEPS.map((s, i) => (
-            <div key={s.title} className={`step fade-up ${stepsView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 150}ms` }}>
-              <div className="step-icon">{s.icon}</div>
-              <span className="step-number">{i + 1}</span>
-              <h3 className="step-title">{s.title}</h3>
-              <p className="step-description">{s.desc}</p>
-            </div>
-          ))}
+          {STEPS.map((s, i) => {
+            const StepIcon = s.icon;
+            return (
+              <div key={s.title} className={`step fade-up ${stepsView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 150}ms` }}>
+                <div className="step-icon" style={{ color: s.color }}>
+                  <StepIcon size={34} strokeWidth={2} />
+                </div>
+                <span className="step-number">{i + 1}</span>
+                <h3 className="step-title">{s.title}</h3>
+                <p className="step-description">{s.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </Section>
 
@@ -899,7 +1004,12 @@ export default function Home() {
           {AGENTS.map((a, i) => (
             <div key={a.title} className={`agent-card agent-card--${a.variant} fade-up ${agentsView.visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 120}ms` }}>
               <div className="agent-header">
-                <div className="agent-icon-wrap">{a.icon}</div>
+                <div className="agent-icon-wrap">
+                  {a.iconType === 'google' && <GoogleBusinessOfficialIcon size={34} />}
+                  {a.iconType === 'whatsapp' && <WhatsAppOfficialIcon size={34} />}
+                  {a.iconType === 'social' && <InstagramOfficialIcon size={34} />}
+                  {a.iconType === 'campaign' && <WhatsAppCampaignOfficialIcon size={34} />}
+                </div>
                 <div>
                   <div className="agent-title">{a.title}</div>
                   <div className="agent-subtitle">{a.subtitle}</div>
@@ -907,12 +1017,17 @@ export default function Home() {
               </div>
               <span className="agent-tag">{a.tag}</span>
               <ul className="agent-features">
-                {a.features.map(f => (
-                  <li key={typeof f === 'string' ? f : f.text}>
-                    <span className="agent-feature-icon">{typeof f === 'string' ? '✓' : f.icon}</span>
-                    <span>{typeof f === 'string' ? f : f.text}</span>
-                  </li>
-                ))}
+                {a.features.map((f, idx) => {
+                  const FeatureIcon = f.icon;
+                  return (
+                    <li key={idx}>
+                      <span className="agent-feature-icon">
+                        <FeatureIcon size={15} strokeWidth={2.2} />
+                      </span>
+                      <span>{f.text}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -1831,71 +1946,107 @@ function LiveToastFeed() {
    ============================================================ */
 const PAIN_POINTS = [
   {
-    icon: '🔍', stat: '60%', title: "Customers can't find you on Google",
+    icon: Search,
+    color: '#ea580c',
+    stat: '60%',
+    title: "Customers can't find you on Google",
     desc: 'When a customer searches "best clinic / salon / store near me", your competitors show up — but you don\'t. You\'re invisible where it matters most.',
     solution: 'Google Leads Agent fixes your profile + posts weekly',
   },
   {
-    icon: '⭐', stat: '73%', title: 'Your reviews go unanswered',
+    icon: Star,
+    color: '#eab308',
+    stat: '73%',
+    title: 'Your reviews go unanswered',
     desc: '73% of consumers expect a response to reviews. Every ignored review costs you trust — and new customer bookings.',
     solution: 'AI drafts warm replies in seconds, you just approve',
   },
   {
-    icon: '📱', stat: '1x/mo', title: 'Social media is an afterthought',
+    icon: Share2,
+    color: '#0E4459',
+    stat: '1x/mo',
+    title: 'Social media is an afterthought',
     desc: "You know you should post on Instagram and Facebook, but who has the time? So it happens once a month — maybe.",
     solution: 'Social Agent posts to IG + FB automatically every week',
   },
 ];
 
 const STEPS = [
-  { icon: '🏬', title: 'Enter your business name', desc: "Tell us your business's name and area — we do the rest." },
-  { icon: '📊', title: 'Get your Google score', desc: 'Our AI scans your Google Business Profile and scores it instantly out of 100.' },
-  { icon: '🚀', title: 'Fix gaps with AI', desc: 'Get AI-generated posts, review replies, and campaigns — all automated.' },
+  {
+    icon: Building2,
+    color: '#2E9AA6',
+    title: 'Enter your business name',
+    desc: "Tell us your business's name and area — we do the rest."
+  },
+  {
+    icon: Gauge,
+    color: '#70BF63',
+    title: 'Get your Google score',
+    desc: 'Our AI scans your Google Business Profile and scores it instantly out of 100.'
+  },
+  {
+    icon: Rocket,
+    color: '#0E4459',
+    title: 'Fix gaps with AI',
+    desc: 'Get AI-generated posts, review replies, and campaigns — all automated.'
+  },
 ];
 
 const AGENTS = [
   {
-    variant: 'google', icon: '🔍', tag: 'Brings new customers',
-    title: 'Google Leads Agent', subtitle: 'Get found on Google Search & Maps',
+    variant: 'google',
+    iconType: 'google',
+    tag: 'Brings new customers',
+    title: 'Google Leads Agent',
+    subtitle: 'Get found on Google Search & Maps',
     features: [
-      { icon: '📊', text: 'Audits your Google Business Profile and scores it' },
-      { icon: '📝', text: 'Publishes weekly AI-written posts on your GBP' },
-      { icon: '⭐', text: 'Drafts professional replies to every review' },
-      { icon: '📍', text: 'Optimizes your profile for "near me" searches' },
-      { icon: '🗣️', text: 'Generates vernacular content in Telugu/Tamil/English' },
+      { icon: BarChart3, text: 'Audits your Google Business Profile and scores it' },
+      { icon: FileEdit, text: 'Publishes weekly AI-written posts on your GBP' },
+      { icon: Star, text: 'Drafts professional replies to every review' },
+      { icon: MapPin, text: 'Optimizes your profile for "near me" searches' },
+      { icon: Languages, text: 'Generates vernacular content in Telugu/Tamil/English' },
     ],
   },
   {
-    variant: 'whatsapp', icon: '💬', tag: 'Real-time interaction',
-    title: 'WhatsApp Chat Agent', subtitle: 'Answer customer enquiries 24/7',
+    variant: 'whatsapp',
+    iconType: 'whatsapp',
+    tag: 'Real-time interaction',
+    title: 'WhatsApp Chat Agent',
+    subtitle: 'Answer customer enquiries 24/7',
     features: [
-      { icon: '💬', text: 'Answers pricing, service, and appointment questions instantly' },
-      { icon: '🌐', text: 'Works in Telugu, Tamil, Kannada, and English' },
-      { icon: '📥', text: 'Captures lead info automatically' },
-      { icon: '📲', text: 'Sends audit reports directly on WhatsApp' },
-      { icon: '🙋', text: 'Hands off to you when it needs a human touch' },
+      { icon: MessageCircle, text: 'Answers pricing, service, and appointment questions instantly' },
+      { icon: Globe, text: 'Works in Telugu, Tamil, Kannada, and English' },
+      { icon: UserCheck, text: 'Captures lead info automatically' },
+      { icon: Send, text: 'Sends audit reports directly on WhatsApp' },
+      { icon: Headphones, text: 'Hands off to you when it needs a human touch' },
     ],
   },
   {
-    variant: 'social', icon: '📱', tag: 'Builds your brand',
-    title: 'Social Media Agent', subtitle: 'Instagram & Facebook on autopilot',
+    variant: 'social',
+    iconType: 'social',
+    tag: 'Builds your brand',
+    title: 'Social Media Agent',
+    subtitle: 'Instagram & Facebook on autopilot',
     features: [
-      { icon: '📸', text: 'AI drafts posts for Instagram and Facebook' },
-      { icon: '📅', text: 'Schedule a full week of content in minutes' },
-      { icon: '🏬', text: 'Designs service announcements and customer success stories' },
-      { icon: '⚡', text: 'Maintains a consistent posting schedule' },
-      { icon: '🎯', text: 'Tailored to local business audiences' },
+      { icon: Camera, text: 'AI drafts posts for Instagram and Facebook' },
+      { icon: Calendar, text: 'Schedule a full week of content in minutes' },
+      { icon: Sparkles, text: 'Designs service announcements and customer success stories' },
+      { icon: Clock, text: 'Maintains a consistent posting schedule' },
+      { icon: Target, text: 'Tailored to local business audiences' },
     ],
   },
   {
-    variant: 'campaign', icon: '📣', tag: 'Promotional marketing',
-    title: 'Campaign Agent', subtitle: 'WhatsApp broadcast campaigns',
+    variant: 'campaign',
+    iconType: 'campaign',
+    tag: 'Promotional marketing',
+    title: 'Campaign Agent',
+    subtitle: 'WhatsApp broadcast campaigns',
     features: [
-      { icon: '📣', text: 'Send festive & offer announcements to customer lists' },
-      { icon: '🎁', text: 'Festival offers, new service launches, reward celebrations' },
-      { icon: '💳', text: 'Prepaid credit system — no surprise bills' },
-      { icon: '📊', text: 'Delivery tracking and analytics' },
-      { icon: '⚡', text: 'Template management for quick sends' },
+      { icon: Megaphone, text: 'Send festive & offer announcements to customer lists' },
+      { icon: Gift, text: 'Festival offers, new service launches, reward celebrations' },
+      { icon: CreditCard, text: 'Prepaid credit system — no surprise bills' },
+      { icon: TrendingUp, text: 'Delivery tracking and analytics' },
+      { icon: Zap, text: 'Template management for quick sends' },
     ],
   },
 ];

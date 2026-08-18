@@ -1,5 +1,18 @@
 # Changelog
 
+## Build session 13 — Official brand icons & modern Lucide icon system
+
+- **Official Brand SVG Icons for AI Agent Cards**:
+  - **Google Leads Agent** — official Google Business Profile 4-color vector SVG icon (`#4285F4`, `#EA4335`, `#FBBC05`, `#34A853`).
+  - **WhatsApp Chat Agent** — official circular WhatsApp brand badge with crisp white handset SVG.
+  - **Social Media Agent** — official multi-stop gradient Instagram camera app icon.
+  - **Campaign Agent** — official emerald green WhatsApp broadcast megaphone SVG.
+- **Modern Icon Library Integration (`lucide-react`)**:
+  - Replaced all system emojis with modern, crisp vector icons across feature bullets, pain points, steps, and growth tool cards.
+  - Features styled with dedicated tinted icon containers matching each agent's theme (`BarChart3`, `FileEdit`, `Star`, `MapPin`, `Languages`, `MessageCircle`, `Globe`, `UserCheck`, `Send`, `Headphones`, `Camera`, `Calendar`, `Sparkles`, `Clock`, `Target`, `Megaphone`, `Gift`, `CreditCard`, `TrendingUp`, `Zap`).
+  - Pain points and 3-step workflow upgraded with `Search`, `Star`, `Share2`, `Building2`, `Gauge`, `Rocket`.
+- **Build Verification**: Verified 100% clean Next.js production build (`pnpm run build` exits 0 with all 20 routes generated).
+
 ## Build session 12 — Shared Brain & AI Agents GPU-accelerated animations
 
 - **60 FPS zero-dependency CSS/SVG animations for Shared Brain section (`#agents`)**:
