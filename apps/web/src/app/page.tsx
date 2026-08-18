@@ -33,7 +33,8 @@ import {
   HelpCircle,
   PhoneCall,
   Mail,
-  ArrowRight
+  ArrowRight,
+  ShieldCheck
 } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
@@ -1593,15 +1594,139 @@ export default function Home() {
       {/* ─── CONTACT US SECTION & FORM ─── */}
       <ContactSection />
 
-      {/* ─── FINAL CTA ─── */}
-      <Section className="cta-section">
-        <h2 className="cta-title">Ready to stop losing local customers?</h2>
-        <p className="cta-subtitle">Get your free Google visibility report in 30 seconds. No signup required.</p>
-        <div className="cta-buttons">
-          <a href="#audit-form" className="btn-primary">Get Free Google Report →</a>
-          <a href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20a%20free%20demo%20of%20GrowLokal" target="_blank" rel="noopener noreferrer" className="btn-outline">💬 Book Free Demo on WhatsApp</a>
+      {/* ─── CRAZY MODERN FINAL CTA SECTION ─── */}
+      <section className="crazy-cta-section" id="final-cta">
+        <div className="crazy-cta-container">
+          {/* Ambient Lighting Orbs */}
+          <div className="crazy-cta-glow crazy-cta-glow--teal" />
+          <div className="crazy-cta-glow crazy-cta-glow--green" />
+          <div className="crazy-cta-glow crazy-cta-glow--gold" />
+
+          <div className="crazy-cta-card">
+            {/* Left Column: Visual Specialist & Live Interaction Showcase */}
+            <div className="crazy-cta-visual-col">
+              <div className="crazy-specialist-wrapper">
+                <img
+                  src="/images/specialist_chat.jpg"
+                  alt="GrowLokal Local Growth Specialist"
+                  className="crazy-specialist-img"
+                />
+                
+                {/* Live Online Badge */}
+                <div className="crazy-live-badge">
+                  <span className="crazy-live-pulse-dot" />
+                  <div className="crazy-live-text">
+                    <span className="crazy-live-title">Growth Specialist Online</span>
+                    <span className="crazy-live-sub">Telugu • Tamil • Kannada • English</span>
+                  </div>
+                </div>
+
+                {/* Verified Rating Floating Pill */}
+                <div className="crazy-rating-pill">
+                  <Star size={14} className="crazy-star-icon" fill="#f59e0b" color="#f59e0b" />
+                  <span><strong>4.9/5</strong> (1,200+ Audits Done)</span>
+                </div>
+
+                {/* Floating Interactive Micro Chat Bubble */}
+                <div className="crazy-chat-bubble">
+                  <div className="crazy-chat-avatar">
+                    <WhatsAppOfficialIcon size={24} />
+                  </div>
+                  <div className="crazy-chat-content">
+                    <p className="crazy-chat-msg">
+                      "Namaste! Ready to get <strong>3x more customer calls</strong> from Google Maps in your area?"
+                    </p>
+                    <span className="crazy-chat-time">⚡ Instant 30s Report • Zero Setup Fee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: High Impact Content & Buttons */}
+            <div className="crazy-cta-content-col">
+              <div className="crazy-super-badge">
+                <Sparkles size={14} className="crazy-sparkle-icon" />
+                <span>Instant Self-Service Google Audit</span>
+              </div>
+
+              <h2 className="crazy-cta-title">
+                Ready to Stop Losing Local Customers to Competitors?
+              </h2>
+
+              <p className="crazy-cta-subtitle">
+                Get your business audited on Google Search & Maps in 30 seconds. We’ll show you exactly why competing stores rank above you and how to overtake them on autopilot.
+              </p>
+
+              {/* 3 Fast Advantage Badges */}
+              <div className="crazy-benefits-grid">
+                <div className="crazy-benefit-item">
+                  <div className="crazy-benefit-icon crazy-benefit-icon--teal">
+                    <BarChart3 size={16} strokeWidth={2.5} />
+                  </div>
+                  <div className="crazy-benefit-text">
+                    <span className="crazy-benefit-title">30-Sec Google Score</span>
+                    <span className="crazy-benefit-desc">Side-by-side competitor benchmark</span>
+                  </div>
+                </div>
+
+                <div className="crazy-benefit-item">
+                  <div className="crazy-benefit-icon crazy-benefit-icon--green">
+                    <Languages size={16} strokeWidth={2.5} />
+                  </div>
+                  <div className="crazy-benefit-text">
+                    <span className="crazy-benefit-title">Vernacular AI Autopilot</span>
+                    <span className="crazy-benefit-desc">Posts & replies in Te / Ta / Kn / En</span>
+                  </div>
+                </div>
+
+                <div className="crazy-benefit-item">
+                  <div className="crazy-benefit-icon crazy-benefit-icon--gold">
+                    <ShieldCheck size={16} strokeWidth={2.5} />
+                  </div>
+                  <div className="crazy-benefit-text">
+                    <span className="crazy-benefit-title">7-Day Money-Back</span>
+                    <span className="crazy-benefit-desc">100% risk-free local growth</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons Group */}
+              <div className="crazy-cta-buttons-group">
+                <a href="#audit-form" className="btn-crazy-cta-primary">
+                  <span>Get Free Google Report</span>
+                  <ArrowRight size={18} strokeWidth={2.5} className="crazy-btn-arrow" />
+                </a>
+
+                <a
+                  href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20a%20free%20demo%20of%20GrowLokal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-crazy-cta-whatsapp"
+                >
+                  <WhatsAppOfficialIcon size={20} />
+                  <span>Book Free Demo on WhatsApp</span>
+                </a>
+              </div>
+
+              {/* Micro Trust Strip */}
+              <div className="crazy-trust-strip">
+                <span className="crazy-trust-item">
+                  <CheckCircle2 size={14} className="crazy-trust-icon" />
+                  <span>No credit card required</span>
+                </span>
+                <span className="crazy-trust-item">
+                  <CheckCircle2 size={14} className="crazy-trust-icon" />
+                  <span>Instant WhatsApp report</span>
+                </span>
+                <span className="crazy-trust-item">
+                  <CheckCircle2 size={14} className="crazy-trust-icon" />
+                  <span>100% private & secure</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* ─── RICH SEO FOOTER ─── */}
       <footer className="footer">
