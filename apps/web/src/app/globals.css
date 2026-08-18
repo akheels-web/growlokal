@@ -1586,17 +1586,6 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
     min-height: 260px;
   }
 }
-
-/* ============================================================
-   GREXA-BEATING AI AGENTS & SHARED BRAIN ENGINE COMPONENT
-   ============================================================ */
-.shared-brain-showcase {
-  display: grid;
-  grid-template-columns: 1.2fr 0.5fr 1fr;
-  align-items: center;
-  gap: var(--space-md);
-  max-width: 1050px;
-  margin: 0 auto var(--space-4xl);
 /* ============================================================
    SHARED BRAIN AI AGENTS COMPONENT & GPU ANIMATIONS
    ============================================================ */

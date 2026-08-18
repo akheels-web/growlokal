@@ -1,5 +1,15 @@
 # Changelog
 
+## Build session 12 — Shared Brain & AI Agents GPU-accelerated animations
+
+- **60 FPS zero-dependency CSS/SVG animations for Shared Brain section (`#agents`)**:
+  - **Dynamic Circuit Data Streams**: Integrated SVG gradients (`url(#grad-circuit-google)`, `url(#grad-circuit-whatsapp)`, etc.) with high-performance `stroke-dashoffset` GPU animation (`@keyframes circuit-flow`) illustrating real-time data packets flowing from all 4 AI agents into the central convergence point and high-speed memory highway.
+  - **Central Convergence Radar Waves**: Added expanding multi-tier radar wave ring animations (`.circuit-radar-wave`, `@keyframes circuit-radar-ping`) and pulsing core node where all agent data streams unite.
+  - **Data Intelligence Engine Ambient Effects**: Built dual counter-rotating orbital dashed rings (`.brain-orbit-ring`, `.brain-orbit-ring--rev`), ambient breathing gradient aura (`.brain-ambient-glow`), hovering floating brain emoji, gleaming `AI` chip badge, and a "Realtime Memory Syncing" live status pill.
+  - **Live Autopilot Status Badges**: Added pulsating green avatar status indicators and live activity tags on each agent card (`Live Autopilot`, `Instant 24/7`, `Auto-Scheduler`, `Vernacular AI`).
+  - **Performance & Page Speed**: 0 KB external JavaScript added, pure CSS keyframes utilizing hardware-accelerated transforms and opacity, with automatic graceful fallback for users with `prefers-reduced-motion`.
+  - **Build Verification**: Fixed duplicate CSS rule selector in `globals.css` and verified 100% clean production build (`pnpm run build` exits 0 with all 20 routes generated).
+
 ## Build session 11 — Mobile & tablet responsiveness & contact section
 
 - **Dedicated responsive Contact Section (`#contact`)** — created a full 2-column contact section on the homepage with an interactive enquiry form (Name, Business Name, WhatsApp Number, Custom Goal/Query textarea) that automatically formats and forwards messages to WhatsApp support with one tap, plus right-hand support cards (Fastest Response WhatsApp Desk `+91 98765 43210`, Mon–Sat Helpline `+91 (040) 4892-3100`, and Hyderabad Headquarters office address).
