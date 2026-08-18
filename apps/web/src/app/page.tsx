@@ -849,18 +849,18 @@ export default function Home() {
         <div className="shared-brain-showcase">
           {/* Left Column: Stack of 4 AI Agent cards with real avatars */}
           <div className="agent-cards-stack">
-            <div className="grexa-agent-card grexa-agent-card--google">
-              <div className="grexa-agent-avatar-wrap">
-                <img src="/images/agent_google.png" alt="Google Business Profile AI Agent" className="grexa-agent-avatar-img" />
+            <div className="growlokal-agent-card growlokal-agent-card--google">
+              <div className="growlokal-agent-avatar-wrap">
+                <img src="/images/agent_google.png" alt="Google Business Profile AI Agent" className="growlokal-agent-avatar-img" />
                 <span className="agent-avatar-status-pulse" />
               </div>
-              <div className="grexa-agent-info">
-                <div className="grexa-agent-header-row">
-                  <span className="grexa-agent-title">Google Business Profile</span>
-                  <span className="grexa-agent-sparkle">✨ AI Agent</span>
+              <div className="growlokal-agent-info">
+                <div className="growlokal-agent-header-row">
+                  <span className="growlokal-agent-title">Google Business Profile</span>
+                  <span className="growlokal-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <div className="grexa-agent-footer-row">
-                  <span className="grexa-agent-subtitle">Bring New Potential Customers</span>
+                <div className="growlokal-agent-footer-row">
+                  <span className="growlokal-agent-subtitle">Bring New Potential Customers</span>
                   <span className="agent-live-tag agent-live-tag--google">
                     <span className="agent-live-dot" /> Live Autopilot
                   </span>
@@ -868,18 +868,18 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grexa-agent-card grexa-agent-card--whatsapp">
-              <div className="grexa-agent-avatar-wrap">
-                <img src="/images/agent_whatsapp.png" alt="WhatsApp Chat AI Agent" className="grexa-agent-avatar-img" />
+            <div className="growlokal-agent-card growlokal-agent-card--whatsapp">
+              <div className="growlokal-agent-avatar-wrap">
+                <img src="/images/agent_whatsapp.png" alt="WhatsApp Chat AI Agent" className="growlokal-agent-avatar-img" />
                 <span className="agent-avatar-status-pulse" />
               </div>
-              <div className="grexa-agent-info">
-                <div className="grexa-agent-header-row">
-                  <span className="grexa-agent-title">WhatsApp Chat</span>
-                  <span className="grexa-agent-sparkle">✨ AI Agent</span>
+              <div className="growlokal-agent-info">
+                <div className="growlokal-agent-header-row">
+                  <span className="growlokal-agent-title">WhatsApp Chat</span>
+                  <span className="growlokal-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <div className="grexa-agent-footer-row">
-                  <span className="grexa-agent-subtitle">Realtime Customer Interaction</span>
+                <div className="growlokal-agent-footer-row">
+                  <span className="growlokal-agent-subtitle">Realtime Customer Interaction</span>
                   <span className="agent-live-tag agent-live-tag--whatsapp">
                     <span className="agent-live-dot" /> Instant 24/7
                   </span>
@@ -887,18 +887,18 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grexa-agent-card grexa-agent-card--social">
-              <div className="grexa-agent-avatar-wrap">
-                <img src="/images/agent_social.png" alt="Social Media Content AI Agent" className="grexa-agent-avatar-img" />
+            <div className="growlokal-agent-card growlokal-agent-card--social">
+              <div className="growlokal-agent-avatar-wrap">
+                <img src="/images/agent_social.png" alt="Social Media Content AI Agent" className="growlokal-agent-avatar-img" />
                 <span className="agent-avatar-status-pulse" />
               </div>
-              <div className="grexa-agent-info">
-                <div className="grexa-agent-header-row">
-                  <span className="grexa-agent-title">Social Media Content</span>
-                  <span className="grexa-agent-sparkle">✨ AI Agent</span>
+              <div className="growlokal-agent-info">
+                <div className="growlokal-agent-header-row">
+                  <span className="growlokal-agent-title">Social Media Content</span>
+                  <span className="growlokal-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <div className="grexa-agent-footer-row">
-                  <span className="grexa-agent-subtitle">Autopilot Posts for Instagram &amp; Facebook</span>
+                <div className="growlokal-agent-footer-row">
+                  <span className="growlokal-agent-subtitle">Autopilot Posts for Instagram &amp; Facebook</span>
                   <span className="agent-live-tag agent-live-tag--social">
                     <span className="agent-live-dot" /> Auto-Scheduler
                   </span>
@@ -906,18 +906,18 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grexa-agent-card grexa-agent-card--campaign">
-              <div className="grexa-agent-avatar-wrap">
-                <img src="/images/agent_campaign.png" alt="WhatsApp Marketing AI Agent" className="grexa-agent-avatar-img" />
+            <div className="growlokal-agent-card growlokal-agent-card--campaign">
+              <div className="growlokal-agent-avatar-wrap">
+                <img src="/images/agent_campaign.png" alt="WhatsApp Marketing AI Agent" className="growlokal-agent-avatar-img" />
                 <span className="agent-avatar-status-pulse" />
               </div>
-              <div className="grexa-agent-info">
-                <div className="grexa-agent-header-row">
-                  <span className="grexa-agent-title">WhatsApp Marketing</span>
-                  <span className="grexa-agent-sparkle">✨ AI Agent</span>
+              <div className="growlokal-agent-info">
+                <div className="growlokal-agent-header-row">
+                  <span className="growlokal-agent-title">WhatsApp Marketing</span>
+                  <span className="growlokal-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <div className="grexa-agent-footer-row">
-                  <span className="grexa-agent-subtitle">Promotional Marketing to Existing Customers</span>
+                <div className="growlokal-agent-footer-row">
+                  <span className="growlokal-agent-subtitle">Promotional Marketing to Existing Customers</span>
                   <span className="agent-live-tag agent-live-tag--campaign">
                     <span className="agent-live-dot" /> Vernacular AI
                   </span>
@@ -1060,7 +1060,7 @@ export default function Home() {
             </Link>
           ))}
 
-          {/* Feature CTA Card matching Grexa style */}
+          {/* Feature CTA Card matching GrowLokal style */}
           <div
             className={`biz-showcase-cta-card fade-up ${industryView.visible ? 'visible' : ''}`}
             style={{ transitionDelay: `${BUSINESS_TYPES.length * 60}ms` }}
@@ -1418,7 +1418,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Card 3: Growth Plan (Featured — undercuts Grexa's ₹5,000/mo floor) */}
+            {/* Card 3: Growth Plan (Featured) */}
             <div className="pricing-card-standard">
               <div className="pricing-ribbon-badge">Most Popular</div>
               <div>

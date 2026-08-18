@@ -1,5 +1,18 @@
 # Changelog
 
+## Build session 17 — High-End AI Startup Design System & Codebase Brand Cleanup
+
+- **High-End AI Startup Visual Identity**:
+  - Implemented the unified color tokens: Electric Blue (`#4F46E5`), Vibrant Violet (`#7C3AED`), Bright Orange (`#F97316`), Amber (`#FBBF24`), Midnight Navy (`#0B1020`), Soft White (`#F8FAFC`), Pale Indigo (`#EEF2FF`), and Deep Slate (`#111827`).
+  - Enforced zero-green constraint across primary UI, replacing ROI metrics, positive stats, badges, and checkmarks with Orange, Amber, or Electric Blue.
+- **Codebase Brand Cleanup**:
+  - Replaced all occurrences of `grexa` with `growlokal` across code, components, classes, and stylesheets (`apps/api/src/clients/mixpost.ts`, `apps/web/src/app/globals.css`, `apps/web/src/app/page.tsx`).
+  - Preserved competitive references inside `.md` documentation intact.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/api typecheck` passed (0 errors).
+  - `pnpm --filter @growlokal/api test` passed (4/4 tests).
+  - `pnpm --filter @growlokal/web build` passed (0 errors, all 20 routes generated).
+
 ## Build session 16 — Senior UI/UX contrast refinement & Dark Navy (#14213D) to Gold (#FCA311) button dynamics
 
 - **Static & Hover Button Architecture**:

@@ -1,5 +1,5 @@
 // Mixpost client — self-hosted social scheduler (Instagram/Facebook).
-// This is the wedge feature Grexa only advertises. Mixpost runs on Proxmox.
+// This is the wedge feature GrowLokal only advertises. Mixpost runs on Proxmox.
 // Docs: https://docs.mixpost.app/  (API under /api/{workspace}/...)
 import { request } from 'undici';
 import { config } from '../config.js';

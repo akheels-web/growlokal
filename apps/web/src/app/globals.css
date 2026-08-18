@@ -1692,7 +1692,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   gap: 14px;
 }
 
-.grexa-agent-card {
+.growlokal-agent-card {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1705,33 +1705,33 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   position: relative;
 }
 
-.grexa-agent-card:hover {
+.growlokal-agent-card:hover {
   transform: translateX(6px);
   box-shadow: 0 8px 24px rgba(3, 53, 64, 0.1);
   border-color: var(--color-brand-teal);
 }
 
-.grexa-agent-card--google {
+.growlokal-agent-card--google {
   background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
   border-color: rgba(234, 88, 12, 0.25);
 }
 
-.grexa-agent-card--whatsapp {
+.growlokal-agent-card--whatsapp {
   background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
   border-color: rgba(249, 115, 22, 0.35);
 }
 
-.grexa-agent-card--social {
+.growlokal-agent-card--social {
   background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
   border-color: rgba(14, 68, 89, 0.25);
 }
 
-.grexa-agent-card--campaign {
+.growlokal-agent-card--campaign {
   background: linear-gradient(135deg, #fefce8 0%, #ffffff 100%);
   border-color: rgba(202, 138, 4, 0.3);
 }
 
-.grexa-agent-avatar-wrap {
+.growlokal-agent-avatar-wrap {
   position: relative;
   width: 62px;
   height: 62px;
@@ -1741,7 +1741,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   flex-shrink: 0;
 }
 
-.grexa-agent-avatar-img {
+.growlokal-agent-avatar-img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -1766,7 +1766,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px rgba(34, 197, 94, 0.85); }
 }
 
-.grexa-agent-info {
+.growlokal-agent-info {
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -1774,20 +1774,20 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   min-width: 0;
 }
 
-.grexa-agent-header-row {
+.growlokal-agent-header-row {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.grexa-agent-title {
+.growlokal-agent-title {
   font-size: 0.94rem;
   font-weight: 700;
   color: var(--color-brand-darkest);
 }
 
-.grexa-agent-sparkle {
+.growlokal-agent-sparkle {
   font-size: 10.5px;
   font-weight: 700;
   color: var(--color-brand-teal);
@@ -1796,7 +1796,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   border-radius: 4px;
 }
 
-.grexa-agent-footer-row {
+.growlokal-agent-footer-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1804,16 +1804,16 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   flex-wrap: wrap;
 }
 
-.grexa-agent-subtitle {
+.growlokal-agent-subtitle {
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.4;
 }
 
-.grexa-agent-card--google .grexa-agent-subtitle { color: #c2410c; }
-.grexa-agent-card--whatsapp .grexa-agent-subtitle { color: #F97316; }
-.grexa-agent-card--campaign .grexa-agent-subtitle { color: #a16207; }
-.grexa-agent-card--social .grexa-agent-subtitle { color: #0B1020; }
+.growlokal-agent-card--google .growlokal-agent-subtitle { color: #c2410c; }
+.growlokal-agent-card--whatsapp .growlokal-agent-subtitle { color: #F97316; }
+.growlokal-agent-card--campaign .growlokal-agent-subtitle { color: #a16207; }
+.growlokal-agent-card--social .growlokal-agent-subtitle { color: #0B1020; }
 
 .agent-live-tag {
   display: inline-flex;
@@ -2684,10 +2684,10 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   .platform-badges { justify-content: center; }
 
   .shared-brain-showcase { padding: var(--space-lg) var(--space-md); border-radius: var(--radius-lg); }
-  .grexa-agent-card { padding: 12px; gap: 10px; }
-  .grexa-agent-avatar-wrap { width: 52px; height: 52px; }
-  .grexa-agent-title { font-size: 0.88rem; }
-  .grexa-agent-subtitle { font-size: 0.78rem; }
+  .growlokal-agent-card { padding: 12px; gap: 10px; }
+  .growlokal-agent-avatar-wrap { width: 52px; height: 52px; }
+  .growlokal-agent-title { font-size: 0.88rem; }
+  .growlokal-agent-subtitle { font-size: 0.78rem; }
   
   .steps, .features-grid, .testimonials-grid, .agents-grid, .pain-grid, .industry-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
@@ -2761,7 +2761,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 /* ============================================================
-   BUILT FOR SMALL BUSINESS OWNERS - RICH SHOWCASE CARDS (GREXA MATCH)
+   BUILT FOR SMALL BUSINESS OWNERS - RICH SHOWCASE CARDS (GROWLOKAL MATCH)
    ============================================================ */
 .biz-showcase-grid {
   display: grid;
@@ -2866,7 +2866,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   transform: scale(1.08);
 }
 
-/* Feature CTA Banner Card across full width matching Grexa style */
+/* Feature CTA Banner Card across full width matching GrowLokal style */
 .biz-showcase-cta-card {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
