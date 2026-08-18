@@ -1597,11 +1597,21 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   gap: var(--space-md);
   max-width: 1050px;
   margin: 0 auto var(--space-4xl);
-  padding: var(--space-2xl);
+/* ============================================================
+   SHARED BRAIN AI AGENTS COMPONENT & GPU ANIMATIONS
+   ============================================================ */
+.shared-brain-showcase {
+  display: grid;
+  grid-template-columns: 1.15fr 160px 1fr;
+  align-items: center;
+  gap: 20px;
+  max-width: 1140px;
+  margin: 0 auto 60px auto;
+  padding: 36px 32px;
   background: #ffffff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  border: 1.5px solid var(--color-border);
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(3, 53, 64, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -1609,51 +1619,52 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .agent-cards-stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 14px;
 }
 
 .grexa-agent-card {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: 14px;
   padding: 14px 18px;
   border-radius: var(--radius-lg);
   background: #ffffff;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  position: relative;
 }
 
 .grexa-agent-card:hover {
   transform: translateX(6px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 24px rgba(3, 53, 64, 0.1);
   border-color: var(--color-brand-teal);
 }
 
 .grexa-agent-card--google {
   background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
-  border: 1px solid rgba(234, 88, 12, 0.25);
+  border-color: rgba(234, 88, 12, 0.25);
 }
 
 .grexa-agent-card--whatsapp {
   background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
-  border: 1px solid rgba(112, 191, 99, 0.35);
+  border-color: rgba(112, 191, 99, 0.35);
 }
 
 .grexa-agent-card--social {
   background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
-  border: 1px solid rgba(14, 68, 89, 0.25);
+  border-color: rgba(14, 68, 89, 0.25);
 }
 
 .grexa-agent-card--campaign {
   background: linear-gradient(135deg, #fefce8 0%, #ffffff 100%);
-  border: 1px solid rgba(202, 138, 4, 0.3);
+  border-color: rgba(202, 138, 4, 0.3);
 }
 
 .grexa-agent-avatar-wrap {
   position: relative;
-  width: 68px;
-  height: 68px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   padding: 2px;
   background: radial-gradient(circle, rgba(46, 154, 166, 0.25) 0%, transparent 70%);
@@ -1667,35 +1678,64 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   object-fit: cover;
 }
 
+.agent-avatar-status-pulse {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  animation: avatar-pulse 2s ease-in-out infinite;
+}
+
+@keyframes avatar-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 10px rgba(34, 197, 94, 0.85); }
+}
+
 .grexa-agent-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
 }
 
 .grexa-agent-header-row {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .grexa-agent-title {
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   font-weight: 700;
   color: var(--color-brand-darkest);
 }
 
 .grexa-agent-sparkle {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   color: var(--color-brand-teal);
   background: rgba(46, 154, 166, 0.1);
   padding: 1px 6px;
   border-radius: 4px;
 }
 
+.grexa-agent-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .grexa-agent-subtitle {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -1703,53 +1743,230 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .grexa-agent-card--google .grexa-agent-subtitle { color: #c2410c; }
 .grexa-agent-card--whatsapp .grexa-agent-subtitle { color: #047857; }
 .grexa-agent-card--campaign .grexa-agent-subtitle { color: #a16207; }
+.grexa-agent-card--social .grexa-agent-subtitle { color: #0E4459; }
 
-/* Circuit connectors */
+.agent-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.agent-live-tag--google {
+  background: rgba(234, 88, 12, 0.1);
+  color: #c2410c;
+}
+
+.agent-live-tag--whatsapp {
+  background: rgba(34, 197, 94, 0.12);
+  color: #15803d;
+}
+
+.agent-live-tag--social {
+  background: rgba(14, 68, 89, 0.1);
+  color: #0E4459;
+}
+
+.agent-live-tag--campaign {
+  background: rgba(202, 138, 4, 0.12);
+  color: #a16207;
+}
+
+.agent-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: dot-pulse 1.6s ease-in-out infinite;
+}
+
+/* ─── Animated SVG Circuit Center Column ─── */
+.circuit-svg-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .circuit-connector-svg {
   width: 100%;
   height: 290px;
+  overflow: visible;
 }
 
-/* Brain Engine Right Box */
+.circuit-stream {
+  animation: circuit-flow 1.6s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.circuit-stream--google {
+  animation-duration: 1.4s;
+}
+
+.circuit-stream--whatsapp {
+  animation-duration: 1.8s;
+}
+
+.circuit-stream--social {
+  animation-duration: 1.5s;
+}
+
+.circuit-stream--campaign {
+  animation-duration: 1.7s;
+}
+
+.circuit-stream--merged {
+  animation: circuit-flow 0.85s linear infinite;
+}
+
+@keyframes circuit-flow {
+  0% {
+    stroke-dashoffset: 28;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.circuit-radar-wave {
+  transform-origin: 72px 145px;
+  animation: circuit-radar-ping 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes circuit-radar-ping {
+  0% {
+    r: 4.5;
+    opacity: 0.7;
+  }
+  60% {
+    r: 16;
+    opacity: 0.15;
+  }
+  100% {
+    r: 20;
+    opacity: 0;
+  }
+}
+
+.circuit-radar-core {
+  transform-origin: 72px 145px;
+  animation: circuit-core-pulse 2s ease-in-out infinite;
+}
+
+@keyframes circuit-core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.3); opacity: 0.65; }
+}
+
+/* ─── Brain Engine Right Box ─── */
 .brain-engine-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-xl);
+  padding: 32px 24px;
   background: linear-gradient(135deg, rgba(46, 154, 166, 0.06) 0%, rgba(112, 191, 99, 0.08) 100%);
   border: 1.5px solid rgba(46, 154, 166, 0.3);
   border-radius: var(--radius-xl);
   position: relative;
+  overflow: hidden;
+}
+
+.brain-ambient-glow {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 154, 166, 0.22) 0%, rgba(112, 191, 99, 0.15) 50%, transparent 70%);
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(16px);
+  pointer-events: none;
+  animation: ambient-breathe 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes ambient-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+  50% { transform: translateX(-50%) scale(1.28); opacity: 1; }
 }
 
 .brain-icon-wrap {
-  width: 86px;
-  height: 86px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid var(--color-brand-teal);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 38px;
   box-shadow: 0 0 30px rgba(46, 154, 166, 0.25);
   margin-bottom: var(--space-md);
   position: relative;
+}
+
+.brain-icon-emoji {
+  font-size: 42px;
+  display: inline-block;
+  animation: brain-hover-float 3.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes brain-hover-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.04); }
+}
+
+.brain-orbit-ring {
+  position: absolute;
+  inset: -8px;
+  border: 1.5px dashed rgba(46, 154, 166, 0.45);
+  border-radius: 50%;
+  animation: orbit-spin 12s linear infinite;
+  pointer-events: none;
+}
+
+.brain-orbit-ring--rev {
+  inset: -14px;
+  border: 1px dotted rgba(112, 191, 99, 0.4);
+  animation: orbit-spin-rev 16s linear infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-rev {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }
 
 .brain-chip-badge {
   position: absolute;
   top: -6px;
   right: -6px;
-  background: var(--gradient-accent-button);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
   color: #ffffff;
   font-size: 10px;
   font-weight: 800;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(112, 191, 99, 0.4);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45);
+  animation: badge-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45); }
+  50% { box-shadow: 0 2px 14px rgba(16, 185, 129, 0.85); transform: scale(1.06); }
 }
 
 .brain-engine-title {
@@ -1767,13 +1984,58 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   line-height: 1.5;
 }
 
-@media (max-width: 900px) {
+.brain-live-sync-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 4px 12px;
+  background: rgba(46, 154, 166, 0.08);
+  border: 1px solid rgba(46, 154, 166, 0.2);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0E4459;
+}
+
+.brain-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+@media (max-width: 960px) {
   .shared-brain-showcase {
     grid-template-columns: 1fr;
     gap: var(--space-xl);
+    padding: 24px 18px;
   }
-  .circuit-connector-svg {
+  .circuit-svg-container {
     display: none;
+  }
+}
+
+/* Reduced motion preference accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .circuit-stream,
+  .circuit-radar-wave,
+  .circuit-radar-core,
+  .brain-ambient-glow,
+  .brain-icon-emoji,
+  .brain-orbit-ring,
+  .brain-orbit-ring--rev,
+  .brain-chip-badge,
+  .brain-live-dot,
+  .agent-live-dot,
+  .agent-avatar-status-pulse {
+    animation: none !important;
   }
 }
 

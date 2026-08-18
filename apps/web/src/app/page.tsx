@@ -746,75 +746,150 @@ export default function Home() {
             <div className="grexa-agent-card grexa-agent-card--google">
               <div className="grexa-agent-avatar-wrap">
                 <img src="/images/agent_google.png" alt="Google Business Profile AI Agent" className="grexa-agent-avatar-img" />
+                <span className="agent-avatar-status-pulse" />
               </div>
               <div className="grexa-agent-info">
                 <div className="grexa-agent-header-row">
                   <span className="grexa-agent-title">Google Business Profile</span>
                   <span className="grexa-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <span className="grexa-agent-subtitle">Bring New Potential Customers</span>
+                <div className="grexa-agent-footer-row">
+                  <span className="grexa-agent-subtitle">Bring New Potential Customers</span>
+                  <span className="agent-live-tag agent-live-tag--google">
+                    <span className="agent-live-dot" /> Live Autopilot
+                  </span>
+                </div>
               </div>
             </div>
 
             <div className="grexa-agent-card grexa-agent-card--whatsapp">
               <div className="grexa-agent-avatar-wrap">
                 <img src="/images/agent_whatsapp.png" alt="WhatsApp Chat AI Agent" className="grexa-agent-avatar-img" />
+                <span className="agent-avatar-status-pulse" />
               </div>
               <div className="grexa-agent-info">
                 <div className="grexa-agent-header-row">
                   <span className="grexa-agent-title">WhatsApp Chat</span>
                   <span className="grexa-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <span className="grexa-agent-subtitle">Realtime Customer Interaction</span>
+                <div className="grexa-agent-footer-row">
+                  <span className="grexa-agent-subtitle">Realtime Customer Interaction</span>
+                  <span className="agent-live-tag agent-live-tag--whatsapp">
+                    <span className="agent-live-dot" /> Instant 24/7
+                  </span>
+                </div>
               </div>
             </div>
 
             <div className="grexa-agent-card grexa-agent-card--social">
               <div className="grexa-agent-avatar-wrap">
                 <img src="/images/agent_social.png" alt="Social Media Content AI Agent" className="grexa-agent-avatar-img" />
+                <span className="agent-avatar-status-pulse" />
               </div>
               <div className="grexa-agent-info">
                 <div className="grexa-agent-header-row">
                   <span className="grexa-agent-title">Social Media Content</span>
                   <span className="grexa-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <span className="grexa-agent-subtitle">Autopilot Posts for Instagram &amp; Facebook</span>
+                <div className="grexa-agent-footer-row">
+                  <span className="grexa-agent-subtitle">Autopilot Posts for Instagram &amp; Facebook</span>
+                  <span className="agent-live-tag agent-live-tag--social">
+                    <span className="agent-live-dot" /> Auto-Scheduler
+                  </span>
+                </div>
               </div>
             </div>
 
             <div className="grexa-agent-card grexa-agent-card--campaign">
               <div className="grexa-agent-avatar-wrap">
                 <img src="/images/agent_campaign.png" alt="WhatsApp Marketing AI Agent" className="grexa-agent-avatar-img" />
+                <span className="agent-avatar-status-pulse" />
               </div>
               <div className="grexa-agent-info">
                 <div className="grexa-agent-header-row">
                   <span className="grexa-agent-title">WhatsApp Marketing</span>
                   <span className="grexa-agent-sparkle">✨ AI Agent</span>
                 </div>
-                <span className="grexa-agent-subtitle">Promotional Marketing to Existing Customers</span>
+                <div className="grexa-agent-footer-row">
+                  <span className="grexa-agent-subtitle">Promotional Marketing to Existing Customers</span>
+                  <span className="agent-live-tag agent-live-tag--campaign">
+                    <span className="agent-live-dot" /> Vernacular AI
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Center Column: Animated Circuit Connection SVG connecting all 4 Agents */}
-          <svg className="circuit-connector-svg" viewBox="0 0 160 290" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 35 H70 C100 35 100 145 160 145" stroke="#ea580c" strokeWidth="2" strokeDasharray="4 4" opacity="0.7" />
-            <path d="M0 108 H70 C100 108 100 145 160 145" stroke="#70BF63" strokeWidth="2" strokeDasharray="4 4" opacity="0.8" />
-            <path d="M0 182 H70 C100 182 100 145 160 145" stroke="#0E4459" strokeWidth="2" strokeDasharray="4 4" opacity="0.7" />
-            <path d="M0 255 H70 C100 255 100 145 160 145" stroke="#ca8a04" strokeWidth="2" strokeDasharray="4 4" opacity="0.7" />
-            <circle cx="70" cy="145" r="5" fill="#70BF63" />
-          </svg>
+          {/* Center Column: High-Performance GPU Animated Circuit Connection SVG */}
+          <div className="circuit-svg-container" aria-hidden="true">
+            <svg className="circuit-connector-svg" viewBox="0 0 160 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad-circuit-google" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ea580c" />
+                  <stop offset="100%" stopColor="#fb923c" />
+                </linearGradient>
+                <linearGradient id="grad-circuit-whatsapp" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#22c55e" />
+                  <stop offset="100%" stopColor="#4ade80" />
+                </linearGradient>
+                <linearGradient id="grad-circuit-social" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#0E4459" />
+                  <stop offset="100%" stopColor="#2E9AA6" />
+                </linearGradient>
+                <linearGradient id="grad-circuit-campaign" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ca8a04" />
+                  <stop offset="100%" stopColor="#facc15" />
+                </linearGradient>
+                <linearGradient id="grad-circuit-merged" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#22c55e" />
+                  <stop offset="50%" stopColor="#2E9AA6" />
+                  <stop offset="100%" stopColor="#0E4459" />
+                </linearGradient>
+                <filter id="circuit-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              {/* 1. Base Static Track Lines */}
+              <path d="M0 35 H60 C92 35 92 145 160 145" stroke="#ea580c" strokeWidth="2" opacity="0.18" />
+              <path d="M0 108 H60 C92 108 92 145 160 145" stroke="#22c55e" strokeWidth="2" opacity="0.18" />
+              <path d="M0 182 H60 C92 182 92 145 160 145" stroke="#0E4459" strokeWidth="2" opacity="0.18" />
+              <path d="M0 255 H60 C92 255 92 145 160 145" stroke="#ca8a04" strokeWidth="2" opacity="0.18" />
+
+              {/* 2. Flowing Animated Dash Streams */}
+              <path id="path-google" d="M0 35 H60 C92 35 92 145 160 145" stroke="url(#grad-circuit-google)" strokeWidth="2.5" strokeDasharray="6 8" className="circuit-stream circuit-stream--google" />
+              <path id="path-whatsapp" d="M0 108 H60 C92 108 92 145 160 145" stroke="url(#grad-circuit-whatsapp)" strokeWidth="2.5" strokeDasharray="6 8" className="circuit-stream circuit-stream--whatsapp" />
+              <path id="path-social" d="M0 182 H60 C92 182 92 145 160 145" stroke="url(#grad-circuit-social)" strokeWidth="2.5" strokeDasharray="6 8" className="circuit-stream circuit-stream--social" />
+              <path id="path-campaign" d="M0 255 H60 C92 255 92 145 160 145" stroke="url(#grad-circuit-campaign)" strokeWidth="2.5" strokeDasharray="6 8" className="circuit-stream circuit-stream--campaign" />
+
+              {/* 3. Merged High-Speed Highway to Brain */}
+              <path d="M72 145 H160" stroke="url(#grad-circuit-merged)" strokeWidth="3" strokeDasharray="4 6" className="circuit-stream circuit-stream--merged" />
+
+              {/* 4. Central Convergence Radar Node */}
+              <circle cx="72" cy="145" r="12" fill="#22c55e" opacity="0.2" className="circuit-radar-wave" />
+              <circle cx="72" cy="145" r="7" fill="#22c55e" opacity="0.4" className="circuit-radar-core" />
+              <circle cx="72" cy="145" r="4.5" fill="#15803d" stroke="#ffffff" strokeWidth="1.5" />
+            </svg>
+          </div>
 
           {/* Right Column: Shared Brain Data Intelligence Engine */}
           <div className="brain-engine-box">
+            <div className="brain-ambient-glow" />
             <div className="brain-icon-wrap">
-              🧠
+              <div className="brain-orbit-ring" />
+              <div className="brain-orbit-ring brain-orbit-ring--rev" />
+              <span className="brain-icon-emoji">🧠</span>
               <span className="brain-chip-badge">AI</span>
             </div>
             <div className="brain-engine-title">Data Intelligence Engine</div>
             <p className="brain-engine-desc">
               All AI Agents share central memory, customer history, and local business data to convert leads faster.
             </p>
+            <div className="brain-live-sync-strip">
+              <span className="brain-live-dot" />
+              <span>Realtime Memory Syncing</span>
+            </div>
           </div>
         </div>
 
