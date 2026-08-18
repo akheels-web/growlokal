@@ -1,6 +1,19 @@
 # Changelog
 
-## Build session 20 — Visual Polish & UI Refinements
+## Build session 21 — Official Vector Brand Logos & Integrations
+
+- **Official WhatsApp Logo on Contact Cards**:
+  - Updated the "WhatsApp Support Desk" card and the contact submit button to use the official green WhatsApp brand icon (`#25D366`) with green accent borders.
+- **Official WhatsApp Logo on AI Agent Cards**:
+  - Updated `WhatsAppOfficialIcon` to use official WhatsApp green (`#25D366`) across agent cards, transformation flows, and badges.
+- **Official Brand Logos in "Seamlessly Integrated With" Section**:
+  - Replaced unicode emojis with official full-color SVG brand components:
+    - **Google Maps & Search**: Official multi-color Google Maps Pin (`#EA4335`, `#4285F4`, `#FBBC04`, `#34A853`).
+    - **WhatsApp Meta Business**: Official WhatsApp Green icon (`#25D366`).
+    - **Instagram Business**: Official Instagram gradient rounded app icon.
+    - **Facebook Pages**: Official Facebook Blue icon (`#1877F2`).
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed (0 errors, 20 routes generated).
 
 - **White Background for Google Business Search Field**:
   - Styled `.form-input` and `.input-with-icon` with a clean white/light background (`#f8fafc` / `#ffffff`), slate placeholder (`#64748b`), and dark slate text (`#0B1020`) to match the phone input field.

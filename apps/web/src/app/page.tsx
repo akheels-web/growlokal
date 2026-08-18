@@ -55,8 +55,56 @@ function GoogleBusinessOfficialIcon({ size = 32 }: { size?: number }) {
 function WhatsAppOfficialIcon({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="16" fill="#F97316" />
+      <circle cx="16" cy="16" r="16" fill="#25D366" />
       <path d="M23.5 19.8C23.1 19.6 21.1 18.6 20.7 18.5C20.3 18.3 20 18.2 19.7 18.7C19.4 19.1 18.6 20.1 18.3 20.4C18.1 20.7 17.8 20.8 17.4 20.6C17 20.4 15.6 19.9 13.9 18.4C12.6 17.2 11.7 15.8 11.5 15.4C11.3 15 11.5 14.8 11.7 14.6C11.9 14.4 12.1 14.1 12.3 13.9C12.5 13.7 12.6 13.5 12.7 13.3C12.8 13.1 12.8 12.9 12.7 12.7C12.6 12.5 11.7 10.3 11.3 9.4C10.9 8.5 10.5 8.6 10.3 8.6C10.1 8.6 9.8 8.6 9.5 8.6C9.2 8.6 8.7 8.7 8.3 9.1C7.9 9.6 6.8 10.6 6.8 12.7C6.8 14.8 8.3 16.8 8.5 17.1C8.7 17.4 11.5 21.7 15.8 23.5C16.8 23.9 17.6 24.2 18.2 24.4C19.2 24.7 20.1 24.7 20.9 24.6C21.7 24.5 23.4 23.6 23.8 22.5C24.2 21.4 24.2 20.5 24.1 20.3C24 20.1 23.8 20 23.5 19.8Z" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function GoogleMapsIntegrationIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 4C15.16 4 8 11.16 8 20C8 30.5 22.2 43.14 22.81 43.67C23.16 43.98 23.58 44.13 24 44.13C24.42 44.13 24.84 43.98 25.19 43.67C25.8 43.14 40 30.5 40 20C40 11.16 32.84 4 24 4Z" fill="#EA4335"/>
+      <path d="M24 4C15.16 4 8 11.16 8 20C8 23.1 8.8 26.01 10.2 28.5L24 12V4Z" fill="#4285F4"/>
+      <path d="M24 44.13C24.42 44.13 24.84 43.98 25.19 43.67C25.8 43.14 40 30.5 40 20C40 18.15 39.52 16.4 38.68 14.85L24 32.5V44.13Z" fill="#FBBC04"/>
+      <path d="M10.2 28.5C12.8 33.15 17.9 39.1 24 44.13V32.5L15 22.5L10.2 28.5Z" fill="#34A853"/>
+      <circle cx="24" cy="20" r="6" fill="#FFFFFF"/>
+    </svg>
+  );
+}
+
+function WhatsAppIntegrationIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#25D366" />
+      <path d="M23.5 19.8C23.1 19.6 21.1 18.6 20.7 18.5C20.3 18.3 20 18.2 19.7 18.7C19.4 19.1 18.6 20.1 18.3 20.4C18.1 20.7 17.8 20.8 17.4 20.6C17 20.4 15.6 19.9 13.9 18.4C12.6 17.2 11.7 15.8 11.5 15.4C11.3 15 11.5 14.8 11.7 14.6C11.9 14.4 12.1 14.1 12.3 13.9C12.5 13.7 12.6 13.5 12.7 13.3C12.8 13.1 12.8 12.9 12.7 12.7C12.6 12.5 11.7 10.3 11.3 9.4C10.9 8.5 10.5 8.6 10.3 8.6C10.1 8.6 9.8 8.6 9.5 8.6C9.2 8.6 8.7 8.7 8.3 9.1C7.9 9.6 6.8 10.6 6.8 12.7C6.8 14.8 8.3 16.8 8.5 17.1C8.7 17.4 11.5 21.7 15.8 23.5C16.8 23.9 17.6 24.2 18.2 24.4C19.2 24.7 20.1 24.7 20.9 24.6C21.7 24.5 23.4 23.6 23.8 22.5C24.2 21.4 24.2 20.5 24.1 20.3C24 20.1 23.8 20 23.5 19.8Z" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function InstagramIntegrationIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ig-int-badge-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#f09433" />
+          <stop offset="25%" stopColor="#e6683c" />
+          <stop offset="50%" stopColor="#dc2743" />
+          <stop offset="75%" stopColor="#cc2366" />
+          <stop offset="100%" stopColor="#bc1888" />
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#ig-int-badge-grad)" />
+      <path d="M16 9.8C18 9.8 18.2 9.8 19 9.9C19.7 9.9 20.2 10 20.5 10.2C21 10.4 21.3 10.6 21.7 11C22 11.4 22.3 11.8 22.5 12.2C22.6 12.6 22.8 13 22.8 13.7C22.9 14.5 22.9 14.7 22.9 16.7C22.9 18.7 22.9 19 22.8 19.7C22.8 20.4 22.6 20.9 22.5 21.2C22.3 21.7 22 22 21.7 22.4C21.3 22.8 20.9 23 20.5 23.2C20.1 23.4 19.7 23.5 19 23.5C18.2 23.6 18 23.6 16 23.6C14 23.6 13.8 23.6 13 23.5C12.3 23.5 11.8 23.4 11.5 23.2C11 23 10.7 22.8 10.3 22.4C10 22 9.7 21.6 9.5 21.2C9.4 20.8 9.2 20.4 9.2 19.7C9.1 18.9 9.1 18.7 9.1 16.7C9.1 14.7 9.1 14.5 9.2 13.7C9.2 13 9.4 12.5 9.5 12.2C9.7 11.7 10 11.4 10.3 11C10.7 10.6 11.1 10.4 11.5 10.2C11.9 10 12.3 9.9 13 9.9C13.8 9.8 14 9.8 16 9.8ZM16 8.3C13.9 8.3 13.7 8.3 12.8 8.4C12 8.4 11.4 8.6 10.8 8.8C10.2 9 9.7 9.4 9.2 9.9C8.7 10.4 8.3 10.9 8.1 11.5C7.9 12.1 7.7 12.7 7.7 13.5C7.6 14.4 7.6 14.6 7.6 16.7C7.6 18.8 7.6 19 7.7 19.9C7.7 20.7 7.9 21.3 8.1 21.9C8.3 22.5 8.7 23 9.2 23.5C9.7 24 10.2 24.4 10.8 24.6C11.4 24.8 12 25 12.8 25C13.7 25.1 13.9 25.1 16 25.1C18.1 25.1 18.3 25.1 19.2 25C20 25 20.6 24.8 21.2 24.6C21.8 24.4 22.3 24 22.8 23.5C23.3 23 23.7 22.5 23.9 21.9C24.1 21.3 24.3 20.7 24.3 19.9C24.4 19 24.4 18.8 24.4 16.7C24.4 14.6 24.4 14.4 24.3 13.5C24.3 12.7 24.1 12.1 23.9 11.5C23.7 10.9 23.3 10.4 22.8 9.9C22.3 9.4 21.8 9 21.2 8.8C20.6 8.6 20 8.4 19.2 8.4C18.3 8.3 18.1 8.3 16 8.3ZM16 12.4C13.6 12.4 11.7 14.3 11.7 16.7C11.7 19.1 13.6 21 16 21C18.4 21 20.3 19.1 20.3 16.7C20.3 14.3 18.4 12.4 16 12.4ZM16 19.5C14.5 19.5 13.2 18.2 13.2 16.7C13.2 15.2 14.5 13.9 16 13.9C17.5 13.9 18.8 15.2 18.8 16.7C18.8 18.2 17.5 19.5 16 19.5ZM21.5 11.5C21.5 12.1 21 12.6 20.4 12.6C19.8 12.6 19.3 12.1 19.3 11.5C19.3 10.9 19.8 10.4 20.4 10.4C21 10.4 21.5 10.9 21.5 11.5Z" fill="#FFFFFF"/>
+    </svg>
+  );
+}
+
+function FacebookIntegrationIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="16" fill="#1877F2" />
+      <path d="M21.2 16H18V26H14V16H12V12.6H14V10.2C14 8.5 15 6 18.5 6H21.5V9.4H19.3C18.6 9.4 18 9.8 18 10.5V12.6H21.5L21.2 16Z" fill="#FFFFFF"/>
     </svg>
   );
 }
@@ -82,13 +130,7 @@ function InstagramOfficialIcon({ size = 32 }: { size?: number }) {
 function WhatsAppCampaignOfficialIcon({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="wa-camp-official-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0B1020" />
-          <stop offset="100%" stopColor="#000000" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8" fill="url(#wa-camp-official-grad)" />
+      <circle cx="16" cy="16" r="16" fill="#4F46E5" />
       <path d="M21.5 11.8C21.2 11.4 20.6 11.1 20 11.1H10C9.4 11.1 8.8 11.4 8.5 11.8C8.2 12.3 8.1 12.9 8.3 13.5L9.7 17.4C9.9 18 10.4 18.4 11 18.6H12V21.6C12 22.2 12.4 22.6 13 22.6H15C15.6 22.6 16 22.2 16 21.6V18.6H17C17.6 18.6 18.1 18.2 18.3 17.6L19.7 13.7C20 13.1 20.6 12.7 21.3 12.7H22.5C23.3 12.7 24 13.4 24 14.2V17C24 17.8 23.3 18.5 22.5 18.5H21.5V20H22.5C24.2 20 25.5 18.7 25.5 17V14.2C25.5 12.5 24.2 11.2 22.5 11.2H21.3C21.4 11.4 21.5 11.6 21.5 11.8Z" fill="#FFFFFF"/>
     </svg>
   );
@@ -694,16 +736,16 @@ export default function Home() {
             <span className="platforms-title">Seamlessly Integrated With</span>
             <div className="platform-badges">
               <div className="platform-badge">
-                <span>📍</span> Google Maps &amp; Search
+                <GoogleMapsIntegrationIcon size={18} /> Google Maps &amp; Search
               </div>
               <div className="platform-badge">
-                <span>💬</span> WhatsApp Meta Business
+                <WhatsAppIntegrationIcon size={18} /> WhatsApp Meta Business
               </div>
               <div className="platform-badge">
-                <span>📸</span> Instagram Business
+                <InstagramIntegrationIcon size={18} /> Instagram Business
               </div>
               <div className="platform-badge">
-                <span>📘</span> Facebook Pages
+                <FacebookIntegrationIcon size={18} /> Facebook Pages
               </div>
             </div>
           </div>
@@ -1929,7 +1971,8 @@ function ContactSection() {
               </div>
 
               <button type="submit" className="contact-submit-btn">
-                <span>💬 Send via WhatsApp Support →</span>
+                <WhatsAppIntegrationIcon size={18} />
+                <span>Send via WhatsApp Support →</span>
               </button>
             </form>
           )}
@@ -1944,7 +1987,9 @@ function ContactSection() {
             rel="noopener noreferrer"
             className="contact-info-card contact-info-card--wa"
           >
-            <div className="contact-info-icon">💬</div>
+            <div className="contact-info-icon" style={{ background: 'transparent' }}>
+              <WhatsAppOfficialIcon size={36} />
+            </div>
             <div>
               <div className="contact-info-badge">Fastest Response (2 Mins)</div>
               <h4 className="contact-info-title">WhatsApp Support Desk</h4>
@@ -1955,9 +2000,11 @@ function ContactSection() {
 
           {/* Card 2: Phone Helpline */}
           <div className="contact-info-card">
-            <div className="contact-info-icon">📞</div>
+            <div className="contact-info-icon">
+              <PhoneCall size={20} color="#4F46E5" strokeWidth={2.2} />
+            </div>
             <div>
-              <div className="contact-info-badge">Mon - Sat (9 AM - 8 PM IST)</div>
+              <div className="contact-info-badge" style={{ color: '#4F46E5', background: 'rgba(79, 70, 229, 0.1)' }}>Mon - Sat (9 AM - 8 PM IST)</div>
               <h4 className="contact-info-title">Direct Helpline</h4>
               <p className="contact-info-desc">Speak to our customer onboarding team for account setup and custom integrations.</p>
               <div className="contact-info-phone">+91 (040) 4892-3100</div>
@@ -1966,9 +2013,11 @@ function ContactSection() {
 
           {/* Card 3: Office Address */}
           <div className="contact-info-card">
-            <div className="contact-info-icon">📍</div>
+            <div className="contact-info-icon" style={{ background: 'rgba(249, 115, 22, 0.1)' }}>
+              <MapPin size={20} color="#F97316" strokeWidth={2.2} />
+            </div>
             <div>
-              <div className="contact-info-badge">Headquarters</div>
+              <div className="contact-info-badge" style={{ color: '#F97316', background: 'rgba(249, 115, 22, 0.12)' }}>Headquarters</div>
               <h4 className="contact-info-title">Hyderabad Office</h4>
               <p className="contact-info-desc">Plot 42, Hitech City Main Road, Madhapur, Hyderabad, Telangana 500081</p>
               <div className="contact-info-email">support@growlokal.com</div>

@@ -4048,12 +4048,12 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .contact-info-card--wa {
   background: #ffffff;
-  border-color: rgba(124, 58, 237, 0.25);
+  border-color: rgba(37, 211, 102, 0.35);
 }
 
 .contact-info-card--wa:hover {
-  border-color: var(--color-violet);
-  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.15);
+  border-color: #25D366;
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.18);
 }
 
 .contact-info-icon {
@@ -4070,8 +4070,8 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .contact-info-card--wa .contact-info-icon {
-  background: var(--color-violet);
-  color: #ffffff;
+  background: rgba(37, 211, 102, 0.1);
+  color: #25D366;
 }
 
 .contact-info-badge {
