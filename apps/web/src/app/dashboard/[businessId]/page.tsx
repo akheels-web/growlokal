@@ -13,7 +13,7 @@ export default function Dashboard({ params }: { params: { businessId: string } }
   const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [roi, setRoi] = useState<RoiRow[]>([]);
   const [credit, setCredit] = useState<number | null>(null);
-  const [focus, setFocus] = useState('New NEET & JEE batch starting soon');
+  const [focus, setFocus] = useState('Weekend Special Offer — 20% Off');
   const [msg, setMsg] = useState('');
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);

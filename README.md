@@ -46,7 +46,7 @@ In South India's major commercial hubs (Ameerpet & Kukatpally in Hyderabad, Benz
 - **📢 WhatsApp campaigns**: broadcast messages to a business's customer list using pre-approved Meta templates, billed against prepaid credits (atomic debit, refunded on send failure).
 
 ### 💰 3. ROI Calculators
-- `/tools/admission-roi-calculator` — projects yearly profit from extra customers vs. subscription cost.
+- `/tools/revenue-roi-calculator` — projects yearly profit from extra customers vs. subscription cost.
 - `/tools/google-score-calculator` — instant estimate, then a real Google-visibility score delivered via the same audit engine as the homepage form.
 
 ### 🌐 4. Optional Website Add-On

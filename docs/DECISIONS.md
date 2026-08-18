@@ -161,7 +161,7 @@ Every meaningful change to this codebase gets an entry here — **logged before 
 ### 2026-07-11 — Pricing: three-tier ladder (₹999 / ₹2,499 / ₹4,999), not a single flat plan
 - **Why:** the live landing page showed a single ad-hoc ₹2,999/mo plan that matched neither the GTM playbook nor the backend Razorpay config (`PRICE_STARTER/GROWTH/PRO_PAISE`), which already had the three-tier ladder.
 - **Purpose:** undercut the competitor's ₹5,000/mo flat floor with a real entry tier, and make pricing consistent everywhere it's shown (landing page, ROI calculator, legal pages, SEO structured data).
-- **How:** rewrote the pricing section (`apps/web/src/app/page.tsx`) to 4 cards (Free/Starter/Growth/Pro), fixed the same figure in `tools/admission-roi-calculator`, `layout.tsx`'s JSON-LD, and `terms`/`refund` pages.
+- **How:** rewrote the pricing section (`apps/web/src/app/page.tsx`) to 4 cards (Free/Starter/Growth/Pro), fixed the same figure in `tools/revenue-roi-calculator`, `layout.tsx`'s JSON-LD, and `terms`/`refund` pages.
 - **Status:** implemented
 
 ### 2026-07-11 — GBP OAuth: build the token-refresh mechanism, not the consent redirect flow

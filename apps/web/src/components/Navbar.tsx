@@ -104,7 +104,7 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
             <Link href="/#industries" className="nav-link-item">
               Industries
             </Link>
-            <Link href="/tools/admission-roi-calculator" className="nav-link-item">
+            <Link href="/tools/revenue-roi-calculator" className="nav-link-item">
               ROI Tool
             </Link>
             <Link href="/tools/google-score-calculator" className="nav-link-item">
@@ -240,7 +240,7 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
               <span>Industries &amp; Sectors</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>
-            <Link href="/tools/admission-roi-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
+            <Link href="/tools/revenue-roi-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
               <span>Revenue ROI Calculator</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>

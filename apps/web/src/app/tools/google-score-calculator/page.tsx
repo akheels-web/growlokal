@@ -156,7 +156,7 @@ export default function GoogleScoreCalculatorPage() {
       <main style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px 90px' }}>
         <Breadcrumbs
           items={[
-            { label: 'Growth Tools', href: '/#features' },
+            { label: 'Growth Tools', href: '/#tools' },
             { label: 'Google Visibility Score Tool' },
           ]}
         />

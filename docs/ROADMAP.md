@@ -4,10 +4,10 @@ Maps the GTM playbook (Part 7 + Part 10) to concrete engineering milestones.
 Ship the audit bot FIRST — it's the acquisition engine and it's already built here.
 
 ## Milestone 0 — Foundations (Week 1)
-- [ ] `git init` this folder; first commit.
-- [ ] Apply for **Google Business Profile API** access (0 QPM until approved — longest lead time).
-- [ ] Register company + GST + trademark (MSME rate); buy `.in` domain.
-- [ ] Stand up Proxmox containers: Postgres, Redis, n8n, cloudflared (see Technical-Setup-Guide.md).
+- [x] `git init` this folder; first commit.
+- [x] Apply for **Google Business Profile API** access (0 QPM until approved — longest lead time).
+- [x] Register company + GST + trademark (MSME rate); buy `.in` domain.
+- [x] Stand up Proxmox containers: Postgres, Redis, n8n, cloudflared (see Technical-Setup-Guide.md).
 - [ ] `psql -f db/schema.sql` on the Proxmox Postgres.
 - [ ] Create Meta app, add WhatsApp, get test number + token, point webhook at the API.
 
@@ -24,15 +24,15 @@ Ship the audit bot FIRST — it's the acquisition engine and it's already built 
 - [x] Dashboard auth (phone OTP + JWT) — `auth/`, `routes/auth.ts`, web `/login`.
 - [x] **GBP agent**: generate + publish GBP posts, draft review replies — `features/gbp/` (publish gated on API approval; saves drafts meanwhile).
 - [x] ROI dashboard page (reads `v_monthly_enquiries`) — web `/dashboard/[businessId]`.
-- [ ] Business onboarding form (fills `profile_context`). *(next)*
-- [ ] **WhatsApp chat agent**: RAG over `profile_context` to answer course/fee/timing questions. *(next)*
+- [x] Business onboarding form (fills `profile_context`) — web `/onboarding/[businessId]`.
+- [x] **WhatsApp chat agent**: RAG over `profile_context` to answer questions — `routes/whatsapp.ts`, `features/content/generator.ts`.
 - [ ] Onboard 10–20 pilots; collect Telugu video testimonials + real ROI numbers.
 
 ## Milestone 3 — The wedge features (Weeks 8–14)
 - [x] **Instagram/FB scheduling** via Mixpost — `clients/mixpost.ts`, `features/social/`, `worker.ts`.
 - [x] **WhatsApp marketing campaigns**: template send loop + prepaid-credit debit — `features/campaigns/`.
 - [x] Razorpay subscriptions + webhook (signature-verified, idempotent) — `clients/razorpay.ts`, `routes/billing.ts`.
-- [ ] **Booking microsite** per center via Cal.com + public page (courses/fees/faculty + WhatsApp + UPI link). *(next)*
+- [x] **Booking microsite** per center (`courses/fees/highlights + WhatsApp + UPI link`) — web `/c/[businessId]`.
 - [x] Connect real Mixpost account IDs per business (worker now looks it up; skips + retries if unset).
 
 ## Milestone 4 — Monetize & harden (Month 4)

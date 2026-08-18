@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 const ARTICLES = [
   {
-    slug: 'top-7-reasons-coaching-centers-lose-admissions',
+    slug: 'top-7-reasons-local-businesses-lose-customers',
     title: 'Top 7 Reasons Why Local Businesses in Hyderabad Lose Customer Calls on Google Maps',
     excerpt: 'Discover the most common Google Business Profile mistakes that cause customers to pick competing clinics, salons, & stores in Ameerpet & Kukatpally instead of yours.',
     category: 'Local SEO Guide',
@@ -26,7 +26,7 @@ const ARTICLES = [
     featured: false,
   },
   {
-    slug: 'whatsapp-marketing-strategy-for-coaching-centers',
+    slug: 'whatsapp-marketing-strategy-for-local-businesses',
     title: 'Step-by-Step WhatsApp Marketing Strategy for South Indian Local Businesses in 2026',
     excerpt: 'How to automate customer enquiry follow-ups, broadcast festive offers, and book appointments using WhatsApp Business API.',
     category: 'WhatsApp Automation',

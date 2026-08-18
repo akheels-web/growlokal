@@ -17,7 +17,7 @@ interface ArticleData {
 }
 
 const ARTICLE_DB: Record<string, ArticleData> = {
-  'top-7-reasons-coaching-centers-lose-admissions': {
+  'top-7-reasons-local-businesses-lose-customers': {
     title: 'Top 7 Reasons Why Local Businesses in Hyderabad Lose Customer Calls on Google Maps',
     category: 'Local SEO Guide',
     readTime: '4 min read',
@@ -63,7 +63,7 @@ const ARTICLE_DB: Record<string, ArticleData> = {
       'Step 3: Show prospective customers that you care deeply about quality of service.',
     ],
   },
-  'whatsapp-marketing-strategy-for-coaching-centers': {
+  'whatsapp-marketing-strategy-for-local-businesses': {
     title: 'Step-by-Step WhatsApp Marketing Strategy for South Indian Local Businesses in 2026',
     category: 'WhatsApp Automation',
     readTime: '6 min read',
@@ -271,7 +271,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                     <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>5 min read</div>
                   </div>
                 </Link>
-                <Link href="/blog/whatsapp-marketing-strategy-for-coaching-centers" style={{ display: 'flex', gap: '12px', textDecoration: 'none', alignItems: 'center' }}>
+                <Link href="/blog/whatsapp-marketing-strategy-for-local-businesses" style={{ display: 'flex', gap: '12px', textDecoration: 'none', alignItems: 'center' }}>
                   <img src="/images/classroom.png" alt="WhatsApp" style={{ width: '56px', height: '56px', borderRadius: '8px', objectFit: 'cover' }} />
                   <div>
                     <div style={{ fontSize: '13px', fontWeight: '700', color: '#111827', lineHeight: 1.35 }}>WhatsApp Marketing Strategy 2026</div>

@@ -15,7 +15,7 @@ const MARKETING_COST_PAISE = 109;
 export interface CreateCampaignInput {
   businessId: string;
   name: string;
-  goal: string;                 // e.g. "announce new NEET batch starting June 1"
+  goal: string;                 // e.g. "Festive offer announcement — 20% discount on all bookings"
   templateName: string;         // pre-approved WhatsApp template
   recipients: string[];         // phone numbers (91XXXXXXXXXX)
   scheduledFor?: Date;

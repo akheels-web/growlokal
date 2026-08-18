@@ -24,7 +24,7 @@ export default function RevenueRoiCalculatorPage() {
       <main style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px 90px' }}>
         <Breadcrumbs
           items={[
-            { label: 'Growth Tools', href: '/#features' },
+            { label: 'Growth Tools', href: '/#tools' },
             { label: 'Revenue ROI Calculator' },
           ]}
         />
@@ -157,7 +157,7 @@ export default function RevenueRoiCalculatorPage() {
                   width: '100%',
                   padding: '16px 24px',
                   background: '#F97316',
-                  color: '#111827',
+                  color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '16px',
                   fontWeight: '800',

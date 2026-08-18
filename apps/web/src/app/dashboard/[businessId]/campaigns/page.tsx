@@ -19,7 +19,7 @@ export default function Campaigns({ params }: { params: { businessId: string } }
   const { businessId } = params;
   const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [name, setName] = useState('');
-  const [goal, setGoal] = useState('Announce new NEET batch starting June 1');
+  const [goal, setGoal] = useState('Festive Season Offer & Customer Appreciation Discount');
   const [templateName, setTemplateName] = useState('');
   const [recipientsRaw, setRecipientsRaw] = useState('');
   const [draft, setDraft] = useState<{ id: string; bodyPreview: string } | null>(null);

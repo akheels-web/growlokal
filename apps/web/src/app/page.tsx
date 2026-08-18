@@ -780,7 +780,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <a href="/tools/admission-roi-calculator" className="btn-growth-tool-green">
+              <a href="/tools/revenue-roi-calculator" className="btn-growth-tool-green">
                 Calculate My Business Profit 💰 →
               </a>
             </div>
@@ -1707,7 +1707,7 @@ export default function Home() {
               <h4 className="footer-col-title">Free Growth Tools</h4>
               <ul className="footer-links-list">
                 <li className="footer-link-item"><a href="/tools/google-score-calculator">Google Score Benchmark</a></li>
-                <li className="footer-link-item"><a href="/tools/admission-roi-calculator">Revenue Growth Calculator</a></li>
+                <li className="footer-link-item"><a href="/tools/revenue-roi-calculator">Revenue Growth Calculator</a></li>
                 <li className="footer-link-item"><a href="/resources/whatsapp-kit">WhatsApp Growth Kit</a></li>
                 <li className="footer-link-item"><a href="/blog">Local SEO Playbooks</a></li>
                 <li className="footer-link-item"><a href="#audit-form">Free Google Audit</a></li>

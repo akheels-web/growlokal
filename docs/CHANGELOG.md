@@ -1,6 +1,22 @@
 # Changelog
 
-## Build session 17 — High-End AI Startup Design System & Codebase Brand Cleanup
+## Build session 18 — Generalization of Product Classification & Route Renaming
+
+- **Route & Page Renaming**:
+  - Renamed `/tools/admission-roi-calculator` to `/tools/revenue-roi-calculator`.
+  - Updated all navigation links (`Navbar.tsx`, `page.tsx`, `Breadcrumbs.tsx`, `README.md`, `FLOW.md`, `DECISIONS.md`).
+- **Generalized Blog Playbook Slugs & Titles**:
+  - Renamed `top-7-reasons-coaching-centers-lose-admissions` ➔ `top-7-reasons-local-businesses-lose-customers`.
+  - Renamed `whatsapp-marketing-strategy-for-coaching-centers` ➔ `whatsapp-marketing-strategy-for-local-businesses`.
+- **Generalized Onboarding & Microsite Schemas**:
+  - In `/onboarding/[businessId]`, modernized form state & fields from `courses`/`fees`/`faculty`/`timings` to `services`/`pricing`/`highlights`/`operatingHours` (retaining backward-compatible persistence for both keys).
+  - In `/c/[businessId]`, generalized sections to "Services & Offerings", "Pricing & Packages", "Highlights & Specialties", and "Working & Operating Hours".
+- **Dashboard & Campaigns Placeholder Cleanup**:
+  - Replaced coaching-specific placeholders in `/dashboard/[businessId]` and `/dashboard/[businessId]/campaigns` with generic local business promotions.
+- **Build & Verification**:
+  - `pnpm --filter @growlokal/api typecheck` passed (0 errors).
+  - `pnpm --filter @growlokal/api test` passed (4/4 tests).
+  - `pnpm --filter @growlokal/web build` passed (0 errors, all 20 routes generated).
 
 - **High-End AI Startup Visual Identity**:
   - Implemented the unified color tokens: Electric Blue (`#4F46E5`), Vibrant Violet (`#7C3AED`), Bright Orange (`#F97316`), Amber (`#FBBF24`), Midnight Navy (`#0B1020`), Soft White (`#F8FAFC`), Pale Indigo (`#EEF2FF`), and Deep Slate (`#111827`).
