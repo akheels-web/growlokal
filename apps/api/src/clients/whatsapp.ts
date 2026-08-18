@@ -52,6 +52,69 @@ export async function sendTemplate(
   });
 }
 
+export interface Button {
+  id: string;
+  title: string; // max 20 chars per Meta's platform limit
+}
+
+/**
+ * Reply buttons (max 3 — a Meta platform limit; verify against current docs
+ * before raising this). Use for a short menu/binary choice. For more than 3
+ * options, use sendList() instead.
+ */
+export async function sendButtons(to: string, bodyText: string, buttons: Button[]): Promise<SendResult> {
+  return post({
+    messaging_product: 'whatsapp',
+    recipient_type: 'individual',
+    to,
+    type: 'interactive',
+    interactive: {
+      type: 'button',
+      body: { text: bodyText },
+      action: {
+        buttons: buttons.map((b) => ({ type: 'reply', reply: { id: b.id, title: b.title } })),
+      },
+    },
+  });
+}
+
+export interface ListRow {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+/** List menu (up to 10 rows total — a Meta platform limit; verify before raising). */
+export async function sendList(
+  to: string,
+  bodyText: string,
+  buttonText: string,
+  rows: ListRow[]
+): Promise<SendResult> {
+  return post({
+    messaging_product: 'whatsapp',
+    recipient_type: 'individual',
+    to,
+    type: 'interactive',
+    interactive: {
+      type: 'list',
+      body: { text: bodyText },
+      action: { button: buttonText, sections: [{ rows }] },
+    },
+  });
+}
+
+/** Send an image by public URL (not a media ID) — simplest path for something we already host on R2. */
+export async function sendImage(to: string, imageUrl: string, caption?: string): Promise<SendResult> {
+  return post({
+    messaging_product: 'whatsapp',
+    recipient_type: 'individual',
+    to,
+    type: 'image',
+    image: { link: imageUrl, caption },
+  });
+}
+
 /**
  * Verify Meta's X-Hub-Signature-256 header on an inbound webhook, computed
  * over the RAW request body using the Meta App Secret. Without this, anyone

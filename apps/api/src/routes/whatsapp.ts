@@ -8,9 +8,11 @@
 import type { FastifyInstance } from 'fastify';
 import { config } from '../config.js';
 import { log } from '../logger.js';
-import { sendText, verifyWebhookSignature } from '../clients/whatsapp.js';
+import { sendText, sendButtons, verifyWebhookSignature } from '../clients/whatsapp.js';
 import { runAudit } from '../features/audit/service.js';
 import { answerCustomerQuestion, loadBusinessContext } from '../features/content/generator.js';
+import { sendStatsSnapshot } from '../features/insights/whatsapp-stats.js';
+import { recordWebsiteRequest } from '../features/leads/website-request.js';
 import { getEntitlement, hasMinPlan } from '../auth/entitlement.js';
 import { query, queryOne } from '../db.js';
 import { redis } from '../redis.js';
@@ -68,9 +70,13 @@ export function whatsappRoutes(app: FastifyInstance) {
 
       const from: string = msg.from;
       const text: string = msg.text?.body?.trim() ?? '';
-      // Which of our numbers received this? Business number -> chat agent; platform number -> audit bot.
+      // A button/list tap arrives as msg.type === 'interactive', NOT msg.text —
+      // reading only msg.text (as this file used to) silently sees nothing at all.
+      const actionId: string | null =
+        msg.interactive?.button_reply?.id ?? msg.interactive?.list_reply?.id ?? null;
+      // Which of our numbers received this? Business number -> chat agent; platform number -> audit bot / customer menu.
       const recipient: string = entry?.metadata?.display_phone_number ?? '';
-      await logInbound(from, text, msg.id);
+      await logInbound(from, actionId ?? text, msg.id);
 
       const business = recipient
         ? await queryOne<{ id: string }>('SELECT id FROM businesses WHERE whatsapp_number = $1', [recipient])
@@ -78,6 +84,20 @@ export function whatsappRoutes(app: FastifyInstance) {
 
       if (business) {
         await handleChatAgent(business.id, from, text);
+        return;
+      }
+
+      // Not a business's own customer-facing number — either a new lead going
+      // through the free-audit flow, or an existing customer (owner) checking
+      // in on our platform number. Tell them apart by users.phone, the OWNER'S
+      // login number — NOT businesses.whatsapp_number (a different number by
+      // design, see docs/FLOW.md §10).
+      const owner = await queryOne<{ business_id: string }>(
+        `SELECT business_id FROM users WHERE phone = $1 AND role = 'owner'`,
+        [from]
+      );
+      if (owner) {
+        await handleCustomerMenu(owner.business_id, from, actionId ?? text);
       } else {
         await handleMessage(from, text);
       }
@@ -162,6 +182,31 @@ async function handleChatAgent(businessId: string, from: string, text: string): 
     "INSERT INTO events (business_id, type, payload) VALUES ($1, 'enquiry_received', $2)",
     [businessId, JSON.stringify({ q: text.slice(0, 200) })]
   );
+}
+
+/**
+ * Self-service menu for an EXISTING customer (owner) messaging our platform
+ * number — separate from handleChatAgent (which answers THEIR customers'
+ * questions) and handleMessage (which onboards a brand-new lead). Stateless
+ * by design: every message either matches a known button id or falls
+ * through to showing the menu again — no Redis conversation state needed
+ * for this flow.
+ */
+async function handleCustomerMenu(businessId: string, from: string, action: string): Promise<void> {
+  switch (action) {
+    case 'view_stats':
+      await sendStatsSnapshot(businessId, from);
+      return;
+    case 'want_website':
+      await recordWebsiteRequest(businessId, from);
+      return;
+    default:
+      await sendButtons(from, 'Hi! 👋 What would you like to do?', [
+        { id: 'view_stats', title: '📊 My Stats' },
+        { id: 'want_website', title: '🌐 Get a Website' },
+      ]);
+      return;
+  }
 }
 
 // ── DB helpers ────────────────────────────────────────────────

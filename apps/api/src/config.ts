@@ -34,6 +34,12 @@ const schema = z.object({
   // ~$0.014/megapixel verified against https://openrouter.ai/models at time of writing.
   OPENROUTER_MODEL_IMAGE: z.string().default('black-forest-labs/flux.2-klein-4b'),
 
+  // QuickChart (open source, https://github.com/typpo/quickchart) — renders
+  // the "My Stats" WhatsApp chart. Defaults to their hosted free instance;
+  // point at a self-hosted one (e.g. on the home lab, same pattern as Kuma/
+  // Twenty) if volume ever outgrows the free tier's rate limits.
+  QUICKCHART_BASE_URL: z.string().default('https://quickchart.io'),
+
   // Cloudflare R2 (S3-compatible) — hosts AI-generated images so Mixpost/GBP
   // can actually publish them (both require a real public URL, not base64).
   // Empty by default: image generation silently no-ops (caption-only posts)
@@ -83,6 +89,14 @@ const schema = z.object({
   // Same situation for the pay-first "payment confirmed, here's how to log
   // in" message — a different template since it's a different use case.
   WHATSAPP_PAYMENT_CONFIRMATION_TEMPLATE_NAME: z.string().default(''),
+  // Same situation again — team alert when a customer taps "Get a Website"
+  // (see features/leads/website-request.ts). Empty until approved; the alert
+  // still sends via email either way, so this feature works today without it.
+  WHATSAPP_WEBSITE_REQUEST_TEMPLATE_NAME: z.string().default(''),
+  // Your own WhatsApp number (or a shared team one) — where the above template sends.
+  OPS_ALERT_PHONE: z.string().default(''),
+  // Always-works fallback/companion to the WhatsApp alert above — no Meta approval needed.
+  OPS_ALERT_EMAIL: z.string().default(''),
 
   // Where the login-instructions message points customers.
   DASHBOARD_LOGIN_URL: z.string().default('https://app.growlokal.com/login'),

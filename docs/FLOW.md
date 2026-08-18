@@ -231,6 +231,36 @@ Razorpay → POST /webhooks/razorpay (signature-verified, deduped — same as al
 
 **Two entry points, one webhook handler:** `routes/billing.ts`'s `handleRazorpayEvent()` now branches on whether a local `subscriptions` row already exists for the `razorpay_sub_id`. This means the *same* webhook event type (`subscription.charged`) is handled completely differently depending on which path created the Razorpay subscription in the first place — read both branches together if you're debugging a payment that didn't activate correctly.
 
+## 12. WhatsApp customer self-service menu (added 2026-08-18)
+
+**A THIRD branch in the same webhook handler that already split business-vs-lead-gen (§1, §3's `handleChatAgent` vs `handleMessage`):**
+
+```
+POST /webhooks/whatsapp (routes/whatsapp.ts) — same entry point as always
+  msg.interactive?.button_reply?.id ?? msg.interactive?.list_reply?.id ?? msg.text?.body
+    ↓ recipient matches a businesses.whatsapp_number?
+        yes → handleChatAgent()  (unchanged — answers THAT business's own customers)
+        no  → is `from` a users.phone with role='owner'?
+                yes → handleCustomerMenu(businessId, from, actionId ?? text)   ← NEW
+                no  → handleMessage()  (unchanged — new-lead audit-bot script)
+
+handleCustomerMenu() — stateless, no Redis:
+  action === 'view_stats'    → features/insights/whatsapp-stats.ts: sendStatsSnapshot()
+      → getEntitlement() check (starter+, same gate as the chat agent)
+      → SELECT v_monthly_enquiries (same view /api/businesses/:id/roi uses — no new query)
+      → clients/quickchart.ts: renderChart() → clients/storage.ts: uploadImage() (R2, reused from image-gen)
+      → clients/whatsapp.ts: sendImage() — falls back to a text summary if chart render/upload fails
+  action === 'want_website'  → features/leads/website-request.ts: recordWebsiteRequest()
+      → UPDATE businesses SET website_requested_at = now()
+      → INSERT events (type='website_requested')
+      → alert team: sendTemplate() (if WHATSAPP_WEBSITE_REQUEST_TEMPLATE_NAME set) + sendEmail() (if OPS_ALERT_EMAIL set)
+  anything else               → sendButtons() — show the menu again
+```
+
+**Blast radius:** the `users.phone` lookup is what makes this branch fire at all — it's checking the OWNER'S login number, not `businesses.whatsapp_number` (that's the business's own customer-facing number, a different thing — see §10's note, this confusion has already been called out once). If you ever let an owner change their login phone without updating this table consistently, they'd silently fall back into the new-lead script instead of their own menu — no error, just the wrong experience.
+
+**Interactive messages are new to this codebase as of this entry** — until now, `routes/whatsapp.ts` only ever read `msg.text.body`; a button tap was invisible. Any other inbound handling you add in the future needs to check `msg.type` the same way (`text` vs `interactive`), or it will silently see nothing for button/list taps.
+
 ---
 
 ## 9. File-level "if you touch this, check that" map
@@ -241,6 +271,7 @@ Razorpay → POST /webhooks/razorpay (signature-verified, deduped — same as al
 | `apps/api/src/config.ts` (adding a required env var) | `.env.example` (must document it), `infra/docker-compose.prod.yml` (must pass it through), and whether it needs a `:?` hard-require like `JWT_SECRET` |
 | `features/content/generator.ts`'s `SYSTEM` prompt | GBP posts, social posts, campaign messages, and the WhatsApp chat agent all change tone simultaneously |
 | `apps/api/src/routes/whatsapp.ts` conversation states | The Redis key format `wa:convo:{phone}` — anything reading that key elsewhere (nothing does today, but don't assume) |
+| `apps/api/src/routes/whatsapp.ts`'s inbound message parsing | The three-way dispatch (business / owner / new lead) added 2026-08-18 (§12) — a `msg.text`-only change would silently break button/list taps for all three branches, not just one |
 | Pricing (`PRICE_*_PAISE` in `config.ts`) | `apps/web/src/app/page.tsx` pricing section, `tools/revenue-roi-calculator`, `terms/page.tsx`, `refund/page.tsx`, `layout.tsx`'s JSON-LD `AggregateOffer` — **five places, not one** (this drifted before; see `DECISIONS.md`) |
 | `lib/cityData.ts` or `lib/verticalData.ts` | Both `city/[cityName]/page.tsx` and `city/[cityName]/[vertical]/page.tsx` consume the same data — a city removed from `CITY_DATA` silently 404s both routes for that city |
 | `worker.ts`'s poll query | If it stops matching businesses correctly, scheduled posts silently stop publishing with no error anywhere — check by querying `posts WHERE status='scheduled' AND scheduled_for < now()` for a growing backlog |
