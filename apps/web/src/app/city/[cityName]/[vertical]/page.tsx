@@ -121,15 +121,15 @@ export default function CityVerticalPage({ params }: Props) {
           padding: '40px', background: '#0B1020', borderRadius: '24px', color: '#ffffff',
           textAlign: 'center', boxShadow: '0 12px 36px rgba(14, 68, 89, 0.15)',
         }}>
-          <h2 style={{ fontSize: '1.9rem', fontWeight: '800', marginBottom: '12px' }}>
+          <h2 style={{ fontSize: '1.9rem', fontWeight: '800', marginBottom: '12px', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
             Ready to grow your {vertical.singular} in {city.name}?
           </h2>
-          <p style={{ fontSize: '1.02rem', color: 'rgba(255,255,255,0.88)', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
+          <p style={{ fontSize: '1.02rem', color: '#E2E8F0', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
             Get a free 10-second audit report of your Google Business Profile right now.
           </p>
           <Link href="/#audit-form" style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '16px 36px',
-            background: '#F97316', color: '#111827', borderRadius: '12px', fontSize: '16px',
+            background: '#F97316', color: '#FFFFFF', borderRadius: '12px', fontSize: '16px',
             fontWeight: '800', textDecoration: 'none', boxShadow: '0 4px 16px rgba(249, 115, 22, 0.4)',
           }}>
             Get My Free Audit Report →

@@ -173,10 +173,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               textAlign: 'center',
               boxShadow: '0 12px 32px rgba(14, 68, 89, 0.15)'
             }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '8px', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
                 Fix your business&apos;s Google presence today
               </h3>
-              <p style={{ fontSize: '0.98rem', color: 'rgba(255,255,255,0.85)', marginBottom: '24px' }}>
+              <p style={{ fontSize: '0.98rem', color: '#E2E8F0', marginBottom: '24px' }}>
                 Get your free 10-second audit report and automate your Google posts with GrowLokal AI.
               </p>
               <Link
@@ -186,15 +186,15 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   alignItems: 'center',
                   padding: '14px 28px',
                   background: '#F97316',
-                  color: '#111827',
+                  color: '#FFFFFF',
                   borderRadius: '12px',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '800',
                   textDecoration: 'none',
                   boxShadow: '0 4px 14px rgba(249, 115, 22, 0.4)'
                 }}
               >
-                Run Free Audit Scan Now →
+                Get Free Google Audit Report →
               </Link>
             </div>
           </div>

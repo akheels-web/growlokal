@@ -156,10 +156,10 @@ export default function CityPage({ params }: Props) {
           textAlign: 'center',
           boxShadow: '0 12px 36px rgba(14, 68, 89, 0.15)'
         }}>
-          <h2 style={{ fontSize: '1.9rem', fontWeight: '800', marginBottom: '12px' }}>
+          <h2 style={{ fontSize: '1.9rem', fontWeight: '800', marginBottom: '12px', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
             Ready to grow your {city.name} business?
           </h2>
-          <p style={{ fontSize: '1.02rem', color: 'rgba(255,255,255,0.88)', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
+          <p style={{ fontSize: '1.02rem', color: '#E2E8F0', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
             Get a free 10-second audit report of your Google Business Profile right now.
           </p>
           <Link
@@ -170,7 +170,7 @@ export default function CityPage({ params }: Props) {
               justifyContent: 'center',
               padding: '16px 36px',
               background: '#F97316',
-              color: '#111827',
+              color: '#FFFFFF',
               borderRadius: '12px',
               fontSize: '16px',
               fontWeight: '800',

@@ -1,6 +1,12 @@
 # Changelog
 
-## Build session 25 — Comprehensive South Indian Regional Coverage (Chennai & Tier-2 Hubs)
+## Build session 26 — Industry Case Study Text Contrast Fix
+
+- **Case Study Headline & Founder High-Contrast Styling**:
+  - Fixed dark text blending on the **"Real South Indian Success Story"** card across all 15 `/industry/[slug]` landing pages.
+  - Added explicit `#FFFFFF` high-contrast color to the main client quote headline (`h3`), founder name, and soft high-readability slate blue (`#CBD5E1`) for the business & locality metadata.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
 
 - **Dedicated Chennai Pages & Expanded South Indian Cities**:
   - **Chennai, Tamil Nadu** ([`/city/chennai`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/%5BcityName%5D/page.tsx)) — Covering T. Nagar, Anna Nagar, Velachery, Adyar, Mylapore, Nungambakkam, OMR, Porur, Tambaram, Kilpauk.

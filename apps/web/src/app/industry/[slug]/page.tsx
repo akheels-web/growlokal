@@ -382,7 +382,7 @@ export default function IndustryLandingPage({ params }: Props) {
             ⚡ Real South Indian Success Story
           </div>
 
-          <h3 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '16px', lineHeight: '1.3' }}>
+          <h3 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '16px', lineHeight: '1.35', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
             &ldquo;{vertical.caseStudy.quote}&rdquo;
           </h3>
 
@@ -392,7 +392,7 @@ export default function IndustryLandingPage({ params }: Props) {
               height: '50px',
               borderRadius: '50%',
               background: '#F97316',
-              color: '#111827',
+              color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -402,8 +402,8 @@ export default function IndustryLandingPage({ params }: Props) {
               {vertical.caseStudy.initials}
             </div>
             <div>
-              <div style={{ fontWeight: '800', fontSize: '16px' }}>{vertical.caseStudy.founder}</div>
-              <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px' }}>
+              <div style={{ fontWeight: '800', fontSize: '16px', color: '#FFFFFF' }}>{vertical.caseStudy.founder}</div>
+              <div style={{ color: '#CBD5E1', fontSize: '13px' }}>
                 {vertical.caseStudy.businessName} • {vertical.caseStudy.location}
               </div>
             </div>
