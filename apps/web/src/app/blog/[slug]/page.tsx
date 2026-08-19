@@ -126,7 +126,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             { label: article.title },
           ]}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '48px', alignItems: 'start' }}>
+        <div className="blog-article-layout">
           {/* Left: Main Article Content */}
           <div>
             {/* Category & Meta */}
@@ -139,12 +139,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </span>
             </div>
 
-            <h1 style={{ fontSize: '2.4rem', fontWeight: '800', marginBottom: '24px', color: '#111827', lineHeight: 1.3 }}>
+            <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: '800', marginBottom: '24px', color: '#111827', lineHeight: 1.3 }}>
               {article.title}
             </h1>
 
             {/* Author Byline */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px', padding: '16px 20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '32px', padding: '16px 20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', flexWrap: 'wrap' }}>
               <img src={article.authorAvatar} alt={article.author} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
               <div>
                 <div style={{ fontSize: '15px', fontWeight: '800', color: '#111827' }}>{article.author}</div>
@@ -153,7 +153,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Hero Cover Image */}
-            <div style={{ width: '100%', height: '380px', borderRadius: '20px', overflow: 'hidden', marginBottom: '40px', boxShadow: '0 8px 24px rgba(3, 53, 64, 0.08)' }}>
+            <div style={{ width: '100%', height: 'clamp(220px, 35vw, 380px)', borderRadius: '20px', overflow: 'hidden', marginBottom: '40px', boxShadow: '0 8px 24px rgba(3, 53, 64, 0.08)' }}>
               <img src={article.coverImage} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
 

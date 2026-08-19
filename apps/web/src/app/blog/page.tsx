@@ -70,36 +70,26 @@ export default function BlogHubPage() {
           }}>
             📚 Local SEO &amp; Growth Knowledge Hub
           </span>
-          <h1 style={{ fontSize: '2.6rem', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#111827' }}>
+          <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', fontWeight: '800', marginTop: '6px', marginBottom: '16px', color: '#111827', lineHeight: 1.25 }}>
             Actionable Playbooks for Business Owners
           </h1>
-          <p style={{ color: '#64748B', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ color: '#64748B', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto', lineHeight: 1.6 }}>
             Proven strategies on local Google ranking, WhatsApp enquiry conversion, and review management built for South Indian local businesses.
           </p>
         </div>
 
         {/* Featured Hero Article Card */}
         {featured && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.2fr 1fr',
-            gap: '36px',
-            background: 'var(--color-bg-primary)',
-            border: '1.5px solid var(--color-border)',
-            borderRadius: '24px',
-            overflow: 'hidden',
-            marginBottom: '56px',
-            boxShadow: '0 12px 32px rgba(3, 53, 64, 0.06)'
-          }}>
-            <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
+          <div className="blog-featured-card">
+            <div className="blog-featured-text">
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '11px', fontWeight: '800', color: '#ffffff', background: '#175fab', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
                   ⭐ Featured Guide
                 </span>
                 <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>• {featured.category}</span>
                 <span style={{ fontSize: '13px', color: '#64748b' }}>• {featured.readTime}</span>
               </div>
-              <h2 style={{ fontSize: '1.85rem', fontWeight: '800', marginBottom: '14px', color: '#111827', lineHeight: 1.3 }}>
+              <h2 style={{ fontSize: 'clamp(1.4rem, 2.8vw, 1.85rem)', fontWeight: '800', marginBottom: '14px', color: '#111827', lineHeight: 1.3 }}>
                 <Link href={`/blog/${featured.slug}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                   {featured.title}
                 </Link>
@@ -127,10 +117,12 @@ export default function BlogHubPage() {
                 </Link>
               </div>
             </div>
-            <div style={{ position: 'relative', minHeight: '320px', background: '#e2e8f0' }}>
+            <div className="blog-featured-img-wrap">
               <img
                 src={featured.image}
                 alt={featured.title}
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
@@ -151,7 +143,7 @@ export default function BlogHubPage() {
         </div>
 
         {/* Article Cards 2-Column Grid with Images */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px', marginBottom: '56px' }}>
+        <div className="blog-articles-grid">
           {gridArticles.map((article) => (
             <article key={article.slug} style={{
               background: '#ffffff',

@@ -1,5 +1,22 @@
 # Changelog
 
+## Build session 35 — Mobile Responsiveness Polish for Blog Hub, Articles & Landing Page Hero CTAs
+
+- **Hero CTAs Mobile Responsiveness**:
+  - Replaced inline flex containers with `.hero-cta-group`, `.hero-btn-primary`, and `.hero-btn-secondary` in [`page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/page.tsx) and [`globals.css`](file:///e:/Github/grow/growlokal/apps/web/src/app/globals.css).
+  - On mobile viewports (`max-width: 640px`), buttons stack cleanly at full width (`width: 100%`) with balanced touch padding and centered text.
+  - Formatted `.hero-trust` badges to stack cleanly without wrapping or overflow.
+- **Blog Hub Mobile Responsiveness** ([`blog/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/blog/page.tsx)):
+  - Replaced fixed grid styles with `.blog-featured-card`, `.blog-featured-text`, `.blog-featured-img-wrap`, and `.blog-articles-grid`.
+  - On screens `<= 900px`, featured card switches from 2-column to 1-column with image on top, comfortable mobile padding (`24px 20px`), and 1-column article cards list.
+  - Implemented fluid clamp typography for title (`fontSize: clamp(1.8rem, 4vw, 2.6rem)`).
+- **Blog Article Page Mobile Responsiveness** ([`blog/[slug]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/blog/[slug]/page.tsx)):
+  - Replaced fixed `1fr 360px` grid with responsive `.blog-article-layout` class.
+  - On screens `<= 900px`, layout gracefully collapses to a single column so the sidebar flows naturally below the article text without horizontal viewport clipping.
+  - Fluid clamp typography on article titles and responsive cover image heights (`clamp(220px, 35vw, 380px)`).
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with Turbopack in **1.7s** with **0 errors**.
+
 ## Build session 34 — Complete SEO, Core Web Vitals, Image Lazy Loading & Self-Hosted Zero-CLS Fonts
 
 - **Image Performance & Lazy Loading Engine**:

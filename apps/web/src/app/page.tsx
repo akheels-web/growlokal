@@ -606,45 +606,12 @@ export default function Home() {
             </p>
 
             {/* Dual High-Impact Action CTAs */}
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '32px' }}>
-              <Link
-                href="/free-gbp-report"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '15px 28px',
-                  background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
-                  color: '#FFFFFF',
-                  borderRadius: '12px',
-                  fontSize: '15px',
-                  fontWeight: '800',
-                  textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
-                  transition: 'transform 0.15s ease',
-                }}
-              >
+            <div className="hero-cta-group">
+              <Link href="/free-gbp-report" className="hero-btn-primary">
                 <span>⚡ Get Free GBP Report</span>
                 <span>→</span>
               </Link>
-              <Link
-                href="/book-free-demo"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '15px 26px',
-                  background: '#FFFFFF',
-                  color: '#0B1020',
-                  border: '1.5px solid #CBD5E1',
-                  borderRadius: '12px',
-                  fontSize: '15px',
-                  fontWeight: '800',
-                  textDecoration: 'none',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-                  transition: 'all 0.15s ease',
-                }}
-              >
+              <Link href="/book-free-demo" className="hero-btn-secondary">
                 <span>💬 Book Free Demo</span>
                 <span>→</span>
               </Link>
