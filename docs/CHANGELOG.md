@@ -1,5 +1,17 @@
 # Changelog
 
+## Build session 36 — Dual Logo Support (Dark Logo for Light Header & Light Logo for Dark Footer)
+
+- **Dual Brand Logo Architecture**:
+  - Updated [`BrandLogo.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/components/BrandLogo.tsx) configuration to provide separate slots for:
+    1. `headerLogoUrl` (Dark Logo for light navigation headers)
+    2. `footerLogoUrl` (Light / White Logo for dark footers)
+    3. `logoUrl` (Universal fallback)
+  - When `<BrandLogo variant="header" />` is called, it automatically loads `headerLogoUrl`.
+  - When `<BrandLogo variant="footer" />` is called, it automatically loads `footerLogoUrl` (or renders high-contrast white text fallback `#FFFFFF`).
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with Turbopack in **1.2s** with **0 errors**.
+
 ## Build session 35 — Mobile Responsiveness Polish for Blog Hub, Articles & Landing Page Hero CTAs
 
 - **Hero CTAs Mobile Responsiveness**:
