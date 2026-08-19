@@ -1,6 +1,18 @@
 # Changelog
 
-## Build session 24 — Expanded Small Business Verticals (7 New Industry Sectors)
+## Build session 25 — Comprehensive South Indian Regional Coverage (Chennai & Tier-2 Hubs)
+
+- **Dedicated Chennai Pages & Expanded South Indian Cities**:
+  - **Chennai, Tamil Nadu** ([`/city/chennai`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/%5BcityName%5D/page.tsx)) — Covering T. Nagar, Anna Nagar, Velachery, Adyar, Mylapore, Nungambakkam, OMR, Porur, Tambaram, Kilpauk.
+  - **Coimbatore, Tamil Nadu** ([`/city/coimbatore`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/%5BcityName%5D/page.tsx)) — RS Puram, Gandhipuram, Peelamedu, Saibaba Colony, Saravanampatti.
+  - **Kochi, Kerala** ([`/city/kochi`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/%5BcityName%5D/page.tsx)) — Edappally, Kakkanad, Kaloor, MG Road, Fort Kochi, Vyttila.
+  - **Madurai, Mysuru, Warangal, Tirupati, Guntur** added to `CITY_DATA` for complete South Indian market coverage.
+- **Combined City + Vertical SEO Pages**:
+  - Automatically dynamically generated for all 15 industries across all South Indian hubs (e.g., `/city/chennai/interior-designers`, `/city/chennai/doctors-clinics`, `/city/chennai/real-estate`).
+- **Footer Navigation Update**:
+  - Expanded **Top Locations** footer column to feature Chennai, Coimbatore, and Kochi alongside Hyderabad, Bengaluru, Vijayawada, and Visakhapatnam.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
 
 - **7 New Business Industry Chiklets & Dedicated Landing Pages**:
   - **Interior Designers & Decorators** (`/industry/interior-designers`) — High-ticket home & commercial turnkey interior client acquisition.

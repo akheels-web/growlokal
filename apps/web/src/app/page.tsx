@@ -1776,9 +1776,12 @@ export default function Home() {
               <h4 className="footer-col-title">Top Locations</h4>
               <ul className="footer-links-list">
                 <li className="footer-link-item"><a href="/city/hyderabad">Hyderabad, Telangana</a></li>
+                <li className="footer-link-item"><a href="/city/chennai">Chennai, Tamil Nadu</a></li>
+                <li className="footer-link-item"><a href="/city/bengaluru">Bengaluru, Karnataka</a></li>
                 <li className="footer-link-item"><a href="/city/vijayawada">Vijayawada, AP</a></li>
                 <li className="footer-link-item"><a href="/city/visakhapatnam">Visakhapatnam, AP</a></li>
-                <li className="footer-link-item"><a href="/city/bengaluru">Bengaluru, Karnataka</a></li>
+                <li className="footer-link-item"><a href="/city/coimbatore">Coimbatore, TN</a></li>
+                <li className="footer-link-item"><a href="/city/kochi">Kochi, Kerala</a></li>
               </ul>
             </div>
 
