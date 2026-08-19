@@ -128,31 +128,41 @@ export default function FreeGbpReportPage() {
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '8px',
               padding: '6px 14px',
-              background: '#FFFFFF',
-              border: '1px solid rgba(37, 211, 102, 0.4)',
+              background: 'rgba(59, 224, 109, 0.12)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
               borderRadius: '50px',
-              fontSize: '12.5px',
+              fontSize: '13px',
               fontWeight: '700',
-              color: '#047857',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+              color: '#15803D',
               marginBottom: '16px',
             }}>
               <ShieldCheck size={16} color="#059669" />
               <span>Trusted by 25,000+ South Indian businesses</span>
+              <span style={{
+                background: '#15803D',
+                color: '#FFFFFF',
+                padding: '2px 8px',
+                borderRadius: '20px',
+                fontSize: '11px',
+                fontWeight: '800',
+                letterSpacing: '0.02em',
+              }}>
+                100% FREE REPORT
+              </span>
             </div>
 
             <h1 style={{
               fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
-              fontWeight: '800',
-              lineHeight: 1.15,
+              fontWeight: '900',
+              lineHeight: 1.18,
               color: '#0B1020',
-              letterSpacing: '-0.03em',
+              letterSpacing: '-0.02em',
               marginBottom: '20px',
             }}>
               Grow your business from{' '}
-              <span style={{ display: 'inline-block' }}>
+              <span style={{ display: 'inline-block', letterSpacing: '0' }}>
                 <span style={{ color: '#4285F4' }}>G</span>
                 <span style={{ color: '#EA4335' }}>o</span>
                 <span style={{ color: '#FBBC05' }}>o</span>
@@ -160,20 +170,7 @@ export default function FreeGbpReportPage() {
                 <span style={{ color: '#34A853' }}>l</span>
                 <span style={{ color: '#EA4335' }}>e</span>
               </span>{' '}
-              with GrowLokal AI{' '}
-              <span style={{
-                fontSize: '12px',
-                fontWeight: '800',
-                background: '#DCFCE7',
-                color: '#15803D',
-                padding: '3px 10px',
-                borderRadius: '50px',
-                verticalAlign: 'middle',
-                border: '1px solid rgba(22, 163, 74, 0.3)',
-                whiteSpace: 'nowrap',
-              }}>
-                FREE Rank Report
-              </span>
+              with GrowLokal AI
             </h1>
 
             {/* 4 Benefit Cards Grid */}
