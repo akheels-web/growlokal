@@ -109,7 +109,17 @@ export const CITY_DATA: Record<string, CityInfo> = {
   },
 };
 
-export function getCity(cityName: string): CityInfo {
+export function getCity(cityName?: string | null): CityInfo {
+  if (!cityName || typeof cityName !== 'string') {
+    return {
+      name: 'South India',
+      areas: ['Central Commercial Hub', 'Market District', 'Main Bazaar', 'North Area', 'South Area'],
+      state: 'South India',
+      heroDesc: 'Supercharge new customer growth for local businesses with GrowLokal AI.',
+      searchVolume: '25,000+ monthly local searches',
+      competition: 'Moderate',
+    };
+  }
   const key = cityName.toLowerCase();
   return (
     CITY_DATA[key] || {

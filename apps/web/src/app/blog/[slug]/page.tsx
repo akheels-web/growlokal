@@ -86,8 +86,9 @@ const ARTICLE_DB: Record<string, ArticleData> = {
   },
 };
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = ARTICLE_DB[params.slug];
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> | { slug: string } }) {
+  const resolvedParams = await Promise.resolve(params);
+  const article = ARTICLE_DB[resolvedParams.slug];
   if (!article) return notFound();
 
   const articleJsonLd = {

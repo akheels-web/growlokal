@@ -2,18 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { CITY_DATA } from '@/lib/cityData';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BrandLogo } from '@/components/BrandLogo';
 
-interface Props {
-  params: { slug: string };
-}
-
-export default function IndustryLandingPage({ params }: Props) {
-  const vertical = getVertical(params.slug);
+export default function IndustryLandingPage() {
+  const routeParams = useParams();
+  const slug = (routeParams?.slug as string) || '';
+  const vertical = getVertical(slug);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [bizName, setBizName] = useState('');
   const [phone, setPhone] = useState('');

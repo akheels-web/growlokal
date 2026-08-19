@@ -32,8 +32,9 @@ async function getBiz(id: string): Promise<Biz | null> {
   }
 }
 
-export default async function Microsite({ params }: { params: { businessId: string } }) {
-  const biz = await getBiz(params.businessId);
+export default async function Microsite({ params }: { params: Promise<{ businessId: string }> | { businessId: string } }) {
+  const resolvedParams = await Promise.resolve(params);
+  const biz = await getBiz(resolvedParams.businessId);
   if (!biz) {
     return (
       <main style={{ maxWidth: 640, margin: '60px auto', padding: '40px 24px', textAlign: 'center' }}>

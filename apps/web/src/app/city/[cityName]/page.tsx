@@ -5,12 +5,13 @@ import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 interface Props {
-  params: { cityName: string };
+  params: Promise<{ cityName: string }> | { cityName: string };
 }
 
-export default function CityPage({ params }: Props) {
-  const city = getCity(params.cityName);
-  const cityKey = params.cityName.toLowerCase();
+export default async function CityPage({ params }: Props) {
+  const resolvedParams = await Promise.resolve(params);
+  const city = getCity(resolvedParams.cityName);
+  const cityKey = (resolvedParams.cityName || '').toLowerCase();
 
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>

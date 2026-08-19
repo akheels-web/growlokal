@@ -1475,6 +1475,7 @@ export const VERTICAL_DATA: Record<string, VerticalInfo> = {
   },
 };
 
-export function getVertical(slug: string): VerticalInfo | null {
+export function getVertical(slug?: string | null): VerticalInfo | null {
+  if (!slug || typeof slug !== 'string') return null;
   return VERTICAL_DATA[slug.toLowerCase()] ?? null;
 }

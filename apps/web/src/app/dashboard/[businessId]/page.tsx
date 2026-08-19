@@ -3,14 +3,16 @@
 // Premium Business Dashboard matching the custom GrowLokal brand palette
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useEntitlement, hasMinPlan, RenewalWall, ExpiryBadge } from '@/components/PlanGate';
 import { BrandLogo } from '@/components/BrandLogo';
 
 interface RoiRow { month: string; enquiries: number; demos_booked: number; leads_captured: number; }
 
-export default function Dashboard({ params }: { params: { businessId: string } }) {
-  const { businessId } = params;
+export default function Dashboard() {
+  const routeParams = useParams();
+  const businessId = (routeParams?.businessId as string) || '';
   const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [roi, setRoi] = useState<RoiRow[]>([]);
   const [credit, setCredit] = useState<number | null>(null);

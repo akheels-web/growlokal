@@ -1,5 +1,36 @@
 # Changelog
 
+## Build session 33 — Major Ecosystem Upgrades (Next.js 16.3.1 Turbopack, React 19.2.8, TypeScript 7.0.2)
+
+- **Major Framework & Runtime Upgrades**:
+  - **Next.js**: Upgraded from `14.2.24` to **`16.3.1`** with built-in Turbopack compilation engine.
+  - **React & React DOM**: Upgraded from `18.3.1` to **`19.2.8`**.
+  - **Lucide Icons**: Upgraded to **`1.33.0`**.
+  - **TypeScript**: Upgraded from `5.7.3` to **`7.0.2`**.
+  - **Node & React Types**: Upgraded `@types/node` to **`26.2.0`**, `@types/react` to **`19.2.18`**, and `@types/react-dom` to **`19.2.4`**.
+- **Monorepo Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with Turbopack in **9.3s** (17/17 static pages compiled with **0 errors**).
+  - `pnpm --filter @growlokal/api build` passed with **0 errors**.
+  - Next.js 16.3.1 production server running on port 3001.
+
+## Build session 32 — Turbopack Integration & Modern Dependency Upgrades
+
+- **Turbopack Dev Engine Enabled**:
+  - Configured Next.js with Turbopack (`next dev --turbo -p 3001`) as the default development engine in [`apps/web/package.json`](file:///e:/Github/grow/growlokal/apps/web/package.json).
+  - Added dedicated npm scripts:
+    - `pnpm --filter @growlokal/web dev` (runs with Turbopack on port 3001)
+    - `pnpm --filter @growlokal/web dev:turbo` (explicit Turbopack shortcut)
+    - `pnpm --filter @growlokal/web dev:webpack` (Webpack fallback mode)
+- **Dependency & TypeScript Upgrades**:
+  - Updated `@types/node` to `^20.17.19`.
+  - Updated `@types/react` to `^18.3.18` and added `@types/react-dom` `^18.3.5`.
+  - Updated TypeScript toolchain to `^5.7.3`.
+- **Monorepo Build Verification**:
+  - Verified full workspace builds:
+    - `pnpm --filter @growlokal/web build` passed with **0 errors**.
+    - `pnpm --filter @growlokal/api build` passed with **0 errors**.
+  - Verified production runtime on port 3001.
+
 ## Build session 31 — Layout Polish, Hero Spacing, Results Banner Gradient & Centralized Brand Logo
 
 - **Hero Clearance & Header Spacing**:

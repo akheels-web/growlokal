@@ -3,12 +3,13 @@
 // General purpose: services/pricing/highlights as clean text -> stored in profile_context
 // jsonb, works for any local business type (salons, clinics, cafes, stores, gyms, etc.).
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { api } from '@/lib/api';
 
-export default function Onboarding({ params }: { params: { businessId: string } }) {
+export default function Onboarding() {
   const router = useRouter();
-  const { businessId } = params;
+  const routeParams = useParams();
+  const businessId = (routeParams?.businessId as string) || '';
   const [f, setF] = useState({
     name: '',
     city: 'Hyderabad',

@@ -5,16 +5,17 @@ import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
 interface Props {
-  params: { cityName: string; vertical: string };
+  params: Promise<{ cityName: string; vertical: string }> | { cityName: string; vertical: string };
 }
 
 // City x vertical SEO landing pages — the long-tail extension of /city/[cityName].
 // ponytail: reuses getCity()'s existing fallback for unknown cities; an unknown
 // vertical slug 404s instead (verticals are a fixed, curated set, not open text).
-export default function CityVerticalPage({ params }: Props) {
-  const city = getCity(params.cityName);
-  const cityKey = params.cityName.toLowerCase();
-  const vertical = getVertical(params.vertical);
+export default async function CityVerticalPage({ params }: Props) {
+  const resolvedParams = await Promise.resolve(params);
+  const city = getCity(resolvedParams.cityName);
+  const cityKey = (resolvedParams.cityName || '').toLowerCase();
+  const vertical = getVertical(resolvedParams.vertical);
 
   if (!vertical) {
     return (

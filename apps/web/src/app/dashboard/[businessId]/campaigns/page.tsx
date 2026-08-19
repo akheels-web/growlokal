@@ -4,6 +4,7 @@
 //   2. POST /campaigns/:cid/send -> dispatch (debits prepaid credits)
 // ponytail: recipients as a textarea (one number/line). No CSV upload until asked.
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { api } from '@/lib/api';
 import { useEntitlement, hasMinPlan, RenewalWall, UpgradeWall } from '@/components/PlanGate';
 
@@ -15,8 +16,9 @@ const TEMPLATE_SUGGESTIONS = [
   'booking_confirmation', 'seasonal_promo', 'payment_reminder',
 ];
 
-export default function Campaigns({ params }: { params: { businessId: string } }) {
-  const { businessId } = params;
+export default function Campaigns() {
+  const routeParams = useParams();
+  const businessId = (routeParams?.businessId as string) || '';
   const { entitlement, loading: entitlementLoading } = useEntitlement();
   const [name, setName] = useState('');
   const [goal, setGoal] = useState('Festive Season Offer & Customer Appreciation Discount');
