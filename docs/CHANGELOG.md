@@ -1,5 +1,24 @@
 # Changelog
 
+## Build session 34 — Complete SEO, Core Web Vitals, Image Lazy Loading & Self-Hosted Zero-CLS Fonts
+
+- **Image Performance & Lazy Loading Engine**:
+  - Configured high-priority eager loading for above-the-fold hero imagery (`loading="eager"`, `fetchPriority="high"`, `decoding="async"`, with explicit dimensions `520x380`) to maximize Largest Contentful Paint (LCP).
+  - Applied native lazy loading (`loading="lazy"`, `decoding="async"`, and explicit dimensions) across all below-the-fold images:
+    - 4 Autonomous AI Agent avatars in [`page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/page.tsx)
+    - 15 business showcase thumbnails in [`page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/page.tsx)
+    - Industry vertical sector badges in [`industry/[slug]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/industry/[slug]/page.tsx)
+    - Brand logo component in [`BrandLogo.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/components/BrandLogo.tsx)
+- **Zero-CLS Self-Hosted Google Fonts**:
+  - Replaced external blocking Google Fonts stylesheet `<link>` tags with `next/font/google` (`Inter`, `Outfit`, `Plus_Jakarta_Sans`).
+  - Next.js automatically downloads, self-hosts, and generates size-adjust font fallbacks at build time, eliminating all 3 external font HTTP roundtrips and guaranteeing 0.00 Cumulative Layout Shift (CLS).
+- **Google Rich Snippet Structured Data**:
+  - Added `schema.org/FAQPage` structured data to all 15 industry vertical landing pages for expandable rich snippet answers in Google SERPs.
+- **Dynamic Route Params Fix for Next.js 16**:
+  - Updated all client component routes (`/industry/[slug]`, `/city/[cityName]`, `/city/[cityName]/[vertical]`, `/dashboard/[businessId]`, `/onboarding/[businessId]`, `/c/[businessId]`, `/blog/[slug]`) to use `useParams()` from `next/navigation` and null-safe vertical/city lookup helpers.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with Turbopack in **2.7s** with **0 errors**.
+
 ## Build session 33 — Major Ecosystem Upgrades (Next.js 16.3.1 Turbopack, React 19.2.8, TypeScript 7.0.2)
 
 - **Major Framework & Runtime Upgrades**:

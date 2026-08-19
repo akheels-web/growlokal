@@ -40,6 +40,10 @@ export function BrandLogo({
     <img
       src={logoUrl}
       alt={BRAND_CONFIG.logoAlt}
+      loading="eager"
+      decoding="async"
+      width={BRAND_CONFIG.logoWidth}
+      height={BRAND_CONFIG.logoHeight}
       className={`brand-logo-img ${className}`}
       style={{
         maxHeight: variant === 'footer' ? '38px' : '32px',

@@ -39,8 +39,25 @@ export default function IndustryLandingPage() {
     setAuditSubmitted(true);
   }
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: (vertical.faqs || []).map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div className="page-wrapper" style={{ background: '#ffffff', color: '#111827', minHeight: '100vh' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* ─── UNIFIED HEADER ─── */}
       <Navbar isSticky />
 
@@ -686,7 +703,7 @@ export default function IndustryLandingPage() {
                 {v.label}
               </div>
               <div style={{ width: '44px', height: '44px', flexShrink: 0 }}>
-                <img src={v.image} alt={v.label} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src={v.image} alt={v.label} loading="lazy" decoding="async" width={44} height={44} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
             </Link>
           ))}

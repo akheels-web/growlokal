@@ -670,6 +670,11 @@ export default function Home() {
               <img
                 src="/images/hero_ai_platform.jpg"
                 alt="GrowLokal AI Local Marketing Platform"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                width={520}
+                height={380}
                 style={{
                   width: '100%',
                   maxWidth: '520px',
@@ -829,7 +834,7 @@ export default function Home() {
           <div className="agent-cards-stack">
             <div className="growlokal-agent-card growlokal-agent-card--google">
               <div className="growlokal-agent-avatar-wrap">
-                <img src="/images/agent_google.png" alt="Google Business Profile AI Agent" className="growlokal-agent-avatar-img" />
+                <img src="/images/agent_google.png" alt="Google Business Profile AI Agent" className="growlokal-agent-avatar-img" loading="lazy" decoding="async" width={48} height={48} />
                 <span className="agent-avatar-status-pulse" />
               </div>
               <div className="growlokal-agent-info">
@@ -848,7 +853,7 @@ export default function Home() {
 
             <div className="growlokal-agent-card growlokal-agent-card--whatsapp">
               <div className="growlokal-agent-avatar-wrap">
-                <img src="/images/agent_whatsapp.png" alt="WhatsApp Chat AI Agent" className="growlokal-agent-avatar-img" />
+                <img src="/images/agent_whatsapp.png" alt="WhatsApp Chat AI Agent" className="growlokal-agent-avatar-img" loading="lazy" decoding="async" width={48} height={48} />
                 <span className="agent-avatar-status-pulse" />
               </div>
               <div className="growlokal-agent-info">
@@ -867,7 +872,7 @@ export default function Home() {
 
             <div className="growlokal-agent-card growlokal-agent-card--social">
               <div className="growlokal-agent-avatar-wrap">
-                <img src="/images/agent_social.png" alt="Social Media Content AI Agent" className="growlokal-agent-avatar-img" />
+                <img src="/images/agent_social.png" alt="Social Media Content AI Agent" className="growlokal-agent-avatar-img" loading="lazy" decoding="async" width={48} height={48} />
                 <span className="agent-avatar-status-pulse" />
               </div>
               <div className="growlokal-agent-info">
@@ -886,7 +891,7 @@ export default function Home() {
 
             <div className="growlokal-agent-card growlokal-agent-card--campaign">
               <div className="growlokal-agent-avatar-wrap">
-                <img src="/images/agent_campaign.png" alt="WhatsApp Marketing AI Agent" className="growlokal-agent-avatar-img" />
+                <img src="/images/agent_campaign.png" alt="WhatsApp Marketing AI Agent" className="growlokal-agent-avatar-img" loading="lazy" decoding="async" width={48} height={48} />
                 <span className="agent-avatar-status-pulse" />
               </div>
               <div className="growlokal-agent-info">
@@ -1033,7 +1038,7 @@ export default function Home() {
                 <span className="biz-showcase-badge">Explore AI Plan →</span>
               </div>
               <div className="biz-showcase-img-wrap">
-                <img src={biz.image} alt={biz.name} className="biz-showcase-img" />
+                <img src={biz.image} alt={biz.name} className="biz-showcase-img" loading="lazy" decoding="async" width={480} height={280} />
               </div>
             </Link>
           ))}

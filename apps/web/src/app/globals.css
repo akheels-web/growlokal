@@ -110,9 +110,9 @@
   --shadow-orange-glow-lg: 0 4px 12px rgba(0, 0, 0, 0.12);
   --shadow-ai-glow: 0 1px 3px rgba(0, 0, 0, 0.08);
 
-  /* Typography */
-  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Typography — Next.js Self-Hosted Zero-CLS Fonts */
+  --font-heading: var(--font-outfit), var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: var(--font-inter), var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing */
   --space-xs: 4px;
