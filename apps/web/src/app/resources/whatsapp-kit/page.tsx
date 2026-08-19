@@ -42,11 +42,11 @@ export default function WhatsappKitPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#F97316',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 12px',
-            background: 'rgba(37, 211, 102, 0.12)',
+            background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
@@ -95,14 +95,14 @@ export default function WhatsappKitPage() {
                   alignItems: 'center',
                   gap: '8px',
                   padding: '14px 24px',
-                  background: copiedIndex === idx ? '#F97316' : '#0B1020',
+                  background: copiedIndex === idx ? '#3be06d' : 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                   color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '15px',
                   fontWeight: '800',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                   transition: 'all 0.2s ease'
                 }}
               >

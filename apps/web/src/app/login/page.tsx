@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api, setToken } from '@/lib/api';
 import { ShieldCheck, CheckCircle2, ArrowRight, ArrowLeft, KeyRound, Sparkles } from 'lucide-react';
+import { BrandLogo } from '@/components/BrandLogo';
 
 export default function Login() {
   const router = useRouter();
@@ -84,11 +85,7 @@ export default function Login() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontSize: '22px', fontWeight: '900', color: '#0B1020', letterSpacing: '-0.03em' }}>
-              Grow<span style={{ color: '#175fab' }}>Lokal</span>
-            </span>
-          </Link>
+          <BrandLogo variant="header" />
 
           <Link
             href="/"

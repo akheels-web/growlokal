@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, CheckCircle2, ShieldCheck, Sparkles, Check, ArrowRight } from 'lucide-react';
+import { BrandLogo } from '@/components/BrandLogo';
 
 const SUGGESTED_LOCAL_BUSINESSES = [
   { name: 'Apollo Clinic & Diagnostics', city: 'Ameerpet, Hyderabad', category: 'Health Clinic' },
@@ -82,11 +83,7 @@ export default function FreeGbpReportPage() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontSize: '22px', fontWeight: '900', color: '#0B1020', letterSpacing: '-0.03em' }}>
-              Grow<span style={{ color: '#F97316' }}>Lokal</span>
-            </span>
-          </Link>
+          <BrandLogo variant="header" />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <select
@@ -261,7 +258,7 @@ export default function FreeGbpReportPage() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
                 <span style={{ height: '1px', flex: 1, background: '#E2E8F0' }} />
-                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4F46E5' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#175fab' }}>
                   Get Your Free GBP Report
                 </span>
                 <span style={{ height: '1px', flex: 1, background: '#E2E8F0' }} />
@@ -276,7 +273,7 @@ export default function FreeGbpReportPage() {
                         width: '20px',
                         height: '20px',
                         borderRadius: '50%',
-                        background: '#4F46E5',
+                        background: '#175fab',
                         color: '#FFFFFF',
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -354,7 +351,7 @@ export default function FreeGbpReportPage() {
                                 <strong style={{ color: '#0B1020' }}>{item.name}</strong>
                                 <div style={{ fontSize: '11.5px', color: '#64748B' }}>📍 {item.city}</div>
                               </div>
-                              <span style={{ fontSize: '11px', background: '#EEF2FF', color: '#4F46E5', padding: '2px 8px', borderRadius: '12px', fontWeight: '700' }}>
+                              <span style={{ fontSize: '11px', background: 'rgba(23, 95, 171, 0.1)', color: '#175fab', padding: '2px 8px', borderRadius: '12px', fontWeight: '700' }}>
                                 {item.category}
                               </span>
                             </div>
@@ -365,7 +362,7 @@ export default function FreeGbpReportPage() {
                               setSelectedBusiness(searchTerm);
                               setShowDropdown(false);
                             }}
-                            style={{ padding: '12px 14px', fontSize: '13px', color: '#4F46E5', cursor: 'pointer', fontWeight: '600' }}
+                            style={{ padding: '12px 14px', fontSize: '13px', color: '#175fab', cursor: 'pointer', fontWeight: '600' }}
                           >
                             Use &ldquo;{searchTerm}&rdquo;
                           </div>
@@ -381,7 +378,7 @@ export default function FreeGbpReportPage() {
                         width: '20px',
                         height: '20px',
                         borderRadius: '50%',
-                        background: '#4F46E5',
+                        background: '#175fab',
                         color: '#FFFFFF',
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -501,20 +498,20 @@ export default function FreeGbpReportPage() {
               gap: '16px',
               textAlign: 'center',
             }}>
-              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #EEF2FF' }}>
-                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#4F46E5' }}>25,000+</div>
+              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#175fab' }}>25,000+</div>
                 <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>South Indian businesses audited</div>
               </div>
-              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #EEF2FF' }}>
-                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#4F46E5' }}>30 sec</div>
+              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#175fab' }}>30 sec</div>
                 <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>Instant WhatsApp delivery</div>
               </div>
-              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #EEF2FF' }}>
-                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#4F46E5' }}>3.8x</div>
+              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#175fab' }}>3.8x</div>
                 <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>More customer calls in 90 days</div>
               </div>
-              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #EEF2FF' }}>
-                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#4F46E5' }}>100% Free</div>
+              <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#175fab' }}>100% Free</div>
                 <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>No credit card or setup required</div>
               </div>
             </div>

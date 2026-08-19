@@ -32,11 +32,11 @@ export default function RevenueRoiCalculatorPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#F97316',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 12px',
-            background: 'rgba(249, 115, 22, 0.15)',
+            background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
@@ -66,7 +66,7 @@ export default function RevenueRoiCalculatorPage() {
                 <label style={{ fontSize: '14.5px', fontWeight: '700', color: '#111827', lineHeight: '1.4' }}>
                   Average Order / Service Value (₹)
                 </label>
-                <span style={{ fontSize: '16px', fontWeight: '800', color: '#4F46E5', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <span style={{ fontSize: '16px', fontWeight: '800', color: '#175fab', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   ₹{serviceValue.toLocaleString('en-IN')}
                 </span>
               </div>
@@ -77,7 +77,7 @@ export default function RevenueRoiCalculatorPage() {
                 step="500"
                 value={serviceValue}
                 onChange={(e) => setServiceValue(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#4F46E5' }}
+                style={{ width: '100%', accentColor: '#175fab' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
                 <span>₹500</span>
@@ -90,7 +90,7 @@ export default function RevenueRoiCalculatorPage() {
                 <label style={{ fontSize: '14.5px', fontWeight: '700', color: '#111827', lineHeight: '1.4' }}>
                   New Local Customers Acquired / Month
                 </label>
-                <span style={{ fontSize: '16px', fontWeight: '800', color: '#F97316', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <span style={{ fontSize: '16px', fontWeight: '800', color: '#3be06d', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   +{extraCustomers} Customers
                 </span>
               </div>
@@ -101,7 +101,7 @@ export default function RevenueRoiCalculatorPage() {
                 step="1"
                 value={extraCustomers}
                 onChange={(e) => setExtraCustomers(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#F97316' }}
+                style={{ width: '100%', accentColor: '#3be06d' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginTop: '4px' }}>
                 <span>+1 Customer</span>
@@ -125,10 +125,10 @@ export default function RevenueRoiCalculatorPage() {
             justifyContent: 'space-between'
           }}>
             <div>
-              <div style={{ fontSize: '12px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: '12px', fontWeight: '700', color: '#3be06d', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 PROJECTED YEARLY NET PROFIT
               </div>
-              <div style={{ fontSize: '2.8rem', fontWeight: '900', color: '#F97316', margin: '8px 0 16px', lineHeight: 1 }}>
+              <div style={{ fontSize: '2.8rem', fontWeight: '900', color: '#3be06d', margin: '8px 0 16px', lineHeight: 1 }}>
                 +₹{netProfitYearly.toLocaleString('en-IN')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px', color: 'rgba(255,255,255,0.85)' }}>

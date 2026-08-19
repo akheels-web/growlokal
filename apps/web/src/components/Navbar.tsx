@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { BrandLogo } from './BrandLogo';
 
 export type Lang = 'en' | 'te' | 'ta' | 'kn';
 
@@ -70,9 +71,7 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
         <div className="nav-container">
           {/* Brand Logo */}
           <div className="nav-brand-group">
-            <Link href="/" className="nav-brand">
-              Grow<span>Lokal</span>
-            </Link>
+            <BrandLogo variant="header" />
           </div>
 
           {/* Desktop Navigation Links */}
@@ -89,7 +88,7 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
             <Link href="/#industries" className="nav-link-item">
               Industries
             </Link>
-            <Link href="/free-gbp-report" className="nav-link-item" style={{ color: '#4F46E5', fontWeight: '700' }}>
+            <Link href="/free-gbp-report" className="nav-link-item" style={{ color: '#175fab', fontWeight: '700' }}>
               Free GBP Report
             </Link>
           </nav>
@@ -153,9 +152,9 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
       >
         {/* Drawer Header */}
         <div className="nav-drawer-header">
-          <Link href="/" className="nav-brand" onClick={() => setMobileMenuOpen(false)}>
-            Grow<span>Lokal</span>
-          </Link>
+          <div onClick={() => setMobileMenuOpen(false)}>
+            <BrandLogo variant="header" />
+          </div>
           <button
             type="button"
             id="toggleClose"
@@ -199,7 +198,7 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
               <span>Industries &amp; Sectors</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>
-            <Link href="/free-gbp-report" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link" style={{ color: '#4F46E5', fontWeight: '700' }}>
+            <Link href="/free-gbp-report" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link" style={{ color: '#175fab', fontWeight: '700' }}>
               <span>⚡ Free GBP Report</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>

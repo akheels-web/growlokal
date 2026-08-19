@@ -1,5 +1,29 @@
 # Changelog
 
+## Build session 30 — Complete Enterprise Color Unification (#175fab & #3be06d) Across All Pages
+
+- **Brand Color Palette Consolidation**:
+  - Strictly unified all buttons, badges, banners, slider tracks, progress loaders, checkmarks, circuit streams, and accent borders across the entire web application to use only:
+    - **Sapphire Blue**: `#175fab`
+    - **Mint Green**: `#3be06d`
+    - **Brand Gradient**: `linear-gradient(135deg, #175fab 0%, #3be06d 100%)`
+    - **Text**: High contrast `#0B1020` / `#111827` for headings and `#475569` / `#64748B` for secondary copy.
+- **Pages & Components Updated**:
+  - **Landing Page** ([`apps/web/src/app/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/page.tsx)): Pain point icons, transformation steps, circuit SVG animations, results checkmarks, annual pricing discount badges, optional add-on badge, contact desk icons, and WhatsApp action buttons.
+  - **Free GBP Report Funnel** ([`apps/web/src/app/free-gbp-report/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/free-gbp-report/page.tsx)): Brand logo, step numbering badges, autocomplete item category chips, and bottom social proof stats.
+  - **Book Free Demo Funnel** ([`apps/web/src/app/book-free-demo/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/book-free-demo/page.tsx)): Business autocomplete suggestion chips and budget selector cards.
+  - **Revenue ROI Calculator** ([`apps/web/src/app/tools/revenue-roi-calculator/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/tools/revenue-roi-calculator/page.tsx)): Header pill badge, slider handles & tracks, profit metric numbers, and CTA button.
+  - **Google Score Calculator** ([`apps/web/src/app/tools/google-score-calculator/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/tools/google-score-calculator/page.tsx)): Header eyebrow badge, search inputs & autocomplete dropdowns, live analysis progress loader & progress bar, competitor benchmark scorecard, and WhatsApp delivery confirmation banner.
+  - **Industry Verticals** ([`apps/web/src/app/industry/[slug]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/industry/[slug]/page.tsx)): Top stats, pain point solution pills, agent use case badges & checkmarks, real customer case study badge & founder avatar, FAQ accordion icons, and audit lead form.
+  - **City & Programmatic SEO Pages** ([`apps/web/src/app/city/[cityName]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/[cityName]/page.tsx) & [`apps/web/src/app/city/[cityName]/[vertical]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/city/[cityName]/[vertical]/page.tsx)): Local search statistics badges, category chips, and 30-day blueprint steps.
+  - **Blog & Articles** ([`apps/web/src/app/blog/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/blog/page.tsx) & [`apps/web/src/app/blog/[slug]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/blog/[slug]/page.tsx)): Knowledge hub header badge, featured guide tag, article category chips, key takeaways box with checkmarks, and playbook links.
+  - **Legal Pages** ([`apps/web/src/app/privacy/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/privacy/page.tsx), [`apps/web/src/app/terms/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/terms/page.tsx), [`apps/web/src/app/refund/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/refund/page.tsx)): Section headers, trust badges, and inline legal links.
+  - **Authentication & Dashboard** ([`apps/web/src/app/login/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/login/page.tsx), [`apps/web/src/app/dashboard/[businessId]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/dashboard/[businessId]/page.tsx), [`apps/web/src/app/onboarding/[businessId]/page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/onboarding/[businessId]/page.tsx)): Login hero badges & feature icons, navigation brand logo, and onboarding form CTAs.
+  - **Global Stylesheet** ([`apps/web/src/app/globals.css`](file:///e:/Github/grow/growlokal/apps/web/src/app/globals.css)): Hero text accent gradient, live pulse dots, floating widget toast, footer branding & links, pricing toggle switch & savings badge, and showcase cards.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
+  - Production server running and verified in browser.
+
 ## Build session 29 — Dynamic Sitemap, Robots.txt, LLMs.txt & Complete SEO Suite
 
 - **Dynamic Sitemap Generation** ([`apps/web/src/app/sitemap.ts`](file:///e:/Github/grow/growlokal/apps/web/src/app/sitemap.ts)):

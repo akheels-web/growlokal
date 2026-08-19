@@ -263,7 +263,7 @@ export default function BookFreeDemoPage() {
                                   <strong style={{ color: '#0B1020' }}>{item.name}</strong>
                                   <div style={{ fontSize: '11.5px', color: '#64748B' }}>📍 {item.city}</div>
                                 </div>
-                                <span style={{ fontSize: '11px', background: '#EEF2FF', color: '#4F46E5', padding: '2px 8px', borderRadius: '12px', fontWeight: '700' }}>
+                                <span style={{ fontSize: '11px', background: 'rgba(23, 95, 171, 0.1)', color: '#175fab', padding: '2px 8px', borderRadius: '12px', fontWeight: '700' }}>
                                   {item.category}
                                 </span>
                               </div>
@@ -271,7 +271,7 @@ export default function BookFreeDemoPage() {
                           ) : (
                             <div
                               onClick={() => setShowSuggestions(false)}
-                              style={{ padding: '12px 14px', fontSize: '13px', color: '#4F46E5', cursor: 'pointer', fontWeight: '600' }}
+                              style={{ padding: '12px 14px', fontSize: '13px', color: '#175fab', cursor: 'pointer', fontWeight: '600' }}
                             >
                               Use custom: &ldquo;{businessName}&rdquo;
                             </div>

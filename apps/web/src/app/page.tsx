@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
+import { BrandLogo } from '@/components/BrandLogo';
 import {
   Search,
   Star,
@@ -150,7 +151,7 @@ function WhatsAppCampaignOfficialIcon({ size = 32 }: { size?: number }) {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M16 2C8.28 2 2 8.28 2 16C2 18.68 2.75 21.18 4.06 23.32L2 30L9.11 28.01C11.19 29.21 13.52 30 16 30C23.72 30 30 23.72 30 16C30 8.28 23.72 2 16 2Z"
-        fill="#4F46E5"
+        fill="#175fab"
       />
       <path d="M21.5 11.8C21.2 11.4 20.6 11.1 20 11.1H10C9.4 11.1 8.8 11.4 8.5 11.8C8.2 12.3 8.1 12.9 8.3 13.5L9.7 17.4C9.9 18 10.4 18.4 11 18.6H12V21.6C12 22.2 12.4 22.6 13 22.6H15C15.6 22.6 16 22.2 16 21.6V18.6H17C17.6 18.6 18.1 18.2 18.3 17.6L19.7 13.7C20 13.1 20.6 12.7 21.3 12.7H22.5C23.3 12.7 24 13.4 24 14.2V17C24 17.8 23.3 18.5 22.5 18.5H21.5V20H22.5C24.2 20 25.5 18.7 25.5 17V14.2C25.5 12.5 24.2 11.2 22.5 11.2H21.3C21.4 11.4 21.5 11.6 21.5 11.8Z" fill="#FFFFFF" />
     </svg>
@@ -683,21 +684,21 @@ export default function Home() {
       </section>
 
       {/* ─── SEAMLESS PLATFORMS INTEGRATION STRIP ─── */}
-      <div className="stats-bar" style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', background: '#FAF8FF', padding: '24px 16px' }}>
-        <div className="stats-container" style={{ margin: '0 auto', maxWidth: '1180px' }}>
-          <div className="platforms-section" style={{ margin: 0 }}>
-            <span className="platforms-title">Seamlessly Integrated With</span>
-            <div className="platform-badges">
-              <div className="platform-badge">
+      <div className="stats-bar" style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', background: '#FAF8FF', padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ margin: '0 auto', maxWidth: '1180px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="platforms-section" style={{ margin: 0, padding: 0, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <span className="platforms-title" style={{ margin: 0, lineHeight: 1 }}>Seamlessly Integrated With</span>
+            <div className="platform-badges" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <div className="platform-badge" style={{ margin: 0 }}>
                 <GoogleMapsIntegrationIcon size={18} /> Google Maps &amp; Search
               </div>
-              <div className="platform-badge">
+              <div className="platform-badge" style={{ margin: 0 }}>
                 <WhatsAppIntegrationIcon size={18} /> WhatsApp Meta Business
               </div>
-              <div className="platform-badge">
+              <div className="platform-badge" style={{ margin: 0 }}>
                 <InstagramIntegrationIcon size={18} /> Instagram Business
               </div>
-              <div className="platform-badge">
+              <div className="platform-badge" style={{ margin: 0 }}>
                 <FacebookIntegrationIcon size={18} /> Facebook Pages
               </div>
             </div>
@@ -716,11 +717,11 @@ export default function Home() {
           {/* Card 1: Google Score Tool */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(252, 163, 17, 0.12)', borderRadius: '14px', color: 'var(--color-orange)', marginBottom: '14px' }}>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(23, 95, 171, 0.1)', borderRadius: '14px', color: '#175fab', marginBottom: '14px' }}>
                 <BarChart3 size={28} strokeWidth={2.2} />
               </div>
               <div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#4F46E5', background: 'rgba(79, 70, 229, 0.12)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#175fab', background: 'rgba(23, 95, 171, 0.1)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   ⚡ Instant Competitor Spy Tool
                 </span>
               </div>
@@ -741,11 +742,11 @@ export default function Home() {
           {/* Card 2: Revenue Growth Calculator */}
           <div className="growth-tool-card">
             <div>
-              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(20, 33, 61, 0.1)', borderRadius: '14px', color: '#0B1020', marginBottom: '14px' }}>
+              <div style={{ display: 'inline-flex', padding: '10px', background: 'rgba(59, 224, 109, 0.15)', borderRadius: '14px', color: '#15803D', marginBottom: '14px' }}>
                 <TrendingUp size={28} strokeWidth={2.2} />
               </div>
               <div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#F97316', background: 'rgba(249, 115, 22, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#15803D', background: 'rgba(59, 224, 109, 0.15)', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   📈 Revenue Growth Calculator
                 </span>
               </div>
@@ -908,24 +909,24 @@ export default function Home() {
             <svg className="circuit-connector-svg" viewBox="0 0 160 290" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="grad-circuit-google" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ea580c" />
-                  <stop offset="100%" stopColor="#fb923c" />
+                  <stop offset="0%" stopColor="#175fab" />
+                  <stop offset="100%" stopColor="#3be06d" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-whatsapp" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#7C3AED" />
-                  <stop offset="100%" stopColor="#A78BFA" />
+                  <stop offset="0%" stopColor="#3be06d" />
+                  <stop offset="100%" stopColor="#175fab" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-social" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#0B1020" />
-                  <stop offset="100%" stopColor="#4F46E5" />
+                  <stop offset="100%" stopColor="#175fab" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-campaign" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ca8a04" />
-                  <stop offset="100%" stopColor="#facc15" />
+                  <stop offset="0%" stopColor="#175fab" />
+                  <stop offset="100%" stopColor="#3be06d" />
                 </linearGradient>
                 <linearGradient id="grad-circuit-merged" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#F97316" />
-                  <stop offset="50%" stopColor="#4F46E5" />
+                  <stop offset="0%" stopColor="#175fab" />
+                  <stop offset="50%" stopColor="#3be06d" />
                   <stop offset="100%" stopColor="#0B1020" />
                 </linearGradient>
                 <filter id="circuit-glow" x="-20%" y="-20%" width="140%" height="140%">
@@ -935,10 +936,10 @@ export default function Home() {
               </defs>
 
               {/* 1. Base Static Track Lines */}
-              <path d="M0 35 H60 C92 35 92 145 160 145" stroke="#ea580c" strokeWidth="2" opacity="0.18" />
-              <path d="M0 108 H60 C92 108 92 145 160 145" stroke="#F97316" strokeWidth="2" opacity="0.18" />
+              <path d="M0 35 H60 C92 35 92 145 160 145" stroke="#175fab" strokeWidth="2" opacity="0.18" />
+              <path d="M0 108 H60 C92 108 92 145 160 145" stroke="#3be06d" strokeWidth="2" opacity="0.18" />
               <path d="M0 182 H60 C92 182 92 145 160 145" stroke="#0B1020" strokeWidth="2" opacity="0.18" />
-              <path d="M0 255 H60 C92 255 92 145 160 145" stroke="#ca8a04" strokeWidth="2" opacity="0.18" />
+              <path d="M0 255 H60 C92 255 92 145 160 145" stroke="#175fab" strokeWidth="2" opacity="0.18" />
 
               {/* 2. Flowing Animated Dash Streams */}
               <path id="path-google" d="M0 35 H60 C92 35 92 145 160 145" stroke="url(#grad-circuit-google)" strokeWidth="2.5" strokeDasharray="6 8" className="circuit-stream circuit-stream--google" />
@@ -950,9 +951,9 @@ export default function Home() {
               <path d="M72 145 H160" stroke="url(#grad-circuit-merged)" strokeWidth="3" strokeDasharray="4 6" className="circuit-stream circuit-stream--merged" />
 
               {/* 4. Central Convergence Radar Node */}
-              <circle cx="72" cy="145" r="12" fill="#F97316" opacity="0.2" className="circuit-radar-wave" />
-              <circle cx="72" cy="145" r="7" fill="#F97316" opacity="0.4" className="circuit-radar-core" />
-              <circle cx="72" cy="145" r="4.5" fill="#7C3AED" stroke="#ffffff" strokeWidth="1.5" />
+              <circle cx="72" cy="145" r="12" fill="#3be06d" opacity="0.2" className="circuit-radar-wave" />
+              <circle cx="72" cy="145" r="7" fill="#3be06d" opacity="0.4" className="circuit-radar-core" />
+              <circle cx="72" cy="145" r="4.5" fill="#175fab" stroke="#ffffff" strokeWidth="1.5" />
             </svg>
           </div>
 
@@ -1059,13 +1060,13 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '8px',
                 padding: '12px 24px',
-                background: '#F97316',
+                background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                 color: '#ffffff',
                 fontWeight: '700',
                 borderRadius: '50px',
                 textDecoration: 'none',
                 fontSize: '14.5px',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+                boxShadow: '0 2px 8px rgba(23, 95, 171, 0.25)',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
                 transition: 'transform 0.2s ease'
@@ -1166,15 +1167,15 @@ export default function Home() {
               </p>
               <ul className="results-metrics-list">
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
+                  <span className="metric-icon" style={{ color: "#3be06d", fontWeight: "900" }}>✓</span>
                   <span>Google Maps Rank: <strong>#1 Top Local Pack</strong></span>
                 </li>
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
+                  <span className="metric-icon" style={{ color: "#3be06d", fontWeight: "900" }}>✓</span>
                   <span>Review Response Rate: <strong>100% (Instant AI)</strong></span>
                 </li>
                 <li className="results-metric-item metric--positive">
-                  <span className="metric-icon" style={{ color: "#F97316", fontWeight: "900" }}>✓</span>
+                  <span className="metric-icon" style={{ color: "#3be06d", fontWeight: "900" }}>✓</span>
                   <span>Monthly Inquiries: <strong>48+ WhatsApp Leads</strong></span>
                 </li>
               </ul>
@@ -1331,7 +1332,7 @@ export default function Home() {
                   <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
                 </div>
                 {billingCycle === 'annually' && (
-                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#F97316', marginTop: '-18px', marginBottom: '22px' }}>
+                  <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#175fab', marginTop: '-18px', marginBottom: '22px' }}>
                     ⚡ Billed annually (₹9,588/yr — Save ₹2,400)
                   </div>
                 )}
@@ -1421,59 +1422,6 @@ export default function Home() {
 
           </div>
         </div>
-
-        {/* Optional Add-Ons Strip */}
-        <div style={{
-          marginTop: '36px',
-          padding: '24px 32px',
-          background: '#ffffff',
-          border: '1.5px solid var(--color-border)',
-          borderRadius: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '20px',
-          boxShadow: '0 4px 16px rgba(3, 53, 64, 0.04)'
-        }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ padding: '3px 10px', background: 'rgba(249, 115, 22, 0.15)', color: '#F97316', borderRadius: '12px', fontSize: '11px', fontWeight: '800' }}>OPTIONAL ADD-ON</span>
-              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#111827', margin: 0 }}>🌐 Custom Local Business Website Creation</h4>
-            </div>
-            <p style={{ fontSize: '0.9rem', color: '#64748B', margin: '4px 0 0' }}>
-              Don&apos;t have a dedicated website? We build a fast, mobile-ready 5-page website with your services, photos &amp; direct WhatsApp enquiry forms.
-            </p>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: '900', color: '#0B1020' }}>+₹4,999 <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>one-time</span></div>
-              <div style={{ fontSize: '11px', color: '#F97316', fontWeight: '700' }}>70% cheaper than agencies</div>
-            </div>
-            <a
-              href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20to%20add%20Custom%20Website%20Creation%20(Rs.4999)"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '14px 24px',
-                background: '#0B1020',
-                color: '#ffffff',
-                borderRadius: '12px',
-                fontSize: '15px',
-                fontWeight: '800',
-                textDecoration: 'none',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              Add Website (+₹4,999) →
-            </a>
-          </div>
-        </div>
       </Section>
 
       {/* ─── FAQ (2-COLUMN ACCORDION) ─── */}
@@ -1507,7 +1455,7 @@ export default function Home() {
           <div className="footer-grid">
             {/* Col 1: Brand & Tagline */}
             <div className="footer-brand-col">
-              <a href="/" className="footer-brand">Grow<span>Lokal</span></a>
+              <BrandLogo variant="footer" />
               <p className="footer-tagline">
                 The #1 AI Marketing Platform built for South Indian Local Businesses. Grow your sales on Google, WhatsApp, and social media on autopilot.
               </p>
@@ -1797,10 +1745,10 @@ function ContactSection() {
           {/* Card 2: Phone Helpline */}
           <div className="contact-info-card">
             <div className="contact-info-icon">
-              <PhoneCall size={20} color="#4F46E5" strokeWidth={2.2} />
+              <PhoneCall size={20} color="#175fab" strokeWidth={2.2} />
             </div>
             <div>
-              <div className="contact-info-badge" style={{ color: '#4F46E5', background: 'rgba(79, 70, 229, 0.1)' }}>Mon - Sat (9 AM - 8 PM IST)</div>
+              <div className="contact-info-badge" style={{ color: '#175fab', background: 'rgba(23, 95, 171, 0.1)' }}>Mon - Sat (9 AM - 8 PM IST)</div>
               <h4 className="contact-info-title">Direct Helpline</h4>
               <p className="contact-info-desc">Speak to our customer onboarding team for account setup and custom integrations.</p>
               <div className="contact-info-phone">+91 (040) 4892-3100</div>
@@ -1809,11 +1757,11 @@ function ContactSection() {
 
           {/* Card 3: Office Address */}
           <div className="contact-info-card">
-            <div className="contact-info-icon" style={{ background: 'rgba(249, 115, 22, 0.1)' }}>
-              <MapPin size={20} color="#F97316" strokeWidth={2.2} />
+            <div className="contact-info-icon" style={{ background: 'rgba(59, 224, 109, 0.15)' }}>
+              <MapPin size={20} color="#3be06d" strokeWidth={2.2} />
             </div>
             <div>
-              <div className="contact-info-badge" style={{ color: '#F97316', background: 'rgba(249, 115, 22, 0.12)' }}>Headquarters</div>
+              <div className="contact-info-badge" style={{ color: '#3be06d', background: 'rgba(59, 224, 109, 0.15)' }}>Headquarters</div>
               <h4 className="contact-info-title">Hyderabad Office</h4>
               <p className="contact-info-desc">Plot 42, Hitech City Main Road, Madhapur, Hyderabad, Telangana 500081</p>
               <div className="contact-info-email">support@growlokal.com</div>
@@ -1855,7 +1803,7 @@ function LiveToastFeed() {
 const PAIN_POINTS = [
   {
     icon: Search,
-    color: '#ea580c',
+    color: '#175fab',
     stat: '60%',
     title: "Customers can't find you on Google",
     desc: 'When a customer searches "best clinic / salon / store near me", your competitors show up — but you don\'t. You\'re invisible where it matters most.',
@@ -1863,7 +1811,7 @@ const PAIN_POINTS = [
   },
   {
     icon: Star,
-    color: '#eab308',
+    color: '#3be06d',
     stat: '73%',
     title: 'Your reviews go unanswered',
     desc: '73% of consumers expect a response to reviews. Every ignored review costs you trust — and new customer bookings.',
@@ -1871,7 +1819,7 @@ const PAIN_POINTS = [
   },
   {
     icon: Share2,
-    color: '#0B1020',
+    color: '#175fab',
     stat: '1x/mo',
     title: 'Social media is an afterthought',
     desc: "You know you should post on Instagram and Facebook, but who has the time? So it happens once a month — maybe.",
@@ -1882,19 +1830,19 @@ const PAIN_POINTS = [
 const STEPS = [
   {
     icon: Building2,
-    color: '#4F46E5',
+    color: '#175fab',
     title: 'Enter your business name',
     desc: "Tell us your business's name and area — we do the rest."
   },
   {
     icon: Gauge,
-    color: '#F97316',
+    color: '#3be06d',
     title: 'Get your Google score',
     desc: 'Our AI scans your Google Business Profile and scores it instantly out of 100.'
   },
   {
     icon: Rocket,
-    color: '#0B1020',
+    color: '#175fab',
     title: 'Fix gaps with AI',
     desc: 'Get AI-generated posts, review replies, and campaigns — all automated.'
   },

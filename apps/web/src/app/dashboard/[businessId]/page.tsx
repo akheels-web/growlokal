@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { useEntitlement, hasMinPlan, RenewalWall, ExpiryBadge } from '@/components/PlanGate';
+import { BrandLogo } from '@/components/BrandLogo';
 
 interface RoiRow { month: string; enquiries: number; demos_booked: number; leads_captured: number; }
 
@@ -68,16 +69,14 @@ export default function Dashboard({ params }: { params: { businessId: string } }
       {/* Header Bar */}
       <header style={{ background: 'var(--color-brand-darkest)', color: '#ffffff', padding: '16px 24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/" className="nav-brand" style={{ color: '#ffffff', fontSize: '1.4rem' }}>
-            Grow<span style={{ color: '#F97316' }}>Lokal</span>
-          </Link>
+          <BrandLogo variant="header" style={{ color: '#ffffff' }} />
           <div style={{ display: 'flex', gap: '16px', fontSize: '14px', fontWeight: 500 }}>
             {canUseGrowthFeatures && (
               <Link href={`/dashboard/${businessId}/campaigns`} style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>
                 💬 WhatsApp Campaigns
               </Link>
             )}
-            <Link href={`/onboarding/${businessId}`} style={{ color: '#4F46E5', textDecoration: 'none' }}>
+            <Link href={`/onboarding/${businessId}`} style={{ color: '#175fab', textDecoration: 'none' }}>
               ⚙️ Edit Profile
             </Link>
           </div>

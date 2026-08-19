@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#4F46E5',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em'
           }}>

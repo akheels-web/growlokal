@@ -320,11 +320,11 @@ export default function GoogleScoreCalculatorPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '800',
-            color: '#4F46E5',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             padding: '5px 14px',
-            background: 'rgba(79, 70, 229, 0.1)',
+            background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
@@ -354,9 +354,9 @@ export default function GoogleScoreCalculatorPage() {
                 {/* Input 1: User Business */}
                 <div ref={userInputRef} style={{ position: 'relative' }}>
                   <label style={{ fontSize: '14px', fontWeight: '800', color: '#111827', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Building2 size={16} color="#4F46E5" />
+                    <Building2 size={16} color="#175fab" />
                     <span>Your Business Name</span>
-                    <span style={{ fontSize: '11px', color: '#4F46E5', fontWeight: '700', background: 'rgba(79, 70, 229, 0.1)', padding: '2px 8px', borderRadius: '6px', marginLeft: 'auto' }}>
+                    <span style={{ fontSize: '11px', color: '#175fab', fontWeight: '700', background: 'rgba(23, 95, 171, 0.1)', padding: '2px 8px', borderRadius: '6px', marginLeft: 'auto' }}>
                       Live Autocomplete
                     </span>
                   </label>
@@ -383,8 +383,8 @@ export default function GoogleScoreCalculatorPage() {
                       }}
                       onFocusCapture={(e) => {
                         e.currentTarget.style.background = '#FFFFFF';
-                        e.currentTarget.style.borderColor = '#4F46E5';
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.15)';
+                        e.currentTarget.style.borderColor = '#175fab';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(23, 95, 171, 0.15)';
                       }}
                       onBlurCapture={(e) => {
                         e.currentTarget.style.background = '#F8FAFC';
@@ -396,7 +396,7 @@ export default function GoogleScoreCalculatorPage() {
                   {showUserDropdown && userSuggestions.length > 0 && (
                     <div style={{
                       position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                      background: '#FFFFFF', border: '1.5px solid #4F46E5', borderRadius: '14px',
+                      background: '#FFFFFF', border: '1.5px solid #175fab', borderRadius: '14px',
                       boxShadow: '0 12px 32px rgba(11, 16, 32, 0.15)', maxHeight: '240px', overflowY: 'auto',
                       marginTop: '4px'
                     }}>
@@ -414,11 +414,11 @@ export default function GoogleScoreCalculatorPage() {
                             fontSize: '14px',
                             transition: 'background 0.15s ease'
                           }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(79, 70, 229, 0.06)')}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(23, 95, 171, 0.06)')}
                           onMouseLeave={(e) => (e.currentTarget.style.background = '#FFFFFF')}
                         >
                           <strong style={{ color: '#111827', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
-                            <MapPin size={14} color="#4F46E5" /> {item.name}
+                            <MapPin size={14} color="#175fab" /> {item.name}
                           </strong>
                           <span style={{ fontSize: '12px', color: '#64748B', display: 'block', marginTop: '2px', paddingLeft: '20px' }}>
                             {item.address}
@@ -432,7 +432,7 @@ export default function GoogleScoreCalculatorPage() {
                 {/* Input 2: Competitor Business */}
                 <div ref={compInputRef} style={{ position: 'relative' }}>
                   <label style={{ fontSize: '14px', fontWeight: '800', color: '#111827', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <TrendingUp size={16} color="#F97316" />
+                    <TrendingUp size={16} color="#3be06d" />
                     <span>Top Competitor Business Name</span>
                     <span style={{ fontSize: '11px', color: '#64748B', fontWeight: '600', marginLeft: 'auto' }}>
                       (Optional)
@@ -460,8 +460,8 @@ export default function GoogleScoreCalculatorPage() {
                       }}
                       onFocusCapture={(e) => {
                         e.currentTarget.style.background = '#FFFFFF';
-                        e.currentTarget.style.borderColor = '#F97316';
-                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.15)';
+                        e.currentTarget.style.borderColor = '#175fab';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(23, 95, 171, 0.15)';
                       }}
                       onBlurCapture={(e) => {
                         e.currentTarget.style.background = '#F8FAFC';
@@ -473,7 +473,7 @@ export default function GoogleScoreCalculatorPage() {
                   {showCompDropdown && compSuggestions.length > 0 && (
                     <div style={{
                       position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                      background: '#FFFFFF', border: '1.5px solid #F97316', borderRadius: '14px',
+                      background: '#FFFFFF', border: '1.5px solid #175fab', borderRadius: '14px',
                       boxShadow: '0 12px 32px rgba(11, 16, 32, 0.15)', maxHeight: '240px', overflowY: 'auto',
                       marginTop: '4px'
                     }}>
@@ -491,11 +491,11 @@ export default function GoogleScoreCalculatorPage() {
                             fontSize: '14px',
                             transition: 'background 0.15s ease'
                           }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(249, 115, 22, 0.08)')}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(23, 95, 171, 0.08)')}
                           onMouseLeave={(e) => (e.currentTarget.style.background = '#FFFFFF')}
                         >
                           <strong style={{ color: '#111827', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
-                            <MapPin size={14} color="#F97316" /> {item.name}
+                            <MapPin size={14} color="#175fab" /> {item.name}
                           </strong>
                           <span style={{ fontSize: '12px', color: '#64748B', display: 'block', marginTop: '2px', paddingLeft: '20px' }}>
                             {item.address}
@@ -511,9 +511,9 @@ export default function GoogleScoreCalculatorPage() {
               {calculating && (
                 <div style={{
                   padding: '20px',
-                  background: 'linear-gradient(135deg, #0B1020 0%, #1E1B4B 100%)',
+                  background: 'linear-gradient(135deg, #0B1020 0%, #0d2847 100%)',
                   borderRadius: '16px',
-                  border: '1.5px solid rgba(79, 70, 229, 0.4)',
+                  border: '1.5px solid rgba(23, 95, 171, 0.4)',
                   color: '#FFFFFF',
                   animation: 'fadeIn 0.3s ease'
                 }}>
@@ -523,7 +523,7 @@ export default function GoogleScoreCalculatorPage() {
                         width: '18px',
                         height: '18px',
                         border: '2.5px solid rgba(255,255,255,0.3)',
-                        borderTopColor: '#F97316',
+                        borderTopColor: '#3be06d',
                         borderRadius: '50%',
                         display: 'inline-block',
                         animation: 'spin 0.6s linear infinite'
@@ -534,7 +534,7 @@ export default function GoogleScoreCalculatorPage() {
                         {calcStep === 3 && `⚡ Calculating visibility score & generating comparative scorecard...`}
                       </span>
                     </div>
-                    <span style={{ fontSize: '14px', fontWeight: '800', color: '#F97316' }}>{calcProgress}%</span>
+                    <span style={{ fontSize: '14px', fontWeight: '800', color: '#3be06d' }}>{calcProgress}%</span>
                   </div>
 
                   {/* Visual Progress Bar */}
@@ -542,7 +542,7 @@ export default function GoogleScoreCalculatorPage() {
                     <div style={{
                       width: `${calcProgress}%`,
                       height: '100%',
-                      background: 'linear-gradient(90deg, #4F46E5 0%, #7C3AED 50%, #F97316 100%)',
+                      background: 'linear-gradient(90deg, #175fab 0%, #3be06d 100%)',
                       borderRadius: '999px',
                       transition: 'width 0.4s ease'
                     }} />
@@ -616,11 +616,11 @@ export default function GoogleScoreCalculatorPage() {
                 <span style={{
                   fontSize: '11px',
                   fontWeight: '800',
-                  color: '#F97316',
+                  color: '#175fab',
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
                   padding: '4px 12px',
-                  background: 'rgba(249, 115, 22, 0.12)',
+                  background: 'rgba(23, 95, 171, 0.1)',
                   borderRadius: '16px',
                   display: 'inline-block',
                   marginBottom: '8px'
@@ -664,20 +664,20 @@ export default function GoogleScoreCalculatorPage() {
                 <div style={{
                   padding: '28px 24px',
                   borderRadius: '20px',
-                  background: 'rgba(249, 115, 22, 0.06)',
-                  border: '2px solid rgba(249, 115, 22, 0.35)',
+                  background: 'rgba(59, 224, 109, 0.08)',
+                  border: '2px solid rgba(59, 224, 109, 0.35)',
                   textAlign: 'center'
                 }}>
-                  <div style={{ fontSize: '12px', fontWeight: '800', color: '#F97316', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <div style={{ fontSize: '12px', fontWeight: '800', color: '#15803D', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     COMPETITOR BENCHMARK
                   </div>
                   <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#111827', margin: '6px 0 14px' }}>
                     {competitorName || 'Area Top Business Benchmark'}
                   </div>
-                  <div style={{ fontSize: '3.4rem', fontWeight: '900', color: '#F97316', lineHeight: 1 }}>
+                  <div style={{ fontSize: '3.4rem', fontWeight: '900', color: '#3be06d', lineHeight: 1 }}>
                     {compScore}<span style={{ fontSize: '1.2rem', color: '#64748B' }}>/100</span>
                   </div>
-                  <p style={{ fontSize: '13px', fontWeight: '600', color: '#EA580C', marginTop: '14px', background: 'rgba(249, 115, 22, 0.1)', padding: '6px 12px', borderRadius: '8px' }}>
+                  <p style={{ fontSize: '13px', fontWeight: '600', color: '#15803D', marginTop: '14px', background: 'rgba(59, 224, 109, 0.15)', padding: '6px 12px', borderRadius: '8px' }}>
                     ✓ Active weekly Google posts &amp; 100% review response
                   </p>
                 </div>
@@ -691,7 +691,7 @@ export default function GoogleScoreCalculatorPage() {
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#4F46E5',
+                    color: '#175fab',
                     fontSize: '14px',
                     fontWeight: '700',
                     cursor: 'pointer',
@@ -711,9 +711,9 @@ export default function GoogleScoreCalculatorPage() {
                   onSubmit={handleSendReport}
                   style={{
                     padding: '30px 24px',
-                    background: 'linear-gradient(135deg, #0B1020 0%, #17143D 100%)',
+                    background: 'linear-gradient(135deg, #0B1020 0%, #0d2847 100%)',
                     borderRadius: '20px',
-                    border: '1.5px solid rgba(79, 70, 229, 0.4)',
+                    border: '1.5px solid rgba(23, 95, 171, 0.4)',
                     boxShadow: '0 12px 32px rgba(11, 16, 32, 0.25)',
                     textAlign: 'center'
                   }}
@@ -844,14 +844,14 @@ export default function GoogleScoreCalculatorPage() {
               ) : (
                 <div style={{
                   padding: '24px',
-                  background: 'rgba(249, 115, 22, 0.12)',
-                  border: '1.5px solid #F97316',
+                  background: 'rgba(59, 224, 109, 0.12)',
+                  border: '1.5px solid #3be06d',
                   borderRadius: '16px',
                   textAlign: 'left',
-                  color: '#F97316',
+                  color: '#15803D',
                 }}>
                   <div style={{ fontWeight: '800', fontSize: '1.1rem', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={20} color="#F97316" />
+                    <CheckCircle2 size={20} color="#3be06d" />
                     <span>Audit Report Sent to WhatsApp!</span>
                   </div>
                   <p style={{ color: '#111827', fontSize: '14.5px', margin: 0, lineHeight: 1.6 }}>

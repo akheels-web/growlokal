@@ -6,6 +6,7 @@ import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { CITY_DATA } from '@/lib/cityData';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { BrandLogo } from '@/components/BrandLogo';
 
 interface Props {
   params: { slug: string };
@@ -121,7 +122,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     <div style={{
                       fontSize: '1.8rem',
                       fontWeight: '900',
-                      color: i === 0 ? '#0B1020' : i === 1 ? '#F97316' : '#4f46e5',
+                      color: i === 0 ? '#0B1020' : i === 1 ? '#175fab' : '#3be06d',
                       lineHeight: '1',
                       marginBottom: '4px',
                     }}>
@@ -142,97 +143,106 @@ export default function IndustryLandingPage({ params }: Props) {
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '14px 28px',
-                    background: '#0B1020',
+                    padding: '16px 28px',
+                    background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                     color: '#ffffff',
-                    borderRadius: '50px',
+                    borderRadius: '12px',
                     fontSize: '15px',
                     fontWeight: '800',
                     textDecoration: 'none',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                    transition: 'transform 0.2s ease',
+                    boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                   }}
                 >
-                  Get Free {vertical.label} Audit →
+                  Claim Free {vertical.singular} Audit →
                 </a>
                 <a
-                  href={`https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20run%20a%20${encodeURIComponent(vertical.singular)}%20and%20want%20to%20know%20more`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/book-free-demo"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    padding: '14px 24px',
-                    background: '#F97316',
-                    color: '#ffffff',
-                    borderRadius: '50px',
+                    padding: '16px 28px',
+                    background: '#ffffff',
+                    color: '#111827',
+                    border: '1.5px solid #e2e8f0',
+                    borderRadius: '12px',
                     fontSize: '15px',
-                    fontWeight: '800',
+                    fontWeight: '700',
                     textDecoration: 'none',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   }}
                 >
-                  <span>💬 Talk on WhatsApp</span>
+                  Book 1-on-1 Demo
                 </a>
               </div>
             </div>
 
-            {/* Right Col: Hero Visual Card */}
-            <div style={{ position: 'relative' }}>
+            {/* Right: Sector Specific Realistic Visual Card */}
+            <div style={{
+              background: '#ffffff',
+              border: '1.5px solid #e2e8f0',
+              borderRadius: '24px',
+              padding: '24px',
+              boxShadow: '0 12px 36px rgba(15, 23, 42, 0.06)',
+            }}>
               <div style={{
-                background: 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)',
-                borderRadius: '28px',
-                padding: '32px',
-                border: '2px solid #93c5fd',
-                boxShadow: '0 16px 40px rgba(14, 68, 89, 0.12)',
-                position: 'relative',
+                borderRadius: '16px',
                 overflow: 'hidden',
-                textAlign: 'center',
+                position: 'relative',
+                aspectRatio: '16/10',
+                marginBottom: '20px',
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
                 <div style={{
-                  position: 'absolute',
-                  top: '16px',
-                  right: '16px',
-                  background: '#F97316',
-                  color: '#ffffff',
-                  fontSize: '11px',
-                  fontWeight: '800',
-                  padding: '4px 12px',
-                  borderRadius: '50px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'linear-gradient(135deg, #f0f7ff 0%, #e8fbf0 100%)',
                 }}>
-                  Live AI Agent
-                </div>
-
-                <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
                   <img
                     src={vertical.image}
                     alt={vertical.label}
-                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                    style={{
+                      maxHeight: '85%',
+                      maxWidth: '85%',
+                      objectFit: 'contain',
+                    }}
                   />
                 </div>
-
                 <div style={{
-                  background: '#ffffff',
-                  borderRadius: '18px',
-                  padding: '18px',
-                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
-                  textAlign: 'left',
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  background: '#0B1020',
+                  color: '#ffffff',
+                  fontSize: '12px',
+                  fontWeight: '800',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '13px', fontWeight: '800', color: '#111827' }}>
-                      📍 Google Maps Local Pack
-                    </span>
-                    <span style={{ fontSize: '12px', fontWeight: '900', color: '#F97316', background: '#EEF2FF', padding: '2px 8px', borderRadius: '8px' }}>
-                      #1 Rank
-                    </span>
-                  </div>
-                  <p style={{ fontSize: '12px', color: '#64748b', margin: 0, lineHeight: '1.4' }}>
-                    Top search for: <strong style={{ color: '#0F172A' }}>&ldquo;{vertical.searchExample}&rdquo;</strong>
-                  </p>
+                  ⭐ Top Ranked on Google Maps
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                  <span style={{ fontSize: '13.5px', color: '#64748b', fontWeight: '600' }}>Target Search Example:</span>
+                  <span style={{ fontSize: '13.5px', color: '#0B1020', fontWeight: '800' }}>&ldquo;{vertical.searchExample}&rdquo;</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
+                  <span style={{ fontSize: '13.5px', color: '#64748b', fontWeight: '600' }}>Main Pain Point:</span>
+                  <span style={{ fontSize: '13.5px', color: '#dc2626', fontWeight: '700' }}>Competitor Taking Customers</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '13.5px', color: '#64748b', fontWeight: '600' }}>AI Automation Platform:</span>
+                  <span style={{ fontSize: '13.5px', color: '#16a34a', fontWeight: '800' }}>Google Maps + WhatsApp</span>
                 </div>
               </div>
             </div>
@@ -243,7 +253,7 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── PAIN POINTS & AI SOLUTIONS ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
+          <p style={{ fontSize: '13px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
             Why Most {vertical.label} Struggle
           </p>
           <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#111827', letterSpacing: '-0.02em' }}>
@@ -289,12 +299,12 @@ export default function IndustryLandingPage({ params }: Props) {
               </div>
 
               <div style={{
-                background: '#EEF2FF',
-                border: '1.5px solid rgba(79, 70, 229, 0.25)',
+                background: 'rgba(23, 95, 171, 0.08)',
+                border: '1.5px solid rgba(23, 95, 171, 0.2)',
                 borderRadius: '12px',
                 padding: '14px',
                 fontSize: '13px',
-                color: '#4338CA',
+                color: '#175fab',
                 lineHeight: '1.45',
               }}>
                 <strong>⚡ AI Fix:</strong> {item.solution}
@@ -308,7 +318,7 @@ export default function IndustryLandingPage({ params }: Props) {
       <section style={{ padding: '80px 24px', background: '#F8FAFC', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-            <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
+            <p style={{ fontSize: '13px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '8px' }}>
               Your 24/7 AI Marketing Team
             </p>
             <h2 style={{ fontSize: '2.2rem', fontWeight: '800', color: '#111827' }}>
@@ -342,7 +352,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     {agent.icon}
                   </div>
                   <div>
-                    <span style={{ fontSize: '11.5px', fontWeight: '800', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    <span style={{ fontSize: '11.5px', fontWeight: '800', color: '#175fab', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                       {agent.agent}
                     </span>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>
@@ -358,7 +368,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {agent.bulletPoints.map((bp, j) => (
                     <li key={j} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: '#0B1020', fontWeight: '600' }}>
-                      <span style={{ color: '#F97316', fontWeight: '900' }}>✓</span>
+                      <span style={{ color: '#3be06d', fontWeight: '900' }}>✓</span>
                       <span>{bp}</span>
                     </li>
                   ))}
@@ -378,7 +388,7 @@ export default function IndustryLandingPage({ params }: Props) {
           color: '#ffffff',
           boxShadow: '0 20px 50px rgba(3, 53, 64, 0.25)',
         }}>
-          <div style={{ display: 'inline-block', background: 'rgba(249, 115, 22, 0.2)', color: '#F97316', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
+          <div style={{ display: 'inline-block', background: 'rgba(59, 224, 109, 0.15)', color: '#3be06d', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
             ⚡ Real South Indian Success Story
           </div>
 
@@ -391,7 +401,7 @@ export default function IndustryLandingPage({ params }: Props) {
               width: '50px',
               height: '50px',
               borderRadius: '50%',
-              background: '#F97316',
+              background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
@@ -427,7 +437,7 @@ export default function IndustryLandingPage({ params }: Props) {
                 <div style={{ fontSize: '1.6rem', fontWeight: '900', color: '#ffffff', margin: '4px 0' }}>
                   {metric.value}
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#F97316', background: 'rgba(249, 115, 22, 0.25)', padding: '2px 8px', borderRadius: '6px' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#3be06d', background: 'rgba(59, 224, 109, 0.2)', padding: '2px 8px', borderRadius: '6px' }}>
                   {metric.change}
                 </span>
               </div>
@@ -502,7 +512,7 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── SECTOR FAQS ─── */}
       <section style={{ padding: '80px 24px', maxWidth: '860px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <p style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+          <p style={{ fontSize: '13px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
             Got Questions?
           </p>
           <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#111827' }}>
@@ -542,7 +552,7 @@ export default function IndustryLandingPage({ params }: Props) {
                   }}
                 >
                   <span>{faq.q}</span>
-                  <span style={{ fontSize: '12px', color: '#4F46E5' }}>{isOpen ? '▲' : '▼'}</span>
+                  <span style={{ fontSize: '12px', color: '#175fab' }}>{isOpen ? '▲' : '▼'}</span>
                 </button>
                 {isOpen && (
                   <div style={{ padding: '0 24px 20px', fontSize: '14.5px', color: '#475569', lineHeight: '1.6' }}>
@@ -567,7 +577,7 @@ export default function IndustryLandingPage({ params }: Props) {
           boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
           textAlign: 'center',
         }}>
-          <span style={{ fontSize: '12px', fontWeight: '800', color: '#F97316', background: '#EEF2FF', padding: '4px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '12px', fontWeight: '800', color: '#175fab', background: 'rgba(23, 95, 171, 0.1)', padding: '4px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>
             ⚡ 100% Free Instant Google Audit
           </span>
           <h3 style={{ fontSize: '1.8rem', fontWeight: '800', color: '#111827', margin: '14px 0 8px' }}>
@@ -618,21 +628,21 @@ export default function IndustryLandingPage({ params }: Props) {
                 style={{
                   width: '100%',
                   padding: '15px 24px',
-                  background: '#0B1020',
+                  background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                   color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '15.5px',
                   fontWeight: '800',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                 }}
               >
                 Send Free {vertical.label} Report to WhatsApp →
               </button>
             </form>
           ) : (
-            <div style={{ padding: '24px', background: '#EEF2FF', borderRadius: '16px', color: '#F97316' }}>
+            <div style={{ padding: '24px', background: 'rgba(59, 224, 109, 0.12)', borderRadius: '16px', color: '#15803D' }}>
               <div style={{ fontSize: '32px', marginBottom: '8px' }}>✅</div>
               <h4 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '6px' }}>Audit Scan Initiated!</h4>
               <p style={{ fontSize: '14px', margin: 0 }}>
@@ -660,7 +670,7 @@ export default function IndustryLandingPage({ params }: Props) {
               key={v.slug}
               href={`/industry/${v.slug}`}
               style={{
-                background: 'linear-gradient(135deg, #e3f2fd 0%, #c4e4f7 100%)',
+                background: 'linear-gradient(135deg, #f0f7ff 0%, #e8fbf0 100%)',
                 border: '1.5px solid #bce0f7',
                 borderRadius: '16px',
                 padding: '16px',
@@ -687,9 +697,7 @@ export default function IndustryLandingPage({ params }: Props) {
       {/* ─── FOOTER ─── */}
       <footer className="footer" style={{ borderTop: '1px solid #e2e8f0', background: '#ffffff', padding: '60px 24px 30px' }}>
         <div className="footer-container" style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <Link href="/" className="footer-brand" style={{ fontSize: '1.6rem', fontWeight: '900', color: '#111827', textDecoration: 'none' }}>
-            Grow<span>Lokal</span>
-          </Link>
+          <BrandLogo variant="footer" />
           <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', marginBottom: '24px' }}>
             The #1 AI Marketing Platform built for South Indian Local Businesses.
           </p>

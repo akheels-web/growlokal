@@ -25,7 +25,7 @@ export default function RefundPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#F97316',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em'
           }}>
@@ -42,8 +42,8 @@ export default function RefundPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', fontSize: '0.98rem', lineHeight: '1.75', color: '#0B1020' }}>
           <section style={{
             padding: '24px',
-            background: 'rgba(249, 115, 22, 0.1)',
-            border: '1.5px solid rgba(249, 115, 22, 0.4)',
+            background: 'rgba(23, 95, 171, 0.08)',
+            border: '1.5px solid rgba(23, 95, 171, 0.25)',
             borderRadius: '16px'
           }}>
             <h2 style={{ fontSize: '1.25rem', color: '#111827', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>

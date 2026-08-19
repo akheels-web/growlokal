@@ -29,11 +29,11 @@ export default function CityPage({ params }: Props) {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#4F46E5',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 12px',
-            background: 'rgba(79, 70, 229, 0.1)',
+            background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
@@ -56,11 +56,11 @@ export default function CityPage({ params }: Props) {
           marginBottom: '40px'
         }}>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase' }}>Customer Search Volume</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase' }}>Customer Search Volume</div>
             <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.searchVolume}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#F97316', textTransform: 'uppercase' }}>Local Competition Level</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#3be06d', textTransform: 'uppercase' }}>Local Competition Level</div>
             <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.competition}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
@@ -106,7 +106,7 @@ export default function CityPage({ params }: Props) {
             {Object.values(VERTICAL_DATA).map((v) => (
               <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{
                 padding: '8px 16px', background: '#F8FAFC', border: '1px solid #e2e8f0',
-                borderRadius: '20px', fontSize: '14px', fontWeight: '600', color: '#4F46E5',
+                borderRadius: '20px', fontSize: '14px', fontWeight: '600', color: '#175fab',
                 textDecoration: 'none',
               }}>
                 {v.label} in {city.name} →
@@ -122,7 +122,7 @@ export default function CityPage({ params }: Props) {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ padding: '20px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', display: 'flex', gap: '16px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(79, 70, 229, 0.15)', color: '#4F46E5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', flexShrink: 0 }}>1</div>
+              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(23, 95, 171, 0.12)', color: '#175fab', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', flexShrink: 0 }}>1</div>
               <div>
                 <h4 style={{ fontSize: '1.05rem', fontWeight: '700', marginBottom: '4px' }}>Google Business Profile Audit &amp; Scorecard</h4>
                 <p style={{ fontSize: '0.92rem', color: '#64748b', margin: 0 }}>Identify missing local search keywords like &ldquo;best clinic / salon / store near {city.areas[0]}&rdquo;.</p>
@@ -130,7 +130,7 @@ export default function CityPage({ params }: Props) {
             </div>
 
             <div style={{ padding: '20px', background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', display: 'flex', gap: '16px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(249, 115, 22, 0.2)', color: '#F97316', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', flexShrink: 0 }}>2</div>
+              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(59, 224, 109, 0.15)', color: '#15803D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', flexShrink: 0 }}>2</div>
               <div>
                 <h4 style={{ fontSize: '1.05rem', fontWeight: '700', marginBottom: '4px' }}>Automated Vernacular Google Posts</h4>
                 <p style={{ fontSize: '0.92rem', color: '#64748b', margin: 0 }}>Publish weekly AI posts highlighting products, services, and offers tailored for {city.name} customers.</p>

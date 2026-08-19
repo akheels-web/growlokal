@@ -130,7 +130,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <div>
             {/* Category & Meta */}
             <div style={{ marginBottom: '20px' }}>
-              <span style={{ fontSize: '12px', fontWeight: '800', color: '#ffffff', background: '#4F46E5', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '12px', fontWeight: '800', color: '#ffffff', background: '#175fab', padding: '4px 12px', borderRadius: '12px', textTransform: 'uppercase' }}>
                 {article.category}
               </span>
               <span style={{ fontSize: '13px', color: '#64748b', marginLeft: '12px' }}>
@@ -180,18 +180,18 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 Get your free 10-second audit report and automate your Google posts with GrowLokal AI.
               </p>
               <Link
-                href="/#audit-form"
+                href="/free-gbp-report"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   padding: '14px 28px',
-                  background: '#F97316',
+                  background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                   color: '#FFFFFF',
                   borderRadius: '12px',
                   fontSize: '15px',
                   fontWeight: '800',
                   textDecoration: 'none',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)'
+                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)'
                 }}
               >
                 Get Free Google Audit Report →
@@ -204,17 +204,17 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             {/* Key Takeaways Box */}
             <div style={{
               padding: '24px',
-              background: 'rgba(249, 115, 22, 0.12)',
-              border: '1.5px solid rgba(249, 115, 22, 0.4)',
+              background: 'rgba(23, 95, 171, 0.08)',
+              border: '1.5px solid rgba(23, 95, 171, 0.25)',
               borderRadius: '20px'
             }}>
-              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#F97316', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: '800', color: '#175fab', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 💡 Key Takeaways
               </h4>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {article.takeaways.map((item, i) => (
                   <li key={i} style={{ fontSize: '13.5px', color: '#111827', lineHeight: 1.5, display: 'flex', gap: '8px' }}>
-                    <span>✓</span>
+                    <span style={{ color: '#3be06d', fontWeight: '900' }}>✓</span>
                     <span>{item}</span>
                   </li>
                 ))}

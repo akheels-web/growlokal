@@ -59,11 +59,11 @@ export default function BlogHubPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#4F46E5',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em',
             padding: '4px 14px',
-            background: 'rgba(79, 70, 229, 0.1)',
+            background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px',
             display: 'inline-block',
             marginBottom: '12px'
@@ -93,7 +93,7 @@ export default function BlogHubPage() {
           }}>
             <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
-                <span style={{ fontSize: '11px', fontWeight: '800', color: '#ffffff', background: '#4F46E5', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '11px', fontWeight: '800', color: '#ffffff', background: '#175fab', padding: '4px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
                   ⭐ Featured Guide
                 </span>
                 <span style={{ fontSize: '13px', color: '#64748b', fontWeight: '600' }}>• {featured.category}</span>
@@ -203,7 +203,7 @@ export default function BlogHubPage() {
                   </p>
                 </div>
                 <div>
-                  <Link href={`/blog/${article.slug}`} style={{ fontSize: '14px', fontWeight: '700', color: '#4F46E5', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <Link href={`/blog/${article.slug}`} style={{ fontSize: '14px', fontWeight: '700', color: '#175fab', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     Read Full Playbook →
                   </Link>
                 </div>

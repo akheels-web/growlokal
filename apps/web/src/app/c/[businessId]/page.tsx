@@ -74,8 +74,8 @@ export default async function Microsite({ params }: { params: { businessId: stri
             display: 'inline-block',
             fontSize: '11px',
             fontWeight: 800,
-            color: '#4F46E5',
-            background: 'rgba(79, 70, 229, 0.1)',
+            color: '#175fab',
+            background: 'rgba(23, 95, 171, 0.1)',
             padding: '4px 10px',
             borderRadius: '20px',
             textTransform: 'uppercase',
@@ -108,10 +108,10 @@ export default async function Microsite({ params }: { params: { businessId: stri
                 fontSize: '15px',
                 fontWeight: 800,
                 color: '#ffffff',
-                background: '#F97316',
+                background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                 borderRadius: '12px',
                 textDecoration: 'none',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                 flex: '1 1 auto'
               }}
             >
@@ -130,10 +130,10 @@ export default async function Microsite({ params }: { params: { businessId: stri
                 fontSize: '15px',
                 fontWeight: 800,
                 color: '#ffffff',
-                background: '#4F46E5',
+                background: '#0B1020',
                 borderRadius: '12px',
                 textDecoration: 'none',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 2px 8px rgba(11, 16, 32, 0.12)',
                 flex: '1 1 auto'
               }}
             >

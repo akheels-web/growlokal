@@ -43,8 +43,8 @@ export default function CityVerticalPage({ params }: Props) {
         />
         <div style={{ marginBottom: '40px' }}>
           <span style={{
-            fontSize: '12px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase',
-            letterSpacing: '0.1em', padding: '4px 12px', background: 'rgba(79, 70, 229, 0.1)',
+            fontSize: '12px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase',
+            letterSpacing: '0.1em', padding: '4px 12px', background: 'rgba(23, 95, 171, 0.1)',
             borderRadius: '20px', display: 'inline-block', marginBottom: '12px',
           }}>
             📍 {vertical.label} in {city.name}, {city.state}
@@ -61,11 +61,11 @@ export default function CityVerticalPage({ params }: Props) {
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px',
         }}>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#4F46E5', textTransform: 'uppercase' }}>Local Search Demand</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#175fab', textTransform: 'uppercase' }}>Local Search Demand</div>
             <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.searchVolume}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-            <div style={{ fontSize: '13px', fontWeight: '700', color: '#F97316', textTransform: 'uppercase' }}>Local Competition</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#3be06d', textTransform: 'uppercase' }}>Local Competition</div>
             <div style={{ fontSize: '1.4rem', fontWeight: '800', color: '#111827', marginTop: '6px' }}>{city.competition}</div>
           </div>
           <div style={{ padding: '20px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
@@ -99,7 +99,7 @@ export default function CityVerticalPage({ params }: Props) {
             <h3 style={{ fontSize: '1.05rem', fontWeight: '800', marginBottom: '12px' }}>Other businesses in {city.name}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {otherVerticals.slice(0, 5).map((v) => (
-                <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{ color: '#4F46E5', fontSize: '14px', textDecoration: 'none' }}>
+                <Link key={v.slug} href={`/city/${cityKey}/${v.slug}`} style={{ color: '#175fab', fontSize: '14px', textDecoration: 'none' }}>
                   {v.label} in {city.name} →
                 </Link>
               ))}
@@ -109,7 +109,7 @@ export default function CityVerticalPage({ params }: Props) {
             <h3 style={{ fontSize: '1.05rem', fontWeight: '800', marginBottom: '12px' }}>{vertical.label} in other cities</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {otherCities.map((c) => (
-                <Link key={c} href={`/city/${c}/${vertical.slug}`} style={{ color: '#4F46E5', fontSize: '14px', textDecoration: 'none' }}>
+                <Link key={c} href={`/city/${c}/${vertical.slug}`} style={{ color: '#175fab', fontSize: '14px', textDecoration: 'none' }}>
                   {vertical.label} in {CITY_DATA[c].name} →
                 </Link>
               ))}

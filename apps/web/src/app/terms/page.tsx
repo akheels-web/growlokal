@@ -25,7 +25,7 @@ export default function TermsPage() {
           <span style={{
             fontSize: '12px',
             fontWeight: '700',
-            color: '#4F46E5',
+            color: '#175fab',
             textTransform: 'uppercase',
             letterSpacing: '0.1em'
           }}>
@@ -46,7 +46,7 @@ export default function TermsPage() {
               Welcome to <strong>GrowLokal Technologies</strong> (&ldquo;GrowLokal&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;). GrowLokal provides an AI-powered local marketing and enquiry generation platform built for clinics, salons, restaurants, retail stores, and local businesses in South India.
             </p>
             <p style={{ marginTop: '12px' }}>
-              By accessing our website, creating an account, using our free Google Business Profile audit, or subscribing to a paid plan, you agree to be bound by these Terms of Service and our <Link href="/privacy" style={{ color: '#4F46E5', fontWeight: 600 }}>Privacy Policy</Link>, which is incorporated into these Terms by reference. If you do not agree, please do not use our services.
+              By accessing our website, creating an account, using our free Google Business Profile audit, or subscribing to a paid plan, you agree to be bound by these Terms of Service and our <Link href="/privacy" style={{ color: '#175fab', fontWeight: 600 }}>Privacy Policy</Link>, which is incorporated into these Terms by reference. If you do not agree, please do not use our services.
             </p>
           </section>
 
@@ -95,7 +95,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>6. Auto-Renewal &amp; Billing</h2>
             <p>
-              Paid subscriptions renew automatically at the end of each billing period using your saved payment method, unless cancelled beforehand. We will send you a reminder via WhatsApp and/or email approximately <strong>7 days before your renewal date</strong>. You can cancel auto-renewal at any time through your dashboard or by contacting support (see our <Link href="/refund" style={{ color: '#4F46E5', fontWeight: 600 }}>Refund &amp; Cancellation Policy</Link> for details).
+              Paid subscriptions renew automatically at the end of each billing period using your saved payment method, unless cancelled beforehand. We will send you a reminder via WhatsApp and/or email approximately <strong>7 days before your renewal date</strong>. You can cancel auto-renewal at any time through your dashboard or by contacting support (see our <Link href="/refund" style={{ color: '#175fab', fontWeight: 600 }}>Refund &amp; Cancellation Policy</Link> for details).
             </p>
           </section>
 

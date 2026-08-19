@@ -67,11 +67,11 @@ export default function Onboarding({ params }: { params: { businessId: string } 
         <span style={{
           fontSize: '12px',
           fontWeight: '700',
-          color: '#4F46E5',
+          color: '#175fab',
           textTransform: 'uppercase',
           letterSpacing: '0.1em',
           padding: '4px 12px',
-          background: 'rgba(79, 70, 229, 0.1)',
+          background: 'rgba(23, 95, 171, 0.1)',
           borderRadius: '20px',
           display: 'inline-block',
           marginBottom: '10px'
@@ -190,12 +190,12 @@ export default function Onboarding({ params }: { params: { businessId: string } 
               fontSize: '16px',
               fontWeight: 800,
               color: '#ffffff',
-              background: '#4F46E5',
+              background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
               border: 'none',
               borderRadius: '12px',
               cursor: busy ? 'not-allowed' : 'pointer',
               marginTop: '12px',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
               transition: 'all 0.2s ease',
             }}
           >
