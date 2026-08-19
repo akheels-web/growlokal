@@ -1,6 +1,41 @@
 # Changelog
 
-## Build session 26 — Industry Case Study Text Contrast Fix
+## Build session 28 — Minimalist White Landing Page & Clutter Removal
+
+- **Hero Redesign**:
+  - Removed the embedded GBP audit form from the hero section (now served exclusively via the dedicated [`/free-gbp-report`](file:///e:/Github/grow/growlokal/apps/web/src/app/free-gbp-report/page.tsx) and [`/book-free-demo`](file:///e:/Github/grow/growlokal/apps/web/src/app/book-free-demo/page.tsx) funnels).
+  - Added clean 3D isometric AI platform product graphic (`/images/hero_ai_platform.jpg`) showcasing Google Maps ranking, WhatsApp AI chat, AI neural chip, and local business storefronts.
+  - Added high-contrast dual action buttons: `⚡ Get Free GBP Report →` and `💬 Book Free Demo →`.
+- **Navbar Streamlining**:
+  - Removed language selector from the desktop header and mobile drawer.
+  - Streamlined desktop menu to clean minimal items: `How it works`, `AI Agents`, `Pricing`, `Industries`, and `Free GBP Report`.
+  - Maintained crisp action buttons: `Sign In` and `Book Free Demo →`.
+- **Section Decluttering**:
+  - Removed `Ready to Stop Losing Local Customers to Competitors?` section.
+  - Removed `Built specifically for your local business` guarantee section.
+  - Simplified stats bar: removed the numerical stat counters to retain ONLY the clean **"Seamlessly Integrated With"** platform badge bar (Google Maps, WhatsApp, Instagram, Facebook).
+- **Aesthetic Refinement**:
+  - Replaced dark gradients with pure white background (`#FFFFFF`) and airy pastel washes (`#FAF8FF`, `#EFF0FF`).
+  - Enhanced contrast on all text, badges, and integration pills.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
+
+- **Dedicated Demo Booking Funnel** ([`/book-free-demo`](file:///e:/Github/grow/growlokal/apps/web/src/app/book-free-demo/page.tsx)):
+  - Built a 2-column layout inspired by Grexa's high-converting booking format.
+  - Left column: 4 core value proposition hooks with emojis (`Rank #1 on Google`, `Never miss a lead on WhatsApp`, `Close high-ticket sales faster`, `Bring customers back automatically`) + 25,000+ South Indian business social proof.
+  - Right column: Clean card form featuring real-time business autocomplete, `+91` phone input, and **Monthly Marketing Budget Qualifiers** (`More than ₹5,000`, `₹3,000 - ₹5,000 [Recommended]`, `Less than ₹3,000`).
+  - Bottom: Infinite scrolling client logos marquee across Clinics, Salons, Gyms, Restaurants, Interiors, and Solar.
+- **Dedicated Free GBP Report Onboarding Funnel** ([`/free-gbp-report`](file:///e:/Github/grow/growlokal/apps/web/src/app/free-gbp-report/page.tsx)):
+  - Built a distraction-free shop-style onboarding page with multi-language header dropdown (English, Telugu, Tamil, Kannada).
+  - 2-Step interactive audit card (Step 1: Find business on Google, Step 2: WhatsApp number) with instant report trigger.
+  - Bottom performance stat grid: 25,000+ Businesses, 30-sec Delivery, 3.8x More Calls, 100% Free.
+- **Navigation Integration**:
+  - Added **"Free GBP Report"** link to desktop and mobile navigation in [`Navbar.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/components/Navbar.tsx).
+  - Linked **"Book Free Demo"** header CTAs directly to `/book-free-demo`.
+- **Button Styling Polish**:
+  - Removed all neon/glow colored halo shadows across all buttons in `globals.css` and `.tsx` pages for clean, modern matte SaaS elevation.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
 
 - **Case Study Headline & Founder High-Contrast Styling**:
   - Fixed dark text blending on the **"Real South Indian Success Story"** card across all 15 `/industry/[slug]` landing pages.

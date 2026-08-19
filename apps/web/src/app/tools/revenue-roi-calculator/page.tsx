@@ -142,31 +142,31 @@ export default function RevenueRoiCalculatorPage() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px solid rgba(255,255,255,0.15)' }}>
                   <span>Estimated ROI:</span>
-                  <strong style={{ color: '#F97316' }}>{roiPercentage.toLocaleString('en-IN')}%</strong>
+                  <strong style={{ color: '#3be06d' }}>{roiPercentage.toLocaleString('en-IN')}%</strong>
                 </div>
               </div>
             </div>
 
             <div style={{ marginTop: '24px' }}>
               <Link
-                href="/#audit-form"
+                href="/free-gbp-report"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   width: '100%',
                   padding: '16px 24px',
-                  background: '#F97316',
+                  background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                   color: '#ffffff',
                   borderRadius: '12px',
                   fontSize: '16px',
                   fontWeight: '800',
                   textDecoration: 'none',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                   transition: 'all 0.2s ease'
                 }}
               >
-                Start Free Audit &amp; Claim Growth →
+                Get Free GBP Report &amp; Claim Growth →
               </Link>
               <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '14px', textAlign: 'center', lineHeight: '1.4' }}>
                 *Note: Estimated figures based on South Indian local business benchmarks. Actual growth varies by business category &amp; service capacity.

@@ -127,10 +127,10 @@ export default function CityVerticalPage({ params }: Props) {
           <p style={{ fontSize: '1.02rem', color: '#E2E8F0', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
             Get a free 10-second audit report of your Google Business Profile right now.
           </p>
-          <Link href="/#audit-form" style={{
+          <Link href="/free-gbp-report" style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '16px 36px',
-            background: '#F97316', color: '#FFFFFF', borderRadius: '12px', fontSize: '16px',
-            fontWeight: '800', textDecoration: 'none', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+            background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)', color: '#FFFFFF', borderRadius: '12px', fontSize: '16px',
+            fontWeight: '800', textDecoration: 'none', boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
           }}>
             Get My Free Audit Report →
           </Link>

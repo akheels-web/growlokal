@@ -163,19 +163,19 @@ export default function CityPage({ params }: Props) {
             Get a free 10-second audit report of your Google Business Profile right now.
           </p>
           <Link
-            href="/#audit-form"
+            href="/free-gbp-report"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: '16px 36px',
-              background: '#F97316',
+              background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
               color: '#FFFFFF',
               borderRadius: '12px',
               fontSize: '16px',
               fontWeight: '800',
               textDecoration: 'none',
-              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
               transition: 'all 0.2s ease'
             }}
           >

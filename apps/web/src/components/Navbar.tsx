@@ -68,26 +68,11 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
         style={isSticky ? { position: 'sticky', top: 0, zIndex: 100 } : undefined}
       >
         <div className="nav-container">
-          {/* Brand Logo & Language Selector */}
+          {/* Brand Logo */}
           <div className="nav-brand-group">
             <Link href="/" className="nav-brand">
               Grow<span>Lokal</span>
             </Link>
-
-            {/* Desktop Language Selector */}
-            <div className="nav-lang-wrap">
-              <select
-                value={selectedLang}
-                onChange={(e) => handleLangSelect(e.target.value as Lang)}
-                className="nav-lang-select"
-                aria-label="Select Language"
-              >
-                <option value="en">🌐 English</option>
-                <option value="te">🌐 తెలుగు (Telugu)</option>
-                <option value="ta">🌐 தமிழ் (Tamil)</option>
-                <option value="kn">🌐 ಕನ್ನಡ (Kannada)</option>
-              </select>
-            </div>
           </div>
 
           {/* Desktop Navigation Links */}
@@ -104,17 +89,8 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
             <Link href="/#industries" className="nav-link-item">
               Industries
             </Link>
-            <Link href="/tools/revenue-roi-calculator" className="nav-link-item">
-              ROI Tool
-            </Link>
-            <Link href="/tools/google-score-calculator" className="nav-link-item">
-              Score Tool
-            </Link>
-            <Link href="/blog" className="nav-link-item">
-              Blog
-            </Link>
-            <Link href="/#contact" className="nav-link-item">
-              Contact
+            <Link href="/free-gbp-report" className="nav-link-item" style={{ color: '#4F46E5', fontWeight: '700' }}>
+              Free GBP Report
             </Link>
           </nav>
 
@@ -123,14 +99,12 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
             <Link href="/login" className="nav-signin-link">
               Sign In
             </Link>
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/book-free-demo"
               className="nav-cta-btn"
             >
               <span>Book Free Demo →</span>
-            </a>
+            </Link>
 
             {/* Mobile Hamburger Toggle Button */}
             <button
@@ -207,21 +181,6 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
 
         {/* Drawer Body */}
         <div className="nav-drawer-body">
-          {/* Language Selector Inside Drawer */}
-          <div className="nav-drawer-lang-section">
-            <label className="nav-drawer-lang-label">Language / భాష / மொழி:</label>
-            <select
-              value={selectedLang}
-              onChange={(e) => handleLangSelect(e.target.value as Lang)}
-              className="nav-drawer-lang-select"
-            >
-              <option value="en">🌐 English</option>
-              <option value="te">🌐 తెలుగు (Telugu)</option>
-              <option value="ta">🌐 தமிழ் (Tamil)</option>
-              <option value="kn">🌐 ಕನ್ನಡ (Kannada)</option>
-            </select>
-          </div>
-
           {/* Links List */}
           <nav className="nav-drawer-links" aria-label="Mobile navigation">
             <Link href="/#how-it-works" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
@@ -240,24 +199,16 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
               <span>Industries &amp; Sectors</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>
+            <Link href="/free-gbp-report" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link" style={{ color: '#4F46E5', fontWeight: '700' }}>
+              <span>⚡ Free GBP Report</span>
+              <span className="nav-drawer-link-arrow">→</span>
+            </Link>
             <Link href="/tools/revenue-roi-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
               <span>Revenue ROI Calculator</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>
             <Link href="/tools/google-score-calculator" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
               <span>Google Score Tool</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </Link>
-            <Link href="/resources/whatsapp-kit" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>WhatsApp Marketing Kit</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </Link>
-            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Blog &amp; Case Studies</span>
-              <span className="nav-drawer-link-arrow">→</span>
-            </Link>
-            <Link href="/#contact" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-link">
-              <span>Contact Us</span>
               <span className="nav-drawer-link-arrow">→</span>
             </Link>
           </nav>
@@ -267,15 +218,13 @@ export function Navbar({ currentLang = 'en', onLangChange, isSticky = false }: N
             <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="nav-drawer-signin">
               Sign In
             </Link>
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20demo%20of%20GrowLokal"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/book-free-demo"
               onClick={() => setMobileMenuOpen(false)}
               className="nav-drawer-cta"
             >
               💬 Book Free Demo →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

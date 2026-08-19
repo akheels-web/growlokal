@@ -558,14 +558,14 @@ export default function GoogleScoreCalculatorPage() {
                   style={{
                     width: '100%',
                     padding: '16px 24px',
-                    background: calculating ? '#312E81' : 'var(--color-orange)',
+                    background: calculating ? '#94A3B8' : 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                     color: '#FFFFFF',
                     borderRadius: '14px',
                     fontSize: '16px',
                     fontWeight: '800',
                     border: 'none',
                     cursor: calculating ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
+                    boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
                     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                     display: 'flex',
                     alignItems: 'center',
@@ -574,16 +574,16 @@ export default function GoogleScoreCalculatorPage() {
                   }}
                   onMouseEnter={(e) => {
                     if (!calculating) {
-                      e.currentTarget.style.background = 'var(--color-orange-hover)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #134f8f 0%, #32c55f 100%)';
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
+                      e.currentTarget.style.boxShadow = '0 4px 14px rgba(23, 95, 171, 0.3)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!calculating) {
-                      e.currentTarget.style.background = 'var(--color-orange)';
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)';
                       e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(23, 95, 171, 0.2)';
                     }
                   }}
                 >
@@ -792,31 +792,30 @@ export default function GoogleScoreCalculatorPage() {
                       disabled={sending}
                       style={{
                         padding: '14px 26px',
-                        background: 'var(--color-orange)',
+                        background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                         color: '#FFFFFF',
                         fontWeight: '800',
                         fontSize: '15px',
                         borderRadius: '12px',
-                        border: '1.5px solid var(--color-orange)',
-                        cursor: 'pointer',
-                        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                        whiteSpace: 'nowrap',
-                        display: 'inline-flex',
+                        border: 'none',
+                        cursor: sending ? 'not-allowed' : 'pointer',
+                        boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
+                        display: 'flex',
                         alignItems: 'center',
-                        gap: '8px'
+                        justifyContent: 'center',
+                        gap: '8px',
+                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                        whiteSpace: 'nowrap'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'var(--color-orange-hover)';
-                        e.currentTarget.style.borderColor = 'var(--color-orange-hover)';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #134f8f 0%, #32c55f 100%)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
+                        e.currentTarget.style.boxShadow = '0 4px 14px rgba(23, 95, 171, 0.3)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'var(--color-orange)';
-                        e.currentTarget.style.borderColor = 'var(--color-orange)';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)';
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(23, 95, 171, 0.2)';
                       }}
                     >
                       {sending ? (

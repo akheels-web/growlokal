@@ -590,24 +590,65 @@ export default function Home() {
       <Navbar currentLang={lang} onLangChange={setLang} />
 
       {/* ─── HERO ─── */}
-      <section className="hero">
-        <div className="hero-dot-grid" />
-        <div className="hero-orb hero-orb--1" />
-        <div className="hero-orb hero-orb--2" />
-        <div className="hero-orb hero-orb--3" />
-
-        <div className="hero-content">
-          <div className="hero-text">
-            <div className="hero-badge">
+      <section className="hero" style={{ padding: '60px 24px 70px', background: '#FFFFFF' }}>
+        <div className="hero-content" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="hero-text" style={{ maxWidth: '580px' }}>
+            <div className="hero-badge" style={{ marginBottom: '18px' }}>
               <span className="hero-badge-dot" />
               {t.badge}
             </div>
-            <h1 className="hero-title">
+            <h1 className="hero-title" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', lineHeight: 1.15, marginBottom: '20px', letterSpacing: '-0.03em', color: '#0B1020' }}>
               {t.heroTitle1}<span className="hero-title-accent">{t.heroAccent}</span>{t.heroTitle2}
             </h1>
-            <p className="hero-subtitle">
+            <p className="hero-subtitle" style={{ fontSize: '1.08rem', lineHeight: 1.65, color: '#475569', marginBottom: '32px' }}>
               {t.heroSub}
             </p>
+
+            {/* Dual High-Impact Action CTAs */}
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginBottom: '32px' }}>
+              <Link
+                href="/free-gbp-report"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '15px 28px',
+                  background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
+                  color: '#FFFFFF',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: '800',
+                  textDecoration: 'none',
+                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
+                  transition: 'transform 0.15s ease',
+                }}
+              >
+                <span>⚡ Get Free GBP Report</span>
+                <span>→</span>
+              </Link>
+              <Link
+                href="/book-free-demo"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '15px 26px',
+                  background: '#FFFFFF',
+                  color: '#0B1020',
+                  border: '1.5px solid #CBD5E1',
+                  borderRadius: '12px',
+                  fontSize: '15px',
+                  fontWeight: '800',
+                  textDecoration: 'none',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <span>💬 Book Free Demo</span>
+                <span>→</span>
+              </Link>
+            </div>
+
             <div className="hero-trust">
               <span className="hero-trust-item"><span className="hero-trust-icon">✓</span> Free 30-Sec Audit</span>
               <span className="hero-trust-item"><span className="hero-trust-icon">⚡</span> Delivered on WhatsApp</span>
@@ -615,145 +656,36 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Audit form card */}
-          <div className="audit-card" id="audit-form">
-            <div className="audit-card-badge">{t.auditBadge}</div>
-            <h2 className="audit-card-title">{t.auditTitle}</h2>
-            <p className="audit-card-subtitle">{t.auditSub}</p>
-            <form onSubmit={runAudit} className="audit-form">
-              <div className="input-with-icon" style={{ position: 'relative' }}>
-                <span className="input-icon">🔍</span>
-                <input
-                  id="audit-business-name"
-                  required
-                  placeholder="Search your Google Business Name (e.g. Apollo, Green Trends)"
-                  value={businessName}
-                  onChange={e => handleNameChange(e.target.value)}
-                  onFocus={() => businessName.trim().length >= 2 && setShowDropdown(true)}
-                  className="form-input"
-                  autoComplete="off"
-                />
-                {showDropdown && suggestions.length > 0 && (
-                  <div style={{
-                    position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
-                    background: '#ffffff', border: '1.5px solid #4F46E5', borderRadius: '14px',
-                    boxShadow: '0 12px 32px rgba(3, 53, 64, 0.2)', maxHeight: '240px', overflowY: 'auto'
-                  }}>
-                    {suggestions.map((item, idx) => (
-                      <div key={idx}
-                        onClick={() => {
-                          setBusinessName(item.name);
-                          setShowDropdown(false);
-                        }}
-                        style={{
-                          padding: '12px 16px',
-                          cursor: 'pointer',
-                          borderBottom: idx === suggestions.length - 1 ? 'none' : '1px solid #f1f5f9',
-                          fontSize: '14px',
-                          transition: 'background 0.15s ease'
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(252, 163, 17, 0.08)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = '#ffffff')}
-                      >
-                        <strong style={{ color: '#111827', display: 'block', fontSize: '14px' }}>📍 {item.name}</strong>
-                        <span style={{ fontSize: '12px', color: '#64748b' }}>{item.address}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <div className="phone-input-group">
-                  <div className="phone-prefix">
-                    <svg width="22" height="15" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '2.5px', boxShadow: '0 1px 3px rgba(0,0,0,0.15)', flexShrink: 0 }}>
-                      <rect width="20" height="4.67" fill="#FF9933" />
-                      <rect y="4.67" width="20" height="4.67" fill="#FFFFFF" />
-                      <rect y="9.33" width="20" height="4.67" fill="#138808" />
-                      <circle cx="10" cy="7" r="1.8" stroke="#000080" strokeWidth="0.6" fill="none" />
-                    </svg>
-                    <span className="phone-code">+91</span>
-                    <span className="phone-divider" />
-                  </div>
-                  <input
-                    id="audit-phone"
-                    required
-                    placeholder="Enter 10-digit WhatsApp number"
-                    type="tel"
-                    maxLength={10}
-                    value={phone}
-                    onChange={e => setPhone(e.target.value.replace(/[^0-9]/g, ''))}
-                    className="phone-input-field"
-                  />
-                </div>
-              </div>
-
-              <button id="audit-submit" type="submit" disabled={loading} className="btn-primary" style={{ marginTop: '4px' }}>
-                {loading ? <><span className="spinner" />{t.btnLoading}</> : t.btnAudit}
-              </button>
-            </form>
-            <div className="audit-trust-strip">
-              <span>Instant report on WhatsApp • 100% Free</span>
+          {/* Right Side: Hero Visual Graphic */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+            <div style={{
+              position: 'relative',
+              borderRadius: '24px',
+              padding: '10px',
+              background: 'linear-gradient(135deg, #FAF8FF 0%, #EFF0FF 100%)',
+              border: '1px solid #E2E8F0',
+              boxShadow: '0 20px 48px rgba(15, 23, 42, 0.06)',
+            }}>
+              <img
+                src="/images/hero_ai_platform.jpg"
+                alt="GrowLokal AI Local Marketing Platform"
+                style={{
+                  width: '100%',
+                  maxWidth: '520px',
+                  height: 'auto',
+                  borderRadius: '18px',
+                  display: 'block',
+                }}
+              />
             </div>
-            {loading && (
-              <div className="radar-scan-box">
-                <div className="radar-sweep-line" />
-                <div style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-orange)', marginBottom: '4px' }}>
-                  📡 AI Radar Scanning In Progress…
-                </div>
-                <div style={{ fontSize: '12px', opacity: 0.85 }}>
-                  Scanning Google Profile, Review Replies &amp; Local Maps Rank
-                </div>
-              </div>
-            )}
-            {error && <p className="form-error">{error}</p>}
-            {result && (
-              <div className="results-panel">
-                <div className="results-card">
-                  <div className="score-ring-container"><ScoreRing score={result.score} /></div>
-                  <p className="results-message">{result.message}</p>
-                  <a href="https://wa.me/91XXXXXXXXXX?text=I%20want%20to%20fix%20my%20Google%20presence"
-                    className="btn-whatsapp" target="_blank" rel="noopener noreferrer">
-                    💬 Fix this for me — book a free call
-                  </a>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </section>
 
-      {/* ─── REDESIGNED HIGH-IMPACT STATS & INTEGRATION BAR ─── */}
-      <div className="stats-bar">
-        <div className="stats-container">
-          <div className="stats-header-tag">
-            ⚡ Proven ROI Across South India
-          </div>
-
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-card-icon">🏬</div>
-              <AnimatedNumber target={500} suffix="+" />
-              <span className="stat-label">Local Businesses Audited</span>
-            </div>
-            <div className="stat-card">
-              <div className="stat-card-icon">📈</div>
-              <AnimatedNumber target={3} suffix="x" />
-              <span className="stat-label">More Customer Enquiries</span>
-            </div>
-            <div className="stat-card">
-              <div className="stat-card-icon">⚡</div>
-              <AnimatedNumber target={30} suffix="s" />
-              <span className="stat-label">Instant Google Audit Report</span>
-            </div>
-            <div className="stat-card">
-              <div className="stat-card-icon">🌐</div>
-              <AnimatedNumber target={3} suffix="" />
-              <span className="stat-label">Vernacular Languages (Telugu, Tamil, EN)</span>
-            </div>
-          </div>
-
-          <div className="platforms-section">
+      {/* ─── SEAMLESS PLATFORMS INTEGRATION STRIP ─── */}
+      <div className="stats-bar" style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', background: '#FAF8FF', padding: '24px 16px' }}>
+        <div className="stats-container" style={{ margin: '0 auto', maxWidth: '1180px' }}>
+          <div className="platforms-section" style={{ margin: 0 }}>
             <span className="platforms-title">Seamlessly Integrated With</span>
             <div className="platform-badges">
               <div className="platform-badge">
@@ -1295,35 +1227,9 @@ export default function Home() {
             <h4 className="results-cta-heading">Ready to see your business score jump from 23 to 87?</h4>
             <p className="results-cta-sub">Run your free 30-second Google Business Audit now. No credit card required.</p>
           </div>
-          <a href="#audit-form" className="results-cta-btn">
+          <Link href="/free-gbp-report" className="results-cta-btn">
             <span>⚡ Audit My Business Free</span>
-          </a>
-        </div>
-      </Section>
-
-      {/* ─── PLATFORM PROMISE (HONEST STARTUP PROMISE) ─── */}
-      <Section id="guarantee">
-        <div className="section-header">
-          <p className="section-eyebrow">Our Early Access Guarantee</p>
-          <h2 className="section-title">Built specifically for your local business</h2>
-          <p className="section-subtitle">We are committed to delivering real customer sales growth from day one.</p>
-        </div>
-        <div className="testimonials-grid">
-          <div className="testimonial-card">
-            <div className="pain-icon">🇮🇳</div>
-            <h3 className="pain-title">100% Vernacular Accuracy</h3>
-            <p className="testimonial-text">&ldquo;All AI posts and customer replies are generated natively in Telugu, Tamil, Kannada, and English — tuned specifically for South Indian local business terminology.&rdquo;</p>
-          </div>
-          <div className="testimonial-card">
-            <div className="pain-icon">🔒</div>
-            <h3 className="pain-title">1-Click Approval Control</h3>
-            <p className="testimonial-text">&ldquo;You stay in complete control. Nothing gets published on your Google or WhatsApp until you review and click approve on your smartphone.&rdquo;</p>
-          </div>
-          <div className="testimonial-card">
-            <div className="pain-icon">⚡</div>
-            <h3 className="pain-title">Zero Setup Effort</h3>
-            <p className="testimonial-text">&ldquo;No complex dashboards or coding required. Our AI tools run right where you are — on your WhatsApp and phone.&rdquo;</p>
-          </div>
+          </Link>
         </div>
       </Section>
 
@@ -1594,140 +1500,6 @@ export default function Home() {
 
       {/* ─── CONTACT US SECTION & FORM ─── */}
       <ContactSection />
-
-      {/* ─── CRAZY MODERN FINAL CTA SECTION ─── */}
-      <section className="crazy-cta-section" id="final-cta">
-        <div className="crazy-cta-container">
-          {/* Ambient Lighting Orbs */}
-          <div className="crazy-cta-glow crazy-cta-glow--teal" />
-          <div className="crazy-cta-glow crazy-cta-glow--green" />
-          <div className="crazy-cta-glow crazy-cta-glow--gold" />
-
-          <div className="crazy-cta-card">
-            {/* Left Column: Visual Specialist & Live Interaction Showcase */}
-            <div className="crazy-cta-visual-col">
-              <div className="crazy-specialist-wrapper">
-                <img
-                  src="/images/specialist_chat.jpg"
-                  alt="GrowLokal Local Growth Specialist"
-                  className="crazy-specialist-img"
-                />
-
-                {/* Live Online Badge */}
-                <div className="crazy-live-badge">
-                  <span className="crazy-live-pulse-dot" />
-                  <div className="crazy-live-text">
-                    <span className="crazy-live-title">Growth Specialist Online</span>
-                    <span className="crazy-live-sub">Telugu • Tamil • Kannada • English</span>
-                  </div>
-                </div>
-
-                {/* Verified Rating Floating Pill */}
-                <div className="crazy-rating-pill">
-                  <Star size={14} className="crazy-star-icon" fill="#f59e0b" color="#f59e0b" />
-                  <span><strong>4.9/5</strong> (1,200+ Audits Done)</span>
-                </div>
-
-                {/* Floating Interactive Micro Chat Bubble */}
-                <div className="crazy-chat-bubble">
-                  <div className="crazy-chat-avatar">
-                    <WhatsAppOfficialIcon size={24} />
-                  </div>
-                  <div className="crazy-chat-content">
-                    <p className="crazy-chat-msg">
-                      "Namaste! Ready to get <strong>3x more customer calls</strong> from Google Maps in your area?"
-                    </p>
-                    <span className="crazy-chat-time">⚡ Instant 30s Report • Zero Setup Fee</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: High Impact Content & Buttons */}
-            <div className="crazy-cta-content-col">
-              <div className="crazy-super-badge">
-                <Sparkles size={14} className="crazy-sparkle-icon" />
-                <span>Instant Self-Service Google Audit</span>
-              </div>
-
-              <h2 className="crazy-cta-title">
-                Ready to Stop Losing Local Customers to Competitors?
-              </h2>
-
-              <p className="crazy-cta-subtitle">
-                Get your business audited on Google Search & Maps in 30 seconds. We’ll show you exactly why competing stores rank above you and how to overtake them on autopilot.
-              </p>
-
-              {/* 3 Fast Advantage Badges */}
-              <div className="crazy-benefits-grid">
-                <div className="crazy-benefit-item">
-                  <div className="crazy-benefit-icon crazy-benefit-icon--teal">
-                    <BarChart3 size={16} strokeWidth={2.5} />
-                  </div>
-                  <div className="crazy-benefit-text">
-                    <span className="crazy-benefit-title">30-Sec Google Score</span>
-                    <span className="crazy-benefit-desc">Side-by-side competitor benchmark</span>
-                  </div>
-                </div>
-
-                <div className="crazy-benefit-item">
-                  <div className="crazy-benefit-icon crazy-benefit-icon--green">
-                    <Languages size={16} strokeWidth={2.5} />
-                  </div>
-                  <div className="crazy-benefit-text">
-                    <span className="crazy-benefit-title">Vernacular AI Autopilot</span>
-                    <span className="crazy-benefit-desc">Posts & replies in Te / Ta / Kn / En</span>
-                  </div>
-                </div>
-
-                <div className="crazy-benefit-item">
-                  <div className="crazy-benefit-icon crazy-benefit-icon--gold">
-                    <ShieldCheck size={16} strokeWidth={2.5} />
-                  </div>
-                  <div className="crazy-benefit-text">
-                    <span className="crazy-benefit-title">7-Day Money-Back</span>
-                    <span className="crazy-benefit-desc">100% risk-free local growth</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons Group */}
-              <div className="crazy-cta-buttons-group">
-                <a href="#audit-form" className="btn-crazy-cta-primary">
-                  <span>Get Free Google Report</span>
-                  <ArrowRight size={18} strokeWidth={2.5} className="crazy-btn-arrow" />
-                </a>
-
-                <a
-                  href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%2C%20I%20want%20a%20free%20demo%20of%20GrowLokal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-crazy-cta-whatsapp"
-                >
-                  <WhatsAppOfficialIcon size={20} />
-                  <span>Book Free Demo on WhatsApp</span>
-                </a>
-              </div>
-
-              {/* Micro Trust Strip */}
-              <div className="crazy-trust-strip">
-                <span className="crazy-trust-item">
-                  <CheckCircle2 size={14} className="crazy-trust-icon" />
-                  <span>No credit card required</span>
-                </span>
-                <span className="crazy-trust-item">
-                  <CheckCircle2 size={14} className="crazy-trust-icon" />
-                  <span>Instant WhatsApp report</span>
-                </span>
-                <span className="crazy-trust-item">
-                  <CheckCircle2 size={14} className="crazy-trust-icon" />
-                  <span>100% private & secure</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ─── RICH SEO FOOTER ─── */}
       <footer className="footer">
