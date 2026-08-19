@@ -130,7 +130,7 @@ export default function CityVerticalPage({ params }: Props) {
           <Link href="/#audit-form" style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '16px 36px',
             background: '#F97316', color: '#FFFFFF', borderRadius: '12px', fontSize: '16px',
-            fontWeight: '800', textDecoration: 'none', boxShadow: '0 4px 16px rgba(249, 115, 22, 0.4)',
+            fontWeight: '800', textDecoration: 'none', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
           }}>
             Get My Free Audit Report →
           </Link>

@@ -565,7 +565,7 @@ export default function GoogleScoreCalculatorPage() {
                     fontWeight: '800',
                     border: 'none',
                     cursor: calculating ? 'not-allowed' : 'pointer',
-                    boxShadow: 'var(--shadow-orange-glow)',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                     display: 'flex',
                     alignItems: 'center',
@@ -576,14 +576,14 @@ export default function GoogleScoreCalculatorPage() {
                     if (!calculating) {
                       e.currentTarget.style.background = 'var(--color-orange-hover)';
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = 'var(--shadow-orange-glow-lg)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!calculating) {
                       e.currentTarget.style.background = 'var(--color-orange)';
                       e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = 'var(--shadow-orange-glow)';
+                      e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
                     }
                   }}
                 >
@@ -799,7 +799,7 @@ export default function GoogleScoreCalculatorPage() {
                         borderRadius: '12px',
                         border: '1.5px solid var(--color-orange)',
                         cursor: 'pointer',
-                        boxShadow: 'var(--shadow-orange-glow)',
+                        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                         whiteSpace: 'nowrap',
                         display: 'inline-flex',
@@ -810,13 +810,13 @@ export default function GoogleScoreCalculatorPage() {
                         e.currentTarget.style.background = 'var(--color-orange-hover)';
                         e.currentTarget.style.borderColor = 'var(--color-orange-hover)';
                         e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = 'var(--shadow-orange-glow-lg)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.12)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'var(--color-orange)';
                         e.currentTarget.style.borderColor = 'var(--color-orange)';
                         e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = 'var(--shadow-orange-glow)';
+                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
                       }}
                     >
                       {sending ? (

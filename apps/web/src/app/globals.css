@@ -31,7 +31,7 @@
   --color-orange: #F97316;
   --color-orange-hover: #EA580C;
   --color-orange-light: rgba(249, 115, 22, 0.12);
-  --color-orange-glow: rgba(249, 115, 22, 0.35);
+  --color-orange-glow: rgba(0, 0, 0, 0.08);
 
   --color-amber: #FBBF24;
   --color-amber-hover: #F59E0B;
@@ -98,9 +98,9 @@
   --shadow-xl: 0 20px 48px rgba(11, 16, 32, 0.12);
   --shadow-card: 0 4px 20px rgba(11, 16, 32, 0.04);
   --shadow-card-hover: 0 16px 40px rgba(79, 70, 229, 0.12);
-  --shadow-orange-glow: 0 4px 20px rgba(249, 115, 22, 0.35);
-  --shadow-orange-glow-lg: 0 8px 30px rgba(249, 115, 22, 0.5);
-  --shadow-ai-glow: 0 4px 20px rgba(124, 58, 237, 0.3);
+  --shadow-orange-glow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-orange-glow-lg: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-ai-glow: 0 1px 3px rgba(0, 0, 0, 0.08);
 
   /* Typography */
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1006,7 +1006,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .stat-card:hover {
   transform: translateY(-4px);
   border-color: rgba(124, 58, 237, 0.4);
-  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -1093,7 +1093,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   font-size: 14.5px;
   font-weight: 700;
   text-decoration: none !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: -0.01em;
 }
@@ -1102,7 +1102,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   background: var(--color-primary-hover) !important;
   border-color: var(--color-primary-hover) !important;
   color: #ffffff !important;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .btn-growth-tool-green {
@@ -1509,7 +1509,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   border-color: var(--color-primary-hover);
   background: var(--color-bg-secondary) !important;
   color: var(--color-primary-hover) !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 .btn-pricing--filled {
@@ -2305,7 +2305,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   text-decoration: none !important; box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
-.wa-float:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 6px 30px rgba(249, 115, 22, 0.5); color: #fff !important; }
+.wa-float:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); color: #fff !important; }
 .wa-float-icon { font-size: 20px; }
 
 /* LIVE AI ACTIVITY TOAST FEED */
@@ -2743,7 +2743,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   transform: translateY(-3px) scale(1.02);
   background: #4F46E5 !important;
   border-color: #4F46E5 !important;
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   color: #ffffff !important;
 }
 
@@ -3210,7 +3210,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
 }
@@ -3219,7 +3219,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   background: var(--color-primary-hover) !important;
   border-color: var(--color-primary-hover) !important;
   color: #ffffff !important;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
 }
 
@@ -4060,7 +4060,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 
 .contact-info-card--wa:hover {
   border-color: #25D366;
-  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 .contact-info-icon {

@@ -149,7 +149,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     fontSize: '15px',
                     fontWeight: '800',
                     textDecoration: 'none',
-                    boxShadow: '0 6px 20px rgba(14, 68, 89, 0.25)',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                     transition: 'transform 0.2s ease',
                   }}
                 >
@@ -171,7 +171,7 @@ export default function IndustryLandingPage({ params }: Props) {
                     fontSize: '15px',
                     fontWeight: '800',
                     textDecoration: 'none',
-                    boxShadow: '0 6px 20px rgba(37, 211, 102, 0.25)',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   <span>💬 Talk on WhatsApp</span>
@@ -625,7 +625,7 @@ export default function IndustryLandingPage({ params }: Props) {
                   fontWeight: '800',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: '0 6px 20px rgba(14, 68, 89, 0.25)',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                 }}
               >
                 Send Free {vertical.label} Report to WhatsApp →

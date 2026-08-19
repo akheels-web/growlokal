@@ -195,7 +195,7 @@ export default function Onboarding({ params }: { params: { businessId: string } 
               borderRadius: '12px',
               cursor: busy ? 'not-allowed' : 'pointer',
               marginTop: '12px',
-              boxShadow: '0 4px 16px rgba(79, 70, 229, 0.35)',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
               transition: 'all 0.2s ease',
             }}
           >

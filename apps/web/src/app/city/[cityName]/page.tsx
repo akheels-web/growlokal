@@ -175,7 +175,7 @@ export default function CityPage({ params }: Props) {
               fontSize: '16px',
               fontWeight: '800',
               textDecoration: 'none',
-              boxShadow: '0 4px 16px rgba(249, 115, 22, 0.4)',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
               transition: 'all 0.2s ease'
             }}
           >

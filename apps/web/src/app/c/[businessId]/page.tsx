@@ -111,7 +111,7 @@ export default async function Microsite({ params }: { params: { businessId: stri
                 background: '#F97316',
                 borderRadius: '12px',
                 textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(249, 115, 22, 0.35)',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                 flex: '1 1 auto'
               }}
             >
@@ -133,7 +133,7 @@ export default async function Microsite({ params }: { params: { businessId: stri
                 background: '#4F46E5',
                 borderRadius: '12px',
                 textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(79, 70, 229, 0.35)',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                 flex: '1 1 auto'
               }}
             >

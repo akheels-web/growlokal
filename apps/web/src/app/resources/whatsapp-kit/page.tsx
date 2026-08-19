@@ -102,7 +102,7 @@ export default function WhatsappKitPage() {
                   fontWeight: '800',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(14, 68, 89, 0.25)',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
                   transition: 'all 0.2s ease'
                 }}
               >
