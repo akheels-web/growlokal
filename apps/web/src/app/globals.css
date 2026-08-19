@@ -558,7 +558,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 .hero {
   position: relative; min-height: auto;
   display: flex; align-items: center; justify-content: center;
-  padding: 60px 24px 70px;
+  padding: 110px 24px 70px;
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 0%, rgba(124, 58, 237, 0.04) 0%, #FFFFFF 75%);
   color: #0B1020;

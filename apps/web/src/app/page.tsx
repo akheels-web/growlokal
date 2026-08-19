@@ -591,7 +591,7 @@ export default function Home() {
       <Navbar currentLang={lang} onLangChange={setLang} />
 
       {/* ─── HERO ─── */}
-      <section className="hero" style={{ padding: '60px 24px 70px', background: '#FFFFFF' }}>
+      <section className="hero" style={{ padding: '116px 24px 70px', background: '#FFFFFF' }}>
         <div className="hero-content" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
           <div className="hero-text" style={{ maxWidth: '580px' }}>
             <div className="hero-badge" style={{ marginBottom: '18px' }}>

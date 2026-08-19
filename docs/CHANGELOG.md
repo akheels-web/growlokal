@@ -1,5 +1,23 @@
 # Changelog
 
+## Build session 31 — Layout Polish, Hero Spacing, Results Banner Gradient & Centralized Brand Logo
+
+- **Hero Clearance & Header Spacing**:
+  - Increased hero section top padding to `116px` across [`page.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/page.tsx) and [`globals.css`](file:///e:/Github/grow/growlokal/apps/web/src/app/globals.css) so the hero visual product card sits completely below the fixed header with balanced breathing room.
+- **Vertical Alignment in "Seamlessly Integrated With"**:
+  - Removed unbalanced top padding from `.platforms-section` and unified flex alignment across desktop and mobile so the title label and platform pill badges are vertically centered within the strip.
+- **Results Bottom Banner Gradient & Hover Polish**:
+  - Applied the brand gradient (`linear-gradient(135deg, #175fab 0%, #3be06d 100%)`) to `.results-bottom-cta` ("Ready to see your business score jump from 23 to 87?").
+  - Fixed the `Audit My Business Free` button hover state to high-contrast white background with dark black text (`#0B1020`) so text never mixes with the background.
+- **Removed Pricing Add-On Section**:
+  - Completely removed the "Custom Local Business Website Creation" add-on strip below the pricing grid.
+- **Centralized Brand Logo Component & Global Link Placeholder**:
+  - Built [`BrandLogo.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/components/BrandLogo.tsx) exporting `BRAND_CONFIG.logoUrl`.
+  - Linked `BrandLogo` in the main Navbar (desktop & mobile drawer), landing page footer, Free GBP Report header, Login header, Industry landing page footer, and Dashboard header.
+  - Adding a logo link in `BRAND_CONFIG.logoUrl` now reflects across all headers and footers across the site.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
+
 ## Build session 30 — Complete Enterprise Color Unification (#175fab & #3be06d) Across All Pages
 
 - **Brand Color Palette Consolidation**:
