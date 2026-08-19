@@ -1,0 +1,49 @@
+# GrowLokal AI
+
+> Autonomous AI Local Marketing Platform for South Indian Small & Medium Businesses
+
+GrowLokal (https://growlokal.com) is an enterprise-grade AI marketing platform built specifically for local businesses across South India (Hyderabad, Chennai, Bengaluru, Vijayawada, Visakhapatnam, Coimbatore, Kochi, Madurai).
+
+## Core Capabilities
+- **Google Business Profile Autopilot**: Automatically optimizes Google Maps rankings, publishes weekly localized updates, and drafts professional review responses in seconds.
+- **Vernacular AI Engine**: Native AI content generation and customer communication in Telugu, Tamil, Kannada, and English.
+- **WhatsApp 24/7 Lead Responder**: AI chatbot that captures customer inquiries, qualifies leads, and schedules appointments automatically.
+- **Multi-Platform Integration**: Seamlessly syncs with Google Maps, Google Search, WhatsApp Meta Business, Instagram Business, and Facebook Pages.
+
+## Industry Verticals Supported
+- Dental Clinics & Healthcare Centres (https://growlokal.com/industry/dental-clinic)
+- Salons & Spas (https://growlokal.com/industry/salons-spas)
+- Gyms & Fitness Centres (https://growlokal.com/industry/gyms-fitness)
+- Restaurants & Cafes (https://growlokal.com/industry/restaurants-cafes)
+- Interior Designers & Modular Kitchens (https://growlokal.com/industry/interiors)
+- Real Estate Agencies & Property Consultants (https://growlokal.com/industry/real-estate)
+- Solar Rooftop Installation Companies (https://growlokal.com/industry/solar)
+- Insurance, Tax & Legal Services (https://growlokal.com/industry/insurance-tax-legal)
+- Retail Shops & Boutiques (https://growlokal.com/industry/retail-shops)
+- Logistics & Courier Services (https://growlokal.com/industry/logistics)
+- Education & Coaching Institutes (https://growlokal.com/industry/coaching-institutes)
+
+## City Coverage
+- Hyderabad (Telangana): Ameerpet, Kukatpally, Madhapur, Gachibowli, Dilsukhnagar, Himayatnagar (https://growlokal.com/city/hyderabad)
+- Chennai (Tamil Nadu): T. Nagar, Anna Nagar, Velachery, Adyar, Mylapore, OMR (https://growlokal.com/city/chennai)
+- Bengaluru (Karnataka): Jayanagar, Indiranagar, HSR Layout, Koramangala, Whitefield (https://growlokal.com/city/bengaluru)
+- Vijayawada (Andhra Pradesh): Benz Circle, Governorpet, Moghalrajpuram (https://growlokal.com/city/vijayawada)
+- Visakhapatnam (Andhra Pradesh): Dwaraka Nagar, MVP Colony, Gajuwaka (https://growlokal.com/city/visakhapatnam)
+- Coimbatore (Tamil Nadu): RS Puram, Gandhipuram, Peelamedu (https://growlokal.com/city/coimbatore)
+- Kochi (Kerala): MG Road, Edappally, Kakkanad (https://growlokal.com/city/kochi)
+- Madurai (Tamil Nadu): KK Nagar, Simmakkal, Anna Nagar (https://growlokal.com/city/madurai)
+
+## Free Self-Service Growth Tools
+- **Free GBP Audit Report**: 30-second Google Maps audit delivered via WhatsApp (https://growlokal.com/free-gbp-report)
+- **Book Free Demo**: 1-on-1 personalized local growth walkthrough (https://growlokal.com/book-free-demo)
+- **Google Visibility Score Calculator**: Side-by-side local competitor benchmarking (https://growlokal.com/tools/google-score-calculator)
+- **Revenue ROI Calculator**: Project 12-month business net profit growth (https://growlokal.com/tools/revenue-roi-calculator)
+
+## Pricing Plans
+- **Starter Plan**: ₹999/month — Essential Google Business optimization, review management, and WhatsApp lead responder.
+- **Growth Plan (Most Popular)**: ₹1,999/month — Full vernacular autopilot (Telugu, Tamil, Kannada, English), competitor tracking, automated weekly posts, and WhatsApp broadcast engine.
+
+## Contact & Support
+- Website: https://growlokal.com
+- Official WhatsApp: +91-9876543210
+- Email: support@growlokal.com

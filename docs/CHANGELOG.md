@@ -1,6 +1,26 @@
 # Changelog
 
-## Build session 28 — Minimalist White Landing Page & Clutter Removal
+## Build session 29 — Dynamic Sitemap, Robots.txt, LLMs.txt & Complete SEO Suite
+
+- **Dynamic Sitemap Generation** ([`apps/web/src/app/sitemap.ts`](file:///e:/Github/grow/growlokal/apps/web/src/app/sitemap.ts)):
+  - Built typed Next.js App Router dynamic sitemap automatically generating `/sitemap.xml`.
+  - Automatically indexes all core static routes, all 11+ industry verticals (`/industry/[slug]`), all South Indian cities (`/city/[cityName]`), all programmatic city x industry combinations (`/city/[cityName]/[vertical]`), and all blog posts (`/blog/[slug]`).
+  - Automatically updates whenever new verticals, cities, or blog articles are added.
+- **Dynamic Robots.txt Configuration** ([`apps/web/src/app/robots.ts`](file:///e:/Github/grow/growlokal/apps/web/src/app/robots.ts)):
+  - Built typed Next.js App Router dynamic `robots.txt` generator with granular rules for Googlebot, Bingbot, GPTBot, ClaudeBot, and PerplexityBot.
+  - Allows public crawling of landing pages, funnels, tools, city pages, industry hubs, and blogs while protecting private dashboard and API endpoints.
+  - Automatically links to `https://growlokal.com/sitemap.xml`.
+- **LLM Search Engine Standard** ([`apps/web/public/llms.txt`](file:///e:/Github/grow/growlokal/apps/web/public/llms.txt)):
+  - Created `/llms.txt` structured document optimized for Perplexity, ChatGPT Search, Claude, and Google Search AI Overviews.
+- **Shared Blog Architecture** ([`apps/web/src/lib/blogData.ts`](file:///e:/Github/grow/growlokal/apps/web/src/lib/blogData.ts)):
+  - Centralized article database connecting `/blog`, `/blog/[slug]`, and `sitemap.ts`.
+- **Dedicated SEO Layouts & Meta Tags**:
+  - Added dedicated metadata layouts for [`/free-gbp-report`](file:///e:/Github/grow/growlokal/apps/web/src/app/free-gbp-report/layout.tsx), [`/book-free-demo`](file:///e:/Github/grow/growlokal/apps/web/src/app/book-free-demo/layout.tsx), and [`/login`](file:///e:/Github/grow/growlokal/apps/web/src/app/login/layout.tsx).
+  - Verified all `<img>` tags possess descriptive `alt` tags and proper accessibility attributes.
+- **Enterprise Gradient Consistency**:
+  - Unified all primary action buttons, tool cards, pricing tiers, and navigation CTAs to use the `#175fab` → `#3be06d` custom GrowLokal enterprise gradient.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with **0 errors**.
 
 - **Hero Redesign**:
   - Removed the embedded GBP audit form from the hero section (now served exclusively via the dedicated [`/free-gbp-report`](file:///e:/Github/grow/growlokal/apps/web/src/app/free-gbp-report/page.tsx) and [`/book-free-demo`](file:///e:/Github/grow/growlokal/apps/web/src/app/book-free-demo/page.tsx) funnels).
