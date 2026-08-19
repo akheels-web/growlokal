@@ -1,6 +1,21 @@
 # Changelog
 
-## Build session 23 — Official WhatsApp Logo with Speech Bubble Tail Upgrade
+## Build session 24 — Expanded Small Business Verticals (7 New Industry Sectors)
+
+- **7 New Business Industry Chiklets & Dedicated Landing Pages**:
+  - **Interior Designers & Decorators** (`/industry/interior-designers`) — High-ticket home & commercial turnkey interior client acquisition.
+  - **Real Estate Brokers & Agents** (`/industry/real-estate`) — Inbound flat, villa, and commercial lease buyer lead capture.
+  - **Solar & Rooftop Solutions** (`/industry/solar-solutions`) — Rooftop solar inquiries, subsidy estimation & survey booking.
+  - **CA, Tax & Legal Advisors** (`/industry/tax-legal-services`) — Corporate retainers, GST, ITR, and incorporation compliance clients.
+  - **Retail Shops & Boutiques** (`/industry/retail-stores`) — Local footfall drivers, new arrival showcases & WhatsApp VIP broadcasts.
+  - **Logistics, Packers & Movers** (`/industry/logistics-packers`) — Direct daily house shifting & intercity transport bookings.
+  - **Education & Coaching Institutes** (`/industry/education-coaching`) — Batch enrollment, demo class registration & syllabus delivery.
+- **Visual Assets & Avatars**:
+  - Generated and integrated 7 custom avatar images (`biz_interior.png`, `biz_realtor.png`, `biz_solar.png`, `biz_tax_legal.png`, `biz_retail.png`, `biz_logistics.png`, `biz_education.png`).
+- **Comprehensive Vertical Data**:
+  - Added full SEO keywords, localized pain points, 4-agent use cases, case studies, and FAQs for all 7 new verticals in `apps/web/src/lib/verticalData.ts`.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed (0 errors, 20 routes generated).
 
 - **Official Vector Speech Bubble with Tail**:
   - Upgraded all WhatsApp icons across the platform (`WhatsAppOfficialIcon`, `WhatsAppIntegrationIcon`, `WhatsAppCampaignOfficialIcon`, and Score Tool components) to use the official WhatsApp speech bubble path with the iconic bottom-left tail (`M16 2C... L2 30L9.11 28.01...`) and handset.

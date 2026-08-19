@@ -2185,11 +2185,18 @@ const AGENTS = [
 ];
 
 const BUSINESS_TYPES = [
-  { name: 'Gym & Fitness Centres', image: '/images/biz_gym.png', slug: 'gyms-fitness' },
   { name: 'Doctors & Health Clinics', image: '/images/biz_doctor.png', slug: 'doctors-clinics' },
-  { name: 'Bakers & Cake Shops', image: '/images/biz_baker.png', slug: 'bakers-cake-shops' },
   { name: 'Salon Owners & Spas', image: '/images/biz_salon.png', slug: 'salons-spas' },
+  { name: 'Interior Designers & Decorators', image: '/images/biz_interior.png', slug: 'interior-designers' },
+  { name: 'Real Estate Brokers & Agents', image: '/images/biz_realtor.png', slug: 'real-estate' },
+  { name: 'Solar & Rooftop Solutions', image: '/images/biz_solar.png', slug: 'solar-solutions' },
+  { name: 'CA, Tax & Legal Advisors', image: '/images/biz_tax_legal.png', slug: 'tax-legal-services' },
+  { name: 'Retail Shops & Boutiques', image: '/images/biz_retail.png', slug: 'retail-stores' },
+  { name: 'Logistics, Packers & Movers', image: '/images/biz_logistics.png', slug: 'logistics-packers' },
+  { name: 'Education & Coaching Institutes', image: '/images/biz_education.png', slug: 'education-coaching' },
   { name: 'Restaurants & Cafes', image: '/images/biz_chef.png', slug: 'restaurants-cafes' },
+  { name: 'Gym & Fitness Centres', image: '/images/biz_gym.png', slug: 'gyms-fitness' },
+  { name: 'Bakers & Cake Shops', image: '/images/biz_baker.png', slug: 'bakers-cake-shops' },
   { name: 'Car Garages & Mechanics', image: '/images/biz_mechanic.png', slug: 'garages-mechanics' },
   { name: 'Tours & Travel Agencies', image: '/images/biz_travel.png', slug: 'travel-agencies' },
   { name: 'Handyman & Repair Services', image: '/images/biz_handyman.png', slug: 'handyman-repair' },

@@ -2818,12 +2818,13 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
 }
 
 .biz-showcase-title {
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #0F172A;
   line-height: 1.35;
-  width: 54%;
-  z-index: 2;
+  width: 52%;
+  z-index: 3;
+  position: relative;
   font-family: var(--font-body), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   letter-spacing: -0.015em;
 }
@@ -2839,7 +2840,7 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   padding: 3px 10px;
   border-radius: 12px;
   transition: all 0.2s ease;
-  z-index: 2;
+  z-index: 3;
   position: relative;
 }
 
@@ -2861,6 +2862,11 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   justify-content: flex-end;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 15%, black 45%), linear-gradient(to top, transparent 0%, black 15%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 15%, black 45%), linear-gradient(to top, transparent 0%, black 15%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .biz-showcase-img {
