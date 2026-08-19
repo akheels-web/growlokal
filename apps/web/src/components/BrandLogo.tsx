@@ -2,23 +2,29 @@ import React from 'react';
 import Link from 'next/link';
 
 /**
- * Global Brand Logo Configuration
+ * Global Brand Logo & Favicon Configuration
  * 
- * You can set 2 different logos here:
+ * You can configure your visual brand assets here in one central file:
+ * 
  * 1. `headerLogoUrl`: Displayed in top navigation headers on light backgrounds (Dark Logo).
  * 2. `footerLogoUrl`: Displayed in footers on dark backgrounds (Light / White Logo).
- * 3. `logoUrl`: Universal fallback if both header & footer share the same logo file.
+ * 3. `faviconUrl`: Browser tab icon / favicon across all pages (e.g. '/favicon.ico', '/images/favicon.png', or 'https://...').
+ * 4. `logoUrl`: Universal fallback logo if both header & footer share the same image.
  * 
  * Example:
  *   headerLogoUrl: '/images/logo-dark.png',
  *   footerLogoUrl: '/images/logo-light.png',
+ *   faviconUrl: '/images/favicon.png',
  */
 export const BRAND_CONFIG = {
   name: 'GrowLokal',
   tagline: 'Autonomous AI Marketing Platform for South Indian Local Businesses',
+  
   headerLogoUrl: '', // <-- PASTE DARK LOGO FOR HEADER (e.g. '/images/logo-dark.png' or 'https://...')
   footerLogoUrl: '', // <-- PASTE LIGHT LOGO FOR FOOTER (e.g. '/images/logo-light.png' or 'https://...')
+  faviconUrl: '',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
   logoUrl: '',       // <-- Universal fallback logo if both header & footer share the same file
+  
   logoAlt: 'GrowLokal Logo',
   logoWidth: 150,
   logoHeight: 36,

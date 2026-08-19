@@ -1,5 +1,14 @@
 # Changelog
 
+## Build session 37 — Favicon Central Configuration & Metadata Integration
+
+- **Favicon Configuration Slot**:
+  - Added `faviconUrl` to `BRAND_CONFIG` in [`BrandLogo.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/components/BrandLogo.tsx) alongside `headerLogoUrl` and `footerLogoUrl`.
+  - Connected `BRAND_CONFIG.faviconUrl` into [`layout.tsx`](file:///e:/Github/grow/growlokal/apps/web/src/app/layout.tsx) under `metadata.icons` (`icon` and `apple-touch-icon`).
+  - Pasting a favicon URL in `BRAND_CONFIG.faviconUrl` automatically sets the browser tab icon across all pages.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed with Turbopack in **1.08s** with **0 errors**.
+
 ## Build session 36 — Dual Logo Support (Dark Logo for Light Header & Light Logo for Dark Footer)
 
 - **Dual Brand Logo Architecture**:

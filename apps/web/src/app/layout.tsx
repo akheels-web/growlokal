@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Inter, Outfit, Plus_Jakarta_Sans } from 'next/font/google';
+import { BRAND_CONFIG } from '@/components/BrandLogo';
 import './globals.css';
 
 const inter = Inter({
@@ -24,6 +25,10 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata = {
   metadataBase: new URL('https://growlokal.com'),
+  icons: {
+    icon: BRAND_CONFIG.faviconUrl || '/favicon.ico',
+    apple: BRAND_CONFIG.faviconUrl || '/apple-touch-icon.png',
+  },
   title: {
     default: 'GrowLokal — Autonomous AI Marketing Platform for South Indian Local Businesses',
     template: '%s | GrowLokal Technologies',
