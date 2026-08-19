@@ -1,6 +1,24 @@
 # Changelog
 
-## Build session 21 — Official Vector Brand Logos & Integrations
+## Build session 23 — Official WhatsApp Logo with Speech Bubble Tail Upgrade
+
+- **Official Vector Speech Bubble with Tail**:
+  - Upgraded all WhatsApp icons across the platform (`WhatsAppOfficialIcon`, `WhatsAppIntegrationIcon`, `WhatsAppCampaignOfficialIcon`, and Score Tool components) to use the official WhatsApp speech bubble path with the iconic bottom-left tail (`M16 2C... L2 30L9.11 28.01...`) and handset.
+  - Replaced plain circle backgrounds across AI Agent cards, integration badges, contact support cards, and scorecard delivery forms.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed (0 errors, 20 routes generated).
+
+- **Universal Smart Autocomplete & Dynamic Suggestions**:
+  - Connected live async autocomplete query (`/api/audit/autocomplete`) with an extensive South Indian regional business database.
+  - Added dynamic fallback generator so suggestions are guaranteed to appear for any custom business query.
+- **Multi-Step Live Analysis Progress Loader**:
+  - Implemented real-time multi-stage scanning animation with dynamic step descriptions (`🔍 Connecting to Google Maps...`, `📊 Benchmarking reviews...`, `⚡ Calculating visibility score...`) and gradient progress bar (0% ➔ 100%).
+- **High-Contrast WhatsApp Action Box Typography**:
+  - Fixed dark text mixing with dark card background; set header to crisp pure white (`#FFFFFF`) with official WhatsApp Green icon and soft lavender subtitle (`#E0E7FF`).
+- **Send Report Button Hover Fix**:
+  - Fixed global `.btn-primary:hover` and button-level hover states to remain bright glowing orange (`#EA580C`) on hover, eliminating black-on-black blending.
+- **Build Verification**:
+  - `pnpm --filter @growlokal/web build` passed (0 errors, 20 routes generated).
 
 - **Official WhatsApp Logo on Contact Cards**:
   - Updated the "WhatsApp Support Desk" card and the contact submit button to use the official green WhatsApp brand icon (`#25D366`) with green accent borders.

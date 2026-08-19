@@ -3602,23 +3602,24 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   justify-content: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #0B1020 0%, #4F46E5 100%);
+  background: var(--color-orange);
   color: #ffffff !important;
   font-size: 14.5px;
   font-weight: 700;
   border-radius: var(--radius-md);
-  border: none;
+  border: 1.5px solid var(--color-orange);
   cursor: pointer;
   text-decoration: none !important;
-  box-shadow: 0 4px 16px rgba(14, 68, 89, 0.25);
+  box-shadow: var(--shadow-orange-glow);
   transition: all var(--transition-fast);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: linear-gradient(135deg, #0B1020 0%, #0B1020 100%);
+  background: var(--color-orange-hover) !important;
+  border-color: var(--color-orange-hover) !important;
   color: #ffffff !important;
-  box-shadow: 0 8px 24px rgba(14, 68, 89, 0.35);
+  box-shadow: var(--shadow-orange-glow-lg);
 }
 
 /* Revenue Growth ROI Calculator Grid */
