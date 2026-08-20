@@ -17,6 +17,13 @@ One heading per confirmed bug, in this single file. Newest first. Every entry ne
 
 ## Entries (newest first)
 
+### [FIXED] backup.sh could never actually reach the database it was meant to back up — found 2026-08-18
+- **Found in:** `infra/backup.sh`, while writing `DEPLOYMENT.md` and checking whether the home lab needs any network path to the VPS
+- **Symptom:** the script defaulted `PG_HOST` to `10.0.0.10` — a LAN-style IP — and its header comment said to cron it on the Proxmox (home lab) host. But `infra/docker-compose.prod.yml` binds Postgres to `127.0.0.1:5432` on the VPS only, with no LAN connecting the VPS to the home lab at all (they're on entirely separate networks, by design — see `DEPLOYMENT.md`). Run as originally written, this script could never have connected to anything; it would have failed every single night.
+- **Root cause:** written before the VPS/home-lab network topology was fully decided; never revisited once the "tools-only home lab, no LAN link to the VPS" design was settled.
+- **Fix:** default `PG_HOST` changed to `127.0.0.1`; header comment now says to cron this on the VPS itself, dumping the locally-running Postgres and uploading straight to B2/R2 (both reachable from anywhere) — no home-lab involvement needed at all.
+- **Verified by:** consistent with `docker-compose.prod.yml`'s actual port binding. **Not verified against a real cron run in this session** — no live VPS in this session; run it manually once after first deploy and confirm the `.sql.gz` actually lands in the bucket before trusting the cron.
+
 ### [FIXED] Most of config.ts's env vars never actually reached the prod containers — found 2026-08-18
 - **Found in:** `infra/docker-compose.prod.yml`, while adding `GBP_REDIRECT_URI`/`WEB_APP_BASE_URL` for the new GBP OAuth flow and noticing the `api`/`worker` services' `environment:` blocks looked thin
 - **Symptom:** `RAZORPAY_KEY_ID`/`RAZORPAY_KEY_SECRET`/`RAZORPAY_WEBHOOK_SECRET`, `MIXPOST_BASE_URL`/`MIXPOST_TOKEN`/`MIXPOST_WORKSPACE_UUID`, `MSG91_*`, `LLM_PROVIDER`/`LLM_MODEL_*`/`OPENROUTER_*`/`ANTHROPIC_API_KEY`, `PRICE_STARTER_PAISE`/`PRICE_GROWTH_PAISE`, and every var added earlier in this session (`R2_*`, `QUICKCHART_BASE_URL`, `GBP_*`, `OPS_ALERT_*`, `WHATSAPP_WEBSITE_REQUEST_TEMPLATE_NAME`) were documented in `config.ts`/`.env.example` but never actually passed through to the `api` or `worker` containers in the real prod Compose file. Deployed as-is, this would mean: Razorpay billing (the entire pay-first checkout flow from Chunk C) silently running on empty-string defaults, Mixpost publishing always dry-running, OTP SMS never sending, and every LLM/image call falling back to Gemini defaults regardless of configured provider — with zero errors, just silent misbehavior.

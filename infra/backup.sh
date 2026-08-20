@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 # Nightly Postgres backup -> offsite (Backblaze B2 / Cloudflare R2 via rclone).
-# Cron on the Proxmox host: 0 2 * * *  /opt/scripts/backup.sh
-# An UNTESTED backup is not a backup — restore-test it once (see §6 of the guide).
+# Cron on the VPS itself (NOT the home lab — the VPS's Postgres is bound to
+# 127.0.0.1 only, per infra/docker-compose.prod.yml, so nothing outside the
+# VPS can reach it over the network; pulling from the home lab across the
+# internet was never actually reachable with a LAN-style PG_HOST default like
+# this script used to have — see docs/BUG.md 2026-08-18):
+#   0 2 * * *  /opt/scripts/backup.sh
+# An UNTESTED backup is not a backup — restore-test it once (see DEPLOYMENT.md).
 set -euo pipefail
 
-PG_HOST="${PG_HOST:-10.0.0.10}"
+PG_HOST="${PG_HOST:-127.0.0.1}"
 PG_USER="${PG_USER:-growlokal}"
 REMOTE="${RCLONE_REMOTE:-b2:growlokal-backups}"   # configure rclone first
 STAMP="$(date +%F_%H%M)"

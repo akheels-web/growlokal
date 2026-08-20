@@ -1,9 +1,10 @@
 # Implementation Runbook
 
 The single end-to-end process to get GrowLokal from empty machine → audit bot
-replying on WhatsApp. Deep-dives live in the two guides in the parent folder:
-- `../Technical-Setup-Guide.md` — Proxmox / Cloudflare Tunnel / Meta API / n8n
-- `../Grexa-Competitor-GTM-Playbook.md` — the business plan
+replying on WhatsApp. For the full production deployment (real hardware,
+Cloudflare Tunnel, security, backups, troubleshooting), see `DEPLOYMENT.md` —
+this file is the shorter quick-start version of the same thing.
+- `DEPLOYMENT.md` — the detailed deployment guide (VPS + home Proxmox + Cloudflare + every external service)
 - `docs/ARCHITECTURE.md` — diagrams, `docs/ROADMAP.md` — what's built vs. TODO
 
 > Status: code is authored but not yet run. Step 3 (typecheck + boot) is the
@@ -73,13 +74,13 @@ back (mock data until you add a Places key). Health: `curl localhost:3000/health
 ### 5. Wire real services (incrementally, in this order)
 1. **Gemini key** → real vernacular content instead of stubs.
 2. **Google Places key** → real audit data. ⚠️ restrict the key + set a billing cap.
-3. **Meta WhatsApp** (test number first) → see `../Technical-Setup-Guide.md §4`.
+3. **Meta WhatsApp** (test number first) → see `DEPLOYMENT.md §6.6`.
    Point the webhook at your public URL (Cloudflare Tunnel, step 6).
 4. **MSG91** (needs DLT) → real OTP SMS. Until then dev logs the code.
 5. **Razorpay** (test mode) → subscriptions.
 
 ### 6. Expose the webhook (Cloudflare Tunnel)
-Meta must reach your webhook publicly. See `../Technical-Setup-Guide.md §2`.
+Meta must reach your webhook publicly. See `DEPLOYMENT.md §3.7` (VPS/Caddy) or `§4.4` (Cloudflare Tunnel).
 Quick dev option: `cloudflared tunnel --url http://localhost:3000`.
 
 **Milestone:** a real WhatsApp message → audit bot replies with a score.
