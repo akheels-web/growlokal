@@ -22,12 +22,12 @@ export const BRAND_CONFIG = {
 
   headerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_right_text.png', // <-- PASTE DARK LOGO FOR HEADER (e.g. '/images/logo-dark.png' or 'https://...')
   footerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_white.png', // <-- PASTE LIGHT LOGO FOR FOOTER (e.g. '/images/logo-light.png' or 'https://...')
-  faviconUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/16x16_favicon.png',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
+  faviconUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/32x32_favicon.png',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
   logoUrl: '',       // <-- Universal fallback logo if both header & footer share the same file
 
   logoAlt: 'GrowLokal Logo',
-  logoWidth: 150,
-  logoHeight: 36,
+  logoWidth: 160,
+  logoHeight: 46,
 };
 
 export interface BrandLogoProps {
@@ -36,6 +36,7 @@ export interface BrandLogoProps {
   href?: string;
   customLogoUrl?: string;
   style?: React.CSSProperties;
+  height?: number | string;
 }
 
 export function BrandLogo({
@@ -44,6 +45,7 @@ export function BrandLogo({
   href = '/',
   customLogoUrl,
   style,
+  height,
 }: BrandLogoProps) {
   // Determine appropriate logo based on variant
   let logoUrl = customLogoUrl;
@@ -55,6 +57,10 @@ export function BrandLogo({
     }
   }
 
+  // Calculate default heights based on variant
+  const defaultHeight = height ?? (variant === 'footer' ? '50px' : variant === 'compact' ? '34px' : '44px');
+  const defaultMaxHeight = variant === 'footer' ? '56px' : variant === 'compact' ? '38px' : '48px';
+
   const content = logoUrl ? (
     <img
       src={logoUrl}
@@ -65,7 +71,8 @@ export function BrandLogo({
       height={BRAND_CONFIG.logoHeight}
       className={`brand-logo-img brand-logo-img--${variant} ${className}`}
       style={{
-        maxHeight: variant === 'footer' ? '38px' : '32px',
+        height: defaultHeight,
+        maxHeight: defaultMaxHeight,
         width: 'auto',
         objectFit: 'contain',
         display: 'block',
@@ -85,13 +92,13 @@ export function BrandLogo({
         ...style,
       }}
     >
-      Grow<span style={{ color: '#3be06d' }}>Lokal</span>
+      Grow<span style={{ color: '#F97316' }}>Lokal</span>
     </span>
   ) : (
     <span
       className={`nav-brand ${className}`}
       style={{
-        fontSize: variant === 'compact' ? '20px' : '23px',
+        fontSize: variant === 'compact' ? '20px' : '24px',
         fontWeight: '900',
         color: '#0B1020',
         letterSpacing: '-0.03em',
@@ -100,7 +107,7 @@ export function BrandLogo({
         ...style,
       }}
     >
-      Grow<span style={{ color: '#175fab' }}>Lokal</span>
+      Grow<span style={{ color: '#4F46E5' }}>Lokal</span>
     </span>
   );
 

@@ -217,6 +217,47 @@ a:hover, button:hover, .btn-primary:hover, .btn-outline:hover, .btn-pricing:hove
   flex-shrink: 0;
 }
 
+/* Brand Logo Image System */
+.brand-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none !important;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.brand-logo-link:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.brand-logo-img {
+  display: block;
+  object-fit: contain;
+  width: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.brand-logo-img--header {
+  height: 44px;
+  max-height: 48px;
+}
+
+.brand-logo-img--footer {
+  height: 52px;
+  max-height: 58px;
+}
+
+@media (max-width: 768px) {
+  .brand-logo-img--header {
+    height: 36px;
+    max-height: 38px;
+  }
+  .brand-logo-img--footer {
+    height: 42px;
+    max-height: 46px;
+  }
+}
+
 .nav-brand {
   font-family: var(--font-heading);
   font-size: 1.55rem;
