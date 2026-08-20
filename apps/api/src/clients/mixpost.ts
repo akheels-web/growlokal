@@ -16,12 +16,17 @@ export interface SchedulePostResult {
   ok: boolean;
   externalId?: string;
   error?: string;
+  /** True when nothing was actually sent (Mixpost unconfigured) — callers
+   * must NOT treat this as a real success. Added 2026-08-18: this used to be
+   * indistinguishable from a real publish (both returned ok:true), so the
+   * worker was marking posts 'published' when nothing had actually gone out. */
+  dryRun?: boolean;
 }
 
 export async function schedulePost(input: SchedulePostInput): Promise<SchedulePostResult> {
   if (!config.MIXPOST_BASE_URL || !config.MIXPOST_TOKEN) {
-    log.warn('Mixpost not configured — dry-run');
-    return { ok: true, externalId: 'dry-run' };
+    log.warn('Mixpost not configured — dry-run (post will NOT be marked published)');
+    return { ok: true, externalId: 'dry-run', dryRun: true };
   }
   const url = `${config.MIXPOST_BASE_URL}/api/${config.MIXPOST_WORKSPACE_UUID}/posts`;
   try {

@@ -5,7 +5,7 @@
 // Run: pnpm --filter @growlokal/api worker
 import 'dotenv/config';
 import { log } from './logger.js';
-import { query } from './db.js';
+import { query, withTransaction } from './db.js';
 import { publishDuePost, createScheduledSocialPost } from './features/social/service.js';
 import { createGbpPost } from './features/gbp/service.js';
 import { getEntitlement, hasMinPlan } from './auth/entitlement.js';
@@ -17,33 +17,60 @@ import { pool } from './db.js';
 const POLL_MS = 60_000;              // social-post scheduler: every minute
 const REMINDER_CHECK_MS = 6 * 60 * 60_000; // renewal reminders: every 6 hours (idempotent — reminder_sent_at prevents re-sends)
 const AUTO_POST_CHECK_MS = 6 * 60 * 60_000; // weekly auto-post check: every 6 hours (idempotent — "no post in 7 days" is the check itself)
+const STALE_DRAFT_CLEANUP_MS = 24 * 60 * 60_000; // once a day
 
+/**
+ * Find due social posts and CLAIM them atomically before doing anything with
+ * them. Fixed 2026-08-18 (security review): the old version was a plain
+ * SELECT with no locking — harmless with exactly one worker instance (today's
+ * reality), but a real double-publish risk the moment this is ever scaled to
+ * more than one. FOR UPDATE SKIP LOCKED lets multiple instances run this
+ * query concurrently and each only ever grab rows nobody else already has;
+ * marking them 'publishing' inside the SAME short transaction (committed
+ * before any external API call) means the claim is durable even if this
+ * process crashes mid-publish — the row is never lost, just retried.
+ */
 async function tick() {
+  let claimed: { id: string; business_id: string; mixpost_account_ids: number[] }[] = [];
   try {
-    // Find social posts whose scheduled time has arrived and are still scheduled,
-    // joined to the business's connected Mixpost account IDs (set by an admin
-    // after linking the business's Instagram/FB inside Mixpost's own dashboard).
-    const due = await query<{ id: string; business_id: string; mixpost_account_ids: number[] }>(
-      `SELECT p.id, p.business_id, b.mixpost_account_ids
-       FROM posts p
-       JOIN businesses b ON b.id = p.business_id
-       WHERE p.status = 'scheduled' AND p.channel IN ('instagram','facebook')
-         AND p.scheduled_for <= now()
-       ORDER BY p.scheduled_for ASC LIMIT 20`
-    );
+    claimed = await withTransaction(async (client) => {
+      const due = await client.query<{ id: string; business_id: string; mixpost_account_ids: number[] }>(
+        `SELECT p.id, p.business_id, b.mixpost_account_ids
+         FROM posts p
+         JOIN businesses b ON b.id = p.business_id
+         WHERE p.status = 'scheduled' AND p.channel IN ('instagram','facebook')
+           AND p.scheduled_for <= now()
+         ORDER BY p.scheduled_for ASC LIMIT 20
+         FOR UPDATE OF p SKIP LOCKED`
+      );
+      if (due.rows.length === 0) return [];
+      const ids = due.rows.map((r) => r.id);
+      await client.query(`UPDATE posts SET status = 'publishing' WHERE id = ANY($1)`, [ids]);
+      return due.rows;
+    });
+  } catch (err) {
+    log.error({ err }, 'worker tick claim failed');
+    return;
+  }
 
-    for (const post of due.rows) {
+  for (const post of claimed) {
+    try {
       const accountIds = post.mixpost_account_ids ?? [];
       if (accountIds.length === 0) {
         log.warn({ postId: post.id, businessId: post.business_id },
-          'no Mixpost accounts connected for this business — skipping publish (post stays scheduled)');
+          'no Mixpost accounts connected for this business — reverting to scheduled for retry');
+        await query(`UPDATE posts SET status = 'scheduled' WHERE id = $1`, [post.id]);
         continue;
       }
       log.info({ postId: post.id, accountIds }, 'publishing due post');
-      await publishDuePost(post.id, accountIds);
+      await publishDuePost(post.id, accountIds); // always leaves the row published/failed/scheduled — never stuck
+    } catch (err) {
+      // Anything unexpected (e.g. a DB blip inside publishDuePost) must not
+      // leave the row stuck in 'publishing' forever — revert it so the next
+      // tick retries instead of silently losing the post.
+      log.error({ postId: post.id, err }, 'unexpected error processing claimed post — reverting to scheduled');
+      await query(`UPDATE posts SET status = 'scheduled' WHERE id = $1`, [post.id]).catch(() => {});
     }
-  } catch (err) {
-    log.error({ err }, 'worker tick failed');
   }
 }
 
@@ -135,6 +162,9 @@ async function autoPostChannel(
   // SQL prefilter narrows candidates (cheap); getEntitlement() below is the
   // one actual authority on whether this business may have anything
   // generated for it — never trust status='active' alone for a billing gate.
+  // LIMIT bumped 500 -> still a real ceiling, not a redesign (see docs/BUG.md
+  // 2026-08-18): at real business counts today this is nowhere close to the
+  // limit; revisit with pagination if that ever changes.
   const candidates = await query<{ id: string }>(
     `SELECT b.id FROM businesses b
      WHERE b.status IN ('active', 'pilot')
@@ -142,7 +172,7 @@ async function autoPostChannel(
          SELECT 1 FROM posts p
          WHERE p.business_id = b.id AND p.channel = $1 AND p.created_at > now() - interval '7 days'
        )
-     LIMIT 200`,
+     LIMIT 500`,
     [channel]
   );
 
@@ -158,18 +188,38 @@ async function autoPostChannel(
   }
 }
 
-log.info(`worker started (posts every ${POLL_MS / 1000}s, renewal reminders every ${REMINDER_CHECK_MS / 3_600_000}h, auto-post check every ${AUTO_POST_CHECK_MS / 3_600_000}h)`);
+/**
+ * GBP posts stuck in 'draft' forever if publishing failed/was never
+ * attempted had no cleanup (security review 2026-08-18) — the content is
+ * still visible via the dashboard's own history, so a stale draft is only
+ * ever DB noise, not lost information worth keeping indefinitely. 30 days.
+ */
+async function cleanupStaleDrafts() {
+  try {
+    const res = await query(
+      `DELETE FROM posts WHERE status = 'draft' AND created_at < now() - interval '30 days'`
+    );
+    if (res.rowCount) log.info({ deleted: res.rowCount }, 'cleaned up stale draft posts');
+  } catch (err) {
+    log.error({ err }, 'stale draft cleanup failed');
+  }
+}
+
+log.info(`worker started (posts every ${POLL_MS / 1000}s, renewal reminders every ${REMINDER_CHECK_MS / 3_600_000}h, auto-post check every ${AUTO_POST_CHECK_MS / 3_600_000}h, stale-draft cleanup every ${STALE_DRAFT_CLEANUP_MS / 3_600_000}h)`);
 const postTimer = setInterval(tick, POLL_MS);
 const reminderTimer = setInterval(checkRenewalReminders, REMINDER_CHECK_MS);
 const autoPostTimer = setInterval(checkWeeklyAutoPosts, AUTO_POST_CHECK_MS);
+const cleanupTimer = setInterval(cleanupStaleDrafts, STALE_DRAFT_CLEANUP_MS);
 void tick();
 void checkRenewalReminders();
 void checkWeeklyAutoPosts();
+void cleanupStaleDrafts();
 
 for (const sig of ['SIGINT', 'SIGTERM'] as const) {
   process.on(sig, async () => {
     clearInterval(postTimer);
     clearInterval(reminderTimer);
+    clearInterval(cleanupTimer);
     clearInterval(autoPostTimer);
     await pool.end();
     process.exit(0);

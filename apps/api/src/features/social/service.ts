@@ -15,7 +15,9 @@ export interface CreateSocialPostInput {
   focus?: string;
   occasion?: string;
   scheduledFor?: Date;        // default: tomorrow 9am IST
-  mixpostAccountIds?: number[];
+  // mixpostAccountIds removed 2026-08-18 — was accepted but never read here;
+  // publishDuePost() below always reads businesses.mixpost_account_ids fresh
+  // at publish time instead. See docs/BUG.md.
 }
 
 export async function createScheduledSocialPost(input: CreateSocialPostInput) {
@@ -61,6 +63,18 @@ export async function publishDuePost(postId: string, mixpostAccountIds: number[]
     mediaUrls: post.media_urls ?? [],
     scheduledFor: new Date(post.scheduled_for),
   });
+
+  if (res.dryRun) {
+    // Fixed 2026-08-18 (same bug class as the empty-accountIds case, found
+    // in a security review): dry-run used to look exactly like a real
+    // success to this function, so posts got marked 'published' with
+    // nothing actually sent. Revert to 'scheduled' instead — same treatment
+    // as "no Mixpost accounts connected" — so it retries once Mixpost is
+    // actually configured, rather than lying that it went out.
+    await query(`UPDATE posts SET status = 'scheduled' WHERE id = $1`, [postId]);
+    log.warn({ postId }, 'Mixpost not configured — post left scheduled, NOT marked published');
+    return;
+  }
 
   if (res.ok) {
     await query(

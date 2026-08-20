@@ -19,9 +19,33 @@ import { config } from '../../config.js';
 // placeholders showing the intended shape — verify exact paths against
 // https://developers.google.com/my-business when your access is approved.
 
+// A security review 2026-08-18 flagged localPosts.create's `sourceUrl` as an
+// SSRF risk if `imageUrl` were attacker-controlled. Checked: it never is —
+// `imageUrl` only ever comes from generateGbpPost() -> generatePostImage(),
+// which always either returns null or a URL WE just uploaded to OUR OWN R2
+// bucket (clients/storage.ts). There is no code path where request input
+// reaches this field. Leaving this note here so nobody "fixes" this into
+// accepting an external imageUrl later without re-adding an allow-list.
+
+// No idempotency key from the GBP API itself (unconfirmed whether one
+// exists) — this debounce is the practical guard against a double-submit
+// (e.g. a dashboard double-click) creating two posts for the same business
+// within the same request burst.
+const RECENT_POST_DEBOUNCE_SECONDS = 60;
+
 export async function createGbpPost(businessId: string, focus?: string) {
   const ctx = await loadBusinessContext(businessId);
   if (!ctx) throw new Error('business not found');
+
+  const recent = await queryOne<{ id: string }>(
+    `SELECT id FROM posts WHERE business_id = $1 AND channel = 'gbp'
+     AND created_at > now() - ($2 || ' seconds')::interval LIMIT 1`,
+    [businessId, RECENT_POST_DEBOUNCE_SECONDS]
+  );
+  if (recent) {
+    log.warn({ businessId }, 'GBP post debounced — one was already created for this business in the last minute');
+    return { id: recent.id, text: '', imageUrl: null, published: false, reason: 'debounced_duplicate' };
+  }
 
   const biz = await queryOne<{ gbp_location_id: string | null; gbp_refresh_token: string | null }>(
     `SELECT gbp_location_id, gbp_refresh_token FROM businesses WHERE id = $1`,
@@ -87,8 +111,10 @@ export async function draftReviewReplies(businessId: string) {
   const ctx = await loadBusinessContext(businessId);
   if (!ctx) throw new Error('business not found');
 
-  // TODO: real GBP reviews.list call. Here we draft for any stored reviews
-  // that don't yet have a draft — the fetch step is the part gated on approval.
+  // ponytail: no real GBP reviews.list call yet — genuinely can't build one
+  // without live GBP API access (still not confirmed as of this comment).
+  // Drafts whatever's already in the `reviews` table without a draft; wire
+  // the real fetch in once access is approved (see DEPLOYMENT.md §6.3).
   const reviews = await query<{ id: string; author: string; rating: number; text: string }>(
     `SELECT id, author, rating, text FROM reviews
      WHERE business_id = $1 AND reply_draft IS NULL LIMIT 20`,

@@ -17,6 +17,41 @@ One heading per confirmed bug, in this single file. Newest first. Every entry ne
 
 ## Entries (newest first)
 
+### [FIXED] WHATSAPP_APP_SECRET/WHATSAPP_VERIFY_TOKEN had no production guard — found 2026-08-18
+- **Found in:** developer security review + a crosscheck of every secret-shaped config var against the pattern `JWT_SECRET` already used
+- **Symptom:** `verifyWebhookSignature()` returns `true` (skips verification entirely) when `WHATSAPP_APP_SECRET` is unset — a deliberate dev-only escape hatch, but nothing stopped it from silently shipping to production. `WHATSAPP_VERIFY_TOKEN` had the identical shape (real value, public dev default `'dev_verify_token'`) and the same missing guard — this one wasn't in the developer's review at all, found only by checking every other secret for the same pattern.
+- **Root cause:** `JWT_SECRET` got a "throw if still default in prod" guard when that bug was originally fixed; the same guard was never applied to the other two secrets that need it just as much.
+- **Fix:** `config.ts` now throws at boot for both, in production, exactly like `JWT_SECRET` already does.
+- **Verified by:** typecheck + full test suite pass. **Not verified against an actual `NODE_ENV=production` boot in this session** — no live deploy to test against.
+
+### [FIXED] GBP static-token fallback could post a business's content to the wrong Google account — found 2026-08-18
+- **Found in:** `clients/gbp-oauth.ts`, while closing the review's static-token-fallback finding and reading the function more carefully
+- **Symptom:** `resolveGbpAccessToken()` fell back to the shared static `GBP_ACCESS_TOKEN` not just when a business had never done OAuth, but ALSO when a business's real `refresh_token` exchange failed for any reason (expired token, transient Google API error). That meant a temporary Google API hiccup for one real, OAuth-connected business could silently post its content using a completely different (shared pilot) account's token.
+- **Root cause:** the fallback was written as "degrade gracefully rather than fail outright," without distinguishing "no token configured at all" from "a real per-business token exists but this specific call failed."
+- **Fix:** the static fallback now ONLY applies when there's no `refresh_token` at all. A failed exchange for a business with real OAuth returns `null` (draft-only, same as "not configured") instead of ever substituting a different account's token.
+- **Verified by:** typecheck pass. **Not verified against a real Google API failure in this session** — no live GBP credentials to actually trigger the failure path.
+
+### [FIXED] A business could set another business's Mixpost account ID, or bypass GBP OAuth entirely — found 2026-08-18
+- **Found in:** developer security review (Mixpost accountIds) + a related finding made while fixing it (`gbpRefreshToken`, same route)
+- **Symptom:** `PUT /api/businesses/:id` (self-serve onboarding) accepted both `mixpostAccountIds` (no check that the IDs actually belonged to this business inside Mixpost's own workspace — one shared `MIXPOST_TOKEN` meant a business could type in someone else's ID and get us to publish there) and `gbpRefreshToken` (a raw string a business could set directly, completely bypassing the real Google OAuth consent flow that's supposed to be the only way this gets set).
+- **Root cause:** `gbpRefreshToken` was a leftover field from before the real OAuth flow existed, never removed once it did. `mixpostAccountIds` was self-serve from the start, with no verification step ever built for it.
+- **Fix:** both removed from the self-serve onboarding schema entirely. Mixpost account linking is now a new admin-only route (`POST /api/admin/businesses/:id/mixpost-accounts`) — an admin sets it only after manually confirming the connection inside Mixpost's own dashboard. `gbp_refresh_token` is now written exclusively by the real OAuth callback (`routes/gbp-oauth.ts`).
+- **Verified by:** typecheck pass. **Not verified against a live Mixpost instance in this session** — none exists yet in any session.
+
+### [FIXED] Mixpost dry-run (unconfigured) marked posts 'published' when nothing was sent — found 2026-08-18
+- **Found in:** developer review, "Mixpost dry-run masks misconfiguration" — same bug class as an earlier fix for empty `mixpost_account_ids`, found again in a second form
+- **Symptom:** when `MIXPOST_BASE_URL`/`MIXPOST_TOKEN` were unset, `schedulePost()` returned `{ok:true, externalId:'dry-run'}` — indistinguishable from a real success to its caller. `publishDuePost()` then marked the post `'published'`, `published_at = now()`, even though nothing had actually been sent to Instagram/Facebook.
+- **Root cause:** the dry-run return shape was designed to let development run without real Mixpost credentials, but never added a way for callers to tell a dry-run apart from a real success.
+- **Fix:** `SchedulePostResult` now has a `dryRun` flag. `publishDuePost()` checks it and reverts the post to `'scheduled'` instead — same treatment as "no Mixpost accounts connected," not a false `'published'`.
+- **Verified by:** typecheck pass. **Not verified against a live Mixpost instance in this session.**
+
+### [FIXED] Worker's publish loop had no locking — a real double-publish risk if ever scaled — found 2026-08-18
+- **Found in:** developer review, "Worker can process the same post twice if multiple instances run"
+- **Symptom:** `tick()`'s query for due posts was a plain `SELECT ... LIMIT 20` with no row locking. Harmless with exactly one worker instance (today's reality), but two instances running concurrently could both select and publish the same post.
+- **Root cause:** written for a single-instance deployment, with no forward-looking lock even though the file's own header comment already anticipated scaling ("move to BullMQ when volume grows").
+- **Fix:** `tick()` now claims due posts inside a short transaction using `SELECT ... FOR UPDATE SKIP LOCKED`, marking them `'publishing'` (new enum value, `db/migrations/007_worker_hardening.sql`) before committing — before any external Mixpost call happens. Any post that errors unexpectedly after being claimed reverts to `'scheduled'` rather than getting stuck.
+- **Verified by:** typecheck pass. **Not verified against two actual concurrent worker instances in this session** — the real motivating scenario is hard to test without deliberately running two.
+
 ### [FIXED] backup.sh could never actually reach the database it was meant to back up — found 2026-08-18
 - **Found in:** `infra/backup.sh`, while writing `DEPLOYMENT.md` and checking whether the home lab needs any network path to the VPS
 - **Symptom:** the script defaulted `PG_HOST` to `10.0.0.10` — a LAN-style IP — and its header comment said to cron it on the Proxmox (home lab) host. But `infra/docker-compose.prod.yml` binds Postgres to `127.0.0.1:5432` on the VPS only, with no LAN connecting the VPS to the home lab at all (they're on entirely separate networks, by design — see `DEPLOYMENT.md`). Run as originally written, this script could never have connected to anything; it would have failed every single night.

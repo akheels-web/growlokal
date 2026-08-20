@@ -138,6 +138,35 @@ export function gbpOAuthRoutes(app: FastifyInstance) {
     await query(`UPDATE businesses SET gbp_location_id = $1 WHERE id = $2`, [parsed.data.locationId, businessId]);
     return { ok: true };
   });
+
+  // Disconnect / revoke (added 2026-08-18 — security review: there was no
+  // way to sever a stored refresh_token if it were ever compromised, short
+  // of a manual DB edit). Also attempts to revoke the token at Google's end,
+  // not just delete our own copy — best-effort, since the token may already
+  // be invalid by the time someone thinks to revoke it.
+  app.delete('/api/businesses/:id/gbp/connection', { preHandler: requireBusiness }, async (req, reply) => {
+    const { id: businessId } = req.params as { id: string };
+    const biz = await queryOne<{ gbp_refresh_token: string | null }>(
+      `SELECT gbp_refresh_token FROM businesses WHERE id = $1`,
+      [businessId]
+    );
+    if (biz?.gbp_refresh_token) {
+      try {
+        await request('https://oauth2.googleapis.com/revoke', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ token: biz.gbp_refresh_token }).toString(),
+        });
+      } catch (err) {
+        log.warn({ err, businessId }, 'GBP token revoke call failed — clearing our stored copy anyway');
+      }
+    }
+    await query(
+      `UPDATE businesses SET gbp_refresh_token = NULL, gbp_location_id = NULL WHERE id = $1`,
+      [businessId]
+    );
+    return { ok: true };
+  });
 }
 
 async function alertNoLocationsFound(businessId: string): Promise<void> {

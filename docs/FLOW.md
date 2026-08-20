@@ -114,13 +114,21 @@ worker.ts's checkWeeklyAutoPosts() (every 6h) → same createScheduledSocialPost
     moment a subscription lapses; there's no separate "disable" step)
 
 Separately, on a 60s poll loop (apps/api/src/worker.ts — a DIFFERENT PROCESS from the API):
-  tick() → SELECT posts JOIN businesses WHERE status='scheduled' AND scheduled_for <= now()
-    → if business.mixpost_account_ids is empty: skip, leave post 'scheduled' (retry next tick)
+  tick() → ATOMIC CLAIM (added 2026-08-18, security review — see docs/BUG.md):
+    withTransaction: SELECT posts JOIN businesses WHERE status='scheduled' AND scheduled_for <= now()
+                      FOR UPDATE OF posts SKIP LOCKED LIMIT 20
+                      → UPDATE posts SET status='publishing' WHERE id = ANY(claimed ids)  → COMMIT
+    (only after the claim transaction commits, i.e. the lock is released, do we touch Mixpost)
+    → if business.mixpost_account_ids is empty: revert to 'scheduled' (retry next tick)
     → else: features/social/service.ts: publishDuePost() → clients/mixpost.ts: schedulePost()
-    → UPDATE posts SET status='published'|'failed'
+        → if schedulePost() was a dry-run (Mixpost unconfigured): revert to 'scheduled', NOT 'published'
+        → else: UPDATE posts SET status='published'|'failed'
+    → any unexpected error after claiming: revert to 'scheduled' (never leave a post stuck in 'publishing')
 ```
 
 **Important:** the worker (`pnpm --filter @growlokal/api worker`) is a separate long-running process from the API server (`pnpm --filter @growlokal/api dev`/`start`). If you only deploy/restart the API, scheduled posts stop publishing — nothing will error, they'll just sit as `scheduled` forever. Check both processes are running in production. **Runs on the VPS as its own container** (`infra/docker-compose.prod.yml`'s `worker` service), colocated with the API and its Postgres/Redis, not on the home lab — moved 2026-08-18, see `DECISIONS.md`.
+
+**The `FOR UPDATE SKIP LOCKED` claim exists for when this worker is ever scaled to more than one instance** — with exactly one instance (today's reality) it changes nothing observable, but it's what makes running two instances safe instead of a double-publish risk. `'publishing'` is a real, persisted `post_status` value (migration `007`) — if you ever query `posts` by status directly, remember it's a valid transient state, not a bug if you see it mid-tick.
 
 **Blast radius:** `worker.ts`'s poll query joins `businesses` for `mixpost_account_ids` — if you rename or restructure that column, the worker silently stops publishing for everyone (no error, just an empty `due.rows` or a broken join) unless you update this query too.
 

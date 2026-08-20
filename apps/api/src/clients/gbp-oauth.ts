@@ -1,24 +1,13 @@
-// Google Business Profile OAuth token refresh.
-//
-// SCOPE: this file builds the token-EXCHANGE mechanism only (refresh_token ->
-// short-lived access_token). It does NOT build the authorization-consent
-// redirect flow (the "click to connect your Google account" UI) — that
-// requires prerequisites only you can complete:
-//   1. A Google Cloud project with an OAuth 2.0 Client ID (Console >
-//      APIs & Services > Credentials). Set GBP_CLIENT_ID/GBP_CLIENT_SECRET.
-//   2. Approved Google Business Profile API access (0 QPM until Google
-//      approves — see Technical-Setup-Guide.md).
-// Until both exist, there is nothing for a consent screen to authorize, so
-// building that route now would be untestable scaffolding.
-//
-// ONE-TIME per business, once the above are ready: use Google's OAuth 2.0
-// Playground (https://developers.google.com/oauthplayground) — set your own
-// client ID/secret in its settings, authorize the
-// "https://www.googleapis.com/auth/business.manage" scope, exchange the
-// authorization code, and copy the resulting refresh_token. Save it via
-// PUT /api/businesses/:id { gbpRefreshToken: "..." } (see routes/features.ts).
-// A proper in-app "Connect Google" button is a good follow-up once you're
-// managing more than a handful of businesses.
+// Google Business Profile OAuth — token exchange AND the consent-flow URL
+// builder used by both real entry points (updated 2026-08-18; this comment
+// was badly stale — it used to describe a manual OAuth-Playground
+// copy-paste workflow and a since-removed `gbpRefreshToken` onboarding
+// field, neither of which exist anymore now that the real flow is built):
+//   - Dashboard: "Connect Google Business Profile" button -> routes/gbp-oauth.ts
+//   - WhatsApp: the customer self-service menu's "Connect Google" option -> routes/whatsapp.ts
+// Both call generateConsentUrl() below; routes/gbp-oauth.ts's OAuth callback
+// is the ONLY place gbp_refresh_token ever gets written now — there is no
+// other, manual way to set it.
 import { request } from 'undici';
 import crypto from 'node:crypto';
 import { config } from '../config.js';
@@ -45,7 +34,14 @@ export function oauthStateKey(state: string): string {
  * way, just a different way of getting the link in front of the owner.
  */
 export async function generateConsentUrl(businessId: string): Promise<string | null> {
-  if (!config.GBP_CLIENT_ID) return null;
+  if (!config.GBP_CLIENT_ID) {
+    // Used to fail silently (code-quality finding, security review 2026-08-18)
+    // — both callers already handle a null return correctly, but a missing
+    // config var should always be visible in logs, not just inferred from a
+    // user-facing "not configured yet" message.
+    log.warn({ businessId }, 'generateConsentUrl: GBP_CLIENT_ID not set — cannot build a consent URL');
+    return null;
+  }
 
   const state = crypto.randomUUID();
   await redis.set(oauthStateKey(state), businessId, 'EX', STATE_TTL_SECONDS);
@@ -66,6 +62,15 @@ export async function generateConsentUrl(businessId: string): Promise<string | n
  * its stored refresh_token if present, otherwise the static fallback
  * GBP_ACCESS_TOKEN from config (useful for a single-account pilot before
  * per-business OAuth is worth setting up). Returns null if neither exists.
+ *
+ * SECURITY (fixed 2026-08-18, found while closing a related review item):
+ * the static fallback ONLY applies when this business has no refresh_token
+ * at all. It used to also apply when a real refresh_token existed but the
+ * exchange call failed (network blip, expired token, etc.) — that meant a
+ * transient Google API failure could silently post THIS business's content
+ * using the SHARED PILOT ACCOUNT's token, i.e. to the wrong Google Business
+ * Profile entirely. A business that has done real OAuth must only ever post
+ * as itself or not at all — never degrade to someone else's account.
  */
 export async function resolveGbpAccessToken(
   businessId: string,
@@ -77,7 +82,7 @@ export async function resolveGbpAccessToken(
   if (cached) return cached;
 
   const fresh = await exchangeRefreshToken(refreshToken);
-  if (!fresh) return config.GBP_ACCESS_TOKEN || null; // degrade to static token rather than fail outright
+  if (!fresh) return null; // do NOT fall back to the shared static token — wrong-account risk
 
   await redis.set(cacheKey(businessId), fresh, 'EX', TOKEN_CACHE_TTL_SECONDS);
   return fresh;

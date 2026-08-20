@@ -11,6 +11,7 @@ import { generate } from '../../clients/llm.js';
 import { generateImage } from '../../clients/image.js';
 import { uploadImage } from '../../clients/storage.js';
 import { query, queryOne } from '../../db.js';
+import { sanitizeProfileContext } from './sanitize.js';
 
 type Lang = 'te' | 'ta' | 'kn' | 'ml' | 'hi' | 'en';
 
@@ -95,7 +96,7 @@ export async function generateSocialPost(
 Language: ${lang}
 ${highlightLine}
 ${occasion ? `Occasion: ${occasion}` : ''}
-Business context (services, pricing, offers, staff/highlights): ${JSON.stringify(ctx.profile_context)}
+Business context (services, pricing, offers, staff/highlights): ${sanitizeProfileContext(ctx.profile_context)}
 ${memoryBlock}
 Generate a social media post. Return ONLY valid JSON:
 {"caption": "<under 300 chars, hook + CTA to call/WhatsApp>", "hashtags": ["<5-8 local+topic tags>"], "visual_idea": "<one-line phone-shootable idea>"}`;
@@ -110,11 +111,19 @@ Generate a social media post. Return ONLY valid JSON:
  * Generate a Google Business Profile post (slightly more formal) plus one AI
  * image. `focus` optional for the same reason as generateSocialPost above.
  */
+const GBP_POST_MAX_CHARS = 1500; // Google's own Local Post length limit
+
 export async function generateGbpPost(ctx: BusinessContext, focus?: string): Promise<{ text: string; imageUrl: string | null }> {
   const lang = LANG_NAME[ctx.primary_lang];
   const highlight = focus ?? `pick a fresh, engaging angle yourself based on the business context — a service, offer, or highlight not likely covered recently`;
-  const prompt = `Write a Google Business Profile update post for ${ctx.name}, ${ctx.city} in ${lang} (mix natural English words). Highlight: ${highlight}. Context: ${JSON.stringify(ctx.profile_context)}. Keep it 1500 chars max, informative, with a clear CTA (call / visit / WhatsApp). Return ONLY the post text.`;
-  const text = (await generate({ system: SYSTEM, prompt, tier: 'quality', maxTokens: 600 })).trim();
+  const prompt = `Write a Google Business Profile update post for ${ctx.name}, ${ctx.city} in ${lang} (mix natural English words). Highlight: ${highlight}. Context: ${sanitizeProfileContext(ctx.profile_context)}. Keep it ${GBP_POST_MAX_CHARS} chars max, informative, with a clear CTA (call / visit / WhatsApp). Return ONLY the post text.`;
+  let text = (await generate({ system: SYSTEM, prompt, tier: 'quality', maxTokens: 600 })).trim();
+  // The prompt ASKS for the limit but nothing enforced it — a security review
+  // 2026-08-18 correctly caught this. Google's API would 400 on an oversized
+  // post, silently losing the generated content otherwise.
+  if (text.length > GBP_POST_MAX_CHARS) {
+    text = text.slice(0, GBP_POST_MAX_CHARS - 1) + '…';
+  }
   const imageUrl = await generatePostImage(ctx, `Something representing: ${focus ?? ctx.name}`);
   return { text, imageUrl };
 }
@@ -125,7 +134,7 @@ export async function generateCampaignMessage(
   goal: string
 ): Promise<string> {
   const lang = LANG_NAME[ctx.primary_lang];
-  const prompt = `Write a short WhatsApp marketing message from ${ctx.name} to its customers in ${lang} (mix natural English words). Goal: ${goal}. Context: ${JSON.stringify(ctx.profile_context)}. Under 500 chars, warm, one clear CTA. Return ONLY the message text.`;
+  const prompt = `Write a short WhatsApp marketing message from ${ctx.name} to its customers in ${lang} (mix natural English words). Goal: ${goal}. Context: ${sanitizeProfileContext(ctx.profile_context)}. Under 500 chars, warm, one clear CTA. Return ONLY the message text.`;
   return (await generate({ system: SYSTEM, prompt, tier: 'quality', maxTokens: 400 })).trim();
 }
 
@@ -143,7 +152,7 @@ export async function answerCustomerQuestion(
   const prompt = `You are the WhatsApp assistant for ${ctx.name}, a local business in ${ctx.city}.
 Answer the customer's question in ${lang} (mix natural English words as locals do), using ONLY the info below. If the info doesn't cover it, say you'll have the team call them — never invent prices, dates, or results.
 
-Business info: ${JSON.stringify(ctx.profile_context)}
+Business info: ${sanitizeProfileContext(ctx.profile_context)}
 
 Question: "${question}"
 

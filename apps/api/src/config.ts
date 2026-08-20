@@ -134,3 +134,34 @@ if (isProd && config.JWT_SECRET === 'dev_insecure_change_me') {
     'JWT_SECRET is unset in production (still the dev default). Set a long random JWT_SECRET before starting.'
   );
 }
+
+// Same class of bug, found in a security review 2026-08-18: clients/whatsapp.ts's
+// verifyWebhookSignature() returns TRUE (i.e. skips verification) when this is
+// unset — a deliberate dev-only escape hatch, but with no guard stopping it
+// from silently shipping to production. Close it the same way JWT_SECRET is.
+if (isProd && !config.WHATSAPP_APP_SECRET) {
+  throw new Error(
+    'WHATSAPP_APP_SECRET is unset in production — inbound WhatsApp messages would be unverifiable (anyone could forge them). Set it before starting.'
+  );
+}
+// Found while fixing the above (not in the original review): WHATSAPP_VERIFY_TOKEN
+// has the exact same shape (a real value with a well-known public default) and
+// the exact same missing guard.
+if (isProd && config.WHATSAPP_VERIFY_TOKEN === 'dev_verify_token') {
+  throw new Error(
+    'WHATSAPP_VERIFY_TOKEN is unset in production (still the dev default). Set a real value before starting.'
+  );
+}
+// GBP's static access-token fallback (clients/gbp-oauth.ts) was built for a
+// single-account pilot, before per-business OAuth existed. Per-business OAuth
+// is fully built now (2026-08-18) — a shared static token in production is a
+// single point of compromise for every connected business. Not banned outright
+// (a real pilot account may still need it briefly), but loud if it's the ONLY
+// thing configured in production.
+if (isProd && config.GBP_ACCESS_TOKEN && !config.GBP_CLIENT_ID) {
+  // console, not logger.ts — logger.ts imports isProd FROM this file, so
+  // importing logger here would be a circular import.
+  console.warn(
+    '[config] GBP_ACCESS_TOKEN (shared static fallback) is set in production with no GBP_CLIENT_ID (per-business OAuth) configured — every connected business is relying on one shared token. Set up per-business OAuth and unset this once businesses are migrated.'
+  );
+}
