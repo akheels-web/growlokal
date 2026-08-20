@@ -19,12 +19,12 @@ import Link from 'next/link';
 export const BRAND_CONFIG = {
   name: 'GrowLokal',
   tagline: 'Autonomous AI Marketing Platform for South Indian Local Businesses',
-  
-  headerLogoUrl: '', // <-- PASTE DARK LOGO FOR HEADER (e.g. '/images/logo-dark.png' or 'https://...')
-  footerLogoUrl: '', // <-- PASTE LIGHT LOGO FOR FOOTER (e.g. '/images/logo-light.png' or 'https://...')
-  faviconUrl: '',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
+
+  headerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_right_text.png', // <-- PASTE DARK LOGO FOR HEADER (e.g. '/images/logo-dark.png' or 'https://...')
+  footerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_white.png', // <-- PASTE LIGHT LOGO FOR FOOTER (e.g. '/images/logo-light.png' or 'https://...')
+  faviconUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/16x16_favicon.png',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
   logoUrl: '',       // <-- Universal fallback logo if both header & footer share the same file
-  
+
   logoAlt: 'GrowLokal Logo',
   logoWidth: 150,
   logoHeight: 36,
