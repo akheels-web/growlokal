@@ -12,10 +12,13 @@ Two entry points, **one shared service** — this matters: fix a bug once, both 
 ```
 Meta webhook POST → routes/whatsapp.ts (verifyWebhookSignature, then handleMessage)
   → conversation state read/written in Redis (redis.ts, key wa:convo:{phone}, 24h TTL)
+  → FIRST contact: sendList() — pick a language (added 2026-08-18; state=awaiting_language)
+      chosen language stored separately: wa:convo:lang:{phone}, same 24h TTL
+  → THEN ask for business name (state=awaiting_name)
   → features/audit/service.ts: runAudit()
       → clients/places.ts: lookupBusiness()        (Google Places, 12h in-memory cache)
       → features/audit/scoring.ts: scoreBusiness()  (pure function, no I/O)
-      → features/audit/prompt.ts: buildAuditPrompt() + clients/llm.ts: generate()
+      → features/audit/prompt.ts: buildAuditPrompt() + clients/llm.ts: generate()  — in the chosen language, not a hardcoded default
       → db.ts: persists lead + audit_report + event rows
   → clients/whatsapp.ts: sendText() replies to the owner
 ```
@@ -34,13 +37,15 @@ apps/web/src/app/page.tsx (audit form) → POST /api/audit/run
 
 ---
 
-## 2. Auth (phone OTP → JWT)
+## 2. Auth (phone OTP → JWT) — LOGIN ONLY, does not create accounts
 
 ```
 Web /login page → POST /api/auth/request-otp → auth/otp.ts: requestOtp()
     → generates 6-digit code, hashes it, stores in otp_codes, sends via clients/sms.ts (MSG91)
   → POST /api/auth/verify-otp → auth/otp.ts: verifyOtp()
-    → on success: routes/auth.ts finds-or-creates a `users` row (+ a `businesses` row if new)
+    → on success: routes/auth.ts SELECTs the `users` row for this phone
+        found  → auth/jwt.ts: signToken() → JWT returned to the client, stored in localStorage (web/src/lib/api.ts)
+        absent → 404 { error: 'no_account' } — nothing is created
     → auth/jwt.ts: signToken() → JWT returned to the client, stored in localStorage (web/src/lib/api.ts)
 ```
 
@@ -50,7 +55,7 @@ Every subsequent authenticated request sends `Authorization: Bearer <jwt>`. `aut
 
 **Blast radius:** every `/api/businesses/:id/*` route depends on `requireBusiness`. Change its logic and you either lock everyone out or open a cross-tenant data leak — there is no other authorization check on those routes.
 
-**Known gap (see `DECISIONS.md` 2026-07-11 "pay-first"):** today, signup happens via OTP *before* any payment — `verify-otp` creates a `trial` business immediately. The intended pay-first flow will change this entry point; anything that currently assumes "a business row exists the moment someone verifies OTP" will need revisiting.
+**Resolved 2026-08-18 (see `DECISIONS.md`):** this used to create a `trial` business + login for ANY phone on first OTP verify — no payment, ever. Retired: the ONLY way a `businesses`/`users` row now comes into existence is `routes/billing.ts`'s `provisionFromPayFirstCheckout()` (§11). This route now only ever logs an EXISTING customer in. Any code that assumed "a business row exists the moment someone verifies OTP" no longer holds — check §11 instead for how one gets created.
 
 ---
 
@@ -161,7 +166,22 @@ Dashboard/worker → POST /api/businesses/:id/gbp/post OR worker.ts direct call 
   → else: POST to mybusiness.googleapis.com (includes media if an image was generated), UPDATE posts SET status='published'|'failed'
 ```
 
-**Blast radius:** this entire feature is gated on Google's GBP API approval (external, not yet confirmed granted). The "always save as draft first" ordering is deliberate — never reorder this so the API call happens before the DB insert, or a failed/pending-approval publish attempt loses the generated content entirely. The `media` field in the publish body is unverified against a live Google account — verify its exact shape once GBP access is actually approved.
+**Blast radius:** the "always save as draft first" ordering is deliberate — never reorder this so the API call happens before the DB insert, or a failed/pending-approval publish attempt loses the generated content entirely. The `media` field in the publish body, and the account/location-listing calls below, are unverified against a live Google account in this session — the project owner confirmed real OAuth client + GBP API access exists (or is imminent) as of 2026-08-18, but nothing here has actually run against it yet.
+
+**How `businesses.gbp_refresh_token`/`gbp_location_id` actually get set now (added 2026-08-18) — `routes/gbp-oauth.ts`:**
+```
+Dashboard "Connect Google Business Profile" → authenticated fetch GET /api/businesses/:id/gbp/connect
+  → returns a Google consent URL as JSON (NOT a redirect — this route needs the Bearer header,
+    which only a real fetch() can send; the dashboard does window.location.href itself)
+Browser → Google consent screen → Google redirects to GET /api/gbp/oauth/callback (public, unauthenticated)
+  → validates a one-time state token (Redis, 10min TTL) → exchanges code for tokens
+  → UPDATE businesses SET gbp_refresh_token = ...   (account-level, independent of which location gets picked)
+  → redirects to /dashboard/:id/gbp/connect (a web page)
+      → GET /api/businesses/:id/gbp/locations — lists locations via the just-saved refresh token
+      → owner picks one → POST /api/businesses/:id/gbp/locations → UPDATE businesses SET gbp_location_id = ...
+```
+
+**Blast radius:** the state param in Redis is the only thing tying Google's callback back to a specific business — anyone who guesses/steals a valid state within its 10-minute window could connect their own Google account to someone else's business. Low risk (state is a random UUID, short-lived, single-use), but don't remove the one-time delete-on-use behavior.
 
 ---
 
@@ -203,21 +223,27 @@ checkRenewalReminders():
 
 **Notifies the owner (`users.role='owner'`), not the business's own customer-facing WhatsApp number** — don't confuse `businesses.whatsapp_number` (which the business uses to talk to *its* customers) with the owner's login phone (`users.phone`, where reminders go). These are two different numbers by design.
 
-## 11. Pay-first checkout (added 2026-07-11)
+## 11. Pay-first checkout — admin-assisted AND public self-serve (added 2026-07-11, self-serve added 2026-08-18)
+
+**Two ways to START a checkout, converging on the same provisioning logic:**
 
 ```
-Team member (NOT a public form) → POST /api/admin/checkout-links (requireAdmin)
-  → clients/razorpay.ts: createSubscription({planId, notes: {phone, businessName, plan, source:'pay_first_checkout'}})
+EITHER: Team member → POST /api/admin/checkout-links (requireAdmin)
+    — phone/businessName/plan already known from a WhatsApp conversation
+OR:     Customer themselves → POST /api/checkout (public, rate-limited)
+    — phone/businessName/plan typed in by the customer on /checkout
+BOTH → clients/razorpay.ts: createSubscription({planId, notes: {phone, businessName, plan, source: '...'}})
+    — planId resolved differently: admin types it in; public checkout reads
+      RAZORPAY_PLAN_ID_STARTER/GROWTH from config (a customer never sees a plan_id)
   → returns a Razorpay-hosted checkout URL — NO row written to our database yet
-  → the admin copies this link and sends it to the lead manually (WhatsApp)
 
-Lead pays on Razorpay's page
+Lead/customer pays on Razorpay's page
 Razorpay → POST /webhooks/razorpay (signature-verified, deduped — same as always)
-  → handleRazorpayEvent(): tries the sign-up-then-pay path first
+  → handleRazorpayEvent(): tries the "business already exists, changing/renewing plan" path first
       UPDATE subscriptions ... WHERE razorpay_sub_id = $1 RETURNING business_id
-    if that finds a row → existing flow (business already existed, e.g. subscribed via its own dashboard)
+    if that finds a row → existing flow (business already existed — e.g. re-subscribing after a lapse)
     if it finds NOTHING → provisionFromPayFirstCheckout(subId, entity, periodEnd):
-        reads entity.notes {phone, businessName, plan}
+        reads entity.notes {phone, businessName, plan} — doesn't care which route created the subscription
         db.ts: withTransaction() — ALL of the following succeed together or none do:
           SELECT users WHERE phone = $1
             found  → reuse business_id; UPDATE businesses SET status/plan;
@@ -227,9 +253,9 @@ Razorpay → POST /webhooks/razorpay (signature-verified, deduped — same as al
         → sendPaymentConfirmation(): sendTemplate() (if template configured) + sendEmail() (if owner has one)
 ```
 
-**Blast radius:** `provisionFromPayFirstCheckout()` is the only place a `business` can be created **without** going through the phone-OTP signup route (`routes/auth.ts`). If you ever add a third way to create a business, make sure it also creates a `users` row in the same transaction — nothing else in this codebase tolerates a business existing with zero users attached (login has nothing to authenticate against).
+**This is the ONLY way a `business` row is ever created** (see `DECISIONS.md` 2026-08-18 — self-serve trial signup via OTP was retired; `routes/auth.ts` now only ever logs an existing user in, never creates one). If you ever add a fourth way for an account to come into existence, make sure it creates a `users` row in the same transaction — nothing else in this codebase tolerates a business existing with zero users attached (login has nothing to authenticate against).
 
-**Two entry points, one webhook handler:** `routes/billing.ts`'s `handleRazorpayEvent()` now branches on whether a local `subscriptions` row already exists for the `razorpay_sub_id`. This means the *same* webhook event type (`subscription.charged`) is handled completely differently depending on which path created the Razorpay subscription in the first place — read both branches together if you're debugging a payment that didn't activate correctly.
+**Two entry points into checkout, one webhook handler, provisioning logic that doesn't know or care which entry point was used:** `routes/billing.ts`'s `handleRazorpayEvent()` branches on whether a local `subscriptions` row already exists for the `razorpay_sub_id` — completely independent of whether `/api/admin/checkout-links` or `/api/checkout` created it. The `notes.source` field (`pay_first_checkout` vs `public_checkout`) is purely descriptive/for-logging — nothing branches on it.
 
 ## 12. WhatsApp customer self-service menu (added 2026-08-18)
 

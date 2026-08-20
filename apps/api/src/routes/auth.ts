@@ -1,5 +1,6 @@
-// Auth routes: request an OTP, verify it, get a JWT. Onboards a new user +
-// business on first login.
+// Auth routes: request an OTP, verify it, get a JWT. Logs in an EXISTING
+// customer only — see verify-otp below for why this no longer onboards a
+// new user/business on first login.
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { requestOtp, verifyOtp } from '../auth/otp.js';
@@ -14,7 +15,6 @@ const phoneSchema = z.object({
 const verifySchema = z.object({
   phone: z.string().min(10).max(15).regex(/^[0-9+]+$/, 'Invalid phone number format'),
   code: z.string().length(6).regex(/^[0-9]+$/, 'Code must be 6 numeric digits'),
-  businessName: z.string().max(100).optional(),
 });
 
 export function authRoutes(app: FastifyInstance) {
@@ -51,27 +51,28 @@ export function authRoutes(app: FastifyInstance) {
     async (req, reply) => {
       const parsed = verifySchema.safeParse(req.body);
       if (!parsed.success) return reply.code(400).send({ error: 'Invalid verification input format.' });
-      const { phone, code, businessName } = parsed.data;
+      const { phone, code } = parsed.data;
 
       const ok = await verifyOtp(phone, code);
       if (!ok) return reply.code(401).send({ error: 'Invalid or expired 6-digit verification code.' });
 
-    // Find or create the user (+ business if new)
-    let user = await queryOne<{ id: string; business_id: string | null; role: string }>(
+    // Find the user — do NOT create one. Self-serve trial signup was
+    // retired 2026-08-18 (see docs/DECISIONS.md): a business/login account
+    // now only ever comes into existence via the pay-first checkout flow
+    // (routes/billing.ts's provisionFromPayFirstCheckout()), never for free
+    // just by verifying an OTP. An existing paying customer still logs in
+    // here exactly as before — this only removes the "create on first login"
+    // branch for phones nobody has ever paid for.
+    const user = await queryOne<{ id: string; business_id: string | null; role: string }>(
       'SELECT id, business_id, role FROM users WHERE phone = $1',
       [phone]
     );
 
     if (!user) {
-      const biz = await queryOne<{ id: string }>(
-        `INSERT INTO businesses (name, status, plan) VALUES ($1, 'pilot', 'trial') RETURNING id`,
-        [businessName || 'My Business']
-      );
-      user = await queryOne(
-        `INSERT INTO users (business_id, phone, role) VALUES ($1, $2, 'owner')
-         RETURNING id, business_id, role`,
-        [biz!.id, phone]
-      );
+      return reply.code(404).send({
+        error: 'no_account',
+        message: 'No GrowLokal account found for this number. Message us on WhatsApp to get started.',
+      });
     }
 
     const token = signToken({

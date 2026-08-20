@@ -1,6 +1,6 @@
 # Architecture
 
-The system map — read this before touching anything you didn't write. Pairs with `FLOW.md` (how execution moves between files) and `DECISIONS.md` (why it's built this way).
+The system map — read this before touching anything you didn't write. Pairs with `FLOW.md` (how execution moves between files), `DECISIONS.md` (why it's built this way), and `JOURNEYS.md` (the end-to-end customer/admin lifecycle diagrams and a system-by-system classification table).
 
 ## Hosting model: Vercel (web) + VPS (API/data) + home lab (tools)
 
@@ -92,6 +92,13 @@ See `docs/DATA_MODEL.md` for the full schema rationale. The two things most like
 - ~~Pro plan advertised multi-branch/multi-location support that never existed in the schema~~ — dropped entirely rather than left as a false promise. `plan_tier` DB enum and `PlanTier`/`PLAN_RANK` in `entitlement.ts` deliberately left untouched (inert, not worth a migration).
 - ~~WhatsApp bot only ever supported plain text — no buttons, no images, in either direction~~ — genuinely behind a competitor's baseline UX, found while scoping a "make our bot more advanced" request. `clients/whatsapp.ts` now has `sendButtons`/`sendList`/`sendImage`; `routes/whatsapp.ts` now parses `msg.interactive` (button/list taps), not just `msg.text`.
 - ~~An existing paying customer messaging our platform number got the same "what's your business name" script as a brand-new lead~~ — now routed to a real self-service menu (My Stats via a real chart image, Get a Website → priority team alert) by matching `users.phone`. See `FLOW.md` §12.
+- ~~GBP OAuth consent flow didn't exist — only the token-exchange mechanism did~~ — real Google Cloud OAuth client + GBP API access now confirmed by the project owner, so this stopped being "untestable scaffolding." `routes/gbp-oauth.ts` + a new dashboard page now let an owner actually connect their Google account and pick a location. See `FLOW.md` §7.
+- ~~New WhatsApp leads always got Telugu, no matter what language they'd actually prefer~~ — matched an existing `// TODO` in the code exactly. First contact now shows a 5-language picker before anything else.
+- ~~Self-serve trial signup let anyone create a free dashboard account with zero payment~~ — retired; `verify-otp` now only logs in an existing (paid) customer. The free audit lead-magnet is untouched — it never created an account in the first place.
+- ~~Most of `config.ts`'s env vars (Razorpay, Mixpost, MSG91, and everything added earlier this session) were never actually wired into `infra/docker-compose.prod.yml`~~ — a real, previously-undetected deploy gap, found while adding the two new GBP OAuth vars. Fixed comprehensively for both the `api` and `worker` services — see `BUG.md`.
+- ~~"Sales-assisted, not public self-serve" (Chunk C's original call) meant a human had to generate every single checkout link~~ — reversed, explicitly, by the project owner ("i dont want to invest manpower on this"). `POST /api/checkout` + a public `/checkout` page now let a customer subscribe directly; the admin tool stays as a secondary path. The underlying atomic provisioning safety is unchanged either way — see `DECISIONS.md`.
+- ~~GBP "no locations found" was a dead end (web) and invisible (WhatsApp)~~ — added a real retry button on the web page and a WhatsApp+email mirror alert, matching a competitor's more complete error handling.
+- ~~Connecting Google Business Profile required logging into the dashboard first~~ — the WhatsApp customer menu can now trigger the same OAuth flow directly, no dashboard visit required.
 
 **Resolved 2026-07-11 (Chunk C):**
 - ~~Current signup flow is sign-up-then-pay only~~ — a business can now also come into existence via a paid checkout link, with the business/user/subscription rows created atomically the moment payment succeeds. Sales-assisted (a team member generates the link), not public self-serve — see `DECISIONS.md` for why, and how the same mechanism would support self-serve later.

@@ -8,11 +8,12 @@
 import type { FastifyInstance } from 'fastify';
 import { config } from '../config.js';
 import { log } from '../logger.js';
-import { sendText, sendButtons, verifyWebhookSignature } from '../clients/whatsapp.js';
-import { runAudit } from '../features/audit/service.js';
+import { sendText, sendButtons, sendList, verifyWebhookSignature, type ListRow } from '../clients/whatsapp.js';
+import { runAudit, type Lang } from '../features/audit/service.js';
 import { answerCustomerQuestion, loadBusinessContext } from '../features/content/generator.js';
 import { sendStatsSnapshot } from '../features/insights/whatsapp-stats.js';
 import { recordWebsiteRequest } from '../features/leads/website-request.js';
+import { generateConsentUrl } from '../clients/gbp-oauth.js';
 import { getEntitlement, hasMinPlan } from '../auth/entitlement.js';
 import { query, queryOne } from '../db.js';
 import { redis } from '../redis.js';
@@ -20,7 +21,7 @@ import { redis } from '../redis.js';
 // Conversation state in Redis — survives restarts and works across multiple
 // API instances. TTL means a stale, abandoned chat just resets to the
 // greeting rather than getting stuck; no cleanup job needed.
-type ConvState = 'awaiting_name' | 'done';
+type ConvState = 'awaiting_language' | 'awaiting_name' | 'done';
 const CONVO_TTL_SECONDS = 24 * 60 * 60; // 24h
 
 function convoKey(phone: string): string {
@@ -99,7 +100,7 @@ export function whatsappRoutes(app: FastifyInstance) {
       if (owner) {
         await handleCustomerMenu(owner.business_id, from, actionId ?? text);
       } else {
-        await handleMessage(from, text);
+        await handleMessage(from, text, actionId);
       }
     } catch (err) {
       log.error({ err }, 'whatsapp webhook processing failed');
@@ -107,7 +108,34 @@ export function whatsappRoutes(app: FastifyInstance) {
   });
 }
 
-async function handleMessage(from: string, text: string): Promise<void> {
+// The 5 South Indian languages the project owner asked for — matches the
+// `Lang` type already used everywhere else (content/generator.ts etc.),
+// minus 'en' (not requested — audience code-mixes English into whichever of
+// these they pick, per the existing SYSTEM prompts).
+const LANGUAGE_ROWS: ListRow[] = [
+  { id: 'lang_te', title: 'తెలుగు Telugu' },
+  { id: 'lang_hi', title: 'हिन्दी Hindi' },
+  { id: 'lang_ta', title: 'தமிழ் Tamil' },
+  { id: 'lang_kn', title: 'ಕನ್ನಡ Kannada' },
+  { id: 'lang_ml', title: 'മലയാളം Malayalam' },
+];
+const LANG_BY_ROW_ID: Record<string, Lang> = { lang_te: 'te', lang_hi: 'hi', lang_ta: 'ta', lang_kn: 'kn', lang_ml: 'ml' };
+
+function langKey(phone: string): string {
+  return `wa:convo:lang:${phone}`;
+}
+async function setChosenLang(phone: string, lang: Lang): Promise<void> {
+  await redis.set(langKey(phone), lang, 'EX', CONVO_TTL_SECONDS);
+}
+async function getChosenLang(phone: string): Promise<Lang> {
+  return ((await redis.get(langKey(phone))) as Lang | null) ?? 'te'; // te = existing default, kept as the fallback
+}
+
+async function sendLanguagePicker(to: string): Promise<void> {
+  await sendList(to, 'Namaste! 🙏 Pick your language:', 'Choose language', LANGUAGE_ROWS);
+}
+
+async function handleMessage(from: string, text: string, actionId: string | null): Promise<void> {
   const lower = text.toLowerCase();
   const state = await getConvo(from);
 
@@ -122,17 +150,30 @@ async function handleMessage(from: string, text: string): Promise<void> {
     return;
   }
 
-  // First contact / greeting -> ask for business name.
+  // First contact / greeting -> ask which language, before anything else.
   if (!state || lower === 'hi' || lower === 'hello' || lower === 'start' || lower === 'namaste') {
+    await setConvo(from, 'awaiting_language');
+    await sendLanguagePicker(from);
+    return;
+  }
+
+  // They tapped a language -> now ask for business name.
+  if (state === 'awaiting_language') {
+    const lang = actionId ? LANG_BY_ROW_ID[actionId] : undefined;
+    if (!lang) {
+      await sendLanguagePicker(from); // typed instead of tapping, or something unrecognized — re-show the list
+      return;
+    }
+    await setChosenLang(from, lang);
     await setConvo(from, 'awaiting_name');
     await sendText(
       from,
-      'Namaste! 🙏 I can give you a FREE report on how your business looks on Google — and what’s losing you customer enquiries.\n\nJust reply with your business *name* (and area, e.g. "Bright Future Salon, Ameerpet").'
+      'I can give you a FREE report on how your business looks on Google — and what’s losing you customer enquiries.\n\nJust reply with your business *name* (and area, e.g. "Bright Future Salon, Ameerpet").'
     );
     return;
   }
 
-  // They sent their business name -> run the audit.
+  // They sent their business name -> run the audit, in the language they chose.
   if (state === 'awaiting_name') {
     // naive "name, area" split
     const [namePart, cityPart] = text.split(',').map((s) => s.trim());
@@ -142,7 +183,7 @@ async function handleMessage(from: string, text: string): Promise<void> {
       phone: from,
       businessName: namePart || text,
       city: cityPart || 'Hyderabad',
-      lang: 'te', // TODO: detect / ask preferred language
+      lang: await getChosenLang(from),
     });
     await sendText(from, result.message);
     await setConvo(from, 'done');
@@ -200,13 +241,40 @@ async function handleCustomerMenu(businessId: string, from: string, action: stri
     case 'want_website':
       await recordWebsiteRequest(businessId, from);
       return;
+    case 'connect_gbp':
+      await sendGbpConnectLink(businessId, from);
+      return;
     default:
       await sendButtons(from, 'Hi! 👋 What would you like to do?', [
         { id: 'view_stats', title: '📊 My Stats' },
         { id: 'want_website', title: '🌐 Get a Website' },
+        { id: 'connect_gbp', title: '🔗 Connect Google' },
       ]);
       return;
   }
+}
+
+/**
+ * Same OAuth flow as the dashboard's "Connect Google Business Profile"
+ * button (routes/gbp-oauth.ts) — added 2026-08-18 so it's reachable straight
+ * from WhatsApp, matching a competitor's lower-friction pattern (no dashboard
+ * login required first). No fetch-then-navigate trick needed here like the
+ * dashboard button — WhatsApp just needs a plain URL; it auto-linkifies it
+ * into something tappable, so plain sendText() is enough (skipped an
+ * unverified WhatsApp "cta_url" message type for exactly this reason).
+ */
+async function sendGbpConnectLink(businessId: string, to: string): Promise<void> {
+  const entitlement = await getEntitlement(businessId);
+  if (!entitlement || !hasMinPlan(entitlement, 'starter')) {
+    await sendText(to, 'Connecting Google Business Profile needs an active GrowLokal plan. Please renew to use this. 🙏');
+    return;
+  }
+  const authUrl = await generateConsentUrl(businessId);
+  if (!authUrl) {
+    await sendText(to, 'Google connection isn\'t set up on our side yet — we\'ll let you know once it is.');
+    return;
+  }
+  await sendText(to, `Tap this link to connect your Google Business Profile:\n\n${authUrl}`);
 }
 
 // ── DB helpers ────────────────────────────────────────────────

@@ -66,7 +66,7 @@ export default function TermsPage() {
           <section>
             <h2 style={{ fontSize: '1.35rem', color: '#111827', marginBottom: '12px' }}>3. User Account &amp; Responsibilities</h2>
             <p>
-              You create an account by verifying a valid Indian mobile number via a one-time password (OTP) — we do not use passwords. You are responsible for keeping access to that mobile number secure, since it is how you sign in. You agree to provide accurate information about your registered business name, location, and contact details, and to subscribe to a paid plan from your dashboard to access plan-specific features.
+              Your account is created automatically the moment your first payment succeeds, whether you subscribe yourself via our checkout page or through a link shared by our team — we do not offer account creation without payment. Once your account exists, you sign in by verifying a valid Indian mobile number via a one-time password (OTP); we do not use passwords. You are responsible for keeping access to that mobile number secure, since it is how you sign in. You agree to provide accurate information about your registered business name, location, and contact details.
             </p>
           </section>
 

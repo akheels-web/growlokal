@@ -1243,56 +1243,6 @@ export default function Home() {
 
         <div className="pricing-gosaas-wrapper">
           <div className="pricing-gosaas-grid">
-            {/* Card 1: Free Plan */}
-            <div className="pricing-card-free">
-              <div>
-                <div className="pricing-plan-title" style={{ color: '#0F172A' }}>Free</div>
-                <p className="pricing-plan-subtitle" style={{ color: '#64748B' }}>Free for your local business</p>
-                <div className="pricing-divider" />
-                <div className="pricing-price-val" style={{ color: '#0F172A' }}>
-                  ₹0 <span className="pricing-price-period" style={{ color: '#64748B' }}>/ month</span>
-                </div>
-
-                <ul className="pricing-feature-list">
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Instant Google Business Profile audit score</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Competitor benchmark scorecard</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Telugu, Tamil, Kannada &amp; English support</span>
-                  </li>
-                  <li className="pricing-feature-item">
-                    <span className="pricing-icon-check">✓</span>
-                    <span>Direct WhatsApp audit report delivery</span>
-                  </li>
-                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
-                    <span className="pricing-icon-cross">✕</span>
-                    <span>Weekly AI-written Google Business posts</span>
-                  </li>
-                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
-                    <span className="pricing-icon-cross">✕</span>
-                    <span>24/7 Automated WhatsApp Chatbot responder</span>
-                  </li>
-                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
-                    <span className="pricing-icon-cross">✕</span>
-                    <span>Instagram &amp; Facebook post scheduler</span>
-                  </li>
-                  <li className="pricing-feature-item" style={{ color: '#94A3B8' }}>
-                    <span className="pricing-icon-cross">✕</span>
-                    <span>WhatsApp Broadcast Campaign manager</span>
-                  </li>
-                </ul>
-              </div>
-              <a href="#audit-form" className="pricing-btn-free">
-                Choose Plan
-              </a>
-            </div>
-
             {/* Card 2: Starter Plan */}
             <div className="pricing-card-free">
               <div>
@@ -1332,14 +1282,9 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              <a
-                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Starter%20Plan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pricing-btn-free"
-              >
+              <Link href="/checkout?plan=starter" className="pricing-btn-free">
                 Choose Plan
-              </a>
+              </Link>
             </div>
 
             {/* Card 3: Growth Plan (Featured) */}
@@ -1382,14 +1327,9 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              <a
-                href="https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%2C%20I%20want%20to%20subscribe%20to%20the%20Growth%20Plan"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pricing-btn-standard"
-              >
+              <Link href="/checkout?plan=growth" className="pricing-btn-standard">
                 Choose Plan
-              </a>
+              </Link>
             </div>
 
           </div>

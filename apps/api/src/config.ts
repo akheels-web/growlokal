@@ -70,11 +70,23 @@ const schema = z.object({
   RAZORPAY_KEY_ID: z.string().default(''),
   RAZORPAY_KEY_SECRET: z.string().default(''),
   RAZORPAY_WEBHOOK_SECRET: z.string().default(''),
+  // Public self-serve checkout (routes/billing.ts POST /api/checkout, added
+  // 2026-08-18 — see docs/DECISIONS.md). Create these ONCE in the Razorpay
+  // dashboard (Plans) and reuse forever; a customer never sees or enters a
+  // plan_id themselves, unlike the admin tool which still asks for one.
+  RAZORPAY_PLAN_ID_STARTER: z.string().default(''),
+  RAZORPAY_PLAN_ID_GROWTH: z.string().default(''),
 
   // GBP (Google Business Profile API — apply early, 0 QPM until approved)
   GBP_ACCESS_TOKEN: z.string().default(''),      // static fallback (single-account pilot)
   GBP_CLIENT_ID: z.string().default(''),         // OAuth client — see clients/gbp-oauth.ts
   GBP_CLIENT_SECRET: z.string().default(''),
+  // The consent-flow redirect route (routes/gbp-oauth.ts), added 2026-08-18
+  // now that a real OAuth client + GBP API access exist. Must exactly match
+  // the "Authorized redirect URI" configured in the Google Cloud Console.
+  GBP_REDIRECT_URI: z.string().default('https://api.growlokal.com/api/gbp/oauth/callback'),
+  // Base URL of the web dashboard — used to redirect back after Google OAuth.
+  WEB_APP_BASE_URL: z.string().default('https://app.growlokal.com'),
 
   // Email (Amazon SES) — see clients/email.ts. Empty in dev (logs instead of sending).
   SES_REGION: z.string().default('ap-south-1'),
@@ -93,6 +105,9 @@ const schema = z.object({
   // (see features/leads/website-request.ts). Empty until approved; the alert
   // still sends via email either way, so this feature works today without it.
   WHATSAPP_WEBSITE_REQUEST_TEMPLATE_NAME: z.string().default(''),
+  // "We couldn't find a Google Business Profile on that account" alert —
+  // mirrors the web page's own error state on WhatsApp too (2026-08-18).
+  WHATSAPP_GBP_NO_LOCATIONS_TEMPLATE_NAME: z.string().default(''),
   // Your own WhatsApp number (or a shared team one) — where the above template sends.
   OPS_ALERT_PHONE: z.string().default(''),
   // Always-works fallback/companion to the WhatsApp alert above — no Meta approval needed.

@@ -79,6 +79,49 @@ export function billingRoutes(app: FastifyInstance) {
     return { checkoutUrl: sub.shortUrl, razorpaySubscriptionId: sub.id };
   });
 
+  // ── Public self-serve checkout (added 2026-08-18 — see docs/DECISIONS.md):
+  // no team member, no manual link generation. The customer supplies their
+  // own phone/business name/plan directly, we resolve the right Razorpay
+  // plan_id ourselves (RAZORPAY_PLAN_ID_STARTER/GROWTH — created once in the
+  // Razorpay dashboard), and reuse the EXACT SAME notes-stashing + webhook
+  // provisioning as the admin tool above. Nothing about how a business gets
+  // created changes — only who initiates the checkout does. Rate-limited
+  // since it's public and unauthenticated (nothing costs money until a real
+  // payment succeeds, but it's still a Razorpay API call per request). ──
+  const RAZORPAY_PLAN_ID: Record<string, string> = {
+    starter: config.RAZORPAY_PLAN_ID_STARTER,
+    growth: config.RAZORPAY_PLAN_ID_GROWTH,
+  };
+  const publicCheckoutBody = z.object({
+    phone: z.string().min(10).max(15).regex(phoneRegex, 'Invalid phone number format'),
+    businessName: z.string().min(2).max(100),
+    plan: z.enum(['starter', 'growth']),
+  });
+  app.post(
+    '/api/checkout',
+    { config: { rateLimit: { max: 10, timeWindow: '1 minute' } } },
+    async (req, reply) => {
+      const parsed = publicCheckoutBody.safeParse(req.body);
+      if (!parsed.success) return reply.code(400).send({ error: parsed.error.flatten() });
+      const { phone, businessName, plan } = parsed.data;
+
+      const razorpayPlanId = RAZORPAY_PLAN_ID[plan];
+      if (!razorpayPlanId) {
+        log.error({ plan }, 'RAZORPAY_PLAN_ID_STARTER/GROWTH not configured for this plan');
+        return reply.code(503).send({ error: 'checkout not configured for this plan yet' });
+      }
+
+      const sub = await createSubscription({
+        planId: razorpayPlanId,
+        notes: { phone, businessName, plan, source: 'public_checkout' },
+      });
+      if (!sub) return reply.code(502).send({ error: 'payment provider error' });
+
+      log.info({ phone, businessName, plan, razorpaySubId: sub.id }, 'public self-serve checkout created');
+      return { checkoutUrl: sub.shortUrl };
+    }
+  );
+
   // ── Razorpay webhook — RAW body required for signature check. ──
   app.post('/webhooks/razorpay', {
     config: { rawBody: true },

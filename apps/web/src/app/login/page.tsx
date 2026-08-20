@@ -11,7 +11,6 @@ export default function Login() {
   const router = useRouter();
   const [step, setStep] = useState<'phone' | 'code'>('phone');
   const [phone, setPhone] = useState('');
-  const [businessName, setBusinessName] = useState('');
   const [code, setCode] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
@@ -58,14 +57,16 @@ export default function Login() {
     try {
       const r = await api<{ token: string; businessId: string }>('/api/auth/verify-otp', {
         method: 'POST',
-        body: JSON.stringify({ phone: cleanPhone, code: cleanCode, businessName: businessName.trim() }),
+        body: JSON.stringify({ phone: cleanPhone, code: cleanCode }),
       });
       setToken(r.token);
       router.push(`/dashboard/${r.businessId}`);
-    } catch (err: any) { 
-      setErr(err.message?.includes('429') ? 'Too many attempts. Please wait a minute.' : 'Invalid or expired 6-digit code.'); 
-    } finally { 
-      setBusy(false); 
+    } catch (err: any) {
+      if (err.message?.includes('429')) setErr('Too many attempts. Please wait a minute.');
+      else if (err.message?.includes('no_account')) setErr('No GrowLokal account found for this number — message us on WhatsApp to get started.');
+      else setErr('Invalid or expired 6-digit code.');
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -191,7 +192,7 @@ export default function Login() {
                 </h2>
                 <p style={{ fontSize: '0.92rem', color: '#64748B' }}>
                   {step === 'phone'
-                    ? 'Enter your WhatsApp number to sign in or create your business account.'
+                    ? 'Enter your WhatsApp number to sign in to your GrowLokal account.'
                     : `Enter the verification code sent to +91 ${phone}`}
                 </p>
               </div>
@@ -225,28 +226,6 @@ export default function Login() {
                         className="phone-input-field"
                       />
                     </div>
-                  </div>
-
-                  {/* Business Name Field (Optional for existing, helpful for new) */}
-                  <div>
-                    <label style={{ display: 'block', fontSize: '13.5px', fontWeight: '700', color: '#1E293B', marginBottom: '8px' }}>
-                      Business Name <span style={{ fontSize: '12px', fontWeight: '500', color: '#64748B' }}>(New owners only)</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                      placeholder="e.g. Apollo Diagnostics / Naturals Salon"
-                      style={{
-                        width: '100%',
-                        padding: '13px 16px',
-                        borderRadius: '10px',
-                        border: '1.5px solid #CBD5E1',
-                        fontSize: '14.5px',
-                        color: '#111827',
-                        outline: 'none',
-                      }}
-                    />
                   </div>
 
                   {err && (

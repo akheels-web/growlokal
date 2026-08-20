@@ -11,6 +11,7 @@ import { whatsappRoutes } from './routes/whatsapp.js';
 import { authRoutes } from './routes/auth.js';
 import { featureRoutes } from './routes/features.js';
 import { billingRoutes } from './routes/billing.js';
+import { gbpOAuthRoutes } from './routes/gbp-oauth.js';
 import { pool } from './db.js';
 import { redis } from './redis.js';
 
@@ -55,6 +56,7 @@ auditRoutes(app);
 whatsappRoutes(app);
 authRoutes(app);
 billingRoutes(app);
+gbpOAuthRoutes(app);
 // Protected (auth enforced per-route)
 featureRoutes(app);
 

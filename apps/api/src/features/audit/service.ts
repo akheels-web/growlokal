@@ -8,7 +8,7 @@ import { buildAuditPrompt, AUDIT_SYSTEM } from './prompt.js';
 import { query, queryOne } from '../../db.js';
 import { log } from '../../logger.js';
 
-type Lang = 'te' | 'ta' | 'kn' | 'ml' | 'hi' | 'en';
+export type Lang = 'te' | 'ta' | 'kn' | 'ml' | 'hi' | 'en';
 
 export interface AuditRunInput {
   phone: string;

@@ -50,6 +50,15 @@ export default function Dashboard() {
     }
   }
 
+  async function connectGbp() {
+    try {
+      const r = await api<{ authUrl: string }>(`/api/businesses/${businessId}/gbp/connect`);
+      window.location.href = r.authUrl;
+    } catch {
+      setMsg('Could not start Google connection. Please try again.');
+    }
+  }
+
   async function generateGbp() {
     setBusy(true); setMsg(''); setImageUrl(null);
     try {
@@ -78,6 +87,16 @@ export default function Dashboard() {
                 💬 WhatsApp Campaigns
               </Link>
             )}
+            {/* Two-step: an authenticated fetch (needs the Bearer header a
+                plain <a href> can't send) gets the Google consent URL, THEN
+                we navigate there — Google's own redirect chain after this
+                needs no auth header at all. */}
+            <button
+              onClick={connectGbp}
+              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.9)', cursor: 'pointer', font: 'inherit', padding: 0 }}
+            >
+              📍 Connect Google Business Profile
+            </button>
             <Link href={`/onboarding/${businessId}`} style={{ color: '#175fab', textDecoration: 'none' }}>
               ⚙️ Edit Profile
             </Link>

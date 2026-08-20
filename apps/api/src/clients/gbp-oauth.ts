@@ -20,14 +20,45 @@
 // A proper in-app "Connect Google" button is a good follow-up once you're
 // managing more than a handful of businesses.
 import { request } from 'undici';
+import crypto from 'node:crypto';
 import { config } from '../config.js';
 import { log } from '../logger.js';
 import { redis } from '../redis.js';
 
 const TOKEN_CACHE_TTL_SECONDS = 50 * 60; // Google access tokens last ~1h; refresh a bit early.
+const STATE_TTL_SECONDS = 10 * 60;
 
 function cacheKey(businessId: string): string {
   return `gbp:access_token:${businessId}`;
+}
+export function oauthStateKey(state: string): string {
+  return `gbp:oauth_state:${state}`;
+}
+
+/**
+ * Builds the Google consent URL for a business, storing a one-time state
+ * token in Redis so the callback (routes/gbp-oauth.ts) can tie the redirect
+ * back to the right business. Shared by two entry points, added 2026-08-18:
+ * the dashboard's "Connect Google Business Profile" button (authenticated
+ * fetch, see routes/gbp-oauth.ts for why) and the WhatsApp customer menu's
+ * "Connect Google" option (routes/whatsapp.ts) — same underlying flow either
+ * way, just a different way of getting the link in front of the owner.
+ */
+export async function generateConsentUrl(businessId: string): Promise<string | null> {
+  if (!config.GBP_CLIENT_ID) return null;
+
+  const state = crypto.randomUUID();
+  await redis.set(oauthStateKey(state), businessId, 'EX', STATE_TTL_SECONDS);
+
+  const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+  authUrl.searchParams.set('client_id', config.GBP_CLIENT_ID);
+  authUrl.searchParams.set('redirect_uri', config.GBP_REDIRECT_URI);
+  authUrl.searchParams.set('response_type', 'code');
+  authUrl.searchParams.set('scope', 'https://www.googleapis.com/auth/business.manage');
+  authUrl.searchParams.set('access_type', 'offline'); // required to get a refresh_token back
+  authUrl.searchParams.set('prompt', 'consent');       // forces refresh_token on repeat connects too
+  authUrl.searchParams.set('state', state);
+  return authUrl.toString();
 }
 
 /**
