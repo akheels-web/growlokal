@@ -26,8 +26,14 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata = {
   metadataBase: new URL('https://growlokal.com'),
   icons: {
-    icon: BRAND_CONFIG.faviconUrl || '/favicon.ico',
-    apple: BRAND_CONFIG.faviconUrl || '/apple-touch-icon.png',
+    icon: [
+      { url: BRAND_CONFIG.faviconUrl || '/favicon.ico', sizes: 'any' },
+      { url: BRAND_CONFIG.faviconUrl || '/favicon.ico', type: 'image/png' },
+    ],
+    shortcut: [BRAND_CONFIG.faviconUrl || '/favicon.ico'],
+    apple: [
+      { url: BRAND_CONFIG.faviconUrl || '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   title: {
     default: 'GrowLokal — Autonomous AI Marketing Platform for South Indian Local Businesses',
