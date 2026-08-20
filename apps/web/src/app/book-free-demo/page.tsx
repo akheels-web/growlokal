@@ -90,7 +90,7 @@ export default function BookFreeDemoPage() {
 
       <main style={{ flex: 1, padding: '110px 24px 80px', maxWidth: '1180px', margin: '0 auto', width: '100%' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '56px', alignItems: 'center' }}>
-          
+
           {/* ─── LEFT COLUMN: VALUE PROPOSITION ─── */}
           <div>
             <div style={{
@@ -316,9 +316,9 @@ export default function BookFreeDemoPage() {
                       </label>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '8px' }}>
                         {[
-                          { id: 'b1', label: 'More than ₹5,000 / month' },
+                          { id: 'b1', label: 'Less than ₹3,000 / month' },
                           { id: 'b2', label: '₹3,000 - ₹5,000 / month (Recommended)' },
-                          { id: 'b3', label: 'Less than ₹3,000 / month' },
+                          { id: 'b3', label: 'More than ₹5,000 / month' },
                         ].map((opt) => (
                           <label
                             key={opt.id}
