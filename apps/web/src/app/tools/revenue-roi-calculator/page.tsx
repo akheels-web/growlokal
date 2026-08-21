@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 
@@ -150,23 +151,29 @@ export default function RevenueRoiCalculatorPage() {
             <div style={{ marginTop: '24px' }}>
               <Link
                 href="/free-gbp-report"
+                className="btn-roi-cta"
                 style={{
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  gap: '8px',
                   width: '100%',
-                  padding: '16px 24px',
+                  padding: '14px 18px',
                   background: 'linear-gradient(135deg, #175fab 0%, #3be06d 100%)',
                   color: '#ffffff',
                   borderRadius: '12px',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   fontWeight: '800',
                   textDecoration: 'none',
-                  boxShadow: '0 2px 8px rgba(23, 95, 171, 0.2)',
-                  transition: 'all 0.2s ease'
+                  textAlign: 'center',
+                  lineHeight: '1.25',
+                  boxShadow: '0 4px 14px rgba(23, 95, 171, 0.28)',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxSizing: 'border-box',
                 }}
               >
-                Get Free GBP Report &amp; Claim Growth →
+                <span>Get Free GBP Report &amp; Claim Growth</span>
+                <ArrowRight size={18} style={{ flexShrink: 0 }} />
               </Link>
               <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '14px', textAlign: 'center', lineHeight: '1.4' }}>
                 *Note: Estimated figures based on South Indian local business benchmarks. Actual growth varies by business category &amp; service capacity.
