@@ -95,6 +95,7 @@
   --gradient-orange-hover: linear-gradient(135deg, #134f8f 0%, #32c55f 100%);
   --gradient-amber: linear-gradient(135deg, #175fab 0%, #3be06d 100%);
   --gradient-dark: linear-gradient(135deg, #0B1020 0%, #17143D 100%);
+  --gradient-cta: linear-gradient(135deg, #175fab 0%, #3be06d 100%);
   --gradient-text-ai: linear-gradient(135deg, #175fab 0%, #3be06d 100%);
   --gradient-text-orange: linear-gradient(135deg, #175fab 0%, #3be06d 100%);
 
