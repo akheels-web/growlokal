@@ -3,6 +3,27 @@ import { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://growlokal.com';
 
+  const disallowList = [
+    '/admin',
+    '/admin/',
+    '/admin/*',
+    '/admin/index.html',
+    '/dashboard',
+    '/dashboard/',
+    '/dashboard/*',
+    '/onboarding',
+    '/onboarding/',
+    '/onboarding/*',
+    '/c/',
+    '/c/*',
+    '/api/',
+    '/api/*',
+    '/_next/',
+    '/static/',
+    '/content/',
+    '/tina/',
+  ];
+
   return {
     rules: [
       {
@@ -21,40 +42,37 @@ export default function robots(): MetadataRoute.Robots {
           '/refund',
           '/login',
         ],
-        disallow: [
-          '/dashboard/',
-          '/admin/',
-          '/onboarding/',
-          '/c/',
-          '/api/',
-          '/_next/',
-          '/static/',
-        ],
+        disallow: disallowList,
       },
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/dashboard/', '/admin/', '/onboarding/', '/c/', '/api/'],
+        disallow: disallowList,
       },
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/dashboard/', '/admin/', '/onboarding/', '/c/', '/api/'],
+        disallow: disallowList,
       },
       {
         userAgent: 'GPTBot',
         allow: '/',
-        disallow: ['/dashboard/', '/admin/', '/onboarding/', '/c/', '/api/'],
+        disallow: disallowList,
       },
       {
         userAgent: 'ClaudeBot',
         allow: '/',
-        disallow: ['/dashboard/', '/admin/', '/onboarding/', '/c/', '/api/'],
+        disallow: disallowList,
       },
       {
         userAgent: 'PerplexityBot',
         allow: '/',
-        disallow: ['/dashboard/', '/admin/', '/onboarding/', '/c/', '/api/'],
+        disallow: disallowList,
+      },
+      {
+        userAgent: 'Applebot',
+        allow: '/',
+        disallow: disallowList,
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

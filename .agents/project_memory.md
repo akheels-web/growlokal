@@ -33,3 +33,10 @@
 - **Footer Architecture:**
   - **Full Rich 5-Column Dark Footer (`<Footer />`):** Used on main content/discovery pages (`/`, `/industry/[slug]`, `/city/[cityName]`, `/city/[cityName]/[vertical]`, `/blog`, `/terms`, `/privacy`, `/refund`, `/resources/whatsapp-kit`).
   - **Single-Liner Dark Footer:** Used on focused interactive tools and auth pages (`/free-gbp-report`, `/login`, `/book-free-demo`, `/tools/google-score-calculator`, `/tools/revenue-roi-calculator`).
+
+### 3. SEO, Robots & LLM Discovery Policies
+- **Robots.ts (`/robots.txt`):** Explicitly blocks `/admin`, `/admin/`, `/admin/*`, `/dashboard`, `/onboarding`, `/c/`, `/api/`, `/_next/`, `/content/`, `/tina/` for `*`, `Googlebot`, `Bingbot`, `GPTBot`, `ClaudeBot`, `PerplexityBot`, and `Applebot`.
+- **Admin Meta Tag:** `public/admin/index.html` contains `<meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />` as an extra defense-in-depth barrier.
+- **Sitemap.ts (`/sitemap.xml`):** Excludes `/admin` and private routes. Maps 15 industry pages, 7 city hubs, programmatic city x vertical matrices, core marketing routes, and blog articles.
+- **LLMs.txt (`/llms.txt`):** Structured catalog of public value-props, 15 verified vertical landing URLs, top cities, and self-service growth tools (zero exposure of internal admin routes).
+
