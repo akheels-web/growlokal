@@ -27,7 +27,7 @@
 - **Logo Dimensions:**
   - Header Logo: `44px` height (`max-height: 48px`, ~150px width).
   - Footer Logo: `52px` height (`max-height: 58px`, ~177px width).
-  - Favicon: `32x32 px` / `48x48 px` square mark.
+  - Favicon: True 1:1 square icon mark (`32x32`, `48x48`, `180x180` in `/favicon.png`, `/favicon-48x48.png`, `/apple-touch-icon.png`) centered with zero horizontal stretching or aspect ratio distortion.
 - **Iconography Standard:**
   - Standardized on `lucide-react` SVG icons across all industry/vertical landing pages, pain point roadblocks, AI agent use cases, keywords, and city matrix cross-links (zero raw emojis in UI cards).
 - **Footer Architecture:**

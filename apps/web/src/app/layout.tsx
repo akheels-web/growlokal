@@ -27,12 +27,13 @@ export const metadata = {
   metadataBase: new URL('https://growlokal.com'),
   icons: {
     icon: [
-      { url: BRAND_CONFIG.faviconUrl || '/favicon.ico', sizes: 'any' },
-      { url: BRAND_CONFIG.faviconUrl || '/favicon.ico', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
     ],
-    shortcut: [BRAND_CONFIG.faviconUrl || '/favicon.ico'],
+    shortcut: ['/favicon.png'],
     apple: [
-      { url: BRAND_CONFIG.faviconUrl || '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   title: {

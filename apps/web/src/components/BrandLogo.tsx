@@ -22,7 +22,7 @@ export const BRAND_CONFIG = {
 
   headerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_right_text.png', // <-- PASTE DARK LOGO FOR HEADER (e.g. '/images/logo-dark.png' or 'https://...')
   footerLogoUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/logo_white.png', // <-- PASTE LIGHT LOGO FOR FOOTER (e.g. '/images/logo-light.png' or 'https://...')
-  faviconUrl: 'https://zugkwxy0oqkvrsu5.public.blob.vercel-storage.com/32x32_favicon.png',    // <-- PASTE FAVICON LINK HERE (e.g. '/favicon.ico', '/images/favicon.png' or 'https://...')
+  faviconUrl: '/favicon.png', // <-- True 1:1 square icon (un-stretched)
   logoUrl: '',       // <-- Universal fallback logo if both header & footer share the same file
 
   logoAlt: 'GrowLokal Logo',
