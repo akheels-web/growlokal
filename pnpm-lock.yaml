@@ -80,6 +80,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@tinacms/cli':
+        specifier: ^2.6.0
+        version: 2.6.0(@codemirror/language@6.0.0)(@types/node@26.2.0)(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(abstract-level@1.0.4)(immer@10.2.0)(jiti@1.21.7)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.5)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(tsx@4.23.0)(use-sync-external-store@1.6.0(react@19.2.8))(yaml@2.9.0)
       lucide-react:
         specifier: ^1.33.0
         version: 1.33.0(react@19.2.8)
@@ -96,9 +99,6 @@ importers:
         specifier: ^3.12.0
         version: 3.12.0(@types/node@26.2.0)(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(abstract-level@1.0.4)(immer@10.2.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(typescript@7.0.2)(use-sync-external-store@1.6.0(react@19.2.8))
     devDependencies:
-      '@tinacms/cli':
-        specifier: ^2.6.0
-        version: 2.6.0(@codemirror/language@6.0.0)(@types/node@26.2.0)(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(abstract-level@1.0.4)(immer@10.2.0)(jiti@1.21.7)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rollup@4.62.5)(scheduler@0.27.0)(slate-dom@0.114.0(slate@0.114.0))(slate@0.114.0)(tsx@4.23.0)(use-sync-external-store@1.6.0(react@19.2.8))(yaml@2.9.0)
       '@types/node':
         specifier: ^26.2.0
         version: 26.2.0

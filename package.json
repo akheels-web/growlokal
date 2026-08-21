@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "AI marketing platform for South Indian local businesses",
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@9.15.9",
   "engines": { "node": ">=20" },
   "scripts": {
     "dev": "echo 'Run per-app: pnpm --filter @growlokal/api dev  |  pnpm --filter @growlokal/web dev'",
