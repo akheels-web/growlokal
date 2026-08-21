@@ -1,0 +1,279 @@
+{
+  "title": "Homepage",
+  "hero": {
+    "badgeText": "AI Marketing Team for Local Businesses",
+    "headlinePrefix": "Rank #1 on Google Maps &",
+    "headlineAccent": " Get More Customer Enquiries",
+    "headlineSuffix": "",
+    "subheadline": "Autonomous AI that writes local posts, replies to Google reviews in Telugu, Tamil, Kannada & English, and turns nearby searchers into paying walk-in customers.",
+    "primaryCta": {
+      "label": "⚡ Get Free GBP Report",
+      "url": "/free-gbp-report"
+    },
+    "secondaryCta": {
+      "label": "💬 Book Free Demo",
+      "url": "/book-free-demo"
+    },
+    "trustBadges": [
+      { "icon": "✓", "text": "Free 30-Sec Audit" },
+      { "icon": "⚡", "text": "Delivered on WhatsApp" },
+      { "icon": "🌐", "text": "Telugu, Tamil, Kannada & English" }
+    ],
+    "heroImage": "/images/hero_ai_platform.jpg"
+  },
+  "statsBar": {
+    "title": "Seamlessly Integrated With",
+    "platforms": [
+      { "name": "Google Maps & Search", "icon": "google" },
+      { "name": "WhatsApp Meta Business", "icon": "whatsapp" },
+      { "name": "Instagram Business", "icon": "instagram" },
+      { "name": "Facebook Pages", "icon": "facebook" }
+    ]
+  },
+  "growthTools": {
+    "eyebrow": "Self-Service Free Growth Tools",
+    "title": "Free Tools to Audit & Accelerate Your Store",
+    "subtitle": "Test your local business presence in 30 seconds before subscribing.",
+    "cards": [
+      {
+        "icon": "bar-chart",
+        "badge": "⚡ Instant Competitor Spy Tool",
+        "title": "Free Google Score & Competitor Benchmark",
+        "desc": "Find out your real Google Maps ranking, review response speed, keyword gaps, and how you compare against top 3 local competitors.",
+        "btnLabel": "Run Free Audit Scorecard →",
+        "btnUrl": "/tools/google-score-calculator",
+        "btnBg": "linear-gradient(135deg, #175fab 0%, #3be06d 100%)"
+      },
+      {
+        "icon": "trending-up",
+        "badge": "📈 Revenue Growth Calculator",
+        "title": "Local Revenue & Inquiry ROI Calculator",
+        "desc": "Calculate how many extra monthly customer visits, WhatsApp leads, and revenue you unlock by moving from position #12 to top #3.",
+        "btnLabel": "Calculate My Revenue Growth →",
+        "btnUrl": "/tools/revenue-roi-calculator",
+        "btnBg": "#0B1020"
+      }
+    ]
+  },
+  "painPoints": {
+    "eyebrow": "Why Local Businesses Struggle",
+    "title": "Running a Business is Hard. Marketing Shouldn't Be.",
+    "subtitle": "Most local business owners waste hours on manual marketing or lose customers to competitors because of these 3 bottlenecks.",
+    "cards": [
+      {
+        "stat": "84%",
+        "statLabel": "of local searches choose top 3 Google results",
+        "title": "Hidden on Google Maps",
+        "desc": "When customers search 'best clinic near me' or 'salon near me', competing shops rank above you simply because their profile is active.",
+        "solution": "GrowLokal optimizes your listing weekly on autopilot",
+        "icon": "map-pin"
+      },
+      {
+        "stat": "68%",
+        "statLabel": "of customers go to a competitor if no quick reply",
+        "title": "Missed WhatsApp & Call Enquiries",
+        "desc": "You are busy serving customers during peak hours. Enquiries on WhatsApp and Google calls go unanswered and customers buy elsewhere.",
+        "solution": "24/7 AI chatbot replies instantly in regional languages",
+        "icon": "message-circle"
+      },
+      {
+        "stat": "4.5x",
+        "statLabel": "more trust for businesses that reply to all reviews",
+        "title": "Ignored Reviews & Stale Posts",
+        "desc": "Google favors active profiles with fresh festive offers and quick review responses. Doing this manually takes hours every week.",
+        "solution": "AI drafts vernacular review replies & weekly festive posts",
+        "icon": "star"
+      }
+    ]
+  },
+  "howItWorks": {
+    "eyebrow": "Simple 3-Step Setup",
+    "title": "How GrowLokal Drives Customers to Your Doorstep",
+    "subtitle": "Zero technical skills needed. If you know how to use WhatsApp, you can run GrowLokal.",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Connect Your Business via WhatsApp",
+        "desc": "Send us your business name or Google Maps link. Our AI scans your profile, competitors, and reviews in 30 seconds.",
+        "icon": "smartphone"
+      },
+      {
+        "step": "2",
+        "title": "AI Generates Your Weekly Content & Strategy",
+        "desc": "Every Monday, receive ready-to-publish Google posts, festive banners, and review replies in Telugu, Tamil, Kannada, or English on WhatsApp.",
+        "icon": "sparkles"
+      },
+      {
+        "step": "3",
+        "title": "Approve with 1-Click & Watch Leads Grow",
+        "desc": "Reply 'YES' to publish. Track new calls, direction requests, and WhatsApp enquiries directly from your live dashboard.",
+        "icon": "trending-up"
+      }
+    ]
+  },
+  "aiAgents": {
+    "eyebrow": "Your 24/7 AI Marketing Team",
+    "title": "4 Specialized AI Agents Working for Your Business",
+    "subtitle": "Each agent is trained specifically on South Indian local markets, festive calendars, and customer psychology.",
+    "agents": [
+      {
+        "id": "agent-google",
+        "name": "Google Maps Rank Agent",
+        "role": "Local SEO & Ranking Specialist",
+        "badge": "RANK #1 ENGINE",
+        "avatar": "/images/avatar_agent_google.jpg",
+        "features": [
+          "Auto-optimizes GBP categories, services, and search keywords",
+          "Generates weekly vernacular updates & festive offers",
+          "Monitors competitor rankings in your 5km radius",
+          "Tracks photo views, call clicks & direction requests"
+        ]
+      },
+      {
+        "id": "agent-whatsapp",
+        "name": "WhatsApp CRM & Lead Agent",
+        "role": "24/7 Customer Responder",
+        "badge": "INSTANT CONVERSIONS",
+        "avatar": "/images/avatar_agent_whatsapp.jpg",
+        "features": [
+          "Instant replies to customer enquiries in Te, Ta, Kn & En",
+          "Automated appointment booking & service price lists",
+          "Sends Google Review request links to happy customers",
+          "Re-engages inactive leads with personalized festive offers"
+        ]
+      },
+      {
+        "id": "agent-social",
+        "name": "Social Media Content Agent",
+        "role": "Instagram & Facebook Growth",
+        "badge": "BRAND VISIBILITY",
+        "avatar": "/images/avatar_agent_social.jpg",
+        "features": [
+          "Generates regional festival posts (Sankranti, Pongal, Diwali, Ugadi)",
+          "Creates high-converting promotional captions & hashtags",
+          "Multi-platform scheduling with 1-click WhatsApp approval",
+          "Showcases before/after work & customer testimonials"
+        ]
+      },
+      {
+        "id": "agent-campaign",
+        "name": "Local Campaign Agent",
+        "role": "ROI & Promotion Strategist",
+        "badge": "GROWTH ACCELERATOR",
+        "avatar": "/images/avatar_agent_campaign.jpg",
+        "features": [
+          "Launches targeted WhatsApp broadcast promotions",
+          "Tracks cost-per-lead and customer acquisition ROI",
+          "Generates monthly revenue & growth insight reports",
+          "Delivers actionable tips from your dedicated growth specialist"
+        ]
+      }
+    ]
+  },
+  "results": {
+    "eyebrow": "⚡ Proven ROI & Local Dominance",
+    "title": "What Happens in 30 Days with GrowLokal AI",
+    "subtitle": "From hidden on Google Search & Maps to the #1 choice in your area — fully automated on WhatsApp.",
+    "beforeDay1": {
+      "title": "Invisible to Nearby Customers",
+      "score": 23,
+      "desc": "Low Google ranking, missing reviews, no vernacular posts, and zero automated response system.",
+      "metrics": [
+        "Google Maps Rank: #18 in local area",
+        "Review Response Rate: 0% (Ignored)",
+        "Monthly Inquiries: Only 4-5 phone calls"
+      ],
+      "image": "/images/results_day1_before.jpg"
+    },
+    "afterDay30": {
+      "title": "#1 Local Pack & 3x Enquiries",
+      "score": 87,
+      "desc": "Fully optimized profile, weekly vernacular AI posts, warm 1-click review replies & automated WhatsApp lead captures.",
+      "metrics": [
+        "Google Maps Rank: #1 Top Local Pack",
+        "Review Response Rate: 100% (Instant AI)",
+        "Monthly Inquiries: 48+ WhatsApp Leads"
+      ],
+      "image": "/images/results_day30_after.jpg"
+    },
+    "pillars": [
+      { "icon": "📍", "title": "Google Maps Pack #1", "desc": "Dominates local \"near me\" customer searches on Google Maps & Search with optimized keywords.", "statTag": "+278% Map Views" },
+      { "icon": "🗣️", "title": "Vernacular AI Posts", "desc": "Weekly festive offers and updates written automatically in Telugu, Tamil, Kannada, and English.", "statTag": "4 Languages Native" },
+      { "icon": "⭐", "title": "100% Review Replies", "desc": "AI drafts warm, professional review replies in seconds. You just click approve on WhatsApp.", "statTag": "< 2-Min Response" },
+      { "icon": "💬", "title": "WhatsApp Lead Funnel", "desc": "Captures customer leads 24/7 with instant booking links and automated answer bots.", "statTag": "3x Enquiry Growth" }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Transparent Pricing",
+    "title": "Transparent pricing plans, find the perfect fit for your needs",
+    "subtitle": "No hidden fees, no long-term contracts. Upgrade or cancel anytime.",
+    "discountBadge": "Save 20%",
+    "starter": {
+      "title": "Starter",
+      "subtitle": "For small businesses just getting started",
+      "monthlyPrice": 999,
+      "annualPrice": 799,
+      "annualSavingsNote": "⚡ Billed annually (₹9,588/yr — Save ₹2,400)",
+      "features": [
+        "Instant Google Business Profile audit score",
+        "Competitor benchmark scorecard",
+        "Telugu, Tamil, Kannada & English support",
+        "Direct WhatsApp audit report delivery",
+        "Weekly AI Google Business Profile posts",
+        "24/7 automated WhatsApp customer responder"
+      ],
+      "btnText": "Choose Plan",
+      "btnUrl": "/checkout?plan=starter"
+    },
+    "growth": {
+      "title": "Growth",
+      "subtitle": "Most popular — full automation for growing businesses",
+      "isFeatured": true,
+      "badge": "Most Popular",
+      "monthlyPrice": 2499,
+      "annualPrice": 1999,
+      "annualSavingsNote": "⚡ Billed annually (₹23,988/yr — Save ₹6,000)",
+      "features": [
+        "Everything in Starter",
+        "Auto-drafted review replies (1-click approve)",
+        "Instagram & Facebook post scheduler",
+        "Instant customer booking microsite page",
+        "WhatsApp broadcast campaign manager",
+        "Dedicated South Indian growth strategist"
+      ],
+      "btnText": "Choose Plan",
+      "btnUrl": "/checkout?plan=growth"
+    }
+  },
+  "faq": {
+    "eyebrow": "Clear Answers",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about getting started with GrowLokal.",
+    "questions": [
+      {
+        "q": "What is GrowLokal and how does it help my store?",
+        "a": "GrowLokal is an autonomous AI marketing platform built specifically for South Indian local businesses (clinics, salons, stores, restaurants, gyms). It manages your Google Maps ranking, writes weekly posts and festive offers in Telugu, Tamil, Kannada, and English, replies to customer reviews in seconds, and responds to WhatsApp customer enquiries 24/7."
+      },
+      {
+        "q": "Do I need technical skills or a computer to use it?",
+        "a": "Not at all! Everything is managed through WhatsApp. When our AI generates a Google post or review reply, it sends you a preview on WhatsApp. You just tap 'APPROVE' or reply 'YES' and it gets published automatically."
+      },
+      {
+        "q": "Which languages are supported?",
+        "a": "GrowLokal natively understands and writes content in Telugu (తెలుగు), Tamil (தமிழ்), Kannada (ಕನ್ನಡ), and English. It understands local cultural nuances, regional festivals, and customer colloquialisms."
+      },
+      {
+        "q": "How fast will I see results on Google Maps?",
+        "a": "Most local businesses see improved keyword ranking and an increase in Google search impressions within 14 to 30 days of consistent posting, profile optimization, and 100% review reply rates."
+      },
+      {
+        "q": "Is there any long-term contract or setup fee?",
+        "a": "Zero setup fees and zero lock-in contracts. You can subscribe monthly or save 20% with annual billing. You can upgrade, downgrade, or cancel anytime with one click."
+      },
+      {
+        "q": "How do I get started?",
+        "a": "Simply run your free 30-second Google Business Profile Audit on this page. We'll analyze your current score and send your personalized growth roadmap directly to your WhatsApp."
+      }
+    ]
+  }
+}

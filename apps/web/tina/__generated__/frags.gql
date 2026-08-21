@@ -1,0 +1,205 @@
+fragment GlobalParts on Global {
+  __typename
+  siteName
+  tagline
+  headerLogoUrl
+  footerLogoUrl
+  faviconUrl
+  logoAlt
+  supportPhone
+  whatsappNumber
+  whatsappDefaultMsg
+  metaTitle
+  metaDescription
+}
+
+fragment NavigationParts on Navigation {
+  __typename
+  navLinks {
+    __typename
+    label
+    url
+    isHighlight
+  }
+  headerCta {
+    __typename
+    label
+    url
+  }
+  footerTagline
+  freeGrowthTools {
+    __typename
+    label
+    url
+  }
+  industrySolutions {
+    __typename
+    label
+    url
+  }
+  topLocations {
+    __typename
+    label
+    url
+  }
+  accountHelp {
+    __typename
+    label
+    url
+  }
+  copyrightText
+}
+
+fragment PageParts on Page {
+  __typename
+  title
+  hero {
+    __typename
+    badgeText
+    headlinePrefix
+    headlineAccent
+    headlineSuffix
+    subheadline
+    primaryCta {
+      __typename
+      label
+      url
+    }
+    secondaryCta {
+      __typename
+      label
+      url
+    }
+    trustBadges {
+      __typename
+      icon
+      text
+    }
+    heroImage
+  }
+  growthTools {
+    __typename
+    eyebrow
+    title
+    subtitle
+    cards {
+      __typename
+      badge
+      title
+      desc
+      btnLabel
+      btnUrl
+    }
+  }
+  painPoints {
+    __typename
+    eyebrow
+    title
+    subtitle
+    cards {
+      __typename
+      stat
+      statLabel
+      title
+      desc
+      solution
+    }
+  }
+  aiAgents {
+    __typename
+    eyebrow
+    title
+    subtitle
+    agents {
+      __typename
+      name
+      role
+      badge
+      avatar
+      features
+    }
+  }
+  results {
+    __typename
+    eyebrow
+    title
+    subtitle
+    beforeDay1 {
+      __typename
+      title
+      score
+      desc
+      metrics
+      image
+    }
+    afterDay30 {
+      __typename
+      title
+      score
+      desc
+      metrics
+      image
+    }
+    pillars {
+      __typename
+      icon
+      title
+      desc
+      statTag
+    }
+  }
+  pricing {
+    __typename
+    eyebrow
+    title
+    subtitle
+    discountBadge
+    starter {
+      __typename
+      title
+      subtitle
+      monthlyPrice
+      annualPrice
+      annualSavingsNote
+      features
+      btnText
+      btnUrl
+    }
+    growth {
+      __typename
+      title
+      subtitle
+      badge
+      monthlyPrice
+      annualPrice
+      annualSavingsNote
+      features
+      btnText
+      btnUrl
+    }
+  }
+  faq {
+    __typename
+    eyebrow
+    title
+    subtitle
+    questions {
+      __typename
+      q
+      a
+    }
+  }
+}
+
+fragment PostParts on Post {
+  __typename
+  title
+  slug
+  date
+  author
+  category
+  excerpt
+  coverImage
+  readTime
+  body
+}

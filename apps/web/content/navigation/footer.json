@@ -1,0 +1,42 @@
+{
+  "footerTagline": "The #1 AI Marketing Platform built for South Indian Local Businesses. Grow your sales on Google, WhatsApp, and social media on autopilot.",
+  "regionalBadges": [
+    { "label": "🇮🇳 Telugu" },
+    { "label": "🇮🇳 Tamil" },
+    { "label": "🇮🇳 Kannada" },
+    { "label": "🌐 English" }
+  ],
+  "freeGrowthTools": [
+    { "label": "Google Score Benchmark", "url": "/tools/google-score-calculator" },
+    { "label": "Revenue Growth Calculator", "url": "/tools/revenue-roi-calculator" },
+    { "label": "WhatsApp Growth Kit", "url": "/resources/whatsapp-kit" },
+    { "label": "Local SEO Playbooks", "url": "/blog" },
+    { "label": "Free Google Audit", "url": "/free-gbp-report" }
+  ],
+  "industrySolutions": [
+    { "label": "Clinics & Healthcare", "url": "/industry/doctors-clinics" },
+    { "label": "Salons & Spas", "url": "/industry/salons-spas" },
+    { "label": "Restaurants & Cafes", "url": "/industry/restaurants-cafes" },
+    { "label": "Gyms & Fitness", "url": "/industry/gyms-fitness" },
+    { "label": "Bakeries & Cake Shops", "url": "/industry/bakers-cake-shops" }
+  ],
+  "topLocations": [
+    { "label": "Hyderabad, Telangana", "url": "/city/hyderabad" },
+    { "label": "Chennai, Tamil Nadu", "url": "/city/chennai" },
+    { "label": "Bengaluru, Karnataka", "url": "/city/bengaluru" },
+    { "label": "Vijayawada, AP", "url": "/city/vijayawada" },
+    { "label": "Visakhapatnam, AP", "url": "/city/visakhapatnam" },
+    { "label": "Coimbatore, TN", "url": "/city/coimbatore" },
+    { "label": "Kochi, Kerala", "url": "/city/kochi" }
+  ],
+  "accountHelp": [
+    { "label": "Owner Sign In", "url": "/login" },
+    { "label": "Growth Plan Pricing", "url": "/#pricing" },
+    { "label": "Frequently Asked Questions", "url": "/#faq" },
+    { "label": "WhatsApp Support", "url": "https://api.whatsapp.com/send?phone=919876543210&text=Hi%20GrowLokal%20Support" },
+    { "label": "Privacy Policy", "url": "/privacy" },
+    { "label": "Terms & Conditions", "url": "/terms" },
+    { "label": "Refund Policy", "url": "/refund" }
+  ],
+  "copyrightText": "GrowLokal Technologies. Built with ❤️ for South Indian Local Businesses."
+}

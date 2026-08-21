@@ -1,0 +1,21 @@
+{
+  "navLinks": [
+    { "label": "How it works", "url": "/#how-it-works", "isHighlight": false },
+    { "label": "AI Agents", "url": "/#agents", "isHighlight": false },
+    { "label": "Pricing", "url": "/#pricing", "isHighlight": false },
+    { "label": "Industries", "url": "/#industries", "isHighlight": false },
+    { "label": "Free GBP Report", "url": "/free-gbp-report", "isHighlight": true }
+  ],
+  "headerCta": {
+    "label": "Audit My Business",
+    "url": "/free-gbp-report"
+  },
+  "enableLanguageSwitch": true,
+  "defaultLanguage": "en",
+  "supportedLanguages": [
+    { "code": "en", "label": "English" },
+    { "code": "te", "label": "తెలుగు" },
+    { "code": "ta", "label": "தமிழ்" },
+    { "code": "kn", "label": "ಕನ್ನಡ" }
+  ]
+}
