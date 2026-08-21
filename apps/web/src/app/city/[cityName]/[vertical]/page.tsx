@@ -3,6 +3,7 @@ import { getCity, CITY_DATA } from '@/lib/cityData';
 import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Footer } from '@/components/Footer';
 
 interface Props {
   params: Promise<{ cityName: string; vertical: string }> | { cityName: string; vertical: string };
@@ -138,11 +139,8 @@ export default async function CityVerticalPage({ params }: Props) {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
-          © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
-        </div>
-      </footer>
+      {/* ─── RICH DARK FOOTER ─── */}
+      <Footer />
     </div>
   );
 }

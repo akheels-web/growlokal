@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Footer } from '@/components/Footer';
 
 export const metadata = {
   title: 'Refund & Cancellation Policy — GrowLokal',
@@ -115,12 +116,8 @@ export default function RefundPage() {
         </div>
       </main>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
-          © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/terms">Terms of Service</Link> • <Link href="/privacy">Privacy Policy</Link>
-        </div>
-      </footer>
+      {/* ─── RICH DARK FOOTER ─── */}
+      <Footer />
     </div>
   );
 }

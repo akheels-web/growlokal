@@ -3,11 +3,97 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import {
+  Search,
+  MessageCircle,
+  Sparkles,
+  Megaphone,
+  CheckCircle2,
+  Bot,
+  ArrowRight,
+  ShieldCheck,
+  MapPin,
+  MapPinOff,
+  PhoneOff,
+  Smartphone,
+  TrendingDown,
+  StarOff,
+  Clock,
+  AlertCircle,
+  Zap,
+  Star,
+} from 'lucide-react';
 import { getVertical, VERTICAL_DATA } from '@/lib/verticalData';
 import { CITY_DATA } from '@/lib/cityData';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BrandLogo } from '@/components/BrandLogo';
+import { Footer } from '@/components/Footer';
+
+function getPainPointIcon(iconStr: string, title: string) {
+  const t = (title || '').toLowerCase();
+  if (
+    t.includes('google') ||
+    t.includes('map') ||
+    t.includes('search') ||
+    t.includes('homeowner') ||
+    t.includes('rank') ||
+    t.includes('visibility') ||
+    iconStr === '📍' ||
+    iconStr === '🔍'
+  ) {
+    return <MapPinOff size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  if (
+    t.includes('call') ||
+    t.includes('inquiry') ||
+    t.includes('enquiry') ||
+    t.includes('whatsapp') ||
+    t.includes('phone') ||
+    iconStr === '💬'
+  ) {
+    return <PhoneOff size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  if (
+    t.includes('social') ||
+    t.includes('portfolio') ||
+    t.includes('instagram') ||
+    t.includes('media') ||
+    iconStr === '📱'
+  ) {
+    return <Smartphone size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  if (
+    t.includes('review') ||
+    t.includes('trust') ||
+    t.includes('reputation') ||
+    iconStr === '⭐'
+  ) {
+    return <StarOff size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  if (
+    t.includes('revenue') ||
+    t.includes('commission') ||
+    t.includes('aggregator') ||
+    t.includes('cost') ||
+    t.includes('price') ||
+    iconStr === '💸' ||
+    iconStr === '📉'
+  ) {
+    return <TrendingDown size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  if (
+    t.includes('time') ||
+    t.includes('hour') ||
+    t.includes('show') ||
+    t.includes('delay') ||
+    iconStr === '⏳' ||
+    iconStr === '⏰'
+  ) {
+    return <Clock size={22} color="#E11D48" strokeWidth={2.5} />;
+  }
+  return <AlertCircle size={22} color="#E11D48" strokeWidth={2.5} />;
+}
 
 export default function IndustryLandingPage() {
   const routeParams = useParams();
@@ -74,12 +160,7 @@ export default function IndustryLandingPage() {
               { label: vertical.label },
             ]}
           />
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.2fr 0.8fr',
-            gap: '48px',
-            alignItems: 'center',
-          }}>
+          <div className="industry-hero-grid">
             {/* Left Col: Hero Copy */}
             <div>
               <div style={{
@@ -99,7 +180,7 @@ export default function IndustryLandingPage() {
               </div>
 
               <h1 style={{
-                fontSize: 'clamp(2.1rem, 3.8vw, 3.2rem)',
+                fontSize: 'clamp(1.9rem, 3.8vw, 3.2rem)',
                 fontWeight: '900',
                 lineHeight: '1.18',
                 color: '#111827',
@@ -110,7 +191,7 @@ export default function IndustryLandingPage() {
               </h1>
 
               <p style={{
-                fontSize: '1.1rem',
+                fontSize: '1.05rem',
                 lineHeight: '1.65',
                 color: '#475569',
                 marginBottom: '32px',
@@ -120,12 +201,7 @@ export default function IndustryLandingPage() {
               </p>
 
               {/* Stats Strip */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '16px',
-                marginBottom: '36px',
-              }}>
+              <div className="industry-stats-grid">
                 {vertical.stats.map((stat, i) => (
                   <div key={i} style={{
                     padding: '16px',
@@ -152,7 +228,7 @@ export default function IndustryLandingPage() {
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <div className="industry-hero-actions">
                 <a
                   href="#audit-sector-form"
                   style={{
@@ -239,11 +315,15 @@ export default function IndustryLandingPage() {
                   color: '#ffffff',
                   fontSize: '12px',
                   fontWeight: '800',
-                  padding: '6px 12px',
+                  padding: '6px 14px',
                   borderRadius: '20px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}>
-                  ⭐ Top Ranked on Google Maps
+                  <Star size={13} color="#FBBF24" fill="#FBBF24" />
+                  <span>Top Ranked on Google Maps</span>
                 </div>
               </div>
 
@@ -280,7 +360,7 @@ export default function IndustryLandingPage() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+        <div className="industry-pain-grid">
           {vertical.painPointsList.map((item, i) => (
             <div key={i} style={{
               background: '#ffffff',
@@ -294,13 +374,28 @@ export default function IndustryLandingPage() {
             }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                  <span style={{ fontSize: '32px' }}>{item.icon}</span>
+                  <div
+                    style={{
+                      width: '46px',
+                      height: '46px',
+                      borderRadius: '14px',
+                      background: 'rgba(225, 29, 72, 0.08)',
+                      border: '1.5px solid rgba(225, 29, 72, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: '0 2px 8px rgba(225, 29, 72, 0.06)',
+                    }}
+                  >
+                    {getPainPointIcon(item.icon, item.title)}
+                  </div>
                   <span style={{
                     fontSize: '12px',
                     fontWeight: '800',
                     color: '#e11d48',
                     background: '#ffe4e6',
-                    padding: '4px 10px',
+                    padding: '4px 12px',
                     borderRadius: '20px',
                   }}>
                     {item.stat} Impact
@@ -322,8 +417,14 @@ export default function IndustryLandingPage() {
                 fontSize: '13px',
                 color: '#175fab',
                 lineHeight: '1.45',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '8px',
               }}>
-                <strong>⚡ AI Fix:</strong> {item.solution}
+                <Zap size={16} color="#175fab" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <strong>AI Fix:</strong> {item.solution}
+                </div>
               </div>
             </div>
           ))}
@@ -345,52 +446,111 @@ export default function IndustryLandingPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
-            {vertical.agentUseCases.map((agent, i) => (
-              <div key={i} style={{
-                background: '#ffffff',
-                border: '1.5px solid #e2e8f0',
-                borderRadius: '24px',
-                padding: '32px',
-                boxShadow: '0 8px 30px rgba(15, 23, 42, 0.04)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '14px' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '14px',
-                    background: 'rgba(14, 68, 89, 0.08)',
+          <div className="industry-agents-grid">
+            {vertical.agentUseCases.map((agent, i) => {
+              const nameLower = agent.agent.toLowerCase();
+              let iconNode = <Search size={22} color="#175fab" strokeWidth={2.5} />;
+              let iconBg = 'rgba(23, 95, 171, 0.08)';
+              let iconBorder = '1.5px solid rgba(23, 95, 171, 0.22)';
+              let agentBadgeColor = '#175fab';
+
+              if (nameLower.includes('whatsapp') || nameLower.includes('chat')) {
+                iconNode = <MessageCircle size={22} color="#15803D" strokeWidth={2.5} />;
+                iconBg = 'rgba(34, 197, 94, 0.1)';
+                iconBorder = '1.5px solid rgba(34, 197, 94, 0.25)';
+                agentBadgeColor = '#15803D';
+              } else if (nameLower.includes('social') || nameLower.includes('media')) {
+                iconNode = <Sparkles size={22} color="#7C3AED" strokeWidth={2.5} />;
+                iconBg = 'rgba(124, 58, 237, 0.08)';
+                iconBorder = '1.5px solid rgba(124, 58, 237, 0.22)';
+                agentBadgeColor = '#7C3AED';
+              } else if (nameLower.includes('campaign') || nameLower.includes('broadcast')) {
+                iconNode = <Megaphone size={22} color="#EA580C" strokeWidth={2.5} />;
+                iconBg = 'rgba(249, 115, 22, 0.1)';
+                iconBorder = '1.5px solid rgba(249, 115, 22, 0.25)';
+                agentBadgeColor = '#EA580C';
+              }
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    background: '#ffffff',
+                    border: '1.5px solid #e2e8f0',
+                    borderRadius: '24px',
+                    padding: '32px',
+                    boxShadow: '0 8px 30px rgba(15, 23, 42, 0.04)',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '24px',
-                  }}>
-                    {agent.icon}
-                  </div>
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
                   <div>
-                    <span style={{ fontSize: '11.5px', fontWeight: '800', color: '#175fab', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                      {agent.agent}
-                    </span>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>
-                      {agent.title}
-                    </h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+                      <div
+                        style={{
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '14px',
+                          background: iconBg,
+                          border: iconBorder,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+                        }}
+                      >
+                        {iconNode}
+                      </div>
+                      <div>
+                        <span
+                          style={{
+                            fontSize: '11.5px',
+                            fontWeight: '800',
+                            color: agentBadgeColor,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.08em',
+                            display: 'block',
+                            marginBottom: '2px',
+                          }}
+                        >
+                          {agent.agent}
+                        </span>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#111827', margin: 0 }}>
+                          {agent.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: '1.6', marginBottom: '20px' }}>
+                      {agent.desc}
+                    </p>
                   </div>
+
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {agent.bulletPoints.map((bp, j) => (
+                      <li
+                        key={j}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '10px',
+                          fontSize: '13.5px',
+                          color: '#1E293B',
+                          fontWeight: '600',
+                          lineHeight: '1.45',
+                        }}
+                      >
+                        <CheckCircle2 size={16} color="#15803D" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <span>{bp}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <p style={{ fontSize: '0.94rem', color: '#475569', lineHeight: '1.6', marginBottom: '18px' }}>
-                  {agent.desc}
-                </p>
-
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {agent.bulletPoints.map((bp, j) => (
-                    <li key={j} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: '#0B1020', fontWeight: '600' }}>
-                      <span style={{ color: '#3be06d', fontWeight: '900' }}>✓</span>
-                      <span>{bp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -404,8 +564,9 @@ export default function IndustryLandingPage() {
           color: '#ffffff',
           boxShadow: '0 20px 50px rgba(3, 53, 64, 0.25)',
         }}>
-          <div style={{ display: 'inline-block', background: 'rgba(59, 224, 109, 0.15)', color: '#3be06d', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
-            ⚡ Real South Indian Success Story
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(59, 224, 109, 0.15)', color: '#3be06d', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '800', marginBottom: '16px' }}>
+            <Zap size={13} color="#3be06d" />
+            <span>Real South Indian Success Story</span>
           </div>
 
           <h3 style={{ fontSize: '1.8rem', fontWeight: '800', marginBottom: '16px', lineHeight: '1.35', color: '#FFFFFF', letterSpacing: '-0.02em' }}>
@@ -436,10 +597,7 @@ export default function IndustryLandingPage() {
           </div>
 
           {/* Metrics Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '16px',
+          <div className="industry-case-study-grid" style={{
             background: 'rgba(255, 255, 255, 0.08)',
             borderRadius: '18px',
             padding: '20px',
@@ -469,16 +627,23 @@ export default function IndustryLandingPage() {
         </h3>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {vertical.popularKeywords.map((kw, i) => (
-            <span key={i} style={{
-              padding: '8px 18px',
-              background: '#F1F5F9',
-              border: '1px solid #cbd5e1',
-              borderRadius: '50px',
-              fontSize: '13.5px',
-              fontWeight: '700',
-              color: '#0B1020',
-            }}>
-              🔍 {kw}
+            <span
+              key={i}
+              style={{
+                padding: '8px 18px',
+                background: '#F1F5F9',
+                border: '1px solid #cbd5e1',
+                borderRadius: '50px',
+                fontSize: '13.5px',
+                fontWeight: '700',
+                color: '#0B1020',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              <Search size={14} color="#175fab" strokeWidth={2.5} />
+              <span>{kw}</span>
             </span>
           ))}
         </div>
@@ -496,7 +661,7 @@ export default function IndustryLandingPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+          <div className="industry-cities-grid">
             {cities.map(([cityKey, city]) => (
               <Link
                 key={cityKey}
@@ -513,8 +678,9 @@ export default function IndustryLandingPage() {
                   display: 'block',
                 }}
               >
-                <div style={{ fontWeight: '800', fontSize: '15px', marginBottom: '4px' }}>
-                  📍 {city.name}
+                <div style={{ fontWeight: '800', fontSize: '15px', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <MapPin size={16} color="#175fab" />
+                  <span>{city.name}</span>
                 </div>
                 <div style={{ fontSize: '12px', color: '#64748b' }}>
                   {vertical.singular} marketing in {city.name} →
@@ -583,16 +749,7 @@ export default function IndustryLandingPage() {
 
       {/* ─── AUDIT SCAN LEAD CAPTURE FORM ─── */}
       <section id="audit-sector-form" style={{ padding: '80px 24px', background: '#F8FAFC', borderTop: '1px solid #e2e8f0' }}>
-        <div style={{
-          maxWidth: '680px',
-          margin: '0 auto',
-          background: '#ffffff',
-          border: '1.5px solid #cbd5e1',
-          borderRadius: '24px',
-          padding: '40px',
-          boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
-          textAlign: 'center',
-        }}>
+        <div className="industry-audit-card">
           <span style={{ fontSize: '12px', fontWeight: '800', color: '#175fab', background: 'rgba(23, 95, 171, 0.1)', padding: '4px 12px', borderRadius: '20px', textTransform: 'uppercase' }}>
             ⚡ 100% Free Instant Google Audit
           </span>
@@ -710,26 +867,8 @@ export default function IndustryLandingPage() {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="footer" style={{ borderTop: '1px solid #e2e8f0', background: '#ffffff', padding: '60px 24px 30px' }}>
-        <div className="footer-container" style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <BrandLogo variant="footer" />
-          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', marginBottom: '24px' }}>
-            The #1 AI Marketing Platform built for South Indian Local Businesses.
-          </p>
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap', fontSize: '14px', color: '#0B1020', fontWeight: '600' }}>
-            <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link>
-            <Link href="/#pricing" style={{ textDecoration: 'none', color: 'inherit' }}>Pricing</Link>
-            <Link href="/#industries" style={{ textDecoration: 'none', color: 'inherit' }}>All Industries</Link>
-            <Link href="/tools/google-score-calculator" style={{ textDecoration: 'none', color: 'inherit' }}>Score Calculator</Link>
-            <Link href="/privacy" style={{ textDecoration: 'none', color: 'inherit' }}>Privacy</Link>
-            <Link href="/terms" style={{ textDecoration: 'none', color: 'inherit' }}>Terms</Link>
-          </div>
-          <div style={{ borderTop: '1px solid #e2e8f0', marginTop: '30px', paddingTop: '20px', fontSize: '12.5px', color: '#94a3b8' }}>
-            © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      {/* ─── RICH DARK FOOTER ─── */}
+      <Footer />
 
       {/* ─── FLOATING WHATSAPP BUTTON ─── */}
       <div className="floating_btn">

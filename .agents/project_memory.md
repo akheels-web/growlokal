@@ -28,3 +28,8 @@
   - Header Logo: `44px` height (`max-height: 48px`, ~150px width).
   - Footer Logo: `52px` height (`max-height: 58px`, ~177px width).
   - Favicon: `32x32 px` / `48x48 px` square mark.
+- **Iconography Standard:**
+  - Standardized on `lucide-react` SVG icons across all industry/vertical landing pages, pain point roadblocks, AI agent use cases, keywords, and city matrix cross-links (zero raw emojis in UI cards).
+- **Footer Architecture:**
+  - **Full Rich 5-Column Dark Footer (`<Footer />`):** Used on main content/discovery pages (`/`, `/industry/[slug]`, `/city/[cityName]`, `/city/[cityName]/[vertical]`, `/blog`, `/terms`, `/privacy`, `/refund`, `/resources/whatsapp-kit`).
+  - **Single-Liner Dark Footer:** Used on focused interactive tools and auth pages (`/free-gbp-report`, `/login`, `/book-free-demo`, `/tools/google-score-calculator`, `/tools/revenue-roi-calculator`).

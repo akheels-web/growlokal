@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Footer } from '@/components/Footer';
 
 export const metadata = {
   title: 'Terms of Service — GrowLokal',
@@ -149,12 +150,8 @@ export default function TermsPage() {
         </div>
       </main>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="footer">
-        <div className="footer-container" style={{ textAlign: 'center', fontSize: '13px', color: '#64748B' }}>
-          © {new Date().getFullYear()} GrowLokal Technologies. All rights reserved. • <Link href="/privacy">Privacy Policy</Link> • <Link href="/refund">Refund Policy</Link>
-        </div>
-      </footer>
+      {/* ─── RICH DARK FOOTER ─── */}
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Footer } from '@/components/Footer';
 import {
   BarChart3,
   Search,
@@ -863,6 +864,32 @@ export default function GoogleScoreCalculatorPage() {
           )}
         </div>
       </main>
+
+      {/* ─── SINGLE-LINER DARK FOOTER ─── */}
+      <footer style={{
+        background: '#0B1020',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        padding: '20px 24px',
+        fontSize: '13px',
+        color: '#94A3B8',
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px',
+        }}>
+          <span>© {new Date().getFullYear()} GrowLokal Technologies. All rights reserved.</span>
+          <div style={{ display: 'flex', gap: '18px', alignItems: 'center' }}>
+            <Link href="/privacy" style={{ color: '#CBD5E1', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link href="/terms" style={{ color: '#CBD5E1', textDecoration: 'none' }}>Terms of Service</Link>
+            <Link href="/refund" style={{ color: '#CBD5E1', textDecoration: 'none' }}>Refund Policy</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
